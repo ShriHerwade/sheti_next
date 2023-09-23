@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:sheti_next/zebra/screen/user/LoginScreen.dart';
 
-class IntroductionScreens extends StatelessWidget {
-  const IntroductionScreens({Key? key}) : super(key: key);
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,23 +14,23 @@ class IntroductionScreens extends StatelessWidget {
       body: IntroductionScreen(
           pages: [
             PageViewModel(
-              title: 'Title of 1st Page',
-              body: 'Body of 1st Page',
-              image: buildImage("images/image_1.png"),
+              title: 'Farming was never been easy.',
+               body: 'Even if you do by yourself or rent out.',
+              image: buildImage("assets/images/W1.png"),
               //getPageDecoration, a method to customise the page style
               decoration: getPageDecoration(),
             ),
             PageViewModel(
-              title: 'Title of 2nd Page',
-              body: 'Body of 2nd Page',
-              image: buildImage("images/image_2.png"),
+              title: 'Era of Machinery.',
+              body: 'Different machinery helped us to ease the farm work but core problems are still unresolved.',
+              image: buildImage("assets/images/W2.png"),
               //getPageDecoration, a method to customise the page style
               decoration: getPageDecoration(),
             ),
             PageViewModel(
-              title: 'Title of 3rd Page',
-              body: 'Body of 3rd Page',
-              image: buildImage("images/image_3.png"),
+              title: 'Softer driven farming.',
+              body: 'Sheti Next is a unique solution to the farm management, it helps you to manage Farm, crops, Machinery & Husbandry',
+              image: buildImage("assets/images/W3.png"),
               //getPageDecoration, a method to customise the page style
               decoration: getPageDecoration(),
             ),
@@ -36,6 +38,10 @@ class IntroductionScreens extends StatelessWidget {
           onDone: () {
             if (kDebugMode) {
               print("Done clicked");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
             }
           },
           //ClampingScrollPhysics prevent the scroll offset from exceeding the bounds of the content.
@@ -59,8 +65,8 @@ class IntroductionScreens extends StatelessWidget {
     return Center(
         child: Image.asset(
           imagePath,
-          width: 450,
-          height: 200,
+          width: 550,
+          height: 400,
         ));
   }
 

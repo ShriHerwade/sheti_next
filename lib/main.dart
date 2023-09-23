@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sheti_next/zebra/screen/welcome/welcome_screen.dart';
+import 'package:sheti_next/zebra/screen/welcome/WelcomeScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const IntroductionScreens(),
+      home: const WelcomeScreen(),
     );
   }
 }
