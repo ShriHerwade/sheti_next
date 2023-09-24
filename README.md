@@ -4,7 +4,7 @@ Shet_next_2.0 - building the app while learning the Flutter
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This is a hobby project to manage Farm.
 
 A few resources to get you started if this is your first Flutter project:
 
