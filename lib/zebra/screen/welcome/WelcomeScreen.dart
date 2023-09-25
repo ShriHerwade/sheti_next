@@ -28,8 +28,8 @@ class WelcomeScreen extends StatelessWidget {
               decoration: getPageDecoration(),
             ),
             PageViewModel(
-              title: 'Softer driven farming.',
-              body: 'Sheti Next is a unique solution to the farm management, it helps you to manage Farm, crops, Machinery & Husbandry',
+              title: 'Software driven farming.',
+              body: 'ShetiNext is a unique solution to the farm management, it helps you to manage Farm, crops, Machinery & Husbandry',
               image: buildImage("assets/images/W3.png"),
               //getPageDecoration, a method to customise the page style
               decoration: getPageDecoration(),
@@ -38,9 +38,9 @@ class WelcomeScreen extends StatelessWidget {
           onDone: () {
             if (kDebugMode) {
               print("Done clicked");
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                MaterialPageRoute(builder: (context) => LoginScreen()),
               );
             }
           },
@@ -49,6 +49,7 @@ class WelcomeScreen extends StatelessWidget {
           showDoneButton: true,
           showNextButton: true,
           showSkipButton: true,
+
          // isBottomSafeArea: true,
 
           skip:
