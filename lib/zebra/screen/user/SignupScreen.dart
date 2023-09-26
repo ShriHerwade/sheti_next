@@ -11,59 +11,58 @@ import 'package:sheti_next/zebra/dao/models/UserModel.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
+
   @override
   State<SignupScreen> createState() => _SignupScreenState();
 }
+
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = new GlobalKey<FormState>();
-  final _confirstName= TextEditingController();
-  final _conlastName= TextEditingController();
-  final _conemail= TextEditingController();
-  //final _conmobileNo= TextEditingController();
-  final _conpin= TextEditingController();
+  final _confirstName = TextEditingController();
+  final _conlastName = TextEditingController();
+  final _conemail = TextEditingController();
+  final _conmobileNo = TextEditingController();
+  final _conpin = TextEditingController();
   final _createdDate = DateTime.now();
   final _updatedDate = DateTime.now();
   var dbHelper;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    dbHelper= DbHelper();
+    dbHelper = DbHelper();
   }
-  signUp() async{
+
+  signUp() async {
     String user_id = _confirstName.text;
     String user_name = _conlastName.text;
     String email = _conemail.text;
-    String password= _conpin.text;
-   // String mobileNo = _conmobileNo.text;
-    //String pin = _conpin.text;
+    String mobileNo = _conmobileNo.text;
+    String pin = _conpin.text;
+
     //DateTime createdDate= _createdDate;
     //DateTime updatedDate = _updatedDate;
 
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState?.save();
 
+      UserModel uModel = UserModel(user_id, user_name, email, mobileNo,
+          pin); //,createdDate,updatedDate);
+      await dbHelper.saveData(uModel).then((userData) {
+        alertDialog(context, "Successfully Saved");
 
-    if (_formKey.currentState!.validate()){
-
-        _formKey.currentState?.save();
-
-        UserModel uModel = UserModel(user_id,user_name,email,password);//,createdDate,updatedDate);
-        await dbHelper.saveData(uModel).then((userData){
-          alertDialog(context,"Successfully Saved");
-
-          Navigator.push(
-              context,MaterialPageRoute(builder:(_)=>LoginScreen()));
-        }).catchError((error){
-          print(error);
-          alertDialog(context,"Error: Data Save Failed");
-        });
-      }
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => LoginScreen()));
+      }).catchError((error) {
+        print(error);
+        alertDialog(context, "Error: Data Save Failed");
+      });
     }
-
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text("Create your account"),
         centerTitle: true,
@@ -74,93 +73,100 @@ class _SignupScreenState extends State<SignupScreen> {
           scrollDirection: Axis.vertical,
           child: Container(
             child: Center(
-              child:  Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     child: Column(
                       children: [
                         const SizedBox(height: 50),
-                       /* Text("Create your account",
+                        /* Text("Create your account",
                           style:TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black12,
                               fontSize: 40.0),
                         ),*/
                         const SizedBox(height: 10),
-                        Image.asset("assets/images/W1.png",
+                        Image.asset(
+                          "assets/images/W1.png",
                           height: 150,
-                          width: 150,),
+                          width: 150,
+                        ),
                         const SizedBox(height: 10),
-
                       ],
                     ),
                   ),
-
-                  NxTextFormField(controller:_confirstName,
+                  NxTextFormField(
+                    controller: _confirstName,
                     hintName: "Enter First Name",
                     icon: Icons.person,
                     inputType: TextInputType.name,
                   ),
                   SizedBox(height: 10.0),
-                  NxTextFormField(controller:_conlastName,
+                  NxTextFormField(
+                    controller: _conlastName,
                     hintName: "Enter Last Name",
                     inputType: TextInputType.name,
                     icon: Icons.person_2_outlined,
                   ),
                   SizedBox(height: 10.0),
-                  NxTextFormField(controller:_conemail,
+                  NxTextFormField(
+                    controller: _conemail,
                     hintName: "Enter Email",
                     icon: Icons.email,
                     inputType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 10.0),
-                /*  NxTextFormField(
-                    controller:_conmobileNo,
+                  NxTextFormField(
+                    controller: _conmobileNo,
                     hintName: "Enter Mobile No",
                     icon: Icons.phone,
-
-                  ),*/
+                    inputType: TextInputType.number,
+                    setmaxLength: 10,
+                  ),
                   NxTextFormField(
-                    controller:_conpin,
+                    controller: _conpin,
                     hintName: "Enter PIN",
                     icon: Icons.lock,
                     isObsecureText: true,
+                    setmaxLength: 4,
+                    inputType: TextInputType.number,
                   ),
                   SizedBox(height: 10.0),
-
                   Container(
                     margin: EdgeInsets.all(30.0),
-                    width:double.infinity,
+                    width: double.infinity,
                     child: TextButton(
-                      onPressed:signUp,
-                      child: Text("Sign Up",
+                      onPressed: signUp,
+                      child: Text(
+                        "Sign Up",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
                     decoration: BoxDecoration(
                         color: Colors.green,
-                        borderRadius: BorderRadius.circular(30.0)
-                    ),
+                        borderRadius: BorderRadius.circular(30.0)),
                   ),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Do you have an account ?"),
-                        TextButton(onPressed: (){
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(builder: (_)=> LoginScreen()),
-                                  (Route<dynamic>route) => false);
-                        },
-                            child: Text("Sign In",
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => LoginScreen()),
+                                  (Route<dynamic> route) => false);
+                            },
+                            child: Text(
+                              "Sign In",
                               style: TextStyle(color: Colors.green),
                             ))
                       ],
                     ),
                   )
-
                 ],
               ),
             ),

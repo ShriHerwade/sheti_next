@@ -15,9 +15,10 @@ class DbHelper {
 
   // column name for tables
 
-  static const String C_UserID = 'user_id';
-  static const String C_UserName = 'user_name';
+  static const String C_USER_ID = 'user_id';
+  static const String C_USER_Name = 'user_name';
   static const String C_Email = 'email';
+  static const String C_MobileNo = 'mobileNo';
   static const String C_Password = 'password';
 
 /*
@@ -55,11 +56,12 @@ Future<Database?> get db async{
         return db.execute(
           '''
       CREATE TABLE $Table_User (
-      $C_UserID TEXT, 
-      $C_UserName TEXT,
+      $C_USER_ID TEXT, 
+      $C_USER_Name TEXT,
       $C_Email TEXT,
-       $C_Password TEXT,
-       PRIMARY KEY ($C_UserID)
+      $C_MobileNo TEXT,
+      $C_Password TEXT,
+       PRIMARY KEY ($C_USER_ID)
       )
           ''',
         );
@@ -132,7 +134,7 @@ Future<Database?> get db async{
     var res = await dbClient.update(
       Table_User,
       user.toMap(),
-      where: '$C_UserID = ?',
+      where: '$C_USER_ID = ?',
       whereArgs: [user.user_id],
     );
     return res;

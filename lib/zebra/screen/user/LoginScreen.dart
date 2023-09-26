@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
     sp.setString("user_id", user.user_id);
     sp.setString("user_ame", user.user_name);
     sp.setString("email", user.email);
-    //sp.setString("mobileNo", user.mobileNo);
+    sp.setString("mobileNo", user.mobileNo);
     sp.setString("pin", user.password);
   }
 
@@ -101,6 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintName: "PIN",
                   isObsecureText: true,
                   inputType: TextInputType.number,
+                  setmaxLength: 4,
 
                 ),
                 Container(
