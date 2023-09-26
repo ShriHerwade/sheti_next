@@ -65,7 +65,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
     return  Scaffold(
       appBar: AppBar(
-        title: Text("ShetiNext"),
+        title: Text("Create your account"),
         centerTitle: true,
       ),
       body: Form(
@@ -81,12 +81,12 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: Column(
                       children: [
                         const SizedBox(height: 50),
-                        Text("Sign Up To ShetiNext",
+                       /* Text("Create your account",
                           style:TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Colors.black12,
                               fontSize: 40.0),
-                        ),
+                        ),*/
                         const SizedBox(height: 10),
                         Image.asset("assets/images/W1.png",
                           height: 150,
@@ -104,7 +104,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   SizedBox(height: 10.0),
                   NxTextFormField(controller:_conlastName,
-                    hintName: "EnterLast Name",
+                    hintName: "Enter Last Name",
                     inputType: TextInputType.name,
                     icon: Icons.person_2_outlined,
                   ),
@@ -123,7 +123,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),*/
                   NxTextFormField(
                     controller:_conpin,
-                    hintName: "Enter Pin",
+                    hintName: "Enter PIN",
                     icon: Icons.lock,
                     isObsecureText: true,
                   ),
@@ -139,7 +139,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: Colors.green,
                         borderRadius: BorderRadius.circular(30.0)
                     ),
                   ),
@@ -155,7 +155,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   (Route<dynamic>route) => false);
                         },
                             child: Text("Sign In",
-                              style: TextStyle(color: Colors.blue),
+                              style: TextStyle(color: Colors.green),
                             ))
                       ],
                     ),

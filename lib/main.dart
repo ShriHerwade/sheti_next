@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
       title: 'ShetiNext',
       theme: ThemeData(
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
+        primarySwatch: Colors.green,
         useMaterial3: true,
       ),
       home: const WelcomeScreen(),

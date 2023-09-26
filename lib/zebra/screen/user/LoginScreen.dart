@@ -42,11 +42,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 (Route<dynamic> route) => false);
           });
         } else {
-          alertDialog(context, "Error : User Not Found");
+          alertDialog(context, "Invalid User or PIN.");
         }
       }).catchError((error) {
         print(error);
-        alertDialog(context, "Error: Login Failed");
+        alertDialog(context, "Login Failed.");
       });
     }
   }
@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login "),
+        title: const Text("Enter Your Secret PIN"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -98,9 +98,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 NxTextFormField(
                   controller: _conPin,
                   icon: Icons.lock,
-                  hintName: "Enter Pin",
+                  hintName: "PIN",
                   isObsecureText: true,
                   inputType: TextInputType.number,
+
                 ),
                 Container(
                   margin: EdgeInsets.all(30.0),
@@ -113,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Colors.green,
                       borderRadius: BorderRadius.circular(30.0)),
                 ),
                 Container(
@@ -130,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Text(
                             "SignUp",
-                            style: TextStyle(color: Colors.blue),
+                            style: TextStyle(color: Colors.green),
                           ))
                     ],
                   ),
