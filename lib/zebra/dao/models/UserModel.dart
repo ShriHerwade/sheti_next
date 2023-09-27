@@ -1,27 +1,31 @@
 import 'dart:core';
 
 class UserModel {
-  late String user_id;
-  late String user_name;
+  late String firstName;
+  late String lastName;
   late String email;
-  late String password;
+  late String mobileNo;
+  late String pin;
 
-  UserModel(this.user_id, this.user_name, this.email, this.password);
+  UserModel(
+      this.firstName, this.lastName, this.email, this.mobileNo, this.pin);
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      'user_id': user_id,
-      'user_name': user_name,
+      'firstName': firstName,
+      'lastName': lastName,
       'email': email,
-      "password": password
+      'mobileNo': mobileNo,
+      "pin": pin
     };
     return map;
   }
 
   UserModel.fromMap(Map<String, dynamic> map) {
-    user_id = map['user_id'];
-    user_name = map['user_name'];
+    firstName = map['firstName'];
+    lastName = map['lastName'];
     email = map['email'];
-    password = map['password'];
+    mobileNo = map['mobileNo'];
+    pin = map['pin'];
   }
 }

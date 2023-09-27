@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sheti_next/zebra/screen/farming/MyFarmsScreen.dart';
 
 class NxNavBar extends StatelessWidget {
 
@@ -23,29 +24,45 @@ class NxNavBar extends StatelessWidget {
                 ),
               )),
             decoration: BoxDecoration(
-              color: Colors.blueAccent,
+              color: Colors.green.shade200,
+
               image: DecorationImage(
                 image: AssetImage('assets/images/astro1.jpg'),
                 fit: BoxFit.cover
               ),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title:Text("Home") ,
+          InkWell(
+            onTap: (){
+
+            },
+            child: ExpansionTile(
+
+              leading: Icon(Icons.crop_original),
+              title:Text("Farms") ,
+
+              children: [
+                ListTile(
+                  leading: Icon(Icons.share),
+                  title:Text("Crops") ,
+
+                ),
+                ListTile(
+                  leading: Icon(Icons.money),
+                  title:Text("Expenses") ,
+                ),
+              ],
+            ),
           ),
+          Divider(),
+
+          Divider(),
           ListTile(
-            leading: Icon(Icons.share),
-            title:Text("Share") ,
+            leading: Icon(Icons.event),
+            title:Text("Events") ,
           ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title:Text("Settings") ,
-          ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title:Text("Logout") ,
-          )
+          Divider(),
+
 
         ],
       ),

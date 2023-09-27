@@ -53,11 +53,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future setSP(UserModel user) async {
     final SharedPreferences sp = await _pref;
-    sp.setString("user_id", user.user_id);
-    sp.setString("user_ame", user.user_name);
+    sp.setString("user_id", user.firstName);
+    sp.setString("user_ame", user.lastName);
     sp.setString("email", user.email);
     sp.setString("mobileNo", user.mobileNo);
-    sp.setString("pin", user.password);
+    sp.setString("pin", user.pin);
   }
 
   @override

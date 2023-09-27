@@ -15,11 +15,11 @@ class DbHelper {
 
   // column name for tables
 
-  static const String C_USER_ID = 'user_id';
-  static const String C_USER_Name = 'user_name';
-  static const String C_Email = 'email';
-  static const String C_MobileNo = 'mobileNo';
-  static const String C_Password = 'password';
+  static const String C_firstName = 'firstName';
+  static const String C_lastName = 'lastName';
+  static const String C_email = 'email';
+  static const String C_mobileNo = 'mobileNo';
+  static const String C_pin = 'pin';
 
 /*
 Future<Database?> get db async{
@@ -56,12 +56,12 @@ Future<Database?> get db async{
         return db.execute(
           '''
       CREATE TABLE $Table_User (
-      $C_USER_ID TEXT, 
-      $C_USER_Name TEXT,
-      $C_Email TEXT,
-      $C_MobileNo TEXT,
-      $C_Password TEXT,
-       PRIMARY KEY ($C_USER_ID)
+      $C_firstName TEXT, 
+      $C_lastName TEXT,
+      $C_email TEXT,
+      $C_mobileNo TEXT,
+      $C_pin TEXT,
+       UNIQUE($C_mobileNo)
       )
           ''',
         );
@@ -107,7 +107,7 @@ Future<Database?> get db async{
   Future<UserModel?> getLoginUser(String pin) async {
     var dbClient = await db;
     var res = await dbClient?.rawQuery("SELECT * FROM $Table_User WHERE "
-        "$C_Password = '$pin'");
+        "$C_pin = '$pin'");
     if (res!.isNotEmpty) {
       return UserModel.fromMap(res!.first);
     }
@@ -115,8 +115,9 @@ Future<Database?> get db async{
     return null;
   }
 
-  Future<List<UserModel>> getAllProducts() async {
+  Future<List<UserModel>> getAllUsers() async {
     final dbClient = await db;
+    final bool signed = false;
     final List<Map<String, dynamic>> maps = await dbClient.query(Table_User);
     return List.generate(maps.length, (i) {
       return UserModel.fromMap(maps[i]);
@@ -134,8 +135,8 @@ Future<Database?> get db async{
     var res = await dbClient.update(
       Table_User,
       user.toMap(),
-      where: '$C_USER_ID = ?',
-      whereArgs: [user.user_id],
+      where: '$C_firstName = ?',
+      whereArgs: [user.firstName],
     );
     return res;
   }

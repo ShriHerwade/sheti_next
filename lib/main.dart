@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
+import 'package:sheti_next/zebra/screen/user/LoginScreen.dart';
 import 'package:sheti_next/zebra/screen/welcome/WelcomeScreen.dart';
 
 void main() {
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.green,
           useMaterial3: true,
         ),
-        home: const HomeScreen());
+        home: HomeScreen()
+    );
   }
 }
 
