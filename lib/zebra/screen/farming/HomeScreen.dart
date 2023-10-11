@@ -16,10 +16,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       drawer: NxNavBar(),
       bottomNavigationBar: GNav(
-        backgroundColor: Colors.lightGreen,
-        color: Colors.white,
+        backgroundColor: Colors.white,
+        color: Colors.black,
         // activeColor: Colors.,
-        tabBackgroundColor: Colors.green,
+        tabBackgroundColor: Colors.lightGreen,
         padding: EdgeInsets.all(16),
         gap: 8,
         tabs: [

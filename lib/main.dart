@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
-import 'package:sheti_next/zebra/screen/user/LoginScreen.dart';
-import 'package:sheti_next/zebra/screen/welcome/WelcomeScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,8 +15,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'ShetiNext',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
-          primarySwatch: Colors.green,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+          primarySwatch: Colors.lightGreen,
           useMaterial3: true,
         ),
         home: HomeScreen()
