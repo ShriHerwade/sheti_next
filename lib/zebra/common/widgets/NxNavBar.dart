@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyFarmsScreen.dart';
-import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
-
 import '../../screen/farming/MyCropsScreen.dart';
 import '../../screen/farming/MyEventsScreen.dart';
-
 
 class NxNavBar extends StatelessWidget {
   const NxNavBar({super.key});
