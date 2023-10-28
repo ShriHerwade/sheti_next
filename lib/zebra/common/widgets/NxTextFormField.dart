@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sheti_next/zebra/common/widgets/NxAlert.dart';
-
 import '../util/InputValidator.dart';
 
 class NxTextFormField extends StatelessWidget {
@@ -12,14 +10,14 @@ class NxTextFormField extends StatelessWidget {
   bool isEnable;
   int? setmaxLength;
 
-
   NxTextFormField(
       {this.controller,
       this.hintName,
       this.icon,
       this.isObsecureText = false,
       this.inputType = TextInputType.text,
-      this.isEnable = true,this.setmaxLength});
+      this.isEnable = true,
+      this.setmaxLength});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,6 @@ class NxTextFormField extends StatelessWidget {
         keyboardType: inputType,
         enabled: isEnable,
         maxLength: setmaxLength,
-
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "Please Enter $hintName";
@@ -56,7 +53,7 @@ class NxTextFormField extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.grey)),
             prefixIcon: Icon(icon),
             hintText: hintName,
-           // labelText: hintName,
+            // labelText: hintName,
             fillColor: Colors.grey[200],
             filled: true),
       ),

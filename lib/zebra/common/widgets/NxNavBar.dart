@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
+import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyFarmsScreen.dart';
+import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
+
+import '../../screen/farming/MyCropsScreen.dart';
+import '../../screen/farming/MyEventsScreen.dart';
+
 
 class NxNavBar extends StatelessWidget {
   const NxNavBar({super.key});
@@ -33,19 +39,35 @@ class NxNavBar extends StatelessWidget {
               children: [
                 ListTile(
                   leading: Icon(Icons.landslide),
-                  title: Text("Farms"),
+                  title: InkWell(
+                    onTap: (){
+                      Navigator.push(context,MaterialPageRoute(builder:(_)=> MyFarms()));
+                    },
+                      child: Text("Farms")),
                 ),
                 ListTile(
                   leading: Icon(Icons.trending_up),
-                  title: Text("Crops"),
+                  title: InkWell(
+                    onTap: (){
+                      Navigator.push(context,MaterialPageRoute(builder:(_)=>MyCrops()));
+                    },
+                      child: Text("Crops")),
                 ),
                 ListTile(
                   leading: Icon(Icons.event),
-                  title: Text("Events"),
+                  title: InkWell(
+                    onTap: (){
+                      Navigator.push(context,MaterialPageRoute(builder:(_)=>MyEvents()));
+                    },
+                      child: Text("Events")),
                 ),
                 ListTile(
                   leading: Icon(Icons.attach_money_outlined),
-                  title: Text("Expenses"),
+                  title: InkWell(
+                    onTap: (){
+                      Navigator.push(context,MaterialPageRoute(builder:(_)=>MyExpenses()));
+                    },
+                      child: Text("Expenses")),
                 ),
               ],
             ),
