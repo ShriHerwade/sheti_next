@@ -1,7 +1,7 @@
 import 'package:sheti_next/zebra/dao/models/UserModel.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'dart:io' as io;
+
 
 class DbHelper {
   static Database? _db;
@@ -123,6 +123,16 @@ Future<Database?> get db async{
       return UserModel.fromMap(maps[i]);
     });
   }
+  Future<List<UserModel>> getUsers() async {
+    // Get a reference to the database.
+    final dbClient = await db;
+    // Query the table for all The Dogs.
+    final List<Map<String, dynamic>> maps = await dbClient.query(Table_User);
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(maps.length, (i) {
+      return UserModel.fromMap(maps[i]);
+    });
+  }
 
 /*Future<int? > updateUser(UserModel user)async{
   var dbClient = await db;
@@ -167,5 +177,4 @@ Future<Database?> get db async{
     return res;
   }
 
-// latest code
 }

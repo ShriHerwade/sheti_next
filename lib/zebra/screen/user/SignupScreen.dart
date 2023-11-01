@@ -46,11 +46,9 @@ class _SignupScreenState extends State<SignupScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState?.save();
 
-      UserModel uModel = UserModel(user_id, user_name, email, mobileNo,
-          pin); //,createdDate,updatedDate);
+      UserModel uModel = UserModel(user_id, user_name, email, mobileNo, pin); //,createdDate,updatedDate);
       await dbHelper.saveData(uModel).then((userData) {
         alertDialog(context, "Successfully Saved");
-
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => LoginScreen()));
       }).catchError((error) {

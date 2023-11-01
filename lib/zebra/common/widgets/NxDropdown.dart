@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sheti_next/zebra/dao/models/UserModel.dart';
+import 'package:sheti_next/zebra/dao/DbHelper.dart';
 
 class NxDropdown extends StatefulWidget {
   @override
@@ -6,9 +8,44 @@ class NxDropdown extends StatefulWidget {
 }
 
 class _NxDropdownState extends State<NxDropdown> {
-  String selectOption = "Select option";
-  String? selectedValue;
-  List<String> NxdropDownItems = ['Wheat', 'Rice', 'Corn', 'Lintels'];
+  // chat gpt code
+   final DbHelper dbHelper = DbHelper();
+   List<UserModel> userslist=[];
+  List<DropdownMenuItem<UserModel>> dropdownItems = [];
+  //String selectOption = "Select option";
+  UserModel? selectedUser;
+
+  // working code
+ // final DatabaseHelper databaseHelper = DatabaseHelper();
+ // List<Country> countries = [];
+  //List<DropdownMenuItem<Country>> dropdownItems = [];
+ // Country? selectedCountry;
+
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadUsers();
+
+  }
+
+   Future<void> _loadUsers() async {
+     List<UserModel> fetchedUsers = await dbHelper.getAllUsers();
+     setState(() {
+       userslist = fetchedUsers;
+       dropdownItems = userslist.map((user) {
+         return DropdownMenuItem<UserModel>(
+           value: user,
+           child: Text(user.firstName),
+         );
+       }).toList();
+       /* if (countries.isNotEmpty) {
+        selectedCountry = countries[0]; // Set the first country as selected by default
+      }
+*/
+     });
+   }
+
 
   // Color? NxboxColor;
   // Color? NxdropDownColor;
@@ -17,30 +54,25 @@ class _NxDropdownState extends State<NxDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.greenAccent, width: 1),
-            borderRadius: BorderRadius.circular(20.0)),
-        child: Padding(
-          padding: EdgeInsets.only(left: 10.0),
-          child: DropdownButtonFormField<String>(
-            hint: Text(selectOption),
-            value: selectedValue,
-            borderRadius: BorderRadius.circular(20.0),
-            dropdownColor: Colors.greenAccent,
-            decoration:
-                InputDecoration.collapsed(hintText: Text('').toString()),
-            isExpanded: true,
-            padding: EdgeInsets.all(10),
-            items: NxdropDownItems.map((String value) {
-              return DropdownMenuItem<String>(value: value, child: Text(value));
-            }).toList(),
-            onChanged: (newValue) {
-              setState(() {
-                selectedValue = newValue;
-              });
-            },
-          ),
-        ));
+    return Center(
+        child: userslist.isEmpty
+            ? CircularProgressIndicator()
+            : DropdownButton<UserModel>(
+          hint: Text("Select User"),
+          value: selectedUser,
+          items: dropdownItems,
+          onChanged: (UserModel? userModel) {
+            setState(() {
+              selectedUser = userModel;
+            });
+            if (userModel != null) {
+              print('Selected User: ${userModel.firstName}');
+            }
+          },
+        ),
+      );
+
   }
+
+
 }
