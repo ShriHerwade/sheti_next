@@ -14,6 +14,7 @@ class _NxDropdownState extends State<NxDropdown> {
   List<DropdownMenuItem<UserModel>> dropdownItems = [];
   //String selectOption = "Select option";
   UserModel? selectedUser;
+  DropdownButtonFormField? hint;
 
   // working code
  // final DatabaseHelper databaseHelper = DatabaseHelper();

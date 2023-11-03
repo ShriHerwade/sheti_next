@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
 import 'package:sheti_next/zebra/screen/user/LoginScreen.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.lightGreen,
           useMaterial3: true,
         ),
-        home: LoginScreen()
+        home: CreateFarms()
     );
   }
 }
