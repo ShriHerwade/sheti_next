@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDropDownFormField.dart';
-import 'package:sheti_next/zebra/common/widgets/NxDropdown.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
-import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
-import 'package:sheti_next/zebra/screen/user/LoginScreen.dart';
-import 'package:sheti_next/zebra/screen/user/SignupScreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sheti_next/zebra/common/widgets//NxAlert.dart';
-import 'package:sheti_next/zebra/common/util/InputValidator.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
-import 'package:sheti_next/zebra/dao/models/UserModel.dart';
+
 class CreateFarms extends StatefulWidget {
   const CreateFarms({super.key});
 
@@ -98,7 +91,6 @@ class _CreateFarmsState extends State<CreateFarms> {
                   NxTextFormField(
                     controller: _confarmName,
                     hintName: "Farm Name",
-                    icon: Icons.facebook,
                     inputType: TextInputType.name,
                   ),
                   SizedBox(height: 10.0),
@@ -106,23 +98,26 @@ class _CreateFarmsState extends State<CreateFarms> {
                     controller: _confarmAddress,
                     hintName: "Farm Address",
                     inputType: TextInputType.name,
-                    icon: Icons.person_2_outlined,
+
                   ),
                   SizedBox(height: 10.0),
                   NxTextFormField(
                     controller: _confarmArea,
                     hintName: "Area",
-                    icon: Icons.email,
                     inputType: TextInputType.number,
                   ),
+                  const SizedBox(height: 10),
                   NxDDFormField(
+                    selectOptionText: "Choose Farm Unit",
                       options: _unit,
-                      value: _unit.first,
+                      value: '',
                       onChanged: (New){},
                       ),
+                  const SizedBox(height: 10),
                   NxDDFormField(
+                      selectOptionText: "Choose Farm Type",
                       options: _farmType,
-                      value: _farmType.first,
+                      value: "",
                       onChanged: (New){},
                       ),
                   SizedBox(height: 10.0),
@@ -132,7 +127,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                     child: TextButton(
                       onPressed:(){} ,//saveFarm,
                       child: Text(
-                        "Save Changes",
+                        "Save",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
