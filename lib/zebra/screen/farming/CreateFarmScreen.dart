@@ -16,7 +16,7 @@ class _CreateFarmsState extends State<CreateFarms> {
   final _confarmAddress = TextEditingController();
   final _confarmArea = TextEditingController();
   final _farmType=["Owned","Leased","Joint Venture"];
-  final _unit=["Acres","Hecters"];
+  final _unit=["Acre","Hectare"];
   //final _comArea = selectedText;
   //final _comType =
   DbHelper? dbHelper;
@@ -56,7 +56,7 @@ class _CreateFarmsState extends State<CreateFarms> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Create Farm"),
+        title: Text("Create New Farm"),
         centerTitle: true,
       ),
       body: Form(
@@ -96,7 +96,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                   SizedBox(height: 10.0),
                   NxTextFormField(
                     controller: _confarmAddress,
-                    hintName: "Farm Address",
+                    hintName: "Address",
                     inputType: TextInputType.name,
 
                   ),
@@ -108,14 +108,14 @@ class _CreateFarmsState extends State<CreateFarms> {
                   ),
                   const SizedBox(height: 10),
                   NxDDFormField(
-                    selectOptionText: "Choose Farm Unit",
+                    selectOptionText: "Unit",
                       options: _unit,
                       value: '',
                       onChanged: (New){},
                       ),
                   const SizedBox(height: 10),
                   NxDDFormField(
-                      selectOptionText: "Choose Farm Type",
+                      selectOptionText: "Type",
                       options: _farmType,
                       value: "",
                       onChanged: (New){},
