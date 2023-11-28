@@ -15,17 +15,22 @@ class _CreateFarmsState extends State<CreateFarms> {
   final _confarmName = TextEditingController();
   final _confarmAddress = TextEditingController();
   final _confarmArea = TextEditingController();
-  final _farmType=["Owned","Leased","Joint Venture"];
-  final _unit=["Acre","Hectare"];
+  final _farmType = ["Owned", "Leased", "Joint Venture"];
+  final _unit = ["Acre", "Hectare"];
+
   //final _comArea = selectedText;
   //final _comType =
+  String? selectedUnit;
+  String? selectedType;
   DbHelper? dbHelper;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     dbHelper = DbHelper();
   }
+
   /*saveFarm() async {
 
     String farm_Name = _confarmName.text;
@@ -98,7 +103,6 @@ class _CreateFarmsState extends State<CreateFarms> {
                     controller: _confarmAddress,
                     hintName: "Address",
                     inputType: TextInputType.name,
-
                   ),
                   SizedBox(height: 10.0),
                   NxTextFormField(
@@ -106,26 +110,73 @@ class _CreateFarmsState extends State<CreateFarms> {
                     hintName: "Area",
                     inputType: TextInputType.number,
                   ),
-                  const SizedBox(height: 10),
-                  NxDDFormField(
-                    selectOptionText: "Unit",
-                      options: _unit,
-                      value: '',
-                      onChanged: (New){},
-                      ),
-                  const SizedBox(height: 10),
-                  NxDDFormField(
-                      selectOptionText: "Type",
-                      options: _farmType,
-                      value: "",
-                      onChanged: (New){},
-                      ),
+                  //const SizedBox(height: 10),
+                  SizedBox(height: 10.0),
+                  Container(
+                    width: 370,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                      // Set border radius
+                      border: Border.all(color: Colors.grey),
+                      color: Colors.grey[200], // Set the desired width
+
+                      // Set border color
+                    ),
+                    child: DropdownButton<String>(
+                      value: selectedUnit,
+                      hint: Text('Select Unit'),
+                      onChanged: (String? unitValue) {
+                        setState(() {
+                          selectedUnit = unitValue;
+                          if (unitValue != null) {
+                            print('Selected Unit: $unitValue');
+                          }
+                        });
+                      },
+                      items: <String>['Acer', 'Hectare'].map((String unit) {
+                        return DropdownMenuItem<String>(
+                          value: unit,
+                          child: Text(unit),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Container(
+                    width: 370, // Set the desired width
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                      // Set border radius
+                      border: Border.all(color: Colors.grey),
+                      // Set border color
+                      color: Colors.grey[200], // Set the desired width
+                    ),
+                    child: DropdownButton<String>(
+                      value: selectedType,
+                      hint: Text('Select Type'),
+                      onChanged: (String? typeValue) {
+                        setState(() {
+                          selectedUnit = typeValue;
+                          if (typeValue != null) {
+                            print('Selected Type: $typeValue');
+                          }
+                        });
+                      },
+                      items: <String>['Owned', 'Leased', 'Joint Venture']
+                          .map((String type) {
+                        return DropdownMenuItem<String>(
+                          value: type,
+                          child: Text(type),
+                        );
+                      }).toList(),
+                    ),
+                  ),
                   SizedBox(height: 10.0),
                   Container(
                     margin: EdgeInsets.all(30.0),
                     width: double.infinity,
                     child: TextButton(
-                      onPressed:(){} ,//saveFarm,
+                      onPressed: () {}, //saveFarm,
                       child: Text(
                         "Save",
                         style: TextStyle(color: Colors.white),
@@ -135,7 +186,6 @@ class _CreateFarmsState extends State<CreateFarms> {
                         color: Colors.green,
                         borderRadius: BorderRadius.circular(30.0)),
                   ),
-
                 ],
               ),
             ),
@@ -144,5 +194,4 @@ class _CreateFarmsState extends State<CreateFarms> {
       ),
     );
   }
-
 }
