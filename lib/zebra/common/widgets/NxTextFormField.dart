@@ -44,7 +44,7 @@ class NxTextFormField extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.transparent)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                borderSide: BorderSide(color: Colors.blue)),
+                borderSide: BorderSide(color: Colors.lightGreen)),
             disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 borderSide: BorderSide(color: Colors.grey)),
