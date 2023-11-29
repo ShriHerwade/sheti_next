@@ -1,62 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:sheti_next/zebra/common/widgets/NxDropDownFormField.dart';
+//import 'package:sheti_next/zebra/common/widgets/NxDropDownFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 
 class CreateFarms extends StatefulWidget {
-  const CreateFarms({super.key});
+  const CreateFarms({Key? key}) : super(key: key);
 
   @override
   State<CreateFarms> createState() => _CreateFarmsState();
 }
 
 class _CreateFarmsState extends State<CreateFarms> {
-  final _formKey = new GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final _confarmName = TextEditingController();
   final _confarmAddress = TextEditingController();
   final _confarmArea = TextEditingController();
   final _farmType = ["Owned", "Leased", "Joint Venture"];
   final _unit = ["Acre", "Hectare"];
 
-  //final _comArea = selectedText;
-  //final _comType =
   String? selectedUnit;
   String? selectedType;
   DbHelper? dbHelper;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     dbHelper = DbHelper();
   }
 
-  /*saveFarm() async {
-
-    String farm_Name = _confarmName.text;
-    String farm_Address = _confarmAddress.text;
-    String farm_Area = _confarmArea.text;
-    String farm_Unit = _conpin.text;
-    String farm_Type = _conpin.text;
-
-    //DateTime createdDate= _createdDate;
-    //DateTime updatedDate = _updatedDate;
-
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState?.save();
-
-      UserModel uModel = UserModel(user_id, user_name, email, mobileNo, pin); //,createdDate,updatedDate);
-      await dbHelper.saveData(uModel).then((userData) {
-        alertDialog(context, "Successfully Saved");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => LoginScreen()));
-      }).catchError((error) {
-        print(error);
-        alertDialog(context, "Error: Data Save Failed");
-      });
-    }
-  }
-*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,13 +48,6 @@ class _CreateFarmsState extends State<CreateFarms> {
                     child: Column(
                       children: [
                         const SizedBox(height: 50),
-                        /* Text("Create your account",
-                          style:TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black12,
-                              fontSize: 40.0),
-                        ),*/
-                        const SizedBox(height: 10),
                         Image.asset(
                           "assets/images/W1.png",
                           height: 150,
@@ -110,65 +74,74 @@ class _CreateFarmsState extends State<CreateFarms> {
                     hintName: "Area",
                     inputType: TextInputType.number,
                   ),
-                  //const SizedBox(height: 10),
                   SizedBox(height: 10.0),
                   Container(
                     width: 370,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                      // Set border radius
                       border: Border.all(color: Colors.grey),
-                      color: Colors.grey[200], // Set the desired width
-
-                      // Set border color
+                      color: Colors.grey[200],
                     ),
-                    child: DropdownButton<String>(
-                      value: selectedUnit,
-                      hint: Text('Select Unit'),
-                      onChanged: (String? unitValue) {
-                        setState(() {
-                          selectedUnit = unitValue;
-                          if (unitValue != null) {
-                            print('Selected Unit: $unitValue');
-                          }
-                        });
-                      },
-                      items: <String>['Acer', 'Hectare'].map((String unit) {
-                        return DropdownMenuItem<String>(
-                          value: unit,
-                          child: Text(unit),
-                        );
-                      }).toList(),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: selectedUnit,
+                        hint: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                          child: Text('Select Unit'),
+                        ),
+                        onChanged: (String? unitValue) {
+                          setState(() {
+                            selectedUnit = unitValue;
+                            if (unitValue != null) {
+                              print('Selected Unit: $unitValue');
+                            }
+                          });
+                        },
+                        items: _unit.map((String unit) {
+                          return DropdownMenuItem<String>(
+                            value: unit,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                              child: Text(unit),
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
                   SizedBox(height: 10.0),
                   Container(
-                    width: 370, // Set the desired width
+                    width: 370,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                      // Set border radius
                       border: Border.all(color: Colors.grey),
-                      // Set border color
-                      color: Colors.grey[200], // Set the desired width
+                      color: Colors.grey[200],
                     ),
-                    child: DropdownButton<String>(
-                      value: selectedType,
-                      hint: Text('Select Type'),
-                      onChanged: (String? typeValue) {
-                        setState(() {
-                          selectedUnit = typeValue;
-                          if (typeValue != null) {
-                            print('Selected Type: $typeValue');
-                          }
-                        });
-                      },
-                      items: <String>['Owned', 'Leased', 'Joint Venture']
-                          .map((String type) {
-                        return DropdownMenuItem<String>(
-                          value: type,
-                          child: Text(type),
-                        );
-                      }).toList(),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: selectedType,
+                        hint: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                          child: Text('Select Type'),
+                        ),
+                        onChanged: (String? typeValue) {
+                          setState(() {
+                            selectedType = typeValue;
+                            if (typeValue != null) {
+                              print('Selected Type: $typeValue');
+                            }
+                          });
+                        },
+                        items: _farmType.map((String type) {
+                          return DropdownMenuItem<String>(
+                            value: type,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                              child: Text(type),
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
                   SizedBox(height: 10.0),
@@ -176,10 +149,10 @@ class _CreateFarmsState extends State<CreateFarms> {
                     margin: EdgeInsets.all(30.0),
                     width: double.infinity,
                     child: TextButton(
-                      onPressed: () {}, //saveFarm,
+                      onPressed: () {},
                       child: Text(
                         "Save",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
                       ),
                     ),
                     decoration: BoxDecoration(
