@@ -49,7 +49,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                       children: [
                         const SizedBox(height: 50),
                         Image.asset(
-                          "assets/images/W1.png",
+                          "assets/images/top_create-farm-1.png",
                           height: 150,
                           width: 150,
                         ),
