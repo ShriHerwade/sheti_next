@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:sheti_next/zebra/common/widgets/NxDropDownFormField.dart';
+
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 class CreateCrop extends StatefulWidget {
@@ -13,11 +13,11 @@ class CreateCrop extends StatefulWidget {
 class _CreateCropState extends State<CreateCrop> {
   final _formKey = GlobalKey<FormState>();
   final _concropName = TextEditingController();
-  final _confarmAddress = TextEditingController();
+
   final _confarmArea = TextEditingController();
   final _farmType = ["Owned", "Leased", "Joint Venture"];
   final _unit = ["Acre", "Hectare"];
-  final  double _fixHeight = 20;
+
 
   String? selectedUnit;
   String? selectedType;
