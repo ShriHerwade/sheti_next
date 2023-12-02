@@ -15,12 +15,12 @@ class _CreateCropState extends State<CreateCrop> {
   final _concropName = TextEditingController();
 
   final _confarmArea = TextEditingController();
-  final _farmType = ["Owned", "Leased", "Joint Venture"];
+  final _cropNames = ["Sugarcane - 80032", "Sugarcane - 80011", "Jwari - Shalu"];
   final _unit = ["Acre", "Hectare"];
 
-
+  String? selectedFarm;
   String? selectedUnit;
-  String? selectedType;
+  String? selectedCrop;
   DbHelper? dbHelper;
 
   @override
@@ -34,7 +34,7 @@ class _CreateCropState extends State<CreateCrop> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Create Crops"),
+        title: Text("Create New Crop"),
       ),
       body:  Form(
 
@@ -52,7 +52,7 @@ class _CreateCropState extends State<CreateCrop> {
                       children: [
                         const SizedBox(height: 50),
                         Image.asset(
-                          "assets/images/top_create-farm-1.png",
+                          "assets/images/top_create-crop-1.png",
                           height: 150,
                           width: 150,
                         ),
@@ -63,20 +63,20 @@ class _CreateCropState extends State<CreateCrop> {
                   Container(
                     width: 370,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
                       border: Border.all(color: Colors.grey),
                       color: Colors.white,
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
-                        value: selectedUnit,
+                        value: selectedFarm,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
                           child: Text('Select Farm Name'),
                         ),
                         onChanged: (String? farmName) {
                           setState(() {
-                            selectedUnit = farmName;
+                            selectedFarm = farmName;
                             if (farmName != null) {
                               print('Selected Farm: $farmName');
                             }
@@ -95,10 +95,39 @@ class _CreateCropState extends State<CreateCrop> {
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  NxTextFormField(
-                    controller: _concropName,
-                    hintName: "Crop Name",
-                    inputType: TextInputType.name,
+                  Container(
+                    width: 370,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      border: Border.all(color: Colors.grey),
+                      color: Colors.white,
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: selectedCrop,
+                        hint: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                          child: Text('Select Crop'),
+                        ),
+                        onChanged: (String? cropName) {
+                          setState(() {
+                            selectedCrop = cropName;
+                            if (cropName != null) {
+                              print('Selected Crop: $cropName');
+                            }
+                          });
+                        },
+                        items: _cropNames.map((String farm) {
+                          return DropdownMenuItem<String>(
+                            value: farm,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                              child: Text(farm),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 20.0 ),
                   NxTextFormField(
@@ -110,26 +139,26 @@ class _CreateCropState extends State<CreateCrop> {
                   Container(
                     width: 370,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      border: Border.all(color: Colors.blueGrey),
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      border: Border.all(color: Colors.grey),
                       color: Colors.white,
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
-                        value: selectedType,
+                        value: selectedUnit,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
                           child: Text('Select Unit'),
                         ),
                         onChanged: (String? unit) {
                           setState(() {
-                            selectedType = unit;
+                            selectedUnit = unit;
                             if (unit != null) {
                               print('Selected Unit: $unit');
                             }
                           });
                         },
-                        items: _farmType.map((String type) {
+                        items: _unit.map((String type) {
                           return DropdownMenuItem<String>(
                             value: type,
                             child: Padding(

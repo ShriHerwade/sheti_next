@@ -83,7 +83,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                   Container(
                     width: 370,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
                       border: Border.all(color: Colors.grey),
                       color: Colors.white,
                     ),
@@ -118,8 +118,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                   Container(
                     width: 370,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      border: Border.all(color: Colors.blueGrey),
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      border: Border.all(color: Colors.grey),
                       color: Colors.white,
                     ),
                     child: DropdownButtonHideUnderline(
