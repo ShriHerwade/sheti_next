@@ -40,21 +40,22 @@ class NxTextFormField extends StatelessWidget {
         },
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                borderSide: BorderSide(color: Colors.transparent)),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                borderSide: BorderSide(color: Colors.grey)),
             focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 borderSide: BorderSide(color: Colors.lightGreen)),
             disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 borderSide: BorderSide(color: Colors.grey)),
             errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 borderSide: BorderSide(color: Colors.grey)),
             prefixIcon: Icon(icon),
             hintText: hintName,
             // labelText: hintName,
-            fillColor: Colors.grey[200],
+            isDense: true,
+            fillColor: Colors.white,
             filled: true),
       ),
     );
