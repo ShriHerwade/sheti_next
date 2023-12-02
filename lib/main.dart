@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
+import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
+import 'package:sheti_next/zebra/screen/user/LoginScreen.dart';
+import 'package:sheti_next/zebra/screen/welcome/WelcomeScreen.dart';
 
 
 void main() {
@@ -18,9 +22,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
           primarySwatch: Colors.lightGreen,
+          canvasColor: Colors.white,
           useMaterial3: true,
+          appBarTheme: AppBarTheme(
+            color: Colors.lightGreen.shade100,
+          )
         ),
-        home: CreateFarms()//DropdownSample()//
+        home: HomeScreen(),//DropdownSample()//
 
     );
   }
@@ -40,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+
         title: Text(widget.title),
       ),
       body: Center(child: Container()),

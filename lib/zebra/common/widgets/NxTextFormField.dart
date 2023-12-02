@@ -40,14 +40,14 @@ class NxTextFormField extends StatelessWidget {
         },
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                borderSide: BorderSide(color: Colors.grey)),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(width:1,color: Colors.grey)),
             focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                borderSide: BorderSide(color: Colors.lightGreen)),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(width: 2,color: Colors.lightGreen.shade400)),
             disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                borderSide: BorderSide(color: Colors.grey)),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(width: 3,color: Colors.grey,)),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 borderSide: BorderSide(color: Colors.grey)),

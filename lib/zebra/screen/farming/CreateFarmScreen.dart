@@ -17,6 +17,7 @@ class _CreateFarmsState extends State<CreateFarms> {
   final _confarmArea = TextEditingController();
   final _farmType = ["Owned", "Leased", "Joint Venture"];
   final _unit = ["Acre", "Hectare"];
+  final  double _fixHeight = 20;
 
   String? selectedUnit;
   String? selectedType;
@@ -31,15 +32,19 @@ class _CreateFarmsState extends State<CreateFarms> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+
         title: Text("Create New Farm"),
         centerTitle: true,
       ),
       body: Form(
+
         key: _formKey,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
+
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +58,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                           height: 150,
                           width: 150,
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 20.0),
                       ],
                     ),
                   ),
@@ -62,19 +67,19 @@ class _CreateFarmsState extends State<CreateFarms> {
                     hintName: "Farm Name",
                     inputType: TextInputType.name,
                   ),
-                  SizedBox(height: 10.0),
+                  SizedBox(height: 20.0 ),
                   NxTextFormField(
                     controller: _confarmAddress,
                     hintName: "Address",
                     inputType: TextInputType.name,
                   ),
-                  SizedBox(height: 10.0),
+                  SizedBox(height: 20.0),
                   NxTextFormField(
                     controller: _confarmArea,
                     hintName: "Area",
                     inputType: TextInputType.number,
                   ),
-                  SizedBox(height: 10.0),
+                  SizedBox(height: 20.0),
                   Container(
                     width: 370,
                     decoration: BoxDecoration(
@@ -109,12 +114,12 @@ class _CreateFarmsState extends State<CreateFarms> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10.0),
+                  SizedBox(height: 20.0),
                   Container(
                     width: 370,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      border: Border.all(color: Colors.grey),
+                      border: Border.all(color: Colors.blueGrey),
                       color: Colors.white,
                     ),
                     child: DropdownButtonHideUnderline(

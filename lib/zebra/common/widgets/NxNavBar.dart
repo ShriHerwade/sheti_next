@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyFarmsScreen.dart';
@@ -46,7 +47,7 @@ class NxNavBar extends StatelessWidget {
                   leading: Icon(Icons.trending_up),
                   title: InkWell(
                     onTap: (){
-                      Navigator.push(context,MaterialPageRoute(builder:(_)=>MyCrops()));
+                      Navigator.push(context,MaterialPageRoute(builder:(_)=>CreateCrop()));
                     },
                       child: Text("Crops")),
                 ),
