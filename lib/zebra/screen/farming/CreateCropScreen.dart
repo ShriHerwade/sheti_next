@@ -15,7 +15,7 @@ class _CreateCropState extends State<CreateCrop> {
   final _concropName = TextEditingController();
 
   final _confarmArea = TextEditingController();
-  final _cropNames = ["Sugarcane - 80032", "Sugarcane - 80011", "Jwari - Shalu"];
+  final _cropNames = ["Sugarcane - Other", "Sugarcane - 80011", "Jwari - Shalu", "Jwari - Other",];
   final _unit = ["Acre", "Hectare"];
 
   String? selectedFarm;
