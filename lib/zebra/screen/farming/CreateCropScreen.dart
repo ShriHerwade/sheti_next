@@ -60,6 +60,7 @@ class _CreateCropState extends State<CreateCrop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         title: Text("Create New Crop"),

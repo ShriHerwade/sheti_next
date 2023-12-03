@@ -59,7 +59,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
   }
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
         title: Text("Create New Expense"),
         centerTitle: true,
