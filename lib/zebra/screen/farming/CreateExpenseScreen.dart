@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
+//import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 class CreateExpenses extends StatefulWidget {
   const CreateExpenses({super.key});
@@ -11,11 +11,11 @@ class CreateExpenses extends StatefulWidget {
 
 class _CreateExpensesState extends State<CreateExpenses> {
   final _formKey = GlobalKey<FormState>();
-  final _confarmName = TextEditingController();
-  final _confarmAddress = TextEditingController();
-  final _confarmArea = TextEditingController();
+ // final _confarmName = TextEditingController();
+ // final _confarmAddress = TextEditingController();
+  //final _confarmArea = TextEditingController();
   final _farmName = ["Nadikadil", "Mala", "Vhanda"];
-  final _unit = ["Acre", "Hectare"];
+ // final _unit = ["Acre", "Hectare"];
   final _cropNames = ["Sugarcane - Other", "Sugarcane - 80011", "Jwari - Shalu", "Jwari - Other"];
   final _eventNames = ["Ploughing", "Sowing", "Fertilizers", "Pesticides", "Irrigation", "Harvesting", "Storage", "Transport"];
 
