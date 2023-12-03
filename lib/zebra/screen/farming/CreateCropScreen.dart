@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:intl/intl.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
+
 class CreateCrop extends StatefulWidget {
-  const CreateCrop({super.key});
+  const CreateCrop({Key? key}) : super(key: key);
 
   @override
   State<CreateCrop> createState() => _CreateCropState();
@@ -13,20 +13,48 @@ class CreateCrop extends StatefulWidget {
 class _CreateCropState extends State<CreateCrop> {
   final _formKey = GlobalKey<FormState>();
   final _concropName = TextEditingController();
-
   final _confarmArea = TextEditingController();
-  final _cropNames = ["Sugarcane - Other", "Sugarcane - 80011", "Jwari - Shalu", "Jwari - Other",];
-  final _unit = ["Acre", "Hectare"];
+  final _cropNames = ["ऊस - 80032", "ऊस - 80011", "ज्वारी - शाळू", "ज्वारी - हायब्रीड"];
+  final _unit = ["एकर", "हेक्टर"];
 
   String? selectedFarm;
   String? selectedUnit;
   String? selectedCrop;
+  DateTime? startDate;
+  DateTime? endDate;
   DbHelper? dbHelper;
 
   @override
   void initState() {
     super.initState();
     dbHelper = DbHelper();
+  }
+
+  Future<void> _selectDate(BuildContext context, bool isStartDate) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2022),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null) {
+      setState(() {
+        if (isStartDate) {
+          startDate = picked;
+        } else {
+          endDate = picked;
+        }
+      });
+    }
+  }
+
+  String formatDate(DateTime? date) {
+    if (date != null) {
+      return DateFormat('dd/MM/yyyy').format(date);
+    } else {
+      return '';
+    }
   }
 
   @override
@@ -36,13 +64,11 @@ class _CreateCropState extends State<CreateCrop> {
         centerTitle: true,
         title: Text("Create New Crop"),
       ),
-      body:  Form(
-
+      body: Form(
         key: _formKey,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -129,66 +155,66 @@ class _CreateCropState extends State<CreateCrop> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20.0 ),
+                  SizedBox(height: 20.0),
                   NxTextFormField(
                     controller: _confarmArea,
                     hintName: "Area",
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: 20.0),
-                  Container(
-                    width: 370,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      border: Border.all(color: Colors.grey),
-                      color: Colors.white,
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedUnit,
-                        hint: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text('Select Unit'),
-                        ),
-                        onChanged: (String? unit) {
-                          setState(() {
-                            selectedUnit = unit;
-                            if (unit != null) {
-                              print('Selected Unit: $unit');
-                            }
-                          });
-                        },
-                        items: _unit.map((String type) {
-                          return DropdownMenuItem<String>(
-                            value: type,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text(type),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10.0),
+                  buildDateField("Start Date", startDate, true),
+                  SizedBox(height: 20.0),
+                  buildDateField("End Date", endDate, false),
+                  SizedBox(height: 20.0),
                   Container(
                     margin: EdgeInsets.all(30.0),
                     width: double.infinity,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // Handle save logic using selected dates (startDate and endDate)
+                      },
                       child: Text(
                         "Save",
-                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
                     decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(30.0)),
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildDateField(String label, DateTime? selectedDate, bool isStartDate) {
+    return Container(
+      width: 370,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        border: Border.all(color: Colors.grey),
+        color: Colors.white,
+      ),
+      child: TextFormField(
+        readOnly: true,
+        onTap: () => _selectDate(context, isStartDate),
+        decoration: InputDecoration(
+          hintText: selectedDate != null ? formatDate(selectedDate) : label,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+          suffixIcon: Icon(Icons.calendar_today),
+          border: OutlineInputBorder(),
+        ),
+        controller: TextEditingController(
+          text: formatDate(selectedDate),
         ),
       ),
     );

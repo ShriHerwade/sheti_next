@@ -55,23 +55,30 @@ class _NxDropdownState extends State<NxDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: userslist.isEmpty
-            ? CircularProgressIndicator()
-            : DropdownButton<UserModel>(
-          hint: Text("Select User"),
-          value: selectedUser,
-          items: dropdownItems,
-          onChanged: (UserModel? userModel) {
-            setState(() {
-              selectedUser = userModel;
-            });
-            if (userModel != null) {
-              print('Selected User: ${userModel.firstName}');
-            }
-          },
+    return Container(
+      child: Center(
+          child: userslist.isEmpty
+              ? CircularProgressIndicator()
+              : DropdownButton<UserModel>(
+            borderRadius:  BorderRadius.all(Radius.circular(8.0)),
+            isExpanded: false,
+
+            hint: Text("Select User"),
+            value: selectedUser,
+            items: dropdownItems,
+
+            onChanged: (UserModel? userModel) {
+              setState(() {
+                selectedUser = userModel;
+              });
+              if (userModel != null) {
+                print('Selected User: ${userModel.firstName}');
+              }
+            },
+
+          ),
         ),
-      );
+    );
 
   }
 

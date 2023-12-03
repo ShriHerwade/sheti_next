@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateEventScreen.dart';
+import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyFarmsScreen.dart';
@@ -64,7 +65,7 @@ class NxNavBar extends StatelessWidget {
                   leading: Icon(Icons.attach_money_outlined),
                   title: InkWell(
                     onTap: (){
-                      Navigator.push(context,MaterialPageRoute(builder:(_)=>MyExpenses()));
+                      Navigator.push(context,MaterialPageRoute(builder:(_)=>CreateExpenses()));
                     },
                       child: Text("Expenses")),
                 ),
