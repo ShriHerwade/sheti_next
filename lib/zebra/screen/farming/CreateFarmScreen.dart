@@ -19,7 +19,7 @@ class _CreateFarmsState extends State<CreateFarms> {
   final _confarmAddress = TextEditingController();
   final _confarmArea = TextEditingController();
   final _farmType = ["Owned", "Leased", "Joint Venture"];
-  final _unit = ["Acre", "Hectare"];
+  final _unit = ["Acre", "Hectare","Guntha","Square Feet","Square Meter"];
 
   String? selectedUnit;
   String? selectedType;

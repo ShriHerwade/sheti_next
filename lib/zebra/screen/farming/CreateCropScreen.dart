@@ -16,7 +16,7 @@ class _CreateCropState extends State<CreateCrop> {
   final _formKey = GlobalKey<FormState>();
   final _confarmArea = TextEditingController();
   final _cropNames = ["ऊस - 80032", "ऊस - 80011", "ज्वारी - शाळू", "ज्वारी - हायब्रीड"];
-  final _unit = ["एकर", "हेक्टर"];
+  final _unit = ["Acre", "Hectare","Guntha","Square Feet","Square Meter"];
 
   String? selectedUnit;
   String? selectedCrop;
