@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
-
+import 'package:sheti_next/zebra/dao/models/FarmModel.dart'; // Import the FarmModel
+import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 class CreateCrop extends StatefulWidget {
   const CreateCrop({Key? key}) : super(key: key);
 
@@ -17,17 +18,24 @@ class _CreateCropState extends State<CreateCrop> {
   final _cropNames = ["ऊस - 80032", "ऊस - 80011", "ज्वारी - शाळू", "ज्वारी - हायब्रीड"];
   final _unit = ["एकर", "हेक्टर"];
 
-  String? selectedFarm;
   String? selectedUnit;
   String? selectedCrop;
   DateTime? startDate;
   DateTime? endDate;
   DbHelper? dbHelper;
+  List<FarmModel> farms = []; // List to store farms
 
   @override
   void initState() {
     super.initState();
     dbHelper = DbHelper();
+    loadFarms(); // Load farms when the widget initializes
+  }
+
+  // Load farms from the database
+  Future<void> loadFarms() async {
+    farms = await dbHelper!.getAllFarms();
+    setState(() {});
   }
 
   Future<void> _selectDate(BuildContext context, bool isStartDate) async {
@@ -96,25 +104,26 @@ class _CreateCropState extends State<CreateCrop> {
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
-                        value: selectedFarm,
+                        value: selectedUnit,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
                           child: Text('Select Farm Name'),
                         ),
                         onChanged: (String? farmName) {
                           setState(() {
-                            selectedFarm = farmName;
+                            selectedUnit = farmName;
                             if (farmName != null) {
                               print('Selected Farm: $farmName');
                             }
                           });
                         },
-                        items: _unit.map((String farm) {
+                        items: farms.map((FarmModel farm) {
                           return DropdownMenuItem<String>(
-                            value: farm,
+                            value: farm.farmName,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text(farm),
+                              child: Text(farm.farmName ?? 'Unknown Farm'),
+
                             ),
                           );
                         }).toList(),
@@ -144,12 +153,12 @@ class _CreateCropState extends State<CreateCrop> {
                             }
                           });
                         },
-                        items: _cropNames.map((String farm) {
+                        items: _cropNames.map((String crop) {
                           return DropdownMenuItem<String>(
-                            value: farm,
+                            value: crop,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text(farm),
+                              child: Text(crop),
                             ),
                           );
                         }).toList(),

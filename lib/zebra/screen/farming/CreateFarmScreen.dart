@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-//import 'package:sheti_next/zebra/common/widgets/NxDropDownFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
+import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import 'FarmsListScreen.dart';
 
 class CreateFarms extends StatefulWidget {
   const CreateFarms({Key? key}) : super(key: key);
@@ -17,7 +20,6 @@ class _CreateFarmsState extends State<CreateFarms> {
   final _confarmArea = TextEditingController();
   final _farmType = ["Owned", "Leased", "Joint Venture"];
   final _unit = ["Acre", "Hectare"];
-  final  double _fixHeight = 20;
 
   String? selectedUnit;
   String? selectedType;
@@ -34,17 +36,14 @@ class _CreateFarmsState extends State<CreateFarms> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-
         title: Text("Create New Farm"),
         centerTitle: true,
       ),
       body: Form(
-
         key: _formKey,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -52,10 +51,10 @@ class _CreateFarmsState extends State<CreateFarms> {
                   Container(
                     child: Column(
                       children: [
-                        const SizedBox(height: 50),
+                        const SizedBox(height: 30),
                         Image.asset(
                           "assets/images/top_create-farm-1.png",
-                          height: 150,
+                          height: 120,
                           width: 150,
                         ),
                         const SizedBox(height: 20.0),
@@ -67,7 +66,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                     hintName: "Farm Name",
                     inputType: TextInputType.name,
                   ),
-                  SizedBox(height: 20.0 ),
+                  SizedBox(height: 20.0),
                   NxTextFormField(
                     controller: _confarmAddress,
                     hintName: "Address",
@@ -150,19 +149,57 @@ class _CreateFarmsState extends State<CreateFarms> {
                     ),
                   ),
                   SizedBox(height: 10.0),
-                  Container(
-                    margin: EdgeInsets.all(30.0),
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Save",
-                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // Modified button width to 150
+                      Container(
+                        width: 150,
+                        child: TextButton(
+                          onPressed: () {
+                            saveFarmData(context);
+                          },
+                          child: Text(
+                            "Save",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
                       ),
-                    ),
-                    decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(30.0)),
+                      // Modified button width to 150
+                      Container(
+                        width: 150,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FarmsListScreen(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Show Farms",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -171,5 +208,31 @@ class _CreateFarmsState extends State<CreateFarms> {
         ),
       ),
     );
+  }
+
+  void saveFarmData(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      FarmModel farm = FarmModel(
+        farmName: _confarmName.text,
+        farmAddress: _confarmAddress.text,
+        farmArea: double.parse(_confarmArea.text),
+        unit: selectedUnit!,
+        farmType: selectedType!,
+      );
+
+      await dbHelper!.saveFarmData(farm);
+
+      _confarmName.clear();
+      _confarmAddress.clear();
+      _confarmArea.clear();
+      selectedUnit = null;
+      selectedType = null;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Farm data saved successfully!"),
+        ),
+      );
+    }
   }
 }
