@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 //import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 class CreateExpenses extends StatefulWidget {
@@ -13,7 +14,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
   final _formKey = GlobalKey<FormState>();
  // final _confarmName = TextEditingController();
  // final _confarmAddress = TextEditingController();
-  //final _confarmArea = TextEditingController();
+  final _confamount = TextEditingController();
   final _farmName = ["Nadikadil", "Mala", "Vhanda"];
  // final _unit = ["Acre", "Hectare"];
   final _cropNames = ["Sugarcane - Other", "Sugarcane - 80011", "Jwari - Shalu", "Jwari - Other"];
@@ -191,9 +192,15 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  buildDateField("Payment Date", startDate, true),
+                  buildDateField("Expense Date", startDate, false),
+                  /*SizedBox(height: 20.0),
+                  buildDateField("Event End Date", endDate, false),*/
                   SizedBox(height: 20.0),
-                 // buildDateField("End Date", endDate, false),
+                  NxTextFormField(
+                    controller: _confamount,
+                    hintName: "Expense Amount",
+                    inputType: TextInputType.number,
+                  ),
                   SizedBox(height: 20.0),
                   Container(
                     margin: EdgeInsets.all(30.0),
