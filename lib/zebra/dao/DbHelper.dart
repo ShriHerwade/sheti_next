@@ -2,6 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:sheti_next/zebra/dao/models/UserModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 
 class DbHelper {
   static Database? _db;
@@ -9,6 +10,7 @@ class DbHelper {
   static const String DB_Name = 'test.db';
   static const String Table_User = 'user';
   static const String Table_Farms = 'farms';
+  static const String Table_Crops = 'crops';
 
   static const int Version = 1;
 
@@ -23,6 +25,11 @@ class DbHelper {
   static const String C_farmArea = 'farmArea';
   static const String C_unit = 'unit';
   static const String C_farmType = 'farmType';
+
+  static const String C_cropName = 'cropName';
+  static const String C_area = 'area';
+  static const String C_startDate = 'startDate';
+  static const String C_endDate = 'endDate';
 
   Future<Database> get db async {
     if (_db != null) {
@@ -64,6 +71,19 @@ class DbHelper {
           )
           ''',
         );
+
+        // Create crops table
+        db.execute(
+          '''
+          CREATE TABLE $Table_Crops (
+            $C_farmName TEXT,
+            $C_cropName TEXT,
+            $C_area REAL,
+            $C_startDate TEXT,
+            $C_endDate TEXT
+          )
+          ''',
+        );
       },
     );
   }
@@ -78,11 +98,29 @@ class DbHelper {
     print("Farm record inserted");
   }
 
+  Future<void> saveCropData(CropModel crop) async {
+    final dbClient = await db;
+    await dbClient.insert(
+      Table_Crops,
+      crop.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    print("Crop record inserted");
+  }
+
   Future<List<FarmModel>> getAllFarms() async {
     final dbClient = await db;
     final List<Map<String, dynamic>> maps = await dbClient.query(Table_Farms);
     return List.generate(maps.length, (i) {
       return FarmModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<List<CropModel>> getAllCrops() async {
+    final dbClient = await db;
+    final List<Map<String, dynamic>> maps = await dbClient.query(Table_Crops);
+    return List.generate(maps.length, (i) {
+      return CropModel.fromMap(maps[i]);
     });
   }
 

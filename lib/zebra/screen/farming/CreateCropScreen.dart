@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
-import 'package:sheti_next/zebra/dao/models/FarmModel.dart'; // Import the FarmModel
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import 'package:sheti_next/zebra/dao/models/CropModel.dart';
+
 class CreateCrop extends StatefulWidget {
   const CreateCrop({Key? key}) : super(key: key);
 
@@ -13,7 +14,6 @@ class CreateCrop extends StatefulWidget {
 
 class _CreateCropState extends State<CreateCrop> {
   final _formKey = GlobalKey<FormState>();
-  final _concropName = TextEditingController();
   final _confarmArea = TextEditingController();
   final _cropNames = ["ऊस - 80032", "ऊस - 80011", "ज्वारी - शाळू", "ज्वारी - हायब्रीड"];
   final _unit = ["एकर", "हेक्टर"];
@@ -23,7 +23,7 @@ class _CreateCropState extends State<CreateCrop> {
   DateTime? startDate;
   DateTime? endDate;
   DbHelper? dbHelper;
-  List<FarmModel> farms = []; // List to store farms
+  List<FarmModel> farms = [];
 
   @override
   void initState() {
@@ -123,7 +123,6 @@ class _CreateCropState extends State<CreateCrop> {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 50.0),
                               child: Text(farm.farmName ?? 'Unknown Farm'),
-
                             ),
                           );
                         }).toList(),
@@ -180,8 +179,8 @@ class _CreateCropState extends State<CreateCrop> {
                     margin: EdgeInsets.all(30.0),
                     width: double.infinity,
                     child: TextButton(
-                      onPressed: () {
-                        // Handle save logic using selected dates (startDate and endDate)
+                      onPressed: () async {
+                        await saveCropData();
                       },
                       child: Text(
                         "Save",
@@ -228,5 +227,48 @@ class _CreateCropState extends State<CreateCrop> {
         ),
       ),
     );
+  }
+
+  Future<void> saveCropData() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        CropModel crop = CropModel(
+          farmName: selectedUnit!,
+          cropName: selectedCrop!,
+          area: double.parse(_confarmArea.text),
+          startDate: startDate!,
+          endDate: endDate!,
+        );
+
+        await dbHelper!.saveCropData(crop);
+
+        // Show a success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Crop data saved successfully'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+
+        // Clear form fields
+        _confarmArea.clear();
+        setState(() {
+          selectedUnit = null;
+          selectedCrop = null;
+          startDate = null;
+          endDate = null;
+        });
+      } catch (e) {
+        // Handle the error when parsing fails
+        print("Error parsing area: $e");
+        // Optionally, you can show an error message to the user
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error saving crop data. Please check your input.'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
   }
 }
