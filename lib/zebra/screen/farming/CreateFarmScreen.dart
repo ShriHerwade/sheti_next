@@ -218,6 +218,8 @@ class _CreateFarmsState extends State<CreateFarms> {
         farmArea: double.parse(_confarmArea.text),
         unit: selectedUnit!,
         farmType: selectedType!,
+        isActive: true,
+        createdDate: DateTime.now(),
       );
 
       await dbHelper!.saveFarmData(farm);

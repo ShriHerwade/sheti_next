@@ -238,6 +238,8 @@ class _CreateCropState extends State<CreateCrop> {
           area: double.parse(_confarmArea.text),
           startDate: startDate!,
           endDate: endDate!,
+          isActive: true,
+          createdDate: DateTime.now(),
         );
 
         await dbHelper!.saveCropData(crop);

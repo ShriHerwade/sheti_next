@@ -25,6 +25,8 @@ class DbHelper {
   static const String C_farmArea = 'farmArea';
   static const String C_unit = 'unit';
   static const String C_farmType = 'farmType';
+  static const String C_createdDate='createdDate';
+  static const String C_isActive='isActive';
 
   static const String C_cropName = 'cropName';
   static const String C_area = 'area';
@@ -67,7 +69,9 @@ class DbHelper {
             $C_farmAddress TEXT,
             $C_farmArea REAL,
             $C_unit TEXT,
-            $C_farmType TEXT
+            $C_farmType TEXT,
+            $C_isActive INTEGER,
+            $C_createdDate TEXT
           )
           ''',
         );
@@ -80,7 +84,9 @@ class DbHelper {
             $C_cropName TEXT,
             $C_area REAL,
             $C_startDate TEXT,
-            $C_endDate TEXT
+            $C_endDate TEXT,
+            $C_isActive INTEGER,
+            $C_createdDate TEXT
           )
           ''',
         );
@@ -110,7 +116,7 @@ class DbHelper {
 
   Future<List<FarmModel>> getAllFarms() async {
     final dbClient = await db;
-    final List<Map<String, dynamic>> maps = await dbClient.query(Table_Farms);
+    final List<Map<String, dynamic>> maps = await dbClient.query(Table_Farms, where: 'isActive = ? AND isActive IS NOT NULL', whereArgs: [1], orderBy: 'createdDate DESC');
     return List.generate(maps.length, (i) {
       return FarmModel.fromMap(maps[i]);
     });
@@ -118,7 +124,7 @@ class DbHelper {
 
   Future<List<CropModel>> getAllCrops() async {
     final dbClient = await db;
-    final List<Map<String, dynamic>> maps = await dbClient.query(Table_Crops);
+    final List<Map<String, dynamic>> maps = await dbClient.query(Table_Crops, where: 'isActive = ? AND isActive IS NOT NULL', whereArgs: [1], orderBy: 'createdDate DESC');
     return List.generate(maps.length, (i) {
       return CropModel.fromMap(maps[i]);
     });

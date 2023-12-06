@@ -4,6 +4,9 @@ class FarmModel {
   double? farmArea;
   String? unit;
   String? farmType;
+  bool isActive;
+  DateTime? createdDate;
+
 
   FarmModel({
     this.farmName,
@@ -11,6 +14,8 @@ class FarmModel {
     this.farmArea,
     this.unit,
     this.farmType,
+    this.isActive = true,
+    this.createdDate,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +25,8 @@ class FarmModel {
       'farmArea': farmArea,
       'unit': unit,
       'farmType': farmType,
+      'isActive': isActive ? 1 : 0,
+      'createdDate': createdDate?.toIso8601String(),
     };
   }
 
@@ -30,6 +37,8 @@ class FarmModel {
       farmArea: map['farmArea'],
       unit: map['unit'],
       farmType: map['farmType'],
+      isActive: map['isActive'] == 1,
+      createdDate: DateTime.parse(map['createdDate']),
     );
   }
 }
