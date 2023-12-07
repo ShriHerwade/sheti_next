@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateEventScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';
@@ -40,33 +42,39 @@ class NxNavBar extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.landslide),
                   title: InkWell(
-                    onTap: (){
-                      Navigator.push(context,MaterialPageRoute(builder:(_)=> CreateFarms()));
-                    },
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => CreateFarms()));
+                      },
                       child: Text("Farms")),
                 ),
                 ListTile(
                   leading: Icon(Icons.trending_up),
                   title: InkWell(
-                    onTap: (){
-                      Navigator.push(context,MaterialPageRoute(builder:(_)=>CreateCrop()));
-                    },
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => CreateCrop()));
+                      },
                       child: Text("Crops")),
                 ),
                 ListTile(
                   leading: Icon(Icons.event),
                   title: InkWell(
-                    onTap: (){
-                      Navigator.push(context,MaterialPageRoute(builder:(_)=>CreateEvents()));
-                    },
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => CreateEvents()));
+                      },
                       child: Text("Events")),
                 ),
                 ListTile(
                   leading: Icon(Icons.attach_money_outlined),
                   title: InkWell(
-                    onTap: (){
-                      Navigator.push(context,MaterialPageRoute(builder:(_)=>CreateExpenses()));
-                    },
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => CreateExpenses()));
+                      },
                       child: Text("Expenses")),
                 ),
               ],
@@ -81,6 +89,24 @@ class NxNavBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.fire_truck),
             title: Text("Machinary"),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.language_outlined),
+            title: InkWell(
+                onTap: () {
+                  context.setLocale(Locale('mr'));
+                },
+                child: Text("Marathi")),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.language_outlined),
+            title: InkWell(
+                onTap: () {
+                  context.setLocale(Locale('en'));
+                },
+                child: Text("English")),
           ),
           Divider(),
         ],

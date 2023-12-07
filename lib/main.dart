@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:sheti_next/translations/codegen_loader.g.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
 import 'package:sheti_next/zebra/screen/user/LoginScreen.dart';
 import 'package:sheti_next/zebra/screen/welcome/WelcomeScreen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 
-void main() {
-  runApp(const MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+      supportedLocales: [
+        Locale('en'),
+        Locale('mr'),
+        Locale('ka')],
+      path: 'assets/translations', // <-- change the path of the translation files
+      fallbackLocale: Locale('en'),
+      assetLoader: CodegenLoader(),
+      child: MyApp()
+  ),);
 }
 
 class MyApp extends StatelessWidget {
@@ -28,6 +42,9 @@ class MyApp extends StatelessWidget {
             color: Colors.lightGreen.shade100,
           )
         ),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
         home: HomeScreen(),//DropdownSample()//
 
     );

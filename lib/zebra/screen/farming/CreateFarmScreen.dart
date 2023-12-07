@@ -1,6 +1,8 @@
 import 'dart:ffi';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
@@ -36,7 +38,7 @@ class _CreateFarmsState extends State<CreateFarms> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Create New Farm"),
+        title: Text( LocaleKeys.createFarm.tr()),
         centerTitle: true,
       ),
       body: Form(
@@ -160,7 +162,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                             saveFarmData(context);
                           },
                           child: Text(
-                            "Save",
+                            LocaleKeys.save.tr(),
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
