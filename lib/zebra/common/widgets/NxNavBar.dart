@@ -91,23 +91,31 @@ class NxNavBar extends StatelessWidget {
             title: Text("Machinary"),
           ),
           Divider(),
-          ListTile(
-            leading: Icon(Icons.language_outlined),
-            title: InkWell(
-                onTap: () {
-                  context.setLocale(Locale('mr'));
-                },
-                child: Text("Marathi")),
+          ExpansionTile(
+            title: Text("Change Language"),
+            children:[
+              ListTile(
+                leading: Icon(Icons.language_outlined),
+                title: InkWell(
+                    onTap: () {
+                      context.setLocale(Locale('mr'));
+                    },
+                    child: Text("Marathi")),
+
+              ),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.language_outlined),
+                title: InkWell(
+                    onTap: () {
+                      context.setLocale(Locale('en'));
+                    },
+                    child: Text("English")),
+              ),
+    ]
+
           ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.language_outlined),
-            title: InkWell(
-                onTap: () {
-                  context.setLocale(Locale('en'));
-                },
-                child: Text("English")),
-          ),
+
           Divider(),
         ],
       ),
