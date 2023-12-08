@@ -65,19 +65,19 @@ class _CreateFarmsState extends State<CreateFarms> {
                   ),
                   NxTextFormField(
                     controller: _confarmName,
-                    hintName: "Farm Name",
+                    hintName:  LocaleKeys.farmName.tr(),
                     inputType: TextInputType.name,
                   ),
                   SizedBox(height: 20.0),
                   NxTextFormField(
                     controller: _confarmAddress,
-                    hintName: "Address",
+                    hintName:  LocaleKeys.address.tr(),
                     inputType: TextInputType.name,
                   ),
                   SizedBox(height: 20.0),
                   NxTextFormField(
                     controller: _confarmArea,
-                    hintName: "Area",
+                    hintName:  LocaleKeys.farmAea.tr(),
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: 20.0),
@@ -93,7 +93,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                         value: selectedUnit,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text('Select Unit'),
+                          child: Text(LocaleKeys.selectUnit.tr(),),
                         ),
                         onChanged: (String? unitValue) {
                           setState(() {
@@ -128,7 +128,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                         value: selectedType,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text('Select Type'),
+                          child: Text(LocaleKeys.farmType.tr()),
                         ),
                         onChanged: (String? typeValue) {
                           setState(() {

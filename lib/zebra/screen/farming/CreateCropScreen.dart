@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
@@ -71,7 +73,7 @@ class _CreateCropState extends State<CreateCrop> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Create New Crop"),
+        title: Text(LocaleKeys.createCrop.tr()),
       ),
       body: Form(
         key: _formKey,
@@ -107,7 +109,7 @@ class _CreateCropState extends State<CreateCrop> {
                         value: selectedUnit,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text('Select Farm Name'),
+                          child: Text(LocaleKeys.selectFarm.tr()),
                         ),
                         onChanged: (String? farmName) {
                           setState(() {
@@ -142,7 +144,7 @@ class _CreateCropState extends State<CreateCrop> {
                         value: selectedCrop,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text('Select Crop'),
+                          child: Text(LocaleKeys.selectCrop.tr()),
                         ),
                         onChanged: (String? cropName) {
                           setState(() {
@@ -167,13 +169,13 @@ class _CreateCropState extends State<CreateCrop> {
                   SizedBox(height: 20.0),
                   NxTextFormField(
                     controller: _confarmArea,
-                    hintName: "Area",
+                    hintName: LocaleKeys.sowingArea.tr(),
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: 20.0),
-                  buildDateField("Start Date", startDate, true),
+                  buildDateField(LocaleKeys.sowingDate.tr(), startDate, true),
                   SizedBox(height: 20.0),
-                  buildDateField("End Date", endDate, false),
+                  buildDateField(LocaleKeys.harvestingDate.tr(), endDate, false),
                   SizedBox(height: 20.0),
                   Container(
                     margin: EdgeInsets.all(30.0),
@@ -183,7 +185,7 @@ class _CreateCropState extends State<CreateCrop> {
                         await saveCropData();
                       },
                       child: Text(
-                        "Save",
+                        LocaleKeys.save.tr(),
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

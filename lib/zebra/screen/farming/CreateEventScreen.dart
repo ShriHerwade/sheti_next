@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 
@@ -65,7 +67,7 @@ class _CreateEventsState extends State<CreateEvents> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Create New Event"),
+        title: Text(LocaleKeys.createEvent.tr()),
         centerTitle: true,
       ),
       body: Form(
@@ -102,7 +104,7 @@ class _CreateEventsState extends State<CreateEvents> {
                         value: selectedFarm,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text('Select Farm'),
+                          child: Text(LocaleKeys.selectFarm.tr()),
                         ),
                         onChanged: (String? farmName) {
                           setState(() {
@@ -137,7 +139,7 @@ class _CreateEventsState extends State<CreateEvents> {
                         value: selectedCrop,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text('Select Crop'),
+                          child: Text(LocaleKeys.selectCrop.tr()),
                         ),
                         onChanged: (String? cropName) {
                           setState(() {
@@ -172,7 +174,7 @@ class _CreateEventsState extends State<CreateEvents> {
                         value: selectedEvent,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text('Select Event'),
+                          child: Text(LocaleKeys.selectEvent.tr()),
                         ),
                         onChanged: (String? eventName) {
                           setState(() {
@@ -195,9 +197,9 @@ class _CreateEventsState extends State<CreateEvents> {
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  buildDateField("Start Date", startDate, true),
+                  buildDateField(LocaleKeys.eventStartDate.tr(), startDate, true),
                   SizedBox(height: 20.0),
-                  buildDateField("End Date", endDate, false),
+                  buildDateField(LocaleKeys.eventEndDate.tr(), endDate, false),
                   SizedBox(height: 20.0),
                   Container(
                     margin: EdgeInsets.all(30.0),
@@ -207,7 +209,7 @@ class _CreateEventsState extends State<CreateEvents> {
                         // Handle save logic using selected dates (startDate and endDate)
                       },
                       child: Text(
-                        "Save",
+                        LocaleKeys.save.tr(),
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -241,7 +243,7 @@ class _CreateEventsState extends State<CreateEvents> {
         readOnly: true,
         onTap: () => _selectDate(context, isStartDate),
         decoration: InputDecoration(
-          hintText: selectedDate != null ? formatDate(selectedDate) : 'Select $label',
+          hintText: selectedDate != null ? formatDate(selectedDate) : '$label',
           contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
           suffixIcon: Icon(Icons.calendar_today),
           border: OutlineInputBorder(),

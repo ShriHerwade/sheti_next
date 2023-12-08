@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 //import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -62,7 +64,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
-        title: Text("Create New Expense"),
+        title: Text(LocaleKeys.createExpense.tr()),
         centerTitle: true,
       ),
       body: Form(
@@ -99,7 +101,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         value: selectedFarm,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text('Select Farm'),
+                          child: Text(LocaleKeys.selectFarm.tr()),
                         ),
                         onChanged: (String? farmName) {
                           setState(() {
@@ -134,7 +136,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         value: selectedCrop,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text('Select Crop'),
+                          child: Text(LocaleKeys.selectCrop.tr()),
                         ),
                         onChanged: (String? cropName) {
                           setState(() {
@@ -169,7 +171,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         value: selectedEvent,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text('Select Event'),
+                          child: Text(LocaleKeys.selectEvent.tr()),
                         ),
                         onChanged: (String? eventName) {
                           setState(() {
@@ -192,13 +194,13 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  buildDateField("Expense Date", startDate, false),
+                  buildDateField(LocaleKeys.expenseDate.tr(), startDate, false),
                   /*SizedBox(height: 20.0),
                   buildDateField("Event End Date", endDate, false),*/
                   SizedBox(height: 20.0),
                   NxTextFormField(
                     controller: _confamount,
-                    hintName: "Expense Amount",
+                    hintName: LocaleKeys.expenseAmount.tr(),
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: 20.0),
@@ -210,7 +212,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         // Handle save logic using selected dates (startDate and endDate)
                       },
                       child: Text(
-                        "Save",
+                        LocaleKeys.save.tr(),
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -243,7 +245,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
         readOnly: true,
         onTap: () => _selectDate(context, isStartDate),
         decoration: InputDecoration(
-          hintText: selectedDate != null ? formatDate(selectedDate) : 'Select $label',
+          hintText: selectedDate != null ? formatDate(selectedDate) : '$label',
           contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
           suffixIcon: Icon(Icons.calendar_today),
           border: OutlineInputBorder(),

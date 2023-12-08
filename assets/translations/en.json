@@ -6,5 +6,25 @@
   "createEvent": "Create New Event",
   "createExpense": "Create New Expense",
   "save": "Save",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+
+  "address" :  "Address",
+  "farmAea" : "Area",
+  "unit": "Unit",
+  "farmType" : "Select Farm Type",
+
+  "farmName" : "Farm Name",
+  "selectUnit" : "Select Unit",
+  "selectFarm" : "Select Farm",
+  "selectCrop" : "Select Crop",
+  "sowingArea" : "Sowing Area",
+  "sowingDate" : "Sowing Date",
+  "harvestingDate" : "Harvesting Date",
+
+  "selectEvent" : "Select Event",
+  "eventStartDate" : "Event Start Date",
+  "eventEndDate" : "Event End Date",
+
+  "expenseDate" : "Expense Date",
+  "expenseAmount" : "Amount"
 }
