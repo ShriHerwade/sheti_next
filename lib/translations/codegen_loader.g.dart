@@ -38,7 +38,17 @@ class CodegenLoader extends AssetLoader{
   "eventStartDate": "Event Start Date",
   "eventEndDate": "Event End Date",
   "expenseDate": "Expense Date",
-  "expenseAmount": "Amount"
+  "expenseAmount": "Amount",
+  "navBarDiary": "Diary",
+  "navBarLanguages": "Language",
+  "navBarLangMarathi": "Marathi",
+  "navBarLangEnglish": "English",
+  "navBarFarms": "Farm",
+  "navBarCrops": "Crop",
+  "navBarEvents": "Event",
+  "navBarExpenses": "Expense",
+  "navBarHusbandry": "Animal Husbandry",
+  "navBarMachinery": "Machinery"
 };
 static const Map<String,dynamic> ka = {
   "appTitle": "ಶೆಟಿನೆಕ್ಸ್ಟ್",
@@ -69,7 +79,17 @@ static const Map<String,dynamic> mr = {
   "eventStartDate": "काम सुरु केलेली तारीख",
   "eventEndDate": "काम संपलेली केलेली तारीख",
   "expenseDate": "खर्चाची तारीख",
-  "expenseAmount": "रक्कम"
+  "expenseAmount": "रक्कम",
+  "navBarDiary": "डायरी",
+  "navBarLanguages": "भाषा",
+  "navBarLangMarathi": "मराठी",
+  "navBarLangEnglish": "इंग्रजी",
+  "navBarFarms": "शेती",
+  "navBarCrops": "पीक",
+  "navBarEvents": "शेत काम",
+  "navBarExpenses": "जमा खर्च",
+  "navBarHusbandry": "पशुपालन",
+  "navBarMachinery": "यंत्रसामग्री"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ka": ka, "mr": mr};
 }

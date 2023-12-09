@@ -37,7 +37,7 @@ class NxNavBar extends StatelessWidget {
             onTap: () {},
             child: ExpansionTile(
               leading: Icon(Icons.book),
-              title: Text("Diary"),
+              title: Text(LocaleKeys.navBarDiary.tr()),
               children: [
                 ListTile(
                   leading: Icon(Icons.landslide),
@@ -46,7 +46,7 @@ class NxNavBar extends StatelessWidget {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (_) => CreateFarms()));
                       },
-                      child: Text("Farms")),
+                      child: Text(LocaleKeys.navBarFarms.tr())),
                 ),
                 ListTile(
                   leading: Icon(Icons.trending_up),
@@ -55,19 +55,19 @@ class NxNavBar extends StatelessWidget {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (_) => CreateCrop()));
                       },
-                      child: Text("Crops")),
+                      child: Text(LocaleKeys.navBarCrops.tr())),
                 ),
                 ListTile(
-                  leading: Icon(Icons.event),
+                  leading: Icon(Icons.task_alt),
                   title: InkWell(
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (_) => CreateEvents()));
                       },
-                      child: Text("Events")),
+                      child: Text(LocaleKeys.navBarEvents.tr())),
                 ),
                 ListTile(
-                  leading: Icon(Icons.attach_money_outlined),
+                  leading: Icon(Icons.payments),
                   title: InkWell(
                       onTap: () {
                         Navigator.push(
@@ -75,7 +75,7 @@ class NxNavBar extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (_) => CreateExpenses()));
                       },
-                      child: Text("Expenses")),
+                      child: Text(LocaleKeys.navBarExpenses.tr())),
                 ),
               ],
             ),
@@ -83,39 +83,33 @@ class NxNavBar extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(Icons.pets),
-            title: Text("Husbandry"),
+            title: Text(LocaleKeys.navBarHusbandry.tr()),
           ),
           Divider(),
           ListTile(
             leading: Icon(Icons.fire_truck),
-            title: Text("Machinary"),
+            title: Text(LocaleKeys.navBarMachinery.tr()),
           ),
           Divider(),
           ExpansionTile(
-            title: Text("Change Language"),
-            children:[
-              ListTile(
-                leading: Icon(Icons.language_outlined),
-                title: InkWell(
-                    onTap: () {
-                      context.setLocale(Locale('mr'));
-                    },
-                    child: Text("Marathi")),
-
-              ),
-              Divider(),
-              ListTile(
-                leading: Icon(Icons.language_outlined),
-                title: InkWell(
-                    onTap: () {
-                      context.setLocale(Locale('en'));
-                    },
-                    child: Text("English")),
-              ),
-    ]
-
-          ),
-
+              leading: Icon(Icons.g_translate),
+              title: Text(LocaleKeys.navBarLanguages.tr()),
+              children: [
+                ListTile(
+                  title: InkWell(
+                      onTap: () {
+                        context.setLocale(Locale('mr'));
+                      },
+                      child: Text(LocaleKeys.navBarLangMarathi.tr())),
+                ),
+                ListTile(
+                  title: InkWell(
+                      onTap: () {
+                        context.setLocale(Locale('en'));
+                      },
+                      child: Text(LocaleKeys.navBarLangEnglish.tr())),
+                ),
+              ]),
           Divider(),
         ],
       ),

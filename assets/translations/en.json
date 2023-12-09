@@ -26,5 +26,19 @@
   "eventEndDate" : "Event End Date",
 
   "expenseDate" : "Expense Date",
-  "expenseAmount" : "Amount"
+  "expenseAmount" : "Amount",
+
+  "navBarDiary" : "Diary",
+  "navBarLanguages" : "Language",
+  "navBarLangMarathi" : "Marathi",
+  "navBarLangEnglish" : "English",
+  "navBarFarms" : "Farm",
+  "navBarCrops" : "Crop",
+  "navBarEvents" : "Event",
+  "navBarExpenses" : "Expense",
+  "navBarHusbandry" : "Animal Husbandry",
+  "navBarMachinery" : "Machinery"
+
+
+
 }

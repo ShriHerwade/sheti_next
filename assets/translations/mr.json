@@ -3,8 +3,8 @@
   "dashboard": "डॅशबोर्ड",
   "createFarm": "नवीन शेती जोडा",
   "createCrop": "नवीन पीक जोडा",
-  "createEvent" : "नवीन इव्हेंट जोडा",
-  "createExpense" : "नवीन जमा -खर्च जोडा",
+  "createEvent" : "नवीन शेतकाम जोडा",
+  "createExpense" : "नवीन जमा-खर्च जोडा",
   "save" : "जतन करा",
   "cancel" : "रद्द करा",
 
@@ -26,5 +26,16 @@
   "eventEndDate" : "काम संपलेली केलेली तारीख",
 
   "expenseDate" : "खर्चाची तारीख",
-  "expenseAmount" : "रक्कम"
+  "expenseAmount" : "रक्कम",
+
+  "navBarDiary" : "डायरी",
+  "navBarLanguages" : "भाषा",
+  "navBarLangMarathi" : "मराठी",
+  "navBarLangEnglish" : "इंग्रजी",
+  "navBarFarms" : "शेती",
+  "navBarCrops" : "पीक",
+  "navBarEvents" : "शेत काम",
+  "navBarExpenses" : "जमा खर्च",
+  "navBarHusbandry" : "पशुपालन",
+  "navBarMachinery" : "यंत्रसामग्री"
 }

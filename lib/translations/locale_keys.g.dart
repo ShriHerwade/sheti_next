@@ -25,5 +25,15 @@ abstract class  LocaleKeys {
   static const eventEndDate = 'eventEndDate';
   static const expenseDate = 'expenseDate';
   static const expenseAmount = 'expenseAmount';
+  static const navBarDiary = 'navBarDiary';
+  static const navBarLanguages = 'navBarLanguages';
+  static const navBarLangMarathi = 'navBarLangMarathi';
+  static const navBarLangEnglish = 'navBarLangEnglish';
+  static const navBarFarms = 'navBarFarms';
+  static const navBarCrops = 'navBarCrops';
+  static const navBarEvents = 'navBarEvents';
+  static const navBarExpenses = 'navBarExpenses';
+  static const navBarHusbandry = 'navBarHusbandry';
+  static const navBarMachinery = 'navBarMachinery';
 
 }
