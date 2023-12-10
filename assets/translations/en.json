@@ -37,8 +37,17 @@
   "navBarEvents" : "Event",
   "navBarExpenses" : "Expense",
   "navBarHusbandry" : "Animal Husbandry",
-  "navBarMachinery" : "Machinery"
+  "navBarMachinery" : "Machinery",
 
+  "units": {
+    "Guntha": "Guntha",
+    "Acre": "Acre",
+    "Hectare": "Hectare"
+  },
 
-
+  "farmTypes": {
+    "Owned": "Owned",
+    "Leased": "Leased",
+    "Joint Venture": "Joint Venture"
+  }
 }

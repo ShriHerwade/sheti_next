@@ -20,8 +20,8 @@ class _CreateFarmsState extends State<CreateFarms> {
   final _confarmName = TextEditingController();
   final _confarmAddress = TextEditingController();
   final _confarmArea = TextEditingController();
-  final _farmType = ["Owned", "Leased", "Joint Venture"];
-  final _unit = ["Acre", "Hectare","Guntha","Square Feet","Square Meter"];
+  final _farmTypes = ["Owned", "Leased", "Joint Venture"];
+  final _units = ["Guntha","Acre", "Hectare"];
 
   String? selectedUnit;
   String? selectedType;
@@ -103,12 +103,12 @@ class _CreateFarmsState extends State<CreateFarms> {
                             }
                           });
                         },
-                        items: _unit.map((String unit) {
+                        items: _units.map((String unit) {
                           return DropdownMenuItem<String>(
                             value: unit,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text(unit),
+                              child:  Text('units.$unit'.tr()),
                             ),
                           );
                         }).toList(),
@@ -138,12 +138,12 @@ class _CreateFarmsState extends State<CreateFarms> {
                             }
                           });
                         },
-                        items: _farmType.map((String type) {
+                        items: _farmTypes.map((String type) {
                           return DropdownMenuItem<String>(
                             value: type,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text(type),
+                              child: Text('farmTypes.$type'.tr()),
                             ),
                           );
                         }).toList(),

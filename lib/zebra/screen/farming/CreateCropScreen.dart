@@ -18,7 +18,7 @@ class _CreateCropState extends State<CreateCrop> {
   final _formKey = GlobalKey<FormState>();
   final _confarmArea = TextEditingController();
   final _cropNames = ["ऊस - 80032", "ऊस - 80011", "ज्वारी - शाळू", "ज्वारी - हायब्रीड"];
-  final _unit = ["Acre", "Hectare","Guntha","Square Feet","Square Meter"];
+  final _units = ["Guntha","Acre", "Hectare"];
 
   String? selectedUnit;
   String? selectedCrop;
@@ -171,6 +171,41 @@ class _CreateCropState extends State<CreateCrop> {
                     controller: _confarmArea,
                     hintName: LocaleKeys.sowingArea.tr(),
                     inputType: TextInputType.number,
+                  ),
+                  SizedBox(height: 20.0),
+                  Container(
+                    width: 370,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      border: Border.all(color: Colors.grey),
+                      color: Colors.white,
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: selectedUnit,
+                        hint: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                          child: Text(LocaleKeys.selectUnit.tr(),),
+                        ),
+                        onChanged: (String? unitValue) {
+                          setState(() {
+                            selectedUnit = unitValue;
+                            if (unitValue != null) {
+                              print('Selected Unit: $unitValue');
+                            }
+                          });
+                        },
+                        items: _units.map((String unit) {
+                          return DropdownMenuItem<String>(
+                            value: unit,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                              child:  Text('units.$unit'.tr()),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 20.0),
                   buildDateField(LocaleKeys.sowingDate.tr(), startDate, true),
