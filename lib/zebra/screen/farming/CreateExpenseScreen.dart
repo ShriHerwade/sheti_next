@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
-//import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 class CreateExpenses extends StatefulWidget {
   const CreateExpenses({super.key});
@@ -14,13 +13,21 @@ class CreateExpenses extends StatefulWidget {
 
 class _CreateExpensesState extends State<CreateExpenses> {
   final _formKey = GlobalKey<FormState>();
- // final _confarmName = TextEditingController();
- // final _confarmAddress = TextEditingController();
   final _confamount = TextEditingController();
   final _farmName = ["Nadikadil", "Mala", "Vhanda"];
- // final _unit = ["Acre", "Hectare"];
   final _cropNames = ["Sugarcane - Other", "Sugarcane - 80011", "Jwari - Shalu", "Jwari - Other"];
-  final _eventNames = ["Ploughing", "Sowing", "Fertilizers", "Pesticides", "Irrigation", "Harvesting", "Storage", "Transport"];
+  final _farmEvents = [
+    "Rotavator",
+    "Ploughing",
+    "Sowing",
+    "Irrigation",
+    "Compost",
+    "Fertilizers",
+    "Pesticides",
+    "Harvesting",
+    "Storage",
+    "Transport"
+  ];
 
   String? selectedFarm;
   String? selectedCrop;
@@ -181,12 +188,12 @@ class _CreateExpensesState extends State<CreateExpenses> {
                             }
                           });
                         },
-                        items: _eventNames.map((String event) {
+                        items: _farmEvents.map((String event) {
                           return DropdownMenuItem<String>(
                             value: event,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text(event),
+                              child: Text('farmEvents.$event'.tr()),
                             ),
                           );
                         }).toList(),

@@ -22,6 +22,7 @@ class _CreateCropState extends State<CreateCrop> {
 
   String? selectedUnit;
   String? selectedCrop;
+  String? selectedFarm;
   DateTime? startDate;
   DateTime? endDate;
   DbHelper? dbHelper;
@@ -106,14 +107,14 @@ class _CreateCropState extends State<CreateCrop> {
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
-                        value: selectedUnit,
+                        value: selectedFarm,
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
                           child: Text(LocaleKeys.selectFarm.tr()),
                         ),
                         onChanged: (String? farmName) {
                           setState(() {
-                            selectedUnit = farmName;
+                            selectedFarm = farmName;
                             if (farmName != null) {
                               print('Selected Farm: $farmName');
                             }
@@ -270,7 +271,7 @@ class _CreateCropState extends State<CreateCrop> {
     if (_formKey.currentState!.validate()) {
       try {
         CropModel crop = CropModel(
-          farmName: selectedUnit!,
+          farmName: selectedFarm!,
           cropName: selectedCrop!,
           area: double.parse(_confarmArea.text),
           startDate: startDate!,
