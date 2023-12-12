@@ -258,7 +258,7 @@ class _CreateCropState extends State<CreateCrop> {
           hintText: selectedDate != null ? formatDate(selectedDate) : label,
           contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
           suffixIcon: Icon(Icons.calendar_today),
-          border: OutlineInputBorder(),
+          border: InputBorder.none,
         ),
         controller: TextEditingController(
           text: formatDate(selectedDate),
