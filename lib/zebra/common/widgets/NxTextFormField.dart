@@ -24,6 +24,7 @@ class NxTextFormField extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextFormField(
+        textAlign: TextAlign.start,
         controller: controller,
         obscureText: isObsecureText,
         keyboardType: inputType,

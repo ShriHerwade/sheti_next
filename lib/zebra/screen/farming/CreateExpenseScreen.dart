@@ -4,8 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
+import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+
+
 class CreateExpenses extends StatefulWidget {
-  const CreateExpenses({super.key});
+  const CreateExpenses({Key? key});
 
   @override
   State<CreateExpenses> createState() => _CreateExpensesState();
@@ -14,7 +17,7 @@ class CreateExpenses extends StatefulWidget {
 class _CreateExpensesState extends State<CreateExpenses> {
   final _formKey = GlobalKey<FormState>();
   final _confamount = TextEditingController();
-  final _farmName = ["Nadikadil", "Mala", "Vhanda"];
+  //final _farmName = ["Nadikadil", "Mala", "Vhanda"];
   final _cropNames = ["Sugarcane - Other", "Sugarcane - 80011", "Jwari - Shalu", "Jwari - Other"];
   final _farmEvents = [
     "Rotavator",
@@ -28,20 +31,28 @@ class _CreateExpensesState extends State<CreateExpenses> {
     "Storage",
     "Transport"
   ];
-
   String? selectedFarm;
   String? selectedCrop;
   String? selectedEvent;
-  DateTime? startDate;
-  DateTime? endDate;
+  DateTime? selectedDate;
   DbHelper? dbHelper;
+  List<FarmModel> farms = [];
 
   @override
   void initState() {
     super.initState();
     dbHelper = DbHelper();
+    loadFarms(); // Load farms when the widget initializes
   }
-  Future<void> _selectDate(BuildContext context, bool isStartDate) async {
+
+  // Load farms from the database
+  Future<void> loadFarms() async {
+    farms = await dbHelper!.getAllFarms();
+    setState(() {});
+  }
+
+
+  Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -51,11 +62,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
     if (picked != null) {
       setState(() {
-        if (isStartDate) {
-          startDate = picked;
-        } else {
-          endDate = picked;
-        }
+        selectedDate = picked;
       });
     }
   }
@@ -67,6 +74,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
       return '';
     }
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
@@ -118,12 +126,12 @@ class _CreateExpensesState extends State<CreateExpenses> {
                             }
                           });
                         },
-                        items: _farmName.map((String farm) {
+                        items: farms.map((FarmModel farm) {
                           return DropdownMenuItem<String>(
-                            value: farm,
+                            value: farm.farmName,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text(farm),
+                              child: Text(farm.farmName ?? 'Unknown Farm'),
                             ),
                           );
                         }).toList(),
@@ -148,9 +156,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         onChanged: (String? cropName) {
                           setState(() {
                             selectedCrop = cropName;
-                            if (cropName != null) {
-                              print('Selected Crop: $cropName');
-                            }
                           });
                         },
                         items: _cropNames.map((String farm) {
@@ -183,9 +188,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         onChanged: (String? eventName) {
                           setState(() {
                             selectedEvent = eventName;
-                            if (eventName != null) {
-                              print('Selected Event: $eventName');
-                            }
                           });
                         },
                         items: _farmEvents.map((String event) {
@@ -201,9 +203,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  buildDateField(LocaleKeys.expenseDate.tr(), startDate, false),
-                  /*SizedBox(height: 20.0),
-                  buildDateField("Event End Date", endDate, false),*/
+                  buildDateField(LocaleKeys.expenseDate.tr()),
                   SizedBox(height: 20.0),
                   NxTextFormField(
                     controller: _confamount,
@@ -215,9 +215,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     margin: EdgeInsets.all(30.0),
                     width: double.infinity,
                     child: TextButton(
-                      onPressed: () {
-                        // Handle save logic using selected dates (startDate and endDate)
-                      },
+                      onPressed: isSaveButtonEnabled() ? () => saveExpenseData(context) : null,
                       child: Text(
                         LocaleKeys.save.tr(),
                         style: TextStyle(
@@ -228,7 +226,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       ),
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
@@ -240,7 +238,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
       ),
     );
   }
-  Widget buildDateField(String label, DateTime? selectedDate, bool isStartDate) {
+
+  Widget buildDateField(String label) {
     return Container(
       width: 370,
       decoration: BoxDecoration(
@@ -250,9 +249,9 @@ class _CreateExpensesState extends State<CreateExpenses> {
       ),
       child: TextFormField(
         readOnly: true,
-        onTap: () => _selectDate(context, isStartDate),
+        onTap: () => _selectDate(context),
         decoration: InputDecoration(
-          hintText: selectedDate != null ? formatDate(selectedDate) : '$label',
+          hintText: selectedDate != null ? formatDate(selectedDate) : label,
           contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
           suffixIcon: Icon(Icons.calendar_today),
           border: InputBorder.none,
@@ -262,5 +261,31 @@ class _CreateExpensesState extends State<CreateExpenses> {
         ),
       ),
     );
+  }
+
+  bool isSaveButtonEnabled() {
+    return selectedFarm != null &&
+        selectedCrop != null &&
+        selectedEvent != null &&
+        selectedDate != null &&
+        _confamount.text.isNotEmpty;
+  }
+
+  void saveExpenseData(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      // Handle save logic using selected values (selectedFarm, selectedCrop, selectedEvent, selectedDate, _confamount.text)
+
+      _confamount.clear();
+      selectedFarm = null;
+      selectedCrop = null;
+      selectedEvent = null;
+      selectedDate = null;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Expense data saved successfully!"),
+        ),
+      );
+    }
   }
 }

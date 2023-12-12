@@ -37,7 +37,6 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
           ),*/
          // SizedBox(height: 10.0),
           DropdownButtonFormField<String>(
-
             value: widget.value.isEmpty ? '' : widget.value,
             items: _getDropdownItems(),
             onChanged: (String? newValue) {
