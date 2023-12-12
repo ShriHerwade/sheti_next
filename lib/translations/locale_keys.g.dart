@@ -67,4 +67,5 @@ abstract class  LocaleKeys {
   static const farmExpenses_Transport = 'farmExpenses.Transport';
   static const farmExpenses_Other = 'farmExpenses.Other';
   static const farmExpenses = 'farmExpenses';
+
 }

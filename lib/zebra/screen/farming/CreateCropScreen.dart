@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
+import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
@@ -16,8 +17,7 @@ class CreateCrop extends StatefulWidget {
 
 class _CreateCropState extends State<CreateCrop> {
   final _formKey = GlobalKey<FormState>();
-  final _confarmArea = TextEditingController();
-  final _cropNames = ["ऊस - 80032", "ऊस - 80011", "ज्वारी - शाळू", "ज्वारी - हायब्रीड"];
+  final _confarmArea = TextEditingController(); 
   final _units = ["Guntha","Acre", "Hectare"];
 
   String? selectedUnit;
@@ -27,6 +27,7 @@ class _CreateCropState extends State<CreateCrop> {
   DateTime? endDate;
   DbHelper? dbHelper;
   List<FarmModel> farms = [];
+  List<String> crops = [];
 
   @override
   void initState() {
@@ -74,6 +75,14 @@ class _CreateCropState extends State<CreateCrop> {
       fontSize: 16,
       color: Colors.black,
     );
+    
+    //custom list localization
+    if(context.locale.languageCode=='mr'){     
+      crops=CustomTranslationList.crops_mr;
+    }else if(context.locale.languageCode=='en'){     
+      crops= CustomTranslationList.crops_en;
+
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -173,7 +182,7 @@ class _CreateCropState extends State<CreateCrop> {
                           }
                         });
                       },
-                      items: _cropNames.map((String crop) {
+                      items: crops.map((String crop) {
                         return DropdownMenuItem<String>(
                           value: crop,
                           child: Padding(
