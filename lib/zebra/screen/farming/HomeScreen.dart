@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:sheti_next/zebra/common/widgets/NxNavBar.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
