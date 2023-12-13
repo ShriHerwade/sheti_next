@@ -1,9 +1,13 @@
+// create_events.dart
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
+import '../../dao/models/FarmModel.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 
 class CreateEvents extends StatefulWidget {
   const CreateEvents({Key? key}) : super(key: key);
@@ -44,11 +48,17 @@ class _CreateEventsState extends State<CreateEvents> {
   DateTime? startDate;
   DateTime? endDate;
   DbHelper? dbHelper;
-
+  List<FarmModel> farms = [];
   @override
   void initState() {
     super.initState();
     dbHelper = DbHelper();
+    loadFarms(); // Load farms when the widget initializes
+  }
+// Load farms from the database
+  Future<void> loadFarms() async {
+    farms = await dbHelper!.getAllFarms();
+    setState(() {});
   }
 
   Future<void> _selectDate(BuildContext context, bool isStartDate) async {
@@ -70,20 +80,8 @@ class _CreateEventsState extends State<CreateEvents> {
     }
   }
 
-  String formatDate(DateTime? date) {
-    if (date != null) {
-      return DateFormat('dd/MM/yyyy').format(date);
-    } else {
-      return '';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final dropdownStyle = TextStyle(
-      fontSize: 16,
-      color: Colors.black,
-    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -105,138 +103,46 @@ class _CreateEventsState extends State<CreateEvents> {
                   width: 150,
                 ),
                 const SizedBox(height: 20.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(
-                                  color: Colors.lightGreen.shade400)),
-                          disabledBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          fillColor: Colors.white,
-                          filled: true),
-                      value: selectedFarm,
-                      hint: Text(LocaleKeys.selectFarm.tr(),
-                        style: dropdownStyle,
-                      ),
-                      onChanged: (String? farmName) {
-                        setState(() {
-                          selectedFarm = farmName;
-                          if (farmName != null) {
-                            print('Selected Farm: $farmName');
-                          }
-                        });
-                      },
-                      items: _farmName.map((String farm) {
-                        return DropdownMenuItem<String>(
-                          value: farm,
-                          child: Text(farm),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                NxDDFormField(
+                  value: selectedFarm,
+                  label: LocaleKeys.selectFarm,
+                  items: farms.map((farm) => farm.farmName ?? 'Unknown Farm').toList(),
+                  onChanged: (String? farmName) {
+                    setState(() {
+                      selectedFarm = farmName;
+                      if (farmName != null) {
+                        print('Selected Farm: $farmName');
+                      }
+                    });
+                  },
                 ),
                 SizedBox(height: 20.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(
-                                  color: Colors.lightGreen.shade400)),
-                          disabledBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          fillColor: Colors.white,
-                          filled: true),
-                      value: selectedCrop,
-                      hint: Text(LocaleKeys.selectCrop.tr()),
-                      onChanged: (String? cropName) {
-                        setState(() {
-                          selectedCrop = cropName;
-                          if (cropName != null) {
-                            print('Selected Crop: $cropName');
-                          }
-                        });
-                      },
-                      items: _cropNames.map((String farm) {
-                        return DropdownMenuItem<String>(
-                          value: farm,
-                          child: Text(farm),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                NxDDFormField(
+                  value: selectedCrop,
+                  label: LocaleKeys.selectCrop,
+                  items: _cropNames,
+                  onChanged: (String? cropName) {
+                    setState(() {
+                      selectedCrop = cropName;
+                      if (cropName != null) {
+                        print('Selected Crop: $cropName');
+                      }
+                    });
+                  },
                 ),
                 SizedBox(height: 20.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(
-                                  color: Colors.lightGreen.shade400)),
-                          disabledBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          fillColor: Colors.white,
-                          filled: true),
-                      value: selectedEvent,
-                      hint: Text(LocaleKeys.selectEvent.tr()),
-                      onChanged: (String? eventName) {
-                        setState(() {
-                          selectedEvent = eventName;
-                          if (eventName != null) {
-                            print('Selected Event: $eventName');
-                          }
-                        });
-                      },
-                      items: _farmEvents.map((String event) {
-                        return DropdownMenuItem<String>(
-                          value: event,
-                          child: Text('farmEvents.$event'.tr()),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                NxDDFormField(
+                  value: selectedEvent,
+                  label: LocaleKeys.selectEvent,
+                  items: _farmEvents.map((String event) => 'farmEvents.$event'.tr()).toList(),
+                  onChanged: (String? eventName) {
+                    setState(() {
+                      selectedEvent = eventName;
+                      if (eventName != null) {
+                        print('Selected Event: $eventName');
+                      }
+                    });
+                  },
                 ),
                 SizedBox(height: 20.0),
                 buildDateField(LocaleKeys.eventStartDate.tr(), startDate, true),
@@ -272,42 +178,20 @@ class _CreateEventsState extends State<CreateEvents> {
     );
   }
 
-  Widget buildDateField(
-      String label, DateTime? selectedDate, bool isStartDate) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: TextFormField(
-        readOnly: true,
-        onTap: () => _selectDate(context, isStartDate),
-          decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(8.0)),
-                  borderSide: BorderSide(color: Colors.grey)),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(8.0)),
-                  borderSide: BorderSide(
-                      color: Colors.lightGreen.shade400)),
-              disabledBorder: OutlineInputBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(8.0)),
-                  borderSide: BorderSide(color: Colors.grey)),
-              errorBorder: OutlineInputBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(8.0)),
-                  borderSide: BorderSide(color: Colors.grey)),
-              fillColor: Colors.white,
-              filled: true,
-          hintText: selectedDate != null ? formatDate(selectedDate) : '$label',
-
-          suffixIcon: Icon(Icons.calendar_today),
-          border: InputBorder.none,
-        ),
-        controller: TextEditingController(
-          text: formatDate(selectedDate),
-        ),
-      ),
+  Widget buildDateField(String label, DateTime? selectedDate, bool isStartDate) {
+    return NxDateField(
+      label: label,
+      selectedDate: selectedDate,
+      isStartDate: isStartDate,
+      onTap: (DateTime? picked) {
+        setState(() {
+          if (isStartDate) {
+            startDate = picked;
+          } else {
+            endDate = picked;
+          }
+        });
+      },
     );
   }
 }

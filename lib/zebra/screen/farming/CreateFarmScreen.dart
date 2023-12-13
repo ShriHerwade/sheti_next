@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'FarmsListScreen.dart';
@@ -33,10 +34,6 @@ class _CreateFarmsState extends State<CreateFarms> {
 
   @override
   Widget build(BuildContext context) {
-    final dropdownStyle = TextStyle(
-      fontSize: 16,
-      color: Colors.black,
-    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -76,95 +73,32 @@ class _CreateFarmsState extends State<CreateFarms> {
                   inputType: TextInputType.number,
                 ),
                 SizedBox(height: 20.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(
-                                  color: Colors.lightGreen.shade400)),
-                          disabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          fillColor: Colors.white,
-                          filled: true),
-                      value: selectedUnit,
-                      hint: Text(LocaleKeys.selectUnit.tr(),
-                          style: dropdownStyle),
-                      onChanged: (String? unitValue) {
-                        setState(() {
-                          selectedUnit = unitValue;
-                          if (unitValue != null) {
-                            print('Selected Unit: $unitValue');
-                          }
-                        });
-                      },
-                      items: _units.map((String unit) {
-                        return DropdownMenuItem<String>(
-                          value: unit,
-                          child: Text('units.$unit'.tr(), style: dropdownStyle),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                NxDDFormField(
+                  value: selectedUnit,
+                  label: LocaleKeys.selectUnit,
+                  items: _units,
+                  onChanged: (String? unitValue) {
+                    setState(() {
+                      selectedUnit = unitValue;
+                      if (unitValue != null) {
+                        print('Selected Unit: $unitValue');
+                      }
+                    });
+                  },
                 ),
                 SizedBox(height: 20.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(
-                                  color: Colors.lightGreen.shade400)),
-                          disabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          fillColor: Colors.white,
-                          filled: true),
-                      value: selectedType,
-                      hint: Text(LocaleKeys.farmType.tr(),
-                          style: dropdownStyle),
-                      onChanged: (String? typeValue) {
-                        setState(() {
-                          selectedType = typeValue;
-                          if (typeValue != null) {
-                            print('Selected Type: $typeValue');
-                          }
-                        });
-                      },
-                      items: _farmTypes.map((String type) {
-                        return DropdownMenuItem<String>(
-                          value: type,
-                          child: Text('farmTypes.$type'.tr(),
-                              style: dropdownStyle),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                NxDDFormField(
+                  value: selectedType,
+                  label: LocaleKeys.farmType,
+                  items: _farmTypes,
+                  onChanged: (String? typeValue) {
+                    setState(() {
+                      selectedType = typeValue;
+                      if (typeValue != null) {
+                        print('Selected Type: $typeValue');
+                      }
+                    });
+                  },
                 ),
                 SizedBox(height: 10.0),
                 Row(
@@ -187,7 +121,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                       ),
                       decoration: BoxDecoration(
                         color:
-                            isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                        isSaveButtonEnabled() ? Colors.green : Colors.grey,
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                     ),

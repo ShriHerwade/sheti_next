@@ -1,9 +1,12 @@
+// CreateCrop.dart
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
@@ -71,12 +74,7 @@ class _CreateCropState extends State<CreateCrop> {
 
   @override
   Widget build(BuildContext context) {
-    final dropdownStyle = TextStyle(
-      fontSize: 16,
-      color: Colors.black,
-    );
-
-    //custom list localization
+    // custom list localization
     if (context.locale.languageCode == 'mr') {
       crops = CustomTranslationList.crops_mr;
     } else if (context.locale.languageCode == 'en') {
@@ -104,93 +102,32 @@ class _CreateCropState extends State<CreateCrop> {
                   width: 150,
                 ),
                 const SizedBox(height: 20.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(
-                                  color: Colors.lightGreen.shade400)),
-                          disabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          fillColor: Colors.white,
-                          filled: true),
-                      value: selectedFarm,
-                      hint: Text(LocaleKeys.selectFarm.tr(),
-                          style: dropdownStyle),
-                      onChanged: (String? farmName) {
-                        setState(() {
-                          selectedFarm = farmName;
-                          if (farmName != null) {
-                            print('Selected Farm: $farmName');
-                          }
-                        });
-                      },
-                      items: farms.map((FarmModel farm) {
-                        return DropdownMenuItem<String>(
-                          value: farm.farmName,
-                          child: Text(farm.farmName ?? 'Unknown Farm'),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                NxDDFormField(
+                  value: selectedFarm,
+                  label: LocaleKeys.selectFarm,
+                  items: farms.map((FarmModel farm) => farm.farmName ?? 'Unknown Farm').toList(),
+                  onChanged: (String? farmName) {
+                    setState(() {
+                      selectedFarm = farmName;
+                      if (farmName != null) {
+                        print('Selected Farm: $farmName');
+                      }
+                    });
+                  },
                 ),
                 SizedBox(height: 20.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(
-                                  color: Colors.lightGreen.shade400)),
-                          disabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          fillColor: Colors.white,
-                          filled: true),
-                      value: selectedCrop,
-                      hint: Text(LocaleKeys.selectCrop.tr()),
-                      onChanged: (String? cropName) {
-                        setState(() {
-                          selectedCrop = cropName;
-                          if (cropName != null) {
-                            print('Selected Crop: $cropName');
-                          }
-                        });
-                      },
-                      items: crops.map((String crop) {
-                        return DropdownMenuItem<String>(
-                          value: crop,
-                          child: Text(crop),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                NxDDFormField(
+                  value: selectedCrop,
+                  label: LocaleKeys.selectCrop,
+                  items: crops,
+                  onChanged: (String? cropName) {
+                    setState(() {
+                      selectedCrop = cropName;
+                      if (cropName != null) {
+                        print('Selected Crop: $cropName');
+                      }
+                    });
+                  },
                 ),
                 SizedBox(height: 20.0),
                 NxTextFormField(
@@ -199,75 +136,43 @@ class _CreateCropState extends State<CreateCrop> {
                   inputType: TextInputType.number,
                 ),
                 SizedBox(height: 20.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(
-                                  color: Colors.lightGreen.shade400)),
-                          disabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          fillColor: Colors.white,
-                          filled: true),
-                      value: selectedUnit,
-                      hint: Text(
-                        LocaleKeys.selectUnit.tr(),
-                      ),
-                      onChanged: (String? unitValue) {
-                        setState(() {
-                          selectedUnit = unitValue;
-                          if (unitValue != null) {
-                            print('Selected Unit: $unitValue');
-                          }
-                        });
-                      },
-                      items: _units.map((String unit) {
-                        return DropdownMenuItem<String>(
-                          value: unit,
-                          child: Text('units.$unit'.tr()),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                NxDDFormField(
+                  value: selectedUnit,
+                  label: LocaleKeys.selectUnit,
+                  items: _units,
+                  onChanged: (String? unitValue) {
+                    setState(() {
+                      selectedUnit = unitValue;
+                      if (unitValue != null) {
+                        print('Selected Unit: $unitValue');
+                      }
+                    });
+                  },
                 ),
                 SizedBox(height: 20.0),
                 buildDateField(LocaleKeys.sowingDate.tr(), startDate, true),
                 SizedBox(height: 20.0),
                 buildDateField(LocaleKeys.harvestingDate.tr(), endDate, false),
                 SizedBox(height: 20.0),
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: () async {
-                        await saveCropData();
-                      },
-                      child: Text(
-                        LocaleKeys.save.tr(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+                Container(
+                  width: double.infinity,
+                  child: TextButton(
+                    onPressed: () async {
+                      await saveCropData();
+                    },
+                    child: Text(
+                      LocaleKeys.save.tr(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
-                    TextButton(onPressed:(){},
-                        child: Text("Show Crops"))
-
-                  ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
                 ),
               ],
             ),
@@ -299,8 +204,8 @@ class _CreateCropState extends State<CreateCrop> {
               borderSide: BorderSide(color: Colors.grey)),
           fillColor: Colors.white,
           filled: true,
+          //label: selectedDate != null ? formatDate(selectedDate) ,
           hintText: selectedDate != null ? formatDate(selectedDate) : label,
-          //contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
           suffixIcon: Icon(Icons.calendar_today),
           border: InputBorder.none,
         ),
@@ -326,7 +231,6 @@ class _CreateCropState extends State<CreateCrop> {
 
         await dbHelper!.saveCropData(crop);
 
-        // Show a success message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Crop data saved successfully'),
@@ -334,7 +238,6 @@ class _CreateCropState extends State<CreateCrop> {
           ),
         );
 
-        // Clear form fields
         _confarmArea.clear();
         setState(() {
           selectedUnit = null;
@@ -343,9 +246,7 @@ class _CreateCropState extends State<CreateCrop> {
           endDate = null;
         });
       } catch (e) {
-        // Handle the error when parsing fails
         print("Error parsing area: $e");
-        // Optionally, you can show an error message to the user
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error saving crop data. Please check your input.'),
