@@ -71,4 +71,44 @@ class CustomTranslationList {
     "इतर शेतीकाम मजुरी",
     "इतर"
   ];
+
+  static const List<String> areaUnits_en = ["Guntha", "Acre", "Hectare"];
+
+  static const List<String> areaUnits_mr = ["गुंठा", "एकर", "हेक्टर"];
+
+  static const List<String> farmTypes_en = ["Owned", "Leased", "Joint Venture"];
+
+  static const List<String> farmTypes_mr = [
+    "स्व.मालकीचे शेत",
+    "भाड्याने घेतलेले शेत",
+    "संयुक्त शेती"
+  ];
+
+  static const List<String> farmEvents_en = [
+    "Rotavator",
+    "Ploughing",
+    "Sowing",
+    "Irrigation",
+    "Compost",
+    "Fertilizers",
+    "Pesticides",
+    "Harvesting",
+    "Storage",
+    "Transport",
+    "Other"
+  ];
+
+  static const List<String> farmEvents_mr = [
+    "रोटाव्हेटर",
+    "नांगरणी",
+    "पेरणी",
+    "सिंचन",
+    "सेंद्रिय खत",
+    "रासायनिक खते",
+    "कीटकनाशके",
+    "कापणी",
+    "साठवण",
+    "वाहतूक",
+    "इतर"
+  ];
 }
