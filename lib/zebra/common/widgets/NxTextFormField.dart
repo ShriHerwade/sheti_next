@@ -24,7 +24,8 @@ class NxTextFormField extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextFormField(
-        textAlign: TextAlign.start,
+
+        //textAlign: TextAlign.start,
         controller: controller,
         obscureText: isObsecureText,
         keyboardType: inputType,
@@ -40,7 +41,6 @@ class NxTextFormField extends StatelessWidget {
           return null;
         },
         decoration: InputDecoration(
-
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 borderSide: BorderSide(width:1,color: Colors.grey)),
@@ -53,10 +53,10 @@ class NxTextFormField extends StatelessWidget {
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 borderSide: BorderSide(width: 1,color: Colors.grey)),
-            prefixIcon: Icon(icon),
+            //prefixIcon: Icon(icon),
             hintText: hintName,
             // labelText: hintName,
-            isDense: true,
+            //isDense: true,
             fillColor: Colors.white,
             filled: true),
       ),

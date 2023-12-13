@@ -97,7 +97,7 @@ class _CreateCropState extends State<CreateCrop> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
                 Image.asset(
                   "assets/images/top_create-crop-1.png",
                   height: 120,
@@ -249,26 +249,25 @@ class _CreateCropState extends State<CreateCrop> {
                 SizedBox(height: 20.0),
                 buildDateField(LocaleKeys.harvestingDate.tr(), endDate, false),
                 SizedBox(height: 20.0),
-                Container(
-                  // margin: EdgeInsets.all(30.0),
-                  // width: double.infinity,
-                  child: TextButton(
-                    onPressed: () async {
-                      await saveCropData();
-                    },
-                    child: Text(
-                      LocaleKeys.save.tr(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () async {
+                        await saveCropData();
+                      },
+                      child: Text(
+                        LocaleKeys.save.tr(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
+                    TextButton(onPressed:(){},
+                        child: Text("Show Crops"))
+
+                  ],
                 ),
               ],
             ),

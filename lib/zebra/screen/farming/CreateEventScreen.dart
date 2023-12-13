@@ -279,7 +279,6 @@ class _CreateEventsState extends State<CreateEvents> {
       child: TextFormField(
         readOnly: true,
         onTap: () => _selectDate(context, isStartDate),
-
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                   borderRadius:

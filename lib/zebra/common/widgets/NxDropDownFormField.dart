@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NxDDFormField extends StatefulWidget {
-  final List<String> options;
+  final List<String> menuList;
   final String value;
   final ValueChanged<String> onChanged;
   final String? label;
@@ -9,7 +9,7 @@ class NxDDFormField extends StatefulWidget {
   final String selectOptionText;
 
   NxDDFormField({
-    required this.options,
+    required this.menuList,
     required this.value,
     required this.onChanged,
     this.label,
@@ -77,7 +77,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
       ),
     ];
 
-    items.addAll(widget.options.map((String value) {
+    items.addAll(widget.menuList.map((String value) {
       return DropdownMenuItem<String>(
         value: value,
         child: Text(value),
