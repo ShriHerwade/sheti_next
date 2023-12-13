@@ -101,11 +101,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                           fillColor: Colors.white,
                           filled: true),
                       value: selectedUnit,
-                      hint: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Text(LocaleKeys.selectUnit.tr(),
-                            style: dropdownStyle),
-                      ),
+                      hint: Text(LocaleKeys.selectUnit.tr(),
+                          style: dropdownStyle),
                       onChanged: (String? unitValue) {
                         setState(() {
                           selectedUnit = unitValue;
@@ -117,12 +114,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                       items: _units.map((String unit) {
                         return DropdownMenuItem<String>(
                           value: unit,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child:
-                                Text('units.$unit'.tr(), style: dropdownStyle),
-                          ),
+                          child: Text('units.$unit'.tr(), style: dropdownStyle),
                         );
                       }).toList(),
                     ),
@@ -154,11 +146,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                           fillColor: Colors.white,
                           filled: true),
                       value: selectedType,
-                      hint: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Text(LocaleKeys.farmType.tr(),
-                            style: dropdownStyle),
-                      ),
+                      hint: Text(LocaleKeys.farmType.tr(),
+                          style: dropdownStyle),
                       onChanged: (String? typeValue) {
                         setState(() {
                           selectedType = typeValue;
@@ -170,12 +159,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                       items: _farmTypes.map((String type) {
                         return DropdownMenuItem<String>(
                           value: type,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Text('farmTypes.$type'.tr(),
-                                style: dropdownStyle),
-                          ),
+                          child: Text('farmTypes.$type'.tr(),
+                              style: dropdownStyle),
                         );
                       }).toList(),
                     ),
