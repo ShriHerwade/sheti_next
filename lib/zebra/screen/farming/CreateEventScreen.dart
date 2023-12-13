@@ -18,11 +18,11 @@ class CreateEvents extends StatefulWidget {
 
 class _CreateEventsState extends State<CreateEvents> {
   final _formKey = GlobalKey<FormState>();
-  final _confarmName = TextEditingController();
-  final _confarmAddress = TextEditingController();
-  final _confarmArea = TextEditingController();
-  final _farmName = ["Nadikadil", "Mala", "Vhanda"];
-  final _unit = ["Guntha", "Acre", "Hectare"];
+
+
+
+
+
   final _cropNames = [
     "Sugarcane - Other",
     "Sugarcane - 80011",
