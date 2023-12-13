@@ -6,7 +6,6 @@ import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 
-
 class CreateExpenses extends StatefulWidget {
   const CreateExpenses({Key? key});
 
@@ -17,8 +16,14 @@ class CreateExpenses extends StatefulWidget {
 class _CreateExpensesState extends State<CreateExpenses> {
   final _formKey = GlobalKey<FormState>();
   final _confamount = TextEditingController();
+
   //final _farmName = ["Nadikadil", "Mala", "Vhanda"];
-  final _cropNames = ["Sugarcane - Other", "Sugarcane - 80011", "Jwari - Shalu", "Jwari - Other"];
+  final _cropNames = [
+    "Sugarcane - Other",
+    "Sugarcane - 80011",
+    "Jwari - Shalu",
+    "Jwari - Other"
+  ];
   final _farmEvents = [
     "Rotavator",
     "Ploughing",
@@ -51,7 +56,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
     setState(() {});
   }
 
-
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -76,6 +80,10 @@ class _CreateExpensesState extends State<CreateExpenses> {
   }
 
   Widget build(BuildContext context) {
+    final dropdownStyle = TextStyle(
+      fontSize: 16,
+      color: Colors.black,
+    );
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
@@ -87,151 +95,174 @@ class _CreateExpensesState extends State<CreateExpenses> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 50),
-                        Image.asset(
-                          "assets/images/top_create-life-cycle-event-2.png",
-                          height: 150,
-                          width: 150,
-                        ),
-                        const SizedBox(height: 20.0),
-                      ],
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 30),
+                Image.asset(
+                  "assets/images/top_create-life-cycle-event-2.png",
+                  height: 120,
+                  width: 150,
+                ),
+                const SizedBox(height: 20.0),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(
+                                  color: Colors.lightGreen.shade400)),
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          fillColor: Colors.white,
+                          filled: true),
+                      value: selectedFarm,
+                      hint: Text(LocaleKeys.selectFarm.tr(),
+                          style: dropdownStyle,
+                      ),
+                      onChanged: (String? farmName) {
+                        setState(() {
+                          selectedFarm = farmName;
+                          if (farmName != null) {
+                            print('Selected Farm: $farmName');
+                          }
+                        });
+                      },
+                      items: farms.map((FarmModel farm) {
+                        return DropdownMenuItem<String>(
+                          value: farm.farmName,
+                          child: Text(farm.farmName ?? 'Unknown Farm'),
+                        );
+                      }).toList(),
                     ),
                   ),
-                  Container(
-                    width: 370,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      border: Border.all(color: Colors.grey),
-                      color: Colors.white,
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(
+                                  color: Colors.lightGreen.shade400)),
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          fillColor: Colors.white,
+                          filled: true),
+                      value: selectedCrop,
+                      hint: Text(LocaleKeys.selectCrop.tr()),
+                      onChanged: (String? cropName) {
+                        setState(() {
+                          selectedCrop = cropName;
+                        });
+                      },
+                      items: _cropNames.map((String farm) {
+                        return DropdownMenuItem<String>(
+                          value: farm,
+                          child: Text(farm),
+                        );
+                      }).toList(),
                     ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedFarm,
-                        hint: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text(LocaleKeys.selectFarm.tr()),
-                        ),
-                        onChanged: (String? farmName) {
-                          setState(() {
-                            selectedFarm = farmName;
-                            if (farmName != null) {
-                              print('Selected Farm: $farmName');
-                            }
-                          });
-                        },
-                        items: farms.map((FarmModel farm) {
-                          return DropdownMenuItem<String>(
-                            value: farm.farmName,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text(farm.farmName ?? 'Unknown Farm'),
-                            ),
-                          );
-                        }).toList(),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(
+                                  color: Colors.lightGreen.shade400)),
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          fillColor: Colors.white,
+                          filled: true),
+                      value: selectedEvent,
+                      hint: Text(LocaleKeys.selectEvent.tr()),
+                      onChanged: (String? eventName) {
+                        setState(() {
+                          selectedEvent = eventName;
+                        });
+                      },
+                      items: _farmEvents.map((String event) {
+                        return DropdownMenuItem<String>(
+                          value: event,
+                          child: Text('farmEvents.$event'.tr()),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                buildDateField(LocaleKeys.expenseDate.tr()),
+                SizedBox(height: 20.0),
+                NxTextFormField(
+                  controller: _confamount,
+                  hintName: LocaleKeys.expenseAmount.tr(),
+                  inputType: TextInputType.number,
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  margin: EdgeInsets.all(30.0),
+                  width: double.infinity,
+                  child: TextButton(
+                    onPressed: isSaveButtonEnabled()
+                        ? () => saveExpenseData(context)
+                        : null,
+                    child: Text(
+                      LocaleKeys.save.tr(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
                   ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    width: 370,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      border: Border.all(color: Colors.grey),
-                      color: Colors.white,
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedCrop,
-                        hint: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text(LocaleKeys.selectCrop.tr()),
-                        ),
-                        onChanged: (String? cropName) {
-                          setState(() {
-                            selectedCrop = cropName;
-                          });
-                        },
-                        items: _cropNames.map((String farm) {
-                          return DropdownMenuItem<String>(
-                            value: farm,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text(farm),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
+                  decoration: BoxDecoration(
+                    color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    width: 370,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      border: Border.all(color: Colors.grey),
-                      color: Colors.white,
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedEvent,
-                        hint: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text(LocaleKeys.selectEvent.tr()),
-                        ),
-                        onChanged: (String? eventName) {
-                          setState(() {
-                            selectedEvent = eventName;
-                          });
-                        },
-                        items: _farmEvents.map((String event) {
-                          return DropdownMenuItem<String>(
-                            value: event,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text('farmEvents.$event'.tr()),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  buildDateField(LocaleKeys.expenseDate.tr()),
-                  SizedBox(height: 20.0),
-                  NxTextFormField(
-                    controller: _confamount,
-                    hintName: LocaleKeys.expenseAmount.tr(),
-                    inputType: TextInputType.number,
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    margin: EdgeInsets.all(30.0),
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: isSaveButtonEnabled() ? () => saveExpenseData(context) : null,
-                      child: Text(
-                        LocaleKeys.save.tr(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -241,18 +272,32 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
   Widget buildDateField(String label) {
     return Container(
-      width: 370,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-        border: Border.all(color: Colors.grey),
-        color: Colors.white,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextFormField(
         readOnly: true,
         onTap: () => _selectDate(context),
         decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderRadius:
+                BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(color: Colors.grey)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius:
+                BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(
+                    color: Colors.lightGreen.shade400)),
+            disabledBorder: OutlineInputBorder(
+                borderRadius:
+                BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(color: Colors.grey)),
+            errorBorder: OutlineInputBorder(
+                borderRadius:
+                BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(color: Colors.grey)),
+            fillColor: Colors.white,
+            filled: true,
           hintText: selectedDate != null ? formatDate(selectedDate) : label,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+
           suffixIcon: Icon(Icons.calendar_today),
           border: InputBorder.none,
         ),

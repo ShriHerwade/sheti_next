@@ -82,23 +82,29 @@ class _CreateFarmsState extends State<CreateFarms> {
                     child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.lightGreen.shade400)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(
+                                  color: Colors.lightGreen.shade400)),
                           disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           fillColor: Colors.white,
                           filled: true),
                       value: selectedUnit,
                       hint: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Text(LocaleKeys.selectUnit.tr(), style: dropdownStyle),
+                        child: Text(LocaleKeys.selectUnit.tr(),
+                            style: dropdownStyle),
                       ),
                       onChanged: (String? unitValue) {
                         setState(() {
@@ -112,8 +118,10 @@ class _CreateFarmsState extends State<CreateFarms> {
                         return DropdownMenuItem<String>(
                           value: unit,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Text('units.$unit'.tr(), style: dropdownStyle),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child:
+                                Text('units.$unit'.tr(), style: dropdownStyle),
                           ),
                         );
                       }).toList(),
@@ -127,23 +135,29 @@ class _CreateFarmsState extends State<CreateFarms> {
                     child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.lightGreen.shade400)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(
+                                  color: Colors.lightGreen.shade400)),
                           disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           fillColor: Colors.white,
                           filled: true),
                       value: selectedType,
                       hint: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Text(LocaleKeys.farmType.tr(), style: dropdownStyle),
+                        child: Text(LocaleKeys.farmType.tr(),
+                            style: dropdownStyle),
                       ),
                       onChanged: (String? typeValue) {
                         setState(() {
@@ -157,8 +171,10 @@ class _CreateFarmsState extends State<CreateFarms> {
                         return DropdownMenuItem<String>(
                           value: type,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Text('farmTypes.$type'.tr(), style: dropdownStyle),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text('farmTypes.$type'.tr(),
+                                style: dropdownStyle),
                           ),
                         );
                       }).toList(),
@@ -172,7 +188,9 @@ class _CreateFarmsState extends State<CreateFarms> {
                     Container(
                       width: 150,
                       child: TextButton(
-                        onPressed: isSaveButtonEnabled() ? () => saveFarmData(context) : null,
+                        onPressed: isSaveButtonEnabled()
+                            ? () => saveFarmData(context)
+                            : null,
                         child: Text(
                           LocaleKeys.save.tr(),
                           style: TextStyle(
@@ -183,7 +201,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                         ),
                       ),
                       decoration: BoxDecoration(
-                        color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                        color:
+                            isSaveButtonEnabled() ? Colors.green : Colors.grey,
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                     ),

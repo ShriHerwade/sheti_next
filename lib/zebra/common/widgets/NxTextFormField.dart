@@ -40,6 +40,7 @@ class NxTextFormField extends StatelessWidget {
           return null;
         },
         decoration: InputDecoration(
+
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 borderSide: BorderSide(width:1,color: Colors.grey)),
@@ -50,7 +51,7 @@ class NxTextFormField extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 borderSide: BorderSide(width: 1,color: Colors.grey,)),
             errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 borderSide: BorderSide(width: 1,color: Colors.grey)),
             prefixIcon: Icon(icon),
             hintText: hintName,

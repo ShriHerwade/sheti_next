@@ -17,8 +17,8 @@ class CreateCrop extends StatefulWidget {
 
 class _CreateCropState extends State<CreateCrop> {
   final _formKey = GlobalKey<FormState>();
-  final _confarmArea = TextEditingController(); 
-  final _units = ["Guntha","Acre", "Hectare"];
+  final _confarmArea = TextEditingController();
+  final _units = ["Guntha", "Acre", "Hectare"];
 
   String? selectedUnit;
   String? selectedCrop;
@@ -75,13 +75,12 @@ class _CreateCropState extends State<CreateCrop> {
       fontSize: 16,
       color: Colors.black,
     );
-    
-    //custom list localization
-    if(context.locale.languageCode=='mr'){     
-      crops=CustomTranslationList.crops_mr;
-    }else if(context.locale.languageCode=='en'){     
-      crops= CustomTranslationList.crops_en;
 
+    //custom list localization
+    if (context.locale.languageCode == 'mr') {
+      crops = CustomTranslationList.crops_mr;
+    } else if (context.locale.languageCode == 'en') {
+      crops = CustomTranslationList.crops_en;
     }
 
     return Scaffold(
@@ -111,24 +110,27 @@ class _CreateCropState extends State<CreateCrop> {
                     child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.lightGreen.shade400)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(
+                                  color: Colors.lightGreen.shade400)),
                           disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           fillColor: Colors.white,
                           filled: true),
                       value: selectedFarm,
-                      hint: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Text(LocaleKeys.selectFarm.tr(),style: dropdownStyle),
-                      ),
+                      hint: Text(LocaleKeys.selectFarm.tr(),
+                          style: dropdownStyle),
                       onChanged: (String? farmName) {
                         setState(() {
                           selectedFarm = farmName;
@@ -140,10 +142,7 @@ class _CreateCropState extends State<CreateCrop> {
                       items: farms.map((FarmModel farm) {
                         return DropdownMenuItem<String>(
                           value: farm.farmName,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                            child: Text(farm.farmName ?? 'Unknown Farm'),
-                          ),
+                          child: Text(farm.farmName ?? 'Unknown Farm'),
                         );
                       }).toList(),
                     ),
@@ -156,24 +155,26 @@ class _CreateCropState extends State<CreateCrop> {
                     child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.lightGreen.shade400)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(
+                                  color: Colors.lightGreen.shade400)),
                           disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           fillColor: Colors.white,
                           filled: true),
                       value: selectedCrop,
-                      hint: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Text(LocaleKeys.selectCrop.tr()),
-                      ),
+                      hint: Text(LocaleKeys.selectCrop.tr()),
                       onChanged: (String? cropName) {
                         setState(() {
                           selectedCrop = cropName;
@@ -185,10 +186,7 @@ class _CreateCropState extends State<CreateCrop> {
                       items: crops.map((String crop) {
                         return DropdownMenuItem<String>(
                           value: crop,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                            child: Text(crop),
-                          ),
+                          child: Text(crop),
                         );
                       }).toList(),
                     ),
@@ -207,23 +205,27 @@ class _CreateCropState extends State<CreateCrop> {
                     child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(color: Colors.lightGreen.shade400)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(
+                                  color: Colors.lightGreen.shade400)),
                           disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(color: Colors.grey)),
                           fillColor: Colors.white,
                           filled: true),
                       value: selectedUnit,
-                      hint: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Text(LocaleKeys.selectUnit.tr(),),
+                      hint: Text(
+                        LocaleKeys.selectUnit.tr(),
                       ),
                       onChanged: (String? unitValue) {
                         setState(() {
@@ -236,10 +238,7 @@ class _CreateCropState extends State<CreateCrop> {
                       items: _units.map((String unit) {
                         return DropdownMenuItem<String>(
                           value: unit,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                            child:  Text('units.$unit'.tr()),
-                          ),
+                          child: Text('units.$unit'.tr()),
                         );
                       }).toList(),
                     ),
@@ -251,8 +250,8 @@ class _CreateCropState extends State<CreateCrop> {
                 buildDateField(LocaleKeys.harvestingDate.tr(), endDate, false),
                 SizedBox(height: 20.0),
                 Container(
-                  margin: EdgeInsets.all(30.0),
-                  width: double.infinity,
+                  // margin: EdgeInsets.all(30.0),
+                  // width: double.infinity,
                   child: TextButton(
                     onPressed: () async {
                       await saveCropData();
@@ -279,29 +278,30 @@ class _CreateCropState extends State<CreateCrop> {
     );
   }
 
-  Widget buildDateField(String label, DateTime? selectedDate, bool isStartDate) {
+  Widget buildDateField(
+      String label, DateTime? selectedDate, bool isStartDate) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextFormField(
         readOnly: true,
         onTap: () => _selectDate(context, isStartDate),
         decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(color: Colors.grey)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(color: Colors.lightGreen.shade400)),
-            disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(color: Colors.grey)),
-            errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(color: Colors.grey)),
-            fillColor: Colors.white,
-            filled: true,
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              borderSide: BorderSide(color: Colors.grey)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              borderSide: BorderSide(color: Colors.lightGreen.shade400)),
+          disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              borderSide: BorderSide(color: Colors.grey)),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              borderSide: BorderSide(color: Colors.grey)),
+          fillColor: Colors.white,
+          filled: true,
           hintText: selectedDate != null ? formatDate(selectedDate) : label,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+          //contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
           suffixIcon: Icon(Icons.calendar_today),
           border: InputBorder.none,
         ),

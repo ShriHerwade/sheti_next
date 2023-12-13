@@ -18,8 +18,13 @@ class _CreateEventsState extends State<CreateEvents> {
   final _confarmAddress = TextEditingController();
   final _confarmArea = TextEditingController();
   final _farmName = ["Nadikadil", "Mala", "Vhanda"];
-  final _unit = ["Guntha","Acre", "Hectare"];
-  final _cropNames = ["Sugarcane - Other", "Sugarcane - 80011", "Jwari - Shalu", "Jwari - Other"];
+  final _unit = ["Guntha", "Acre", "Hectare"];
+  final _cropNames = [
+    "Sugarcane - Other",
+    "Sugarcane - 80011",
+    "Jwari - Shalu",
+    "Jwari - Other"
+  ];
   final _farmEvents = [
     "Rotavator",
     "Ploughing",
@@ -75,6 +80,10 @@ class _CreateEventsState extends State<CreateEvents> {
 
   @override
   Widget build(BuildContext context) {
+    final dropdownStyle = TextStyle(
+      fontSize: 16,
+      color: Colors.black,
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -86,155 +95,176 @@ class _CreateEventsState extends State<CreateEvents> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 50),
-                        Image.asset(
-                          "assets/images/top_create-life-cycle-event-2.png",
-                          height: 150,
-                          width: 150,
-                        ),
-                        const SizedBox(height: 20.0),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 370,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      border: Border.all(color: Colors.grey),
-                      color: Colors.white,
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedFarm,
-                        hint: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text(LocaleKeys.selectFarm.tr()),
-                        ),
-                        onChanged: (String? farmName) {
-                          setState(() {
-                            selectedFarm = farmName;
-                            if (farmName != null) {
-                              print('Selected Farm: $farmName');
-                            }
-                          });
-                        },
-                        items: _farmName.map((String farm) {
-                          return DropdownMenuItem<String>(
-                            value: farm,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text(farm),
-                            ),
-                          );
-                        }).toList(),
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 30),
+                Image.asset(
+                  "assets/images/top_create-life-cycle-event-2.png",
+                  height: 120,
+                  width: 150,
+                ),
+                const SizedBox(height: 20.0),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(
+                                  color: Colors.lightGreen.shade400)),
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          fillColor: Colors.white,
+                          filled: true),
+                      value: selectedFarm,
+                      hint: Text(LocaleKeys.selectFarm.tr(),
+                        style: dropdownStyle,
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    width: 370,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      border: Border.all(color: Colors.grey),
-                      color: Colors.white,
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedCrop,
-                        hint: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text(LocaleKeys.selectCrop.tr()),
-                        ),
-                        onChanged: (String? cropName) {
-                          setState(() {
-                            selectedCrop = cropName;
-                            if (cropName != null) {
-                              print('Selected Crop: $cropName');
-                            }
-                          });
-                        },
-                        items: _cropNames.map((String farm) {
-                          return DropdownMenuItem<String>(
-                            value: farm,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text(farm),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    width: 370,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      border: Border.all(color: Colors.grey),
-                      color: Colors.white,
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedEvent,
-                        hint: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Text(LocaleKeys.selectEvent.tr()),
-                        ),
-                        onChanged: (String? eventName) {
-                          setState(() {
-                            selectedEvent = eventName;
-                            if (eventName != null) {
-                              print('Selected Event: $eventName');
-                            }
-                          });
-                        },
-                        items: _farmEvents.map((String event) {
-                          return DropdownMenuItem<String>(
-                            value: event,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                              child: Text('farmEvents.$event'.tr()),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  buildDateField(LocaleKeys.eventStartDate.tr(), startDate, true),
-                  SizedBox(height: 20.0),
-                  buildDateField(LocaleKeys.eventEndDate.tr(), endDate, false),
-                  SizedBox(height: 20.0),
-                  Container(
-                    margin: EdgeInsets.all(30.0),
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () {
-                        // Handle save logic using selected dates (startDate and endDate)
+                      onChanged: (String? farmName) {
+                        setState(() {
+                          selectedFarm = farmName;
+                          if (farmName != null) {
+                            print('Selected Farm: $farmName');
+                          }
+                        });
                       },
-                      child: Text(
-                        LocaleKeys.save.tr(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(30.0),
+                      items: _farmName.map((String farm) {
+                        return DropdownMenuItem<String>(
+                          value: farm,
+                          child: Text(farm),
+                        );
+                      }).toList(),
                     ),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(
+                                  color: Colors.lightGreen.shade400)),
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          fillColor: Colors.white,
+                          filled: true),
+                      value: selectedCrop,
+                      hint: Text(LocaleKeys.selectCrop.tr()),
+                      onChanged: (String? cropName) {
+                        setState(() {
+                          selectedCrop = cropName;
+                          if (cropName != null) {
+                            print('Selected Crop: $cropName');
+                          }
+                        });
+                      },
+                      items: _cropNames.map((String farm) {
+                        return DropdownMenuItem<String>(
+                          value: farm,
+                          child: Text(farm),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(
+                                  color: Colors.lightGreen.shade400)),
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(color: Colors.grey)),
+                          fillColor: Colors.white,
+                          filled: true),
+                      value: selectedEvent,
+                      hint: Text(LocaleKeys.selectEvent.tr()),
+                      onChanged: (String? eventName) {
+                        setState(() {
+                          selectedEvent = eventName;
+                          if (eventName != null) {
+                            print('Selected Event: $eventName');
+                          }
+                        });
+                      },
+                      items: _farmEvents.map((String event) {
+                        return DropdownMenuItem<String>(
+                          value: event,
+                          child: Text('farmEvents.$event'.tr()),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                buildDateField(LocaleKeys.eventStartDate.tr(), startDate, true),
+                SizedBox(height: 20.0),
+                buildDateField(LocaleKeys.eventEndDate.tr(), endDate, false),
+                SizedBox(height: 20.0),
+                Container(
+                  margin: EdgeInsets.all(30.0),
+                  width: double.infinity,
+                  child: TextButton(
+                    onPressed: () {
+                      // Handle save logic using selected dates (startDate and endDate)
+                    },
+                    child: Text(
+                      LocaleKeys.save.tr(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -242,20 +272,36 @@ class _CreateEventsState extends State<CreateEvents> {
     );
   }
 
-  Widget buildDateField(String label, DateTime? selectedDate, bool isStartDate) {
+  Widget buildDateField(
+      String label, DateTime? selectedDate, bool isStartDate) {
     return Container(
-      width: 370,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-        border: Border.all(color: Colors.grey),
-        color: Colors.white,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextFormField(
         readOnly: true,
         onTap: () => _selectDate(context, isStartDate),
-        decoration: InputDecoration(
+
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(8.0)),
+                  borderSide: BorderSide(color: Colors.grey)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(8.0)),
+                  borderSide: BorderSide(
+                      color: Colors.lightGreen.shade400)),
+              disabledBorder: OutlineInputBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(8.0)),
+                  borderSide: BorderSide(color: Colors.grey)),
+              errorBorder: OutlineInputBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(8.0)),
+                  borderSide: BorderSide(color: Colors.grey)),
+              fillColor: Colors.white,
+              filled: true,
           hintText: selectedDate != null ? formatDate(selectedDate) : '$label',
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+
           suffixIcon: Icon(Icons.calendar_today),
           border: InputBorder.none,
         ),
