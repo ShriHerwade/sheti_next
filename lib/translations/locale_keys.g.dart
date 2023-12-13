@@ -55,17 +55,5 @@ abstract class  LocaleKeys {
   static const farmEvents_Transport = 'farmEvents.Transport';
   static const farmEvents_Other = 'farmEvents.Other';
   static const farmEvents = 'farmEvents';
-  static const farmExpenses_Rotavator = 'farmExpenses.Rotavator';
-  static const farmExpenses_Ploughing = 'farmExpenses.Ploughing';
-  static const farmExpenses_Sowing = 'farmExpenses.Sowing';
-  static const farmExpenses_Irrigation = 'farmExpenses.Irrigation';
-  static const farmExpenses_Compost = 'farmExpenses.Compost';
-  static const farmExpenses_Fertilizers = 'farmExpenses.Fertilizers';
-  static const farmExpenses_Pesticides = 'farmExpenses.Pesticides';
-  static const farmExpenses_Harvesting = 'farmExpenses.Harvesting';
-  static const farmExpenses_Storage = 'farmExpenses.Storage';
-  static const farmExpenses_Transport = 'farmExpenses.Transport';
-  static const farmExpenses_Other = 'farmExpenses.Other';
-  static const farmExpenses = 'farmExpenses';
 
 }

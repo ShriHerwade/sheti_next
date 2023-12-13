@@ -71,19 +71,6 @@ class CodegenLoader extends AssetLoader{
     "Storage": "Storage",
     "Transport": "Transport",
     "Other": "Other"
-  },
-  "farmExpenses": {
-    "Rotavator": "Rotavator",
-    "Ploughing": "Ploughing",
-    "Sowing": "Sowing",
-    "Irrigation": "Irrigation",
-    "Compost": "Compost",
-    "Fertilizers": "Fertilizers",
-    "Pesticides": "Pesticides",
-    "Harvesting": "Harvesting",
-    "Storage": "Storage",
-    "Transport": "Transport",
-    "Other": "Other"
   }
 };
 static const Map<String,dynamic> ka = {
