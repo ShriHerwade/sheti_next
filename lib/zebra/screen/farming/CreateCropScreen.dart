@@ -21,7 +21,6 @@ class CreateCrop extends StatefulWidget {
 class _CreateCropState extends State<CreateCrop> {
   final _formKey = GlobalKey<FormState>();
   final _confarmArea = TextEditingController();
-  final _units = ["Guntha", "Acre", "Hectare"];
 
   String? selectedUnit;
   String? selectedCrop;
@@ -29,8 +28,10 @@ class _CreateCropState extends State<CreateCrop> {
   DateTime? startDate;
   DateTime? endDate;
   DbHelper? dbHelper;
+
   List<FarmModel> farms = [];
   List<String> crops = [];
+  List<String> units = [];
 
   @override
   void initState() {
@@ -76,8 +77,10 @@ class _CreateCropState extends State<CreateCrop> {
   Widget build(BuildContext context) {
     // custom list localization
     if (context.locale.languageCode == 'mr') {
+      units = CustomTranslationList.areaUnits_mr;
       crops = CustomTranslationList.crops_mr;
     } else if (context.locale.languageCode == 'en') {
+      units = CustomTranslationList.areaUnits_en;
       crops = CustomTranslationList.crops_en;
     }
 
@@ -139,7 +142,7 @@ class _CreateCropState extends State<CreateCrop> {
                 NxDDFormField(
                   value: selectedUnit,
                   label: LocaleKeys.selectUnit,
-                  items: _units,
+                  items: units,
                   onChanged: (String? unitValue) {
                     setState(() {
                       selectedUnit = unitValue;

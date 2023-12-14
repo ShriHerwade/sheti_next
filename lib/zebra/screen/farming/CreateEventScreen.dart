@@ -3,6 +3,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
+import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -19,36 +20,17 @@ class CreateEvents extends StatefulWidget {
 class _CreateEventsState extends State<CreateEvents> {
   final _formKey = GlobalKey<FormState>();
 
-
-
-
-
-  final _cropNames = [
-    "Sugarcane - Other",
-    "Sugarcane - 80011",
-    "Jwari - Shalu",
-    "Jwari - Other"
-  ];
-  final _farmEvents = [
-    "Rotavator",
-    "Ploughing",
-    "Sowing",
-    "Irrigation",
-    "Compost",
-    "Fertilizers",
-    "Pesticides",
-    "Harvesting",
-    "Storage",
-    "Transport"
-  ];
-
   String? selectedFarm;
   String? selectedCrop;
   String? selectedEvent;
   DateTime? startDate;
   DateTime? endDate;
   DbHelper? dbHelper;
+
   List<FarmModel> farms = [];
+  List<String> crops = [];
+  List<String> farmEvents = [];
+
   @override
   void initState() {
     super.initState();
@@ -82,6 +64,14 @@ class _CreateEventsState extends State<CreateEvents> {
 
   @override
   Widget build(BuildContext context) {
+    if (context.locale.languageCode == 'mr') {
+      crops = CustomTranslationList.crops_mr;
+      farmEvents = CustomTranslationList.farmEvents_mr;
+    } else if (context.locale.languageCode == 'en') {
+      crops = CustomTranslationList.crops_en;
+      farmEvents = CustomTranslationList.farmEvents_en;
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -120,7 +110,7 @@ class _CreateEventsState extends State<CreateEvents> {
                 NxDDFormField(
                   value: selectedCrop,
                   label: LocaleKeys.selectCrop,
-                  items: _cropNames,
+                  items: crops,
                   onChanged: (String? cropName) {
                     setState(() {
                       selectedCrop = cropName;
@@ -134,7 +124,7 @@ class _CreateEventsState extends State<CreateEvents> {
                 NxDDFormField(
                   value: selectedEvent,
                   label: LocaleKeys.selectEvent,
-                  items: _farmEvents.map((String event) => 'farmEvents.$event'.tr()).toList(),
+                  items: farmEvents,
                   onChanged: (String? eventName) {
                     setState(() {
                       selectedEvent = eventName;

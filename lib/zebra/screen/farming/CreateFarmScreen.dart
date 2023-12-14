@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
+import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -19,12 +20,12 @@ class _CreateFarmsState extends State<CreateFarms> {
   final _confarmName = TextEditingController();
   final _confarmAddress = TextEditingController();
   final _confarmArea = TextEditingController();
-  final _farmTypes = ["Owned", "Leased", "Joint Venture"];
-  final _units = ["Guntha", "Acre", "Hectare"];
 
   String? selectedUnit;
   String? selectedType;
   DbHelper? dbHelper;
+  List<String> units = [];
+  List<String> farmTypes = [];
 
   @override
   void initState() {
@@ -34,6 +35,13 @@ class _CreateFarmsState extends State<CreateFarms> {
 
   @override
   Widget build(BuildContext context) {
+    if (context.locale.languageCode == 'mr') {
+      units = CustomTranslationList.areaUnits_mr;
+      farmTypes =CustomTranslationList.farmTypes_mr;
+    } else if (context.locale.languageCode == 'en') {
+      units = CustomTranslationList.areaUnits_en;
+      farmTypes =CustomTranslationList.farmTypes_en;;
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -76,7 +84,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                 NxDDFormField(
                   value: selectedUnit,
                   label: LocaleKeys.selectUnit,
-                  items: _units,
+                  items: units,
                   onChanged: (String? unitValue) {
                     setState(() {
                       selectedUnit = unitValue;
@@ -90,7 +98,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                 NxDDFormField(
                   value: selectedType,
                   label: LocaleKeys.farmType,
-                  items: _farmTypes,
+                  items: farmTypes,
                   onChanged: (String? typeValue) {
                     setState(() {
                       selectedType = typeValue;
