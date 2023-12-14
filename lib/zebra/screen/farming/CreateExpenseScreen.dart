@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:multiselect/multiselect.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
@@ -21,13 +22,13 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
   String? selectedFarm;
   String? selectedCrop;
-  String? selectedEvent;
   DateTime? selectedDate;
   DbHelper? dbHelper;
 
   List<FarmModel> farms = [];
   List<String> crops = [];
   List<String> farmExpenses = [];
+  List<String> selectedExpense= [];
 
   @override
   void initState() {
@@ -119,15 +120,16 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   },
                 ),
                 SizedBox(height: 20.0),
-                NxDDFormField(
-                  value: selectedEvent,
-                  label: LocaleKeys.selectEvent,
-                  items: farmExpenses,
-                  onChanged: (String? eventName) {
+                DropDownMultiSelect(
+                  onChanged: (List<String> ex) {
                     setState(() {
-                      selectedEvent = eventName;
+                      selectedExpense =ex;
                     });
                   },
+                  options: farmExpenses,
+                  selectedValues: selectedExpense,
+                  //whenEmpty: 'Select Expense Type',
+                  hint: Text(LocaleKeys.selectExpenseType.tr()),
                 ),
                 SizedBox(height: 20.0),
                 buildDateField(LocaleKeys.expenseDate.tr()),
@@ -206,7 +208,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
   bool isSaveButtonEnabled() {
     return selectedFarm != null &&
         selectedCrop != null &&
-        selectedEvent != null &&
+        selectedExpense != null &&
         selectedDate != null &&
         _confamount.text.isNotEmpty;
   }
@@ -218,7 +220,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
       _confamount.clear();
       selectedFarm = null;
       selectedCrop = null;
-      selectedEvent = null;
+      selectedExpense = [];
       selectedDate = null;
 
       ScaffoldMessenger.of(context).showSnackBar(

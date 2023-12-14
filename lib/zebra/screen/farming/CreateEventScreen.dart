@@ -2,6 +2,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:multiselect/multiselect.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
@@ -22,7 +23,6 @@ class _CreateEventsState extends State<CreateEvents> {
 
   String? selectedFarm;
   String? selectedCrop;
-  String? selectedEvent;
   DateTime? startDate;
   DateTime? endDate;
   DbHelper? dbHelper;
@@ -30,6 +30,7 @@ class _CreateEventsState extends State<CreateEvents> {
   List<FarmModel> farms = [];
   List<String> crops = [];
   List<String> farmEvents = [];
+  List<String> selectedFarmEvents= [];
 
   @override
   void initState() {
@@ -121,18 +122,16 @@ class _CreateEventsState extends State<CreateEvents> {
                   },
                 ),
                 SizedBox(height: 20.0),
-                NxDDFormField(
-                  value: selectedEvent,
-                  label: LocaleKeys.selectEvent,
-                  items: farmEvents,
-                  onChanged: (String? eventName) {
+                DropDownMultiSelect(
+                  onChanged: (List<String> ev) {
                     setState(() {
-                      selectedEvent = eventName;
-                      if (eventName != null) {
-                        print('Selected Event: $eventName');
-                      }
+                      selectedFarmEvents =ev;
                     });
                   },
+                  options: farmEvents,
+                  selectedValues: selectedFarmEvents,
+                  //whenEmpty: 'Select Event',
+                  hint: Text(LocaleKeys.selectEvent.tr()),
                 ),
                 SizedBox(height: 20.0),
                 buildDateField(LocaleKeys.eventStartDate.tr(), startDate, true),
