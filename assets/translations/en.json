@@ -21,6 +21,7 @@
   "selectEvent": "Select Event",
   "eventStartDate": "Event Start Date",
   "eventEndDate": "Event End Date",
+  "selectExpenseType": "Select Expense Type",
   "expenseDate": "Expense Date",
   "expenseAmount": "Amount",
   "navBarDiary": "Diary",
@@ -32,29 +33,5 @@
   "navBarEvents": "Event",
   "navBarExpenses": "Expense",
   "navBarHusbandry": "Animal Husbandry",
-  "navBarMachinery": "Machinery",
-  "units": {
-    "Guntha": "Guntha",
-    "Acre": "Acre",
-    "Hectare": "Hectare"
-  },
-  "farmTypes": {
-    "Owned": "Owned",
-    "Leased": "Leased",
-    "Joint Venture": "Joint Venture"
-  },
-
-   "farmEvents": {
-    "Rotavator": "Rotavator",
-    "Ploughing": "Ploughing",
-    "Sowing": "Sowing",
-    "Irrigation": "Irrigation",
-    "Compost": "Compost",
-    "Fertilizers": "Fertilizers",
-    "Pesticides": "Pesticides",
-    "Harvesting": "Harvesting",
-    "Storage": "Storage",
-    "Transport": "Transport",
-    "Other" : "Other"
-  }
+  "navBarMachinery": "Machinery"
 }

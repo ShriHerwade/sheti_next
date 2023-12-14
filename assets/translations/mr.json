@@ -21,6 +21,7 @@
   "selectEvent": "शेती काम निवडा",
   "eventStartDate": "काम सुरु केलेली तारीख",
   "eventEndDate": "काम संपलेली केलेली तारीख",
+  "selectExpenseType": "खर्चाचा प्रकार निवडा",
   "expenseDate": "खर्चाची तारीख",
   "expenseAmount": "रक्कम",
   "navBarDiary": "डायरी",
@@ -32,41 +33,5 @@
   "navBarEvents": "शेत काम",
   "navBarExpenses": "जमा खर्च",
   "navBarHusbandry": "पशुपालन",
-  "navBarMachinery": "यंत्रसामग्री",
-  "units": {
-    "Guntha": "गुंठा",
-    "Acre": "एकर",
-    "Hectare": "हेक्टर"
-  },
-  "farmTypes": {
-    "Owned": "स्व. मालकीचे शेत",
-    "Leased": "भाड्याने घेतलेले शेत",
-    "Joint Venture": "संयुक्त शेती"
-  },
-  "farmEvents": {
-    "Rotavator": "रोटाव्हेटर",
-    "Ploughing": "नांगरणी",
-    "Sowing": "पेरणी",
-    "Irrigation": "सिंचन",
-    "Compost": "सेंद्रिय खत",
-    "Fertilizers": "रासायनिक खते",
-    "Pesticides": "कीटकनाशके",
-    "Harvesting": "कापणी",
-    "Storage": "साठवण",
-    "Transport": "वाहतूक",
-    "Other" : "इतर"
-  },
-  "farmExpenses": {
-    "Rotavator": "रोटाव्हेटर",
-    "Ploughing": "नांगरणी",
-    "Sowing": "पेरणी",
-    "Irrigation": "सिंचन",
-    "Compost": "सेंद्रिय खत",
-    "Fertilizers": "रासायनिक खते",
-    "Pesticides": "कीटकनाशके",
-    "Harvesting": "कापणी",
-    "Storage": "साठवण",
-    "Transport": "वाहतूक",
-    "Other" : "इतर"
-  }
+  "navBarMachinery": "यंत्रसामग्री"
 }

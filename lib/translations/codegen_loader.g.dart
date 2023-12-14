@@ -37,6 +37,7 @@ class CodegenLoader extends AssetLoader{
   "selectEvent": "Select Event",
   "eventStartDate": "Event Start Date",
   "eventEndDate": "Event End Date",
+  "selectExpenseType": "Select Expense Type",
   "expenseDate": "Expense Date",
   "expenseAmount": "Amount",
   "navBarDiary": "Diary",
@@ -48,30 +49,7 @@ class CodegenLoader extends AssetLoader{
   "navBarEvents": "Event",
   "navBarExpenses": "Expense",
   "navBarHusbandry": "Animal Husbandry",
-  "navBarMachinery": "Machinery",
-  "units": {
-    "Guntha": "Guntha",
-    "Acre": "Acre",
-    "Hectare": "Hectare"
-  },
-  "farmTypes": {
-    "Owned": "Owned",
-    "Leased": "Leased",
-    "Joint Venture": "Joint Venture"
-  },
-  "farmEvents": {
-    "Rotavator": "Rotavator",
-    "Ploughing": "Ploughing",
-    "Sowing": "Sowing",
-    "Irrigation": "Irrigation",
-    "Compost": "Compost",
-    "Fertilizers": "Fertilizers",
-    "Pesticides": "Pesticides",
-    "Harvesting": "Harvesting",
-    "Storage": "Storage",
-    "Transport": "Transport",
-    "Other": "Other"
-  }
+  "navBarMachinery": "Machinery"
 };
 static const Map<String,dynamic> ka = {
   "appTitle": "ಶೆಟಿನೆಕ್ಸ್ಟ್",
@@ -101,6 +79,7 @@ static const Map<String,dynamic> mr = {
   "selectEvent": "शेती काम निवडा",
   "eventStartDate": "काम सुरु केलेली तारीख",
   "eventEndDate": "काम संपलेली केलेली तारीख",
+  "selectExpenseType": "खर्चाचा प्रकार निवडा",
   "expenseDate": "खर्चाची तारीख",
   "expenseAmount": "रक्कम",
   "navBarDiary": "डायरी",
@@ -112,43 +91,7 @@ static const Map<String,dynamic> mr = {
   "navBarEvents": "शेत काम",
   "navBarExpenses": "जमा खर्च",
   "navBarHusbandry": "पशुपालन",
-  "navBarMachinery": "यंत्रसामग्री",
-  "units": {
-    "Guntha": "गुंठा",
-    "Acre": "एकर",
-    "Hectare": "हेक्टर"
-  },
-  "farmTypes": {
-    "Owned": "स्व. मालकीचे शेत",
-    "Leased": "भाड्याने घेतलेले शेत",
-    "Joint Venture": "संयुक्त शेती"
-  },
-  "farmEvents": {
-    "Rotavator": "रोटाव्हेटर",
-    "Ploughing": "नांगरणी",
-    "Sowing": "पेरणी",
-    "Irrigation": "सिंचन",
-    "Compost": "सेंद्रिय खत",
-    "Fertilizers": "रासायनिक खते",
-    "Pesticides": "कीटकनाशके",
-    "Harvesting": "कापणी",
-    "Storage": "साठवण",
-    "Transport": "वाहतूक",
-    "Other": "इतर"
-  },
-  "farmExpenses": {
-    "Rotavator": "रोटाव्हेटर",
-    "Ploughing": "नांगरणी",
-    "Sowing": "पेरणी",
-    "Irrigation": "सिंचन",
-    "Compost": "सेंद्रिय खत",
-    "Fertilizers": "रासायनिक खते",
-    "Pesticides": "कीटकनाशके",
-    "Harvesting": "कापणी",
-    "Storage": "साठवण",
-    "Transport": "वाहतूक",
-    "Other": "इतर"
-  }
+  "navBarMachinery": "यंत्रसामग्री"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ka": ka, "mr": mr};
 }

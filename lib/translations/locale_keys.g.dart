@@ -23,6 +23,7 @@ abstract class  LocaleKeys {
   static const selectEvent = 'selectEvent';
   static const eventStartDate = 'eventStartDate';
   static const eventEndDate = 'eventEndDate';
+  static const selectExpenseType = 'selectExpenseType';
   static const expenseDate = 'expenseDate';
   static const expenseAmount = 'expenseAmount';
   static const navBarDiary = 'navBarDiary';
@@ -35,25 +36,5 @@ abstract class  LocaleKeys {
   static const navBarExpenses = 'navBarExpenses';
   static const navBarHusbandry = 'navBarHusbandry';
   static const navBarMachinery = 'navBarMachinery';
-  static const units_Guntha = 'units.Guntha';
-  static const units_Acre = 'units.Acre';
-  static const units_Hectare = 'units.Hectare';
-  static const units = 'units';
-  static const farmTypes_Owned = 'farmTypes.Owned';
-  static const farmTypes_Leased = 'farmTypes.Leased';
-  static const farmTypes_Joint_Venture = 'farmTypes.Joint Venture';
-  static const farmTypes = 'farmTypes';
-  static const farmEvents_Rotavator = 'farmEvents.Rotavator';
-  static const farmEvents_Ploughing = 'farmEvents.Ploughing';
-  static const farmEvents_Sowing = 'farmEvents.Sowing';
-  static const farmEvents_Irrigation = 'farmEvents.Irrigation';
-  static const farmEvents_Compost = 'farmEvents.Compost';
-  static const farmEvents_Fertilizers = 'farmEvents.Fertilizers';
-  static const farmEvents_Pesticides = 'farmEvents.Pesticides';
-  static const farmEvents_Harvesting = 'farmEvents.Harvesting';
-  static const farmEvents_Storage = 'farmEvents.Storage';
-  static const farmEvents_Transport = 'farmEvents.Transport';
-  static const farmEvents_Other = 'farmEvents.Other';
-  static const farmEvents = 'farmEvents';
 
 }
