@@ -23,7 +23,6 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
   Widget build(BuildContext context) {
     final dropdownStyle = TextStyle(
       fontSize: 16,
-      color: Colors.black,
     );
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -48,10 +47,9 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
             ),
             fillColor: Colors.white,
             filled: true,
-            label:Text(widget.label.tr())
+            label:Text(widget.label.tr()),
           ),
           value: widget.value,
-          hint: Text(widget.label.tr(), style: dropdownStyle),
           onChanged: widget.onChanged,
           items: widget.items.map((item) {
             return DropdownMenuItem<String>(
