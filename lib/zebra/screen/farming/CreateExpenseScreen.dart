@@ -8,6 +8,7 @@ import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import '../../common/widgets/NxTextFormField.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 
 class CreateExpenses extends StatefulWidget {
   const CreateExpenses({Key? key});
@@ -23,12 +24,14 @@ class _CreateExpensesState extends State<CreateExpenses> {
   String? selectedFarm;
   String? selectedCrop;
   DateTime? selectedDate;
+  DateTime? startDate;
+  DateTime? endDate;
   DbHelper? dbHelper;
 
   List<FarmModel> farms = [];
   List<String> crops = [];
   List<String> farmExpenses = [];
-  List<String> selectedExpense= [];
+  List<String> selectedExpense = [];
 
   @override
   void initState() {
@@ -124,7 +127,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
                 SizedBox(height: 20.0),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20.0),
-
                   child: DropDownMultiSelect(
                     decoration: InputDecoration(
                       hintText: LocaleKeys.selectExpenseType.tr(),
@@ -150,12 +152,11 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     ),
                     onChanged: (List<String> ex) {
                       setState(() {
-                        selectedExpense =ex;
+                        selectedExpense = ex;
                       });
                     },
                     options: farmExpenses,
                     selectedValues: selectedExpense,
-                    //whenEmpty: 'Select Expense Type',
                     hint: Text(LocaleKeys.selectExpenseType.tr()),
                   ),
                 ),
@@ -198,45 +199,22 @@ class _CreateExpensesState extends State<CreateExpenses> {
   }
 
   Widget buildDateField(String label) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: TextFormField(
-        readOnly: true,
-        onTap: () => _selectDate(context),
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            borderSide: BorderSide(color: Colors.lightGreen.shade400),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          fillColor: Colors.white,
-          filled: true,
-          hintText: selectedDate != null ? formatDate(selectedDate) : label,
-          suffixIcon: Icon(Icons.calendar_today),
-          border: InputBorder.none,
-        ),
-        controller: TextEditingController(
-          text: formatDate(selectedDate),
-        ),
-      ),
+    return NxDateField(
+      label: label,
+      labelText: label,
+      selectedDate: selectedDate,
+      onTap: (DateTime? picked) {
+        setState(() {
+          selectedDate = picked;
+        });
+      },
     );
   }
 
   bool isSaveButtonEnabled() {
     return selectedFarm != null &&
         selectedCrop != null &&
-        selectedExpense != null &&
+        selectedExpense.isNotEmpty &&
         selectedDate != null &&
         _confamount.text.isNotEmpty;
   }

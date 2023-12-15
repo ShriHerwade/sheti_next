@@ -1,4 +1,4 @@
-// CreateCrop.dart
+// create_crop.dart
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,9 @@ import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
+// Import NxDateField
+
 
 class CreateCrop extends StatefulWidget {
   const CreateCrop({Key? key}) : super(key: key);
@@ -156,9 +159,29 @@ class _CreateCropState extends State<CreateCrop> {
                   },
                 ),
                 SizedBox(height: 20.0),
-                buildDateField(LocaleKeys.sowingDate.tr(), startDate, true),
+                // Use NxDateField for sowing date
+                NxDateField(
+                  label: LocaleKeys.sowingDate.tr(),
+                  labelText: LocaleKeys.sowingDate.tr(),
+                  selectedDate: startDate,
+                  onTap: (DateTime? picked) {
+                    setState(() {
+                      startDate = picked;
+                    });
+                  },
+                ),
                 SizedBox(height: 20.0),
-                buildDateField(LocaleKeys.harvestingDate.tr(), endDate, false),
+                // Use NxDateField for harvesting date
+                NxDateField(
+                  label: LocaleKeys.harvestingDate.tr(),
+                  labelText: LocaleKeys.harvestingDate.tr(),
+                  selectedDate: endDate,
+                  onTap: (DateTime? picked) {
+                    setState(() {
+                      endDate = picked;
+                    });
+                  },
+                ),
                 SizedBox(height: 20.0),
                 Container(
                   width: double.infinity,
@@ -183,40 +206,6 @@ class _CreateCropState extends State<CreateCrop> {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildDateField(
-      String label, DateTime? selectedDate, bool isStartDate) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: TextFormField(
-        readOnly: true,
-        onTap: () => _selectDate(context, isStartDate),
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(color: Colors.grey)),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(color: Colors.lightGreen.shade400)),
-          disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(color: Colors.grey)),
-          errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(color: Colors.grey)),
-          fillColor: Colors.white,
-          filled: true,
-          //label: selectedDate != null ? formatDate(selectedDate) ,
-          hintText: selectedDate != null ? formatDate(selectedDate) : label,
-          suffixIcon: Icon(Icons.calendar_today),
-          border: InputBorder.none,
-        ),
-        controller: TextEditingController(
-          text: formatDate(selectedDate),
         ),
       ),
     );

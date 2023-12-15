@@ -1,4 +1,4 @@
-// date_field.dart
+// nx_date_field.dart
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -7,7 +7,7 @@ class NxDateField extends StatelessWidget {
   final String label;
   final String labelText;
   final DateTime? selectedDate;
-  final bool isStartDate;
+  final bool? isStartDate;
   final Function(DateTime?) onTap;
 
   const NxDateField({
@@ -15,7 +15,7 @@ class NxDateField extends StatelessWidget {
     required this.label,
     required this.labelText,
     required this.selectedDate,
-    required this.isStartDate,
+    this.isStartDate, // Make isStartDate nullable
     required this.onTap,
   }) : super(key: key);
 
@@ -47,8 +47,8 @@ class NxDateField extends StatelessWidget {
               ),
               fillColor: Colors.white,
               filled: true,
-              hintText: selectedDate != null ? formatDate(selectedDate) : '$label',
-              labelText: '$label',
+              hintText: selectedDate != null ? formatDate(selectedDate!) : '$label',
+              labelText: labelText,
               suffixIcon: Icon(Icons.calendar_today),
               border: InputBorder.none,
             ),
