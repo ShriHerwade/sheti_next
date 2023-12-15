@@ -97,7 +97,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                 const SizedBox(height: 20.0),
                 NxDDFormField(
                   value: selectedFarm,
-                  label: LocaleKeys.selectFarm,
+                  hint: LocaleKeys.selectFarm.tr(),
+                  label: LocaleKeys.labelFarm.tr(),
                   items: farms.map((farm) => farm.farmName ?? 'Unknown Farm').toList(),
                   onChanged: (String? farmName) {
                     setState(() {
@@ -111,7 +112,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                 SizedBox(height: 20.0),
                 NxDDFormField(
                   value: selectedCrop,
-                  label: LocaleKeys.selectCrop,
+                  hint: LocaleKeys.selectCrop.tr(),
+                  label: LocaleKeys.labelCrop.tr(),
                   items: crops,
                   onChanged: (String? cropName) {
                     setState(() {
@@ -125,7 +127,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
                   child: DropDownMultiSelect(
                     decoration: InputDecoration(
-                      labelText: LocaleKeys.selectExpenseType.tr(),
+                      hintText: LocaleKeys.selectExpenseType.tr(),
+                      labelText: LocaleKeys.labelExpenseType.tr(),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8.0)),
                           borderSide: BorderSide(color: Colors.grey),
@@ -144,7 +147,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         ),
                         fillColor: Colors.white,
                         filled: true,
-                        //label:Text(widget.label.tr())
                     ),
                     onChanged: (List<String> ex) {
                       setState(() {

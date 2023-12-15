@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class NxDDFormField extends StatefulWidget {
   final String? value;
   final String label;
+  final String hint;
   final List<String> items;
   final Function(String?) onChanged;
 
   const NxDDFormField({
     Key? key,
     required this.value,
+    required this.hint,
     required this.label,
     required this.items,
     required this.onChanged,
@@ -47,8 +49,10 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
             ),
             fillColor: Colors.white,
             filled: true,
-            label:Text(widget.label.tr()),
+            label :Text(widget.label),
+              floatingLabelBehavior: FloatingLabelBehavior.auto // this should help to show label only on focus but still not working.
           ),
+          hint:  Text(widget.hint),
           value: widget.value,
           onChanged: widget.onChanged,
           items: widget.items.map((item) {

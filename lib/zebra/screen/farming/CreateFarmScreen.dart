@@ -83,7 +83,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                 SizedBox(height: 20.0),
                 NxDDFormField(
                   value: selectedUnit,
-                  label: LocaleKeys.selectUnit,
+                  hint : LocaleKeys.selectUnit.tr(),
+                  label : LocaleKeys.labelUnit.tr(),
                   items: units,
                   onChanged: (String? unitValue) {
                     setState(() {
@@ -97,7 +98,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                 SizedBox(height: 20.0),
                 NxDDFormField(
                   value: selectedType,
-                  label: LocaleKeys.farmType,
+                  label: LocaleKeys.labelFarmType.tr(),
+                  hint: LocaleKeys.selectFarmType.tr(),
                   items: farmTypes,
                   onChanged: (String? typeValue) {
                     setState(() {

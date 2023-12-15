@@ -98,7 +98,8 @@ class _CreateEventsState extends State<CreateEvents> {
                 const SizedBox(height: 20.0),
                 NxDDFormField(
                   value: selectedFarm,
-                  label: LocaleKeys.selectFarm,
+                  hint: LocaleKeys.selectFarm.tr(),
+                  label: LocaleKeys.labelFarm.tr(),
                   items: farms.map((farm) => farm.farmName ?? 'Unknown Farm').toList(),
                   onChanged: (String? farmName) {
                     setState(() {
@@ -112,7 +113,8 @@ class _CreateEventsState extends State<CreateEvents> {
                 SizedBox(height: 20.0),
                 NxDDFormField(
                   value: selectedCrop,
-                  label: LocaleKeys.selectCrop,
+                  hint: LocaleKeys.selectCrop.tr(),
+                  label: LocaleKeys.labelCrop.tr(),
                   items: crops,
                   onChanged: (String? cropName) {
                     setState(() {
@@ -128,7 +130,8 @@ class _CreateEventsState extends State<CreateEvents> {
                   padding: EdgeInsets.symmetric(horizontal: 20.0),
                   child: DropDownMultiSelect(
                     decoration: InputDecoration(
-                      labelText: LocaleKeys.selectEvent.tr(),
+                      hintText: LocaleKeys.selectEvent.tr(),
+                      labelText: LocaleKeys.labelEvent.tr(),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8.0)),
                         borderSide: BorderSide(color: Colors.grey),
@@ -182,7 +185,7 @@ class _CreateEventsState extends State<CreateEvents> {
                   ),
                   decoration: BoxDecoration(
                     color: Colors.green,
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
               ],

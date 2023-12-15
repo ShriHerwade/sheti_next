@@ -107,7 +107,8 @@ class _CreateCropState extends State<CreateCrop> {
                 const SizedBox(height: 20.0),
                 NxDDFormField(
                   value: selectedFarm,
-                  label: LocaleKeys.selectFarm,
+                  label: LocaleKeys.labelFarm.tr(),
+                  hint: LocaleKeys.selectFarm.tr(),
                   items: farms.map((FarmModel farm) => farm.farmName ?? 'Unknown Farm').toList(),
                   onChanged: (String? farmName) {
                     setState(() {
@@ -121,7 +122,8 @@ class _CreateCropState extends State<CreateCrop> {
                 SizedBox(height: 20.0),
                 NxDDFormField(
                   value: selectedCrop,
-                  label: LocaleKeys.selectCrop,
+                  hint: LocaleKeys.selectCrop.tr(),
+                  label: LocaleKeys.labelCrop.tr(),
                   items: crops,
                   onChanged: (String? cropName) {
                     setState(() {
@@ -141,7 +143,8 @@ class _CreateCropState extends State<CreateCrop> {
                 SizedBox(height: 20.0),
                 NxDDFormField(
                   value: selectedUnit,
-                  label: LocaleKeys.selectUnit,
+                  hint: LocaleKeys.selectUnit.tr(),
+                  label: LocaleKeys.labelUnit.tr(),
                   items: units,
                   onChanged: (String? unitValue) {
                     setState(() {
