@@ -120,16 +120,42 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   },
                 ),
                 SizedBox(height: 20.0),
-                DropDownMultiSelect(
-                  onChanged: (List<String> ex) {
-                    setState(() {
-                      selectedExpense =ex;
-                    });
-                  },
-                  options: farmExpenses,
-                  selectedValues: selectedExpense,
-                  //whenEmpty: 'Select Expense Type',
-                  hint: Text(LocaleKeys.selectExpenseType.tr()),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+
+                  child: DropDownMultiSelect(
+                    decoration: InputDecoration(
+                      labelText: LocaleKeys.selectExpenseType.tr(),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                          borderSide: BorderSide(color: Colors.lightGreen.shade400),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        fillColor: Colors.white,
+                        filled: true,
+                        //label:Text(widget.label.tr())
+                    ),
+                    onChanged: (List<String> ex) {
+                      setState(() {
+                        selectedExpense =ex;
+                      });
+                    },
+                    options: farmExpenses,
+                    selectedValues: selectedExpense,
+                    //whenEmpty: 'Select Expense Type',
+                    hint: Text(LocaleKeys.selectExpenseType.tr()),
+                  ),
                 ),
                 SizedBox(height: 20.0),
                 buildDateField(LocaleKeys.expenseDate.tr()),

@@ -23,6 +23,7 @@ class _CreateEventsState extends State<CreateEvents> {
 
   String? selectedFarm;
   String? selectedCrop;
+  String? multiHint;
   DateTime? startDate;
   DateTime? endDate;
   DbHelper? dbHelper;
@@ -30,7 +31,7 @@ class _CreateEventsState extends State<CreateEvents> {
   List<FarmModel> farms = [];
   List<String> crops = [];
   List<String> farmEvents = [];
-  List<String> selectedFarmEvents= [];
+  List<String> selectedFarmEvents = [];
 
   @override
   void initState() {
@@ -38,7 +39,8 @@ class _CreateEventsState extends State<CreateEvents> {
     dbHelper = DbHelper();
     loadFarms(); // Load farms when the widget initializes
   }
-// Load farms from the database
+
+  // Load farms from the database
   Future<void> loadFarms() async {
     farms = await dbHelper!.getAllFarms();
     setState(() {});
@@ -122,16 +124,40 @@ class _CreateEventsState extends State<CreateEvents> {
                   },
                 ),
                 SizedBox(height: 20.0),
-                DropDownMultiSelect(
-                  onChanged: (List<String> ev) {
-                    setState(() {
-                      selectedFarmEvents =ev;
-                    });
-                  },
-                  options: farmEvents,
-                  selectedValues: selectedFarmEvents,
-                  //whenEmpty: 'Select Event',
-                  hint: Text(LocaleKeys.selectEvent.tr()),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: DropDownMultiSelect(
+                    decoration: InputDecoration(
+                      labelText: LocaleKeys.selectEvent.tr(),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide: BorderSide(color: Colors.lightGreen.shade400),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      fillColor: Colors.white,
+                      filled: true,
+                      //label:Text(widget.label.tr())
+                    ),
+                    onChanged: (List<String> ev) {
+                      setState(() {
+                        selectedFarmEvents = ev;
+                      });
+                    },
+                    options: farmEvents,
+                    selectedValues: selectedFarmEvents,
+                    hint: Text(LocaleKeys.selectEvent.tr()),
+                  ),
                 ),
                 SizedBox(height: 20.0),
                 buildDateField(LocaleKeys.eventStartDate.tr(), startDate, true),
@@ -170,6 +196,7 @@ class _CreateEventsState extends State<CreateEvents> {
   Widget buildDateField(String label, DateTime? selectedDate, bool isStartDate) {
     return NxDateField(
       label: label,
+      labelText: label,
       selectedDate: selectedDate,
       isStartDate: isStartDate,
       onTap: (DateTime? picked) {

@@ -22,7 +22,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
   @override
   Widget build(BuildContext context) {
     final dropdownStyle = TextStyle(
-      fontSize: 16,
+      fontSize: 8,
     );
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
