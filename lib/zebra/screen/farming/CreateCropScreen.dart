@@ -200,7 +200,7 @@ class _CreateCropState extends State<CreateCrop> {
                   ),
                   decoration: BoxDecoration(
                     color: Colors.green,
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
               ],

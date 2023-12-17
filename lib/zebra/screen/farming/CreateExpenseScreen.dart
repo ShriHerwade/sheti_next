@@ -187,7 +187,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   ),
                   decoration: BoxDecoration(
                     color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
               ],

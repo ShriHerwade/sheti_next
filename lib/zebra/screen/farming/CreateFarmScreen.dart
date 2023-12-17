@@ -132,7 +132,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                       decoration: BoxDecoration(
                         color:
                         isSaveButtonEnabled() ? Colors.green : Colors.grey,
-                        borderRadius: BorderRadius.circular(30.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                     Container(
@@ -157,7 +157,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                       ),
                       decoration: BoxDecoration(
                         color: Colors.green,
-                        borderRadius: BorderRadius.circular(30.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                   ],
