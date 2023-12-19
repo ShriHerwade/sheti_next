@@ -111,7 +111,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                       DataCell(
                         Text(
                           DateFormat("dd-MM-yyyy")
-                              .format(DateTime.parse(crop.endDate.toString())),
+                              .format(DateTime.parse(crop.startDate.toString())),
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.black),
                         ),

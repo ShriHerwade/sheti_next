@@ -277,6 +277,7 @@ class _CreateCropState extends State<CreateCrop> {
 
         _confarmArea.clear();
         setState(() {
+          selectedFarm = null;
           selectedUnit = null;
           selectedCrop = null;
           startDate = null;
