@@ -6,7 +6,7 @@ import 'package:sheti_next/zebra/screen/farming/CreateEventScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
-import 'package:sheti_next/zebra/screen/farming/MyFarmsScreen.dart';
+import 'package:sheti_next/zebra/screen/farming/MyFarmScreen.dart';
 import '../../screen/farming/MyCropsScreen.dart';
 import '../../screen/farming/MyEventsScreen.dart';
 

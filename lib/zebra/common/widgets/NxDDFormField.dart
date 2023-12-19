@@ -49,8 +49,8 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
             ),
             fillColor: Colors.white,
             filled: true,
-            label :Text(widget.label),
-              floatingLabelBehavior: FloatingLabelBehavior.auto // this should help to show label only on focus but still not working.
+              label :Text(widget.label),
+              floatingLabelBehavior: FloatingLabelBehavior.auto, // this should help to show label only on focus but still not working.
           ),
           hint:  Text(widget.hint),
           value: widget.value,

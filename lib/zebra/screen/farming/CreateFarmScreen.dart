@@ -6,7 +6,7 @@ import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
-import 'FarmsListScreen.dart';
+import 'MyFarmScreen.dart';
 
 class CreateFarms extends StatefulWidget {
   const CreateFarms({Key? key}) : super(key: key);
@@ -142,7 +142,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => FarmsListScreen(),
+                              builder: (context) => MyFarmScreen(),
                             ),
                           );
                         },

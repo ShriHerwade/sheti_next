@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 
-class FarmsListScreen extends StatefulWidget {
-  const FarmsListScreen({Key? key}) : super(key: key);
+class MyFarmScreen extends StatefulWidget {
+  const MyFarmScreen({Key? key}) : super(key: key);
 
   @override
-  _FarmsListScreenState createState() => _FarmsListScreenState();
+  _MyFarmScreenState createState() => _MyFarmScreenState();
 }
 
-class _FarmsListScreenState extends State<FarmsListScreen> {
+class _MyFarmScreenState extends State<MyFarmScreen> {
   DbHelper? dbHelper;
 
   @override
@@ -80,12 +80,6 @@ class _FarmsListScreenState extends State<FarmsListScreen> {
                   ),
                   DataColumn(
                     label: Text(
-                      "Unit",
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Text(
                       "Type",
                       style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
                     ),
@@ -107,14 +101,7 @@ class _FarmsListScreenState extends State<FarmsListScreen> {
                         ),
                       ),
                       DataCell(
-                        Text(
-                          "${farm.farmArea}",
-                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                        ),
-                      ),
-                      DataCell(
-                        Text(
-                          farm.unit ?? '',
+                        Text('${farm.farmArea} ${farm.unit}',
                           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ),
