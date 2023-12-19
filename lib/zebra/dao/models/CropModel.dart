@@ -2,6 +2,7 @@ class CropModel {
   final String farmName;
   final String cropName;
   final double area;
+  final String unit;
   final DateTime startDate;
   final DateTime endDate;
   bool isActive;
@@ -11,6 +12,7 @@ class CropModel {
     required this.farmName,
     required this.cropName,
     required this.area,
+    required this.unit,
     required this.startDate,
     required this.endDate,
     this.isActive = true,
@@ -22,6 +24,7 @@ class CropModel {
       'farmName': farmName,
       'cropName': cropName,
       'area': area,
+      'unit': unit,
       'startDate': startDate.toIso8601String(),
       'endDate': endDate.toIso8601String(),
       'isActive': isActive ? 1 : 0,
@@ -34,6 +37,7 @@ class CropModel {
       farmName: map['farmName'],
       cropName: map['cropName'],
       area: map['area'],
+      unit: map['unit'],
       startDate: DateTime.parse(map['startDate']),
       endDate: DateTime.parse(map['endDate']),
       isActive: map['isActive'] == 1,

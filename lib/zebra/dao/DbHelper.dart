@@ -83,6 +83,7 @@ class DbHelper {
             $C_farmName TEXT,
             $C_cropName TEXT,
             $C_area REAL,
+            $C_unit TEXT,
             $C_startDate TEXT,
             $C_endDate TEXT,
             $C_isActive INTEGER,

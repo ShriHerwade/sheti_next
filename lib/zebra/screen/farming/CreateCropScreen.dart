@@ -11,8 +11,8 @@ import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
+import 'package:sheti_next/zebra/screen/farming/MyCropScreen.dart';
 // Import NxDateField
-
 
 class CreateCrop extends StatefulWidget {
   const CreateCrop({Key? key}) : super(key: key);
@@ -112,7 +112,9 @@ class _CreateCropState extends State<CreateCrop> {
                   value: selectedFarm,
                   label: LocaleKeys.labelFarm.tr(),
                   hint: LocaleKeys.selectFarm.tr(),
-                  items: farms.map((FarmModel farm) => farm.farmName ?? 'Unknown Farm').toList(),
+                  items: farms
+                      .map((FarmModel farm) => farm.farmName ?? 'Unknown Farm')
+                      .toList(),
                   onChanged: (String? farmName) {
                     setState(() {
                       selectedFarm = farmName;
@@ -183,25 +185,55 @@ class _CreateCropState extends State<CreateCrop> {
                   },
                 ),
                 SizedBox(height: 20.0),
-                Container(
-                  width: double.infinity,
-                  child: TextButton(
-                    onPressed: () async {
-                      await saveCropData();
-                    },
-                    child: Text(
-                      LocaleKeys.save.tr(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: 150,
+                      child: TextButton(
+                        onPressed:
+                            isSaveButtonEnabled() ? () => saveCropData() : null,
+                        child: Text(
+                          LocaleKeys.save.tr(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color:
+                            isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+                    Container(
+                      width: 150,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyCropScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          LocaleKeys.buttonShowAllCrops.tr(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -211,6 +243,15 @@ class _CreateCropState extends State<CreateCrop> {
     );
   }
 
+  bool isSaveButtonEnabled() {
+    return _confarmArea.text.isNotEmpty &&
+        selectedFarm != null &&
+        selectedCrop != null &&
+        selectedUnit != null &&
+        startDate != null &&
+        endDate != null;
+  }
+
   Future<void> saveCropData() async {
     if (_formKey.currentState!.validate()) {
       try {
@@ -218,6 +259,7 @@ class _CreateCropState extends State<CreateCrop> {
           farmName: selectedFarm!,
           cropName: selectedCrop!,
           area: double.parse(_confarmArea.text),
+          unit: selectedUnit!,
           startDate: startDate!,
           endDate: endDate!,
           isActive: true,

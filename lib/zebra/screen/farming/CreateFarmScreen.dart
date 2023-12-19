@@ -147,7 +147,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                           );
                         },
                         child: Text(
-                          "Show Farms",
+                          LocaleKeys.buttonShowAllFarms.tr(),
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

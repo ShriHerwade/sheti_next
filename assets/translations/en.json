@@ -39,5 +39,10 @@
   "navBarEvents": "Event",
   "navBarExpenses": "Expense",
   "navBarHusbandry": "Animal Husbandry",
-  "navBarMachinery": "Machinery"
+  "navBarMachinery": "Machinery",
+
+  "buttonShowAllCrops" : "Show Crops",
+  "buttonShowAllFarms" : "Show Farms ",
+  "buttonShowAllEvents" : "Show Events ",
+  "buttonShowAllExpense" : "Show Expenses "
 }

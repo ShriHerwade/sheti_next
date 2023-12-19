@@ -7,7 +7,7 @@ import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyFarmScreen.dart';
-import '../../screen/farming/MyCropsScreen.dart';
+import '../../screen/farming/MyCropScreen.dart';
 import '../../screen/farming/MyEventsScreen.dart';
 
 class NxNavBar extends StatelessWidget {

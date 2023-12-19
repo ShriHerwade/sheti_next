@@ -42,5 +42,9 @@ abstract class  LocaleKeys {
   static const navBarExpenses = 'navBarExpenses';
   static const navBarHusbandry = 'navBarHusbandry';
   static const navBarMachinery = 'navBarMachinery';
+  static const buttonShowAllCrops = 'buttonShowAllCrops';
+  static const buttonShowAllFarms = 'buttonShowAllFarms';
+  static const buttonShowAllEvents = 'buttonShowAllEvents';
+  static const buttonShowAllExpense = 'buttonShowAllExpense';
 
 }

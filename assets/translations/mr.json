@@ -39,5 +39,10 @@
   "navBarEvents": "शेत काम",
   "navBarExpenses": "जमा खर्च",
   "navBarHusbandry": "पशुपालन",
-  "navBarMachinery": "यंत्रसामग्री"
+  "navBarMachinery": "यंत्रसामग्री",
+
+  "buttonShowAllCrops" : "पीक दाखवा",
+  "buttonShowAllFarms" : "शेती दाखवा ",
+  "buttonShowAllEvents" : "शेत काम दाखवा ",
+  "buttonShowAllExpense" : "जमा खर्च दाखवा "
 }
