@@ -5,10 +5,8 @@ import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateEventScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
-import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
-import 'package:sheti_next/zebra/screen/farming/MyFarmScreen.dart';
-import '../../screen/farming/MyCropScreen.dart';
-import '../../screen/farming/MyEventsScreen.dart';
+import 'package:sheti_next/zebra/screen/farming/Dashboard.dart';
+
 
 class NxNavBar extends StatelessWidget {
   const NxNavBar({super.key});
@@ -76,6 +74,17 @@ class NxNavBar extends StatelessWidget {
                                 builder: (_) => CreateExpenses()));
                       },
                       child: Text(LocaleKeys.navBarExpenses.tr())),
+                ),
+                ListTile(
+                  leading: Icon(Icons.dashboard),
+                  title: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => DashboardScreen()));
+                      },
+                      child: Text('Dashboard')),
                 ),
               ],
             ),
