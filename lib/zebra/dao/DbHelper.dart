@@ -14,6 +14,10 @@ class DbHelper {
 
   static const int Version = 1;
 
+  static const String C_userId = 'userId';
+  static const String C_farmId = 'farmId';
+  static const String C_cropId = 'cropId';
+
   static const String C_firstName = 'firstName';
   static const String C_lastName = 'lastName';
   static const String C_email = 'email';
@@ -51,6 +55,7 @@ class DbHelper {
         db.execute(
           '''
           CREATE TABLE $Table_User (
+            $C_userId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_firstName TEXT, 
             $C_lastName TEXT,
             $C_email TEXT,
@@ -65,6 +70,7 @@ class DbHelper {
         db.execute(
           '''
           CREATE TABLE $Table_Farms (
+            $C_farmId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_farmName TEXT,
             $C_farmAddress TEXT,
             $C_farmArea REAL,
@@ -80,6 +86,7 @@ class DbHelper {
         db.execute(
           '''
           CREATE TABLE $Table_Crops (
+            $C_cropId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_farmName TEXT,
             $C_cropName TEXT,
             $C_area REAL,
