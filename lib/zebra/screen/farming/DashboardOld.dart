@@ -5,12 +5,12 @@ import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class DashboardScreen extends StatefulWidget {
+class DashboardScreenOld extends StatefulWidget {
   @override
-  _DashboardScreenState createState() => _DashboardScreenState();
+  _DashboardScreenOldState createState() => _DashboardScreenOldState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DashboardScreenOldState extends State<DashboardScreenOld> {
   String temperature = '';
   String airFlow = '';
   String humidity = '';
