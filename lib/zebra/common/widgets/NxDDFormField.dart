@@ -24,11 +24,9 @@ class NxDDFormField extends StatefulWidget {
 class _NxDDFormFieldState extends State<NxDDFormField> {
   @override
   Widget build(BuildContext context) {
-    final dropdownStyle = TextStyle(
-      fontSize: 5,
-    );
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
+      height: 60,
       child: DropdownButtonHideUnderline(
         child: DropdownButtonFormField<String>(
           decoration: InputDecoration(
