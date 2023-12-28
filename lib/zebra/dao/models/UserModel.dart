@@ -4,7 +4,7 @@ class UserModel {
   late String firstName;
   late String lastName;
   late String email;
-  late String mobileNo;
+  late String mobileNo;// set mobile no as PK
   late String pin;
 
   UserModel(

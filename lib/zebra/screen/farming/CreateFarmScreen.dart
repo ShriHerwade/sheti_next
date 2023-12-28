@@ -7,6 +7,7 @@ import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'MyFarmScreen.dart';
+import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 
 class CreateFarms extends StatefulWidget {
   const CreateFarms({Key? key}) : super(key: key);
@@ -35,13 +36,18 @@ class _CreateFarmsState extends State<CreateFarms> {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate font size based on screen width
+    double fontSize = ResponsiveUtil.fontSize(context, 20.0);
+
+    // Set units and farm types based on the selected language
     if (context.locale.languageCode == 'mr') {
       units = CustomTranslationList.areaUnits_mr;
-      farmTypes =CustomTranslationList.farmTypes_mr;
+      farmTypes = CustomTranslationList.farmTypes_mr;
     } else if (context.locale.languageCode == 'en') {
       units = CustomTranslationList.areaUnits_en;
-      farmTypes =CustomTranslationList.farmTypes_en;;
+      farmTypes = CustomTranslationList.farmTypes_en;
     }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -53,38 +59,47 @@ class _CreateFarmsState extends State<CreateFarms> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
             child: Column(
               children: [
                 const SizedBox(height: 30),
+                // Responsive image
                 Image.asset(
                   "assets/images/top_create-farm-1.png",
-                  height: 120,
-                  width: 150,
+                  height: ResponsiveUtil.screenHeight(context) * 0.16,
+                  width: ResponsiveUtil.screenWidth(context) * 0.4,
                 ),
-                const SizedBox(height: 20.0),
+                // Spacer
+                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.04),
+                // Text form field for farm name
                 NxTextFormField(
                   controller: _confarmName,
                   hintName: LocaleKeys.farmName.tr(),
                   inputType: TextInputType.name,
                 ),
-                SizedBox(height: 20.0),
+                // Spacer
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                // Text form field for farm address
                 NxTextFormField(
                   controller: _confarmAddress,
                   hintName: LocaleKeys.address.tr(),
                   inputType: TextInputType.name,
                 ),
-                SizedBox(height: 20.0),
+                // Spacer
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                // Text form field for farm area
                 NxTextFormField(
                   controller: _confarmArea,
                   hintName: LocaleKeys.farmAea.tr(),
                   inputType: TextInputType.number,
                 ),
-                SizedBox(height: 20.0),
+                // Spacer
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                // Dropdown form field for selecting unit
                 NxDDFormField(
                   value: selectedUnit,
-                  hint : LocaleKeys.selectUnit.tr(),
-                  label : LocaleKeys.labelUnit.tr(),
+                  hint: LocaleKeys.selectUnit.tr(),
+                  label: LocaleKeys.labelUnit.tr(),
                   items: units,
                   onChanged: (String? unitValue) {
                     setState(() {
@@ -95,7 +110,9 @@ class _CreateFarmsState extends State<CreateFarms> {
                     });
                   },
                 ),
-                SizedBox(height: 20.0),
+                // Spacer
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                // Dropdown form field for selecting farm type
                 NxDDFormField(
                   value: selectedType,
                   label: LocaleKeys.labelFarmType.tr(),
@@ -110,12 +127,15 @@ class _CreateFarmsState extends State<CreateFarms> {
                     });
                   },
                 ),
-                SizedBox(height: 10.0),
+                // Spacer
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.01),
+                // Row with two buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    // Save button
                     Container(
-                      width: 150,
+                      width: ResponsiveUtil.screenWidth(context) * 0.35,
                       child: TextButton(
                         onPressed: isSaveButtonEnabled()
                             ? () => saveFarmData(context)
@@ -125,18 +145,18 @@ class _CreateFarmsState extends State<CreateFarms> {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: fontSize,
                           ),
                         ),
                       ),
                       decoration: BoxDecoration(
-                        color:
-                        isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                        color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
+                    // Show all farms button
                     Container(
-                      width: 150,
+                      width: ResponsiveUtil.screenWidth(context) * 0.35,
                       child: TextButton(
                         onPressed: () {
                           Navigator.push(
@@ -151,7 +171,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: fontSize,
                           ),
                         ),
                       ),
@@ -170,6 +190,7 @@ class _CreateFarmsState extends State<CreateFarms> {
     );
   }
 
+  // Check if save button should be enabled
   bool isSaveButtonEnabled() {
     return _confarmName.text.isNotEmpty &&
         _confarmAddress.text.isNotEmpty &&
@@ -178,29 +199,48 @@ class _CreateFarmsState extends State<CreateFarms> {
         selectedType != null;
   }
 
+  // Save farm data to the database
   void saveFarmData(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {
-      FarmModel farm = FarmModel(
-        farmName: _confarmName.text,
-        farmAddress: _confarmAddress.text,
-        farmArea: double.parse(_confarmArea.text),
-        unit: selectedUnit!,
-        farmType: selectedType!,
-        isActive: true,
-        createdDate: DateTime.now(),
-      );
+    try {
+      if (_formKey.currentState!.validate()) {
+        FarmModel farm = FarmModel(
+          farmName: _confarmName.text,
+          farmAddress: _confarmAddress.text,
+          farmArea: double.parse(_confarmArea.text),
+          unit: selectedUnit!,
+          farmType: selectedType!,
+          isActive: true,
+          createdDate: DateTime.now(),
+        );
 
-      await dbHelper!.saveFarmData(farm);
+        await dbHelper!.saveFarmData(farm);
 
-      _confarmName.clear();
-      _confarmAddress.clear();
-      _confarmArea.clear();
-      selectedUnit = null;
-      selectedType = null;
+        // Clear form fields
+        _confarmName.clear();
+        _confarmAddress.clear();
+        _confarmArea.clear();
+        selectedUnit = null;
+        selectedType = null;
 
+        // Show a success message in green
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Farm data saved successfully!"),
+            backgroundColor: Colors.green,
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.only(bottom: 16.0)
+
+          ),
+        );
+      }
+    } catch (e) {
+      // Show an error message in red
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Farm data saved successfully!"),
+          content: Text("Error saving farm data. Please try again."),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(bottom: 16.0),
         ),
       );
     }

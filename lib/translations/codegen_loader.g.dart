@@ -57,7 +57,7 @@ class CodegenLoader extends AssetLoader{
   "navBarHusbandry": "Animal Husbandry",
   "navBarMachinery": "Machinery",
   "buttonShowAllCrops": "Show Crops",
-  "buttonShowAllFarms": "Show Farms ",
+  "buttonShowAllFarms": "My Farms",
   "buttonShowAllEvents": "Show Events ",
   "buttonShowAllExpense": "Show Expenses "
 };

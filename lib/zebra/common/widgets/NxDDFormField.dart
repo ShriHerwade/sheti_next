@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
 class NxDDFormField extends StatefulWidget {
   final String? value;
   final String label;
@@ -24,7 +25,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
   @override
   Widget build(BuildContext context) {
     final dropdownStyle = TextStyle(
-      fontSize: 8,
+      fontSize: 5,
     );
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -49,10 +50,13 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
             ),
             fillColor: Colors.white,
             filled: true,
-              label :Text(widget.label),
-              floatingLabelBehavior: FloatingLabelBehavior.auto, // this should help to show label only on focus but still not working.
+            // Show label only if the dropdown is selected
+            labelText: widget.value != null && widget.value!.isNotEmpty
+                ? widget.label
+                : null,
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
           ),
-         // hint:  Text(widget.hint),
+          hint: Text(widget.hint),
           value: widget.value,
           onChanged: widget.onChanged,
           items: widget.items.map((item) {
