@@ -26,7 +26,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
-      height: 60,
+      height: 57,
       child: DropdownButtonHideUnderline(
         child: DropdownButtonFormField<String>(
           decoration: InputDecoration(
@@ -52,15 +52,16 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
             labelText: widget.value != null && widget.value!.isNotEmpty
                 ? widget.label
                 : null,
+            labelStyle: TextStyle(color: Colors.grey,fontWeight: FontWeight.normal),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
           ),
-          hint: Text(widget.hint),
+          hint: Text(widget.hint,style: TextStyle(color: Colors.black,fontWeight: FontWeight.normal)),
           value: widget.value,
           onChanged: widget.onChanged,
           items: widget.items.map((item) {
             return DropdownMenuItem<String>(
               value: item,
-              child: Text(item),
+              child: Text(item,style: TextStyle(fontWeight: FontWeight.normal,color: Colors.black)),
             );
           }).toList(),
         ),
