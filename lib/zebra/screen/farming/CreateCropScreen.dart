@@ -12,7 +12,7 @@ import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import 'package:sheti_next/zebra/screen/farming/MyCropScreen.dart';
-// Import NxDateField
+import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 
 class CreateCrop extends StatefulWidget {
   const CreateCrop({Key? key}) : super(key: key);
@@ -78,6 +78,9 @@ class _CreateCropState extends State<CreateCrop> {
 
   @override
   Widget build(BuildContext context) {
+    // Initialize ResponsiveUtil with the current context
+    double fontSize = ResponsiveUtil.fontSize(context, 20.0);
+
     // custom list localization
     if (context.locale.languageCode == 'mr') {
       units = CustomTranslationList.areaUnits_mr;
@@ -98,16 +101,16 @@ class _CreateCropState extends State<CreateCrop> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
             child: Column(
               children: [
-                const SizedBox(height: 10),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 Image.asset(
                   "assets/images/top_create-crop-1.png",
-                  height: 120,
-                  width: 150,
+                  height: ResponsiveUtil.screenHeight(context) * 0.16,
+                  width: ResponsiveUtil.screenWidth(context) * 0.4,
                 ),
-                const SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 NxDDFormField(
                   value: selectedFarm,
                   label: LocaleKeys.labelFarm.tr(),
@@ -124,7 +127,7 @@ class _CreateCropState extends State<CreateCrop> {
                     });
                   },
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 NxDDFormField(
                   value: selectedCrop,
                   hint: LocaleKeys.selectCrop.tr(),
@@ -139,13 +142,13 @@ class _CreateCropState extends State<CreateCrop> {
                     });
                   },
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 NxTextFormField(
                   controller: _confarmArea,
                   hintName: LocaleKeys.sowingArea.tr(),
                   inputType: TextInputType.number,
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 NxDDFormField(
                   value: selectedUnit,
                   hint: LocaleKeys.selectUnit.tr(),
@@ -160,8 +163,7 @@ class _CreateCropState extends State<CreateCrop> {
                     });
                   },
                 ),
-                SizedBox(height: 20.0),
-                // Use NxDateField for sowing date
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 NxDateField(
                   label: LocaleKeys.sowingDate.tr(),
                   labelText: LocaleKeys.sowingDate.tr(),
@@ -172,8 +174,7 @@ class _CreateCropState extends State<CreateCrop> {
                     });
                   },
                 ),
-                SizedBox(height: 20.0),
-                // Use NxDateField for harvesting date
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 NxDateField(
                   label: LocaleKeys.harvestingDate.tr(),
                   labelText: LocaleKeys.harvestingDate.tr(),
@@ -184,32 +185,30 @@ class _CreateCropState extends State<CreateCrop> {
                     });
                   },
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
-                      width: 150,
+                      width: ResponsiveUtil.screenWidth(context) * 0.35,
                       child: TextButton(
-                        onPressed:
-                            isSaveButtonEnabled() ? () => saveCropData() : null,
+                        onPressed: isSaveButtonEnabled() ? () => saveCropData() : null,
                         child: Text(
                           LocaleKeys.save.tr(),
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: ResponsiveUtil.fontSize(context, 20),
                           ),
                         ),
                       ),
                       decoration: BoxDecoration(
-                        color:
-                            isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                        color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                     Container(
-                      width: 150,
+                      width: ResponsiveUtil.screenWidth(context) * 0.35,
                       child: TextButton(
                         onPressed: () {
                           Navigator.push(
@@ -224,7 +223,7 @@ class _CreateCropState extends State<CreateCrop> {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: ResponsiveUtil.fontSize(context, 20),
                           ),
                         ),
                       ),
@@ -271,7 +270,9 @@ class _CreateCropState extends State<CreateCrop> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Crop data saved successfully'),
-            duration: Duration(seconds: 2),
+              backgroundColor: Colors.green,
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.only(bottom: 16.0)
           ),
         );
 
@@ -288,7 +289,9 @@ class _CreateCropState extends State<CreateCrop> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error saving crop data. Please check your input.'),
-            duration: Duration(seconds: 2),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.only(bottom: 16.0)
           ),
         );
       }

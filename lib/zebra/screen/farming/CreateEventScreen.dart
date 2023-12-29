@@ -10,6 +10,7 @@ import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import '../../dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
+import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 
 class CreateEvents extends StatefulWidget {
   const CreateEvents({Key? key}) : super(key: key);
@@ -86,16 +87,16 @@ class _CreateEventsState extends State<CreateEvents> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
             child: Column(
               children: [
-                const SizedBox(height: 30),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 Image.asset(
                   "assets/images/top_create-life-cycle-event-2.png",
-                  height: 120,
-                  width: 150,
+                  height: ResponsiveUtil.screenHeight(context) * 0.16,
+                  width: ResponsiveUtil.screenWidth(context) * 0.4,
                 ),
-                const SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 NxDDFormField(
                   value: selectedFarm,
                   hint: LocaleKeys.selectFarm.tr(),
@@ -110,7 +111,7 @@ class _CreateEventsState extends State<CreateEvents> {
                     });
                   },
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 NxDDFormField(
                   value: selectedCrop,
                   hint: LocaleKeys.selectCrop.tr(),
@@ -125,9 +126,9 @@ class _CreateEventsState extends State<CreateEvents> {
                     });
                   },
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: EdgeInsets.symmetric(horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
                   child: DropDownMultiSelect(
                     decoration: InputDecoration(
                       hintText: LocaleKeys.selectEvent.tr(),
@@ -150,7 +151,8 @@ class _CreateEventsState extends State<CreateEvents> {
                       ),
                       fillColor: Colors.white,
                       filled: true,
-                      //label:Text(widget.label.tr())
+                      isDense: true,
+
                     ),
                     onChanged: (List<String> ev) {
                       setState(() {
@@ -159,16 +161,17 @@ class _CreateEventsState extends State<CreateEvents> {
                     },
                     options: farmEvents,
                     selectedValues: selectedFarmEvents,
-                    hint: Text(LocaleKeys.selectEvent.tr()),hintStyle: TextStyle(fontWeight: FontWeight.normal,color: Colors.grey),
+                    hint: Text(LocaleKeys.selectEvent.tr()),
+                    hintStyle: TextStyle(fontWeight: FontWeight.normal, color: Colors.grey),
                   ),
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 buildDateField(LocaleKeys.eventStartDate.tr(), startDate, true),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 buildDateField(LocaleKeys.eventEndDate.tr(), endDate, false),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 Container(
-                  margin: EdgeInsets.all(30.0),
+                  margin: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.1),
                   width: double.infinity,
                   child: TextButton(
                     onPressed: () {
@@ -179,7 +182,7 @@ class _CreateEventsState extends State<CreateEvents> {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: ResponsiveUtil.fontSize(context, 20),
                       ),
                     ),
                   ),

@@ -1,3 +1,5 @@
+// create_expenses.dart
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +11,7 @@ import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import '../../common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
+import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 
 class CreateExpenses extends StatefulWidget {
   const CreateExpenses({Key? key});
@@ -69,6 +72,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     if (context.locale.languageCode == 'mr') {
       crops = CustomTranslationList.crops_mr;
@@ -88,16 +92,16 @@ class _CreateExpensesState extends State<CreateExpenses> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
             child: Column(
               children: [
-                const SizedBox(height: 30),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 Image.asset(
                   "assets/images/top_create-life-cycle-event-2.png",
-                  height: 120,
-                  width: 150,
+                  height: ResponsiveUtil.screenHeight(context) * 0.16,
+                  width: ResponsiveUtil.screenWidth(context) * 0.4,
                 ),
-                const SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 NxDDFormField(
                   value: selectedFarm,
                   hint: LocaleKeys.selectFarm.tr(),
@@ -112,7 +116,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     });
                   },
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 NxDDFormField(
                   value: selectedCrop,
                   hint: LocaleKeys.selectCrop.tr(),
@@ -124,55 +128,55 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     });
                   },
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: EdgeInsets.symmetric(horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
                   child: DropDownMultiSelect(
                     decoration: InputDecoration(
                       hintText: LocaleKeys.selectExpenseType.tr(),
                       labelText: LocaleKeys.labelExpenseType.tr(),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          borderSide: BorderSide(color: Colors.lightGreen.shade400),
-                        ),
-                        disabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        fillColor: Colors.white,
-                        filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide: BorderSide(color: Colors.lightGreen.shade400),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      fillColor: Colors.white,
+                      filled: true,
+                      isDense: true,
                     ),
                     onChanged: (List<String> ex) {
                       setState(() {
                         selectedExpense = ex;
                       });
                     },
-
                     options: farmExpenses,
                     selectedValues: selectedExpense,
-                    hint: Text(LocaleKeys.selectExpenseType.tr()),hintStyle: TextStyle(fontWeight: FontWeight.normal,color: Colors.grey),
-
+                    hint: Text(LocaleKeys.selectExpenseType.tr()),
+                    hintStyle: TextStyle(fontWeight: FontWeight.normal, color: Colors.grey),
                   ),
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 buildDateField(LocaleKeys.expenseDate.tr()),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 NxTextFormField(
                   controller: _confamount,
                   hintName: LocaleKeys.expenseAmount.tr(),
                   inputType: TextInputType.number,
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 Container(
-                  margin: EdgeInsets.all(30.0),
+                  margin: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.1),
                   width: double.infinity,
                   child: TextButton(
                     onPressed: isSaveButtonEnabled()
@@ -183,7 +187,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: ResponsiveUtil.fontSize(context, 20),
                       ),
                     ),
                   ),
@@ -222,18 +226,32 @@ class _CreateExpensesState extends State<CreateExpenses> {
   }
 
   void saveExpenseData(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {
-      // Handle save logic using selected values (selectedFarm, selectedCrop, selectedEvent, selectedDate, _confamount.text)
+    try {
+      if (_formKey.currentState!.validate()) {
+        // Handle save logic using selected values (selectedFarm, selectedCrop, selectedEvent, selectedDate, _confamount.text)
 
-      _confamount.clear();
-      selectedFarm = null;
-      selectedCrop = null;
-      selectedExpense = [];
-      selectedDate = null;
+        _confamount.clear();
+        selectedFarm = null;
+        selectedCrop = null;
+        selectedExpense = [];
+        selectedDate = null;
 
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Expense data saved successfully!"),
+              backgroundColor: Colors.green,
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.only(bottom: 16.0)
+          ),
+        );
+      }
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Expense data saved successfully!"),
+          content: Text("Error saving expense data. Please try again."),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(bottom: 16.0),
         ),
       );
     }
