@@ -159,7 +159,7 @@ class _CreateEventsState extends State<CreateEvents> {
                     },
                     options: farmEvents,
                     selectedValues: selectedFarmEvents,
-                    hint: Text(LocaleKeys.selectEvent.tr()),
+                    hint: Text(LocaleKeys.selectEvent.tr()),hintStyle: TextStyle(fontWeight: FontWeight.normal,color: Colors.grey),
                   ),
                 ),
                 SizedBox(height: 20.0),

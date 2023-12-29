@@ -54,6 +54,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
                 : null,
             //labelStyle: TextStyle(color: Colors.grey,fontWeight: FontWeight.normal),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
+            isDense: true,
           ),
           hint: Text(widget.hint,style: TextStyle(color: Colors.grey,fontWeight: FontWeight.normal)),
           value: widget.value,
@@ -62,6 +63,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
             return DropdownMenuItem<String>(
               value: item,
               child: Text(item,style: TextStyle(fontWeight: FontWeight.normal,color: Colors.black)),
+
             );
           }).toList(),
         ),

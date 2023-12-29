@@ -155,9 +155,11 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         selectedExpense = ex;
                       });
                     },
+
                     options: farmExpenses,
                     selectedValues: selectedExpense,
-                    hint: Text(LocaleKeys.selectExpenseType.tr()),
+                    hint: Text(LocaleKeys.selectExpenseType.tr()),hintStyle: TextStyle(fontWeight: FontWeight.normal,color: Colors.grey),
+
                   ),
                 ),
                 SizedBox(height: 20.0),
