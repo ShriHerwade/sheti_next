@@ -52,10 +52,10 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
             labelText: widget.value != null && widget.value!.isNotEmpty
                 ? widget.label
                 : null,
-            labelStyle: TextStyle(color: Colors.grey,fontWeight: FontWeight.normal),
+            //labelStyle: TextStyle(color: Colors.grey,fontWeight: FontWeight.normal),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
           ),
-          hint: Text(widget.hint,style: TextStyle(color: Colors.black,fontWeight: FontWeight.normal)),
+          hint: Text(widget.hint,style: TextStyle(color: Colors.grey,fontWeight: FontWeight.normal)),
           value: widget.value,
           onChanged: widget.onChanged,
           items: widget.items.map((item) {
