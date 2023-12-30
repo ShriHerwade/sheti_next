@@ -1,12 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/codegen_loader.g.dart';
-import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
-import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
-import 'package:sheti_next/zebra/screen/user/LoginScreen.dart';
-import 'package:sheti_next/zebra/screen/welcome/WelcomeScreen.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 
 void main() async{
