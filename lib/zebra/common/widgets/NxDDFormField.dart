@@ -56,7 +56,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             isDense: true,
           ),
-          hint: Text(widget.hint,style: TextStyle(color: Colors.grey,fontWeight: FontWeight.normal)),
+          hint: Text(widget.hint,style: TextStyle(color: Colors.black,fontWeight: FontWeight.normal)),
           value: widget.value,
           onChanged: widget.onChanged,
           items: widget.items.map((item) {

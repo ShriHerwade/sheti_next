@@ -49,7 +49,7 @@ class NxDateField extends StatelessWidget {
               fillColor: Colors.white,
               filled: true,
               hintText: selectedDate != null ? formatDate(selectedDate!) : '$label',//hintStyle: TextStyle(fontWeight: FontWeight.normal,color: Colors.grey),
-              labelText: labelText,labelStyle: TextStyle(fontWeight: FontWeight.normal,color: Colors.grey),
+              labelText: labelText,labelStyle: TextStyle(fontWeight: FontWeight.normal,color: Colors.black),
               suffixIcon: Icon(Icons.calendar_today),
               border: InputBorder.none,
             ),

@@ -162,7 +162,7 @@ class _CreateEventsState extends State<CreateEvents> {
                     options: farmEvents,
                     selectedValues: selectedFarmEvents,
                     hint: Text(LocaleKeys.selectEvent.tr()),
-                    hintStyle: TextStyle(fontWeight: FontWeight.normal, color: Colors.grey),
+                    hintStyle: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
                   ),
                 ),
                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),

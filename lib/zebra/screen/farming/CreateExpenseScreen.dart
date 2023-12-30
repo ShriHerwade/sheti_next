@@ -163,7 +163,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     options: farmExpenses,
                     selectedValues: selectedExpense,
                     hint: Text(LocaleKeys.selectExpenseType.tr()),
-                    hintStyle: TextStyle(fontWeight: FontWeight.normal, color: Colors.grey),
+                    hintStyle: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
                   ),
                 ),
                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
