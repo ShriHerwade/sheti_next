@@ -1,6 +1,8 @@
 class CropModel {
-  final String farmName;
+  int? cropId;
+  int farmId;
   final String cropName;
+  final String cropVariety;
   final double area;
   final String unit;
   final DateTime startDate;
@@ -9,8 +11,10 @@ class CropModel {
   DateTime? createdDate;
 
   CropModel({
-    required this.farmName,
+    required this.cropId,
+    required this.farmId,
     required this.cropName,
+    required this.cropVariety,
     required this.area,
     required this.unit,
     required this.startDate,
@@ -21,12 +25,14 @@ class CropModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'farmName': farmName,
-      'cropName': cropName,
-      'area': area,
-      'unit': unit,
-      'startDate': startDate.toIso8601String(),
-      'endDate': endDate.toIso8601String(),
+      'cropId': this.cropId,
+      'farmId': this.farmId,
+      'cropName': this.cropName,
+      'cropVariety': this.cropVariety,
+      'area': this.area,
+      'unit': this.unit,
+      'startDate': this.startDate?.toIso8601String(),
+      'endDate': this.endDate?.toIso8601String(),
       'isActive': isActive ? 1 : 0,
       'createdDate': createdDate?.toIso8601String(),
     };
@@ -34,8 +40,10 @@ class CropModel {
 
   factory CropModel.fromMap(Map<String, dynamic> map) {
     return CropModel(
-      farmName: map['farmName'],
+      cropId: map['cropId'],
+      farmId: map['farmId'],
       cropName: map['cropName'],
+      cropVariety: map['cropVariety'],
       area: map['area'],
       unit: map['unit'],
       startDate: DateTime.parse(map['startDate']),
