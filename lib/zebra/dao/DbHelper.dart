@@ -342,6 +342,16 @@ class DbHelper {
       return SettingModel.fromMap(maps[i]);
     });
   }
+// Add this method is used to savae data of user
+  Future<void> saveUserData(UserModel user) async {
+    final dbClient = await db;
+    await dbClient.insert(
+      Table_Users,
+      user.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    print("User record inserted");
+  }
 
   Future<void> closeDb() async {
     if (_db != null) {

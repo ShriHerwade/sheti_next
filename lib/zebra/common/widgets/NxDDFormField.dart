@@ -1,16 +1,15 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class NxDDFormField extends StatefulWidget {
-  final String? value;
+  final String? selectedKey; // Change to selectedKey
   final String label;
   final String hint;
-  final List<String> items;
+  final Map<String, String> items; // Change to Map<String, String>
   final Function(String?) onChanged;
 
   const NxDDFormField({
     Key? key,
-    required this.value,
+    required this.selectedKey,
     required this.hint,
     required this.label,
     required this.items,
@@ -48,22 +47,19 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
             ),
             fillColor: Colors.white,
             filled: true,
-            // Show label only if the dropdown is selected
-            labelText: widget.value != null && widget.value!.isNotEmpty
+            labelText: widget.selectedKey != null && widget.selectedKey!.isNotEmpty
                 ? widget.label
                 : null,
-            //labelStyle: TextStyle(color: Colors.grey,fontWeight: FontWeight.normal),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             isDense: true,
           ),
-          hint: Text(widget.hint,style: TextStyle(color: Colors.black,fontWeight: FontWeight.normal)),
-          value: widget.value,
+          hint: Text(widget.hint, style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal)),
+          value: widget.items[widget.selectedKey!], // Use selectedKey to get the corresponding value
           onChanged: widget.onChanged,
-          items: widget.items.map((item) {
+          items: widget.items.keys.map((String key) {
             return DropdownMenuItem<String>(
-              value: item,
-              child: Text(item,style: TextStyle(fontWeight: FontWeight.normal,color: Colors.black)),
-
+              value: widget.items[key],
+              child: Text(widget.items[key]!, style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black)),
             );
           }).toList(),
         ),
