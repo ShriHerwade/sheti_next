@@ -13,7 +13,7 @@ class AccountModel {
   DateTime? createdDate;
 
   AccountModel(
-      {required this.accountId,
+      {this.accountId,
       required this.activationDate,
       required this.activationType,
       required this.expirationDate,
@@ -51,6 +51,23 @@ class AccountModel {
       rawData: map['rawData'],
       disableAccount: map['disableAccount'] == 0,
       createdDate: DateTime.parse(map['createdDate']),
+    );
+  }
+
+  factory AccountModel.fromJson(Map<String, dynamic> json) {
+    return AccountModel(
+      accountId: json['accountId'],
+      activationDate: json['activationDate'],
+      activationType: json['activationType'],
+      expirationDate: json['expirationDate'],
+      platform: json['platform'],
+      transactionId: json['transactionId'],
+      receipt: json['receipt'],
+      rawData: json['rawData'],
+      disableAccount: json['disableAccount'],
+      createdDate: json['createdDate'] != null
+          ? DateTime.parse(json['createdDate'])
+          : null,
     );
   }
 }

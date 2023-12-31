@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
@@ -11,7 +14,7 @@ import 'package:sqflite/sqflite.dart';
 class DbHelper {
   static Database? _db;
 
-  static const String DB_Name = 'test.db';
+  static const String DB_Name = 'shetiNext.db';
   static const String Table_Account = 'account';
   static const String Table_Users = 'users';
   static const String Table_Farms = 'farms';
@@ -235,17 +238,16 @@ class DbHelper {
         db.execute(
           '''
           CREATE TABLE $Table_AppSettings (
-            $C_settingId INTEGER PRIMARY KEY AUTOINCREMENT,
-            $C_accountId INTEGER,
+            $C_settingId INTEGER PRIMARY KEY AUTOINCREMENT,          
             $C_key TEXT,
             $C_value TEXT,
             $C_profile TEXT,
-            $C_isActive INTEGER NOT NULL DEFAULT 1,                  
-            $C_createdDate TEXT,
-            FOREIGN KEY ($C_accountId) REFERENCES $Table_Account ($C_accountId)       
+            $C_isActive INTEGER NOT NULL DEFAULT 1                  
+            $C_createdDate TEXT                 
           )
           ''',
         );
+        insertInitialMetaData(db);
       },
     );
   }
@@ -342,6 +344,7 @@ class DbHelper {
       return SettingModel.fromMap(maps[i]);
     });
   }
+
 // Add this method is used to savae data of user
   Future<void> saveUserData(UserModel user) async {
     final dbClient = await db;
@@ -351,6 +354,39 @@ class DbHelper {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     print("User record inserted");
+  }
+
+  Future<void> insertInitialMetaData(Database db) async {
+    //1. Read JSON data from account file
+    String accountMetaFilePath =
+        'assets/metadataFiles/account_initialization.json';
+    String accountMetaJsonString =
+        await rootBundle.loadString(accountMetaFilePath);
+    var accountMetadata = json.decode(accountMetaJsonString);
+
+    // Parse JSON data AccountModel
+    AccountModel account = AccountModel.fromJson(accountMetadata);
+
+    //2. Read JSON data from settings file
+    String settingsMetaFilePath =
+        'assets/metadataFiles/settings_initialization.json';
+    String settingsMetaJsonString =
+        await rootBundle.loadString(settingsMetaFilePath);
+    var settingsJsonList = json.decode(settingsMetaJsonString) as List<dynamic>;
+
+    // Insert the data into the accounts
+    await db.insert(Table_Account, account.toMap());
+
+    // Iterate through the JSON list and insert each setting into the settings
+    for (var jsonData in settingsJsonList) {
+      await saveSettingData(SettingModel.fromJson(jsonData));
+    }
+  }
+
+  Future<int> saveSettingData(SettingModel setting) async {
+    final dbClient = await db;
+    int res = await dbClient.insert(Table_AppSettings, setting.toMap());
+    return res;
   }
 
   Future<void> closeDb() async {

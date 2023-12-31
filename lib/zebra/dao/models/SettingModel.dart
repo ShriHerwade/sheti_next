@@ -2,7 +2,6 @@ import 'dart:core';
 
 class SettingModel {
   int? settingId;
-  final int accountId;
   final String key;
   final String value;
   final String profile;
@@ -11,7 +10,6 @@ class SettingModel {
 
   SettingModel(
       {this.settingId,
-      required this.accountId,
       required this.key,
       required this.value,
       required this.profile,
@@ -21,7 +19,6 @@ class SettingModel {
   Map<String, dynamic> toMap() {
     return {
       'settingId': this.settingId,
-      'accountId': this.accountId,
       'key': this.key,
       'value': this.value,
       'profile': this.profile,
@@ -33,12 +30,24 @@ class SettingModel {
   factory SettingModel.fromMap(Map<String, dynamic> map) {
     return SettingModel(
       settingId: map['settingId'],
-      accountId: map['accountId'],
       key: map['key'],
       value: map['value'],
       profile: map['profile'],
       isActive: map['isActive'] == 0,
       createdDate: DateTime.parse(map['createdDate']),
+    );
+  }
+
+  // Factory method to create a SettingModel from JSON
+  factory SettingModel.fromJson(Map<String, dynamic> json) {
+    return SettingModel(
+      key: json['key'],
+      value: json['value'],
+      profile: json['profile'],
+      isActive: json['isActive'],
+      createdDate: json['createdDate'] != null
+          ? DateTime.parse(json['createdDate'])
+          : null,
     );
   }
 }

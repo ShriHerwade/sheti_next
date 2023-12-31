@@ -11,7 +11,7 @@ class CropModel {
   DateTime? createdDate;
 
   CropModel({
-    required this.cropId,
+    this.cropId,
     required this.farmId,
     required this.cropName,
     required this.cropVariety,
