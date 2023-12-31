@@ -298,13 +298,24 @@ class DbHelper {
     print("Crop record inserted");
   }
 
-  Future<List<AccountModel>> getAccount() async {
+  Future<List<AccountModel>> getAccountList() async {
     final dbClient = await db;
     final List<Map<String, dynamic>> maps = await dbClient
         .query(Table_Account, where: 'disableAccount = ? ', whereArgs: [0]);
     return List.generate(maps.length, (i) {
       return AccountModel.fromMap(maps[i]);
     });
+  }
+
+  Future<AccountModel?> getActiveAccount() async {
+    var dbClient = await db;
+    List<Map<String, dynamic>> result = await dbClient.query(
+      Table_Account,
+      where: 'disableAccount = ?',
+      whereArgs: [0],
+      limit: 1,
+    );
+    return result.isNotEmpty ? AccountModel.fromMap(result.first) : null;
   }
 
   Future<List<UserModel>> getAllUsers() async {
@@ -371,7 +382,7 @@ class DbHelper {
     });
   }
 
-// Add this method is used to savae data of user
+// Add this method is used to save data of user
   Future<void> saveUserData(UserModel user) async {
     final dbClient = await db;
     await dbClient.insert(
