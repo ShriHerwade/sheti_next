@@ -7,6 +7,7 @@ import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/EventModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import 'package:sheti_next/zebra/dao/models/LatestExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/SettingModel.dart';
 import 'package:sheti_next/zebra/dao/models/UserModel.dart';
 import 'package:sqflite/sqflite.dart';
@@ -22,6 +23,8 @@ class DbHelper {
   static const String Table_Events = 'events';
   static const String Table_Expenses = 'expenses';
   static const String Table_AppSettings = 'settings';
+
+  static const String View_LatestExpenses = 'latestExpenses';
 
   static const int Version = 1;
 
@@ -247,6 +250,29 @@ class DbHelper {
           )
           ''',
         );
+
+        // Create the LatestExpenseView
+        db.execute('''
+      CREATE VIEW IF NOT EXISTS $View_LatestExpenses AS
+      SELECT
+          f.$C_farmId,
+          f.$C_farmName,
+          c.$C_cropId,
+          c.$C_cropName,
+          e.$C_expenseId,
+          e.$C_expenseType,
+          e.$C_expenseDate,
+          e.$C_amount
+      FROM
+          $Table_Farms f
+      JOIN $Table_Crops c ON f.$C_farmId = c.$C_farmId
+      JOIN $Table_Expenses e ON c.$C_cropId = e.$C_cropId
+      WHERE
+          e.$C_isActive = 1
+      ORDER BY
+          e.$C_expenseDate DESC;
+        ''');
+
         insertInitialMetaData(db);
       },
     );
@@ -387,6 +413,25 @@ class DbHelper {
     final dbClient = await db;
     int res = await dbClient.insert(Table_AppSettings, setting.toMap());
     return res;
+  }
+
+  Future<List<LatestExpenseModel>> getLatestExpenses() async {
+    var dbClient = await db;
+    List<Map<String, dynamic>> result =
+        await dbClient.rawQuery('SELECT * FROM $View_LatestExpenses');
+
+    return result
+        .map((item) => LatestExpenseModel(
+              farmId: item['farmId'],
+              farmName: item['farmName'],
+              cropId: item['cropId'],
+              cropName: item['cropName'],
+              expenseId: item['expenseId'],
+              expenseType: item['expenseType'],
+              expenseDate: DateTime.parse(item['expenseDate']),
+              amount: item['amount'],
+            ))
+        .toList();
   }
 
   Future<void> closeDb() async {
