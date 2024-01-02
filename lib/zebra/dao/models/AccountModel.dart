@@ -2,9 +2,9 @@ import 'dart:core';
 
 class AccountModel {
   int? accountId;
-  late DateTime activationDate;
-  late String activationType;
-  late DateTime expirationDate;
+  DateTime? activationDate;
+  String activationType;
+  DateTime? expirationDate;
   late String platform;
   String? transactionId;
   String? receipt;
@@ -14,9 +14,9 @@ class AccountModel {
 
   AccountModel(
       {this.accountId,
-      required this.activationDate,
+      this.activationDate,
       required this.activationType,
-      required this.expirationDate,
+      this.expirationDate,
       required this.platform,
       this.transactionId,
       this.receipt,
@@ -24,42 +24,17 @@ class AccountModel {
       this.disableAccount = false,
       required this.createdDate});
 
-  Map<String, dynamic> toMap() {
-    return {
-      'accountId': this.accountId,
-      'activationDate': this.activationDate?.toIso8601String(),
-      'activationType': this.activationType,
-      'expirationDate': this.expirationDate?.toIso8601String(),
-      'platform': this.platform,
-      'transactionId': this.transactionId,
-      'receipt': this.receipt,
-      'rawData': this.rawData,
-      'disableAccount': this.disableAccount ? 1 : 0,
-      'createdDate': createdDate?.toIso8601String(),
-    };
-  }
-
-  factory AccountModel.fromMap(Map<String, dynamic> map) {
-    return AccountModel(
-      accountId: map['accountId'],
-      activationDate: map['activationDate'],
-      activationType: map['activationType'],
-      expirationDate: map['expirationDate'],
-      platform: map['platform'],
-      transactionId: map['transactionId'],
-      receipt: map['receipt'],
-      rawData: map['rawData'],
-      disableAccount: map['disableAccount'] == 0,
-      createdDate: DateTime.parse(map['createdDate']),
-    );
-  }
 
   factory AccountModel.fromJson(Map<String, dynamic> json) {
     return AccountModel(
       accountId: json['accountId'],
-      activationDate: json['activationDate'],
+      activationDate: json['activationDate'] != null
+          ? DateTime.parse(json['activationDate'])
+          : null,
       activationType: json['activationType'],
-      expirationDate: json['expirationDate'],
+      expirationDate: json['expirationDate'] != null
+          ? DateTime.parse(json['expirationDate'])
+          : null,
       platform: json['platform'],
       transactionId: json['transactionId'],
       receipt: json['receipt'],
@@ -68,6 +43,36 @@ class AccountModel {
       createdDate: json['createdDate'] != null
           ? DateTime.parse(json['createdDate'])
           : null,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'accountId': this.accountId,
+      'activationDate': this.activationDate,
+      'activationType': this.activationType,
+      'expirationDate': this.expirationDate,
+      'platform': this.platform,
+      'transactionId': this.transactionId,
+      'receipt': this.receipt,
+      'rawData': this.rawData,
+      'disableAccount': this.disableAccount,
+      'createdDate': this.createdDate,
+    };
+  }
+
+  factory AccountModel.fromMap(Map<String, dynamic> map) {
+    return AccountModel(
+      accountId: map['accountId'] as int,
+      activationDate: map['activationDate'] as DateTime,
+      activationType: map['activationType'] as String,
+      expirationDate: map['expirationDate'] as DateTime,
+      platform: map['platform'] as String,
+      transactionId: map['transactionId'] as String,
+      receipt: map['receipt'] as String,
+      rawData: map['rawData'] as String,
+      disableAccount: map['disableAccount'] as bool,
+      createdDate: map['createdDate'] as DateTime,
     );
   }
 }

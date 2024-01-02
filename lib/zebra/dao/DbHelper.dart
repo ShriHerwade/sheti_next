@@ -20,13 +20,15 @@ class DbHelper {
   static const String Table_Users = 'users';
   static const String Table_Farms = 'farms';
   static const String Table_Crops = 'crops';
+  static const String Table_CropsMeta = 'cropsMeta';
+
   static const String Table_Events = 'events';
   static const String Table_Expenses = 'expenses';
   static const String Table_AppSettings = 'settings';
 
   static const String View_LatestExpenses = 'latestExpenses';
 
-  static const int Version = 1;
+  static const int Version = 2;
 
   static const String C_accountId = 'accountId';
   static const String C_activationDate = 'activationDate';
@@ -42,7 +44,7 @@ class DbHelper {
   static const String C_userId = 'userId';
   static const String C_farmId = 'farmId';
   static const String C_cropId = 'cropId';
-  static const String C_eventId = 'cropId';
+  static const String C_eventId = 'eventId';
   static const String C_expenseId = 'expenseId';
 
   static const String C_firstName = 'firstName';
@@ -108,10 +110,11 @@ class DbHelper {
       path,
       version: Version,
       onCreate: (db, version) {
+        try {
         db.execute(
           '''
-          CREATE TABLE $Table_Account (
-            $C_accountId INTEGER AUTOINCREMENT,
+          CREATE TABLE account (
+            $C_accountId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_activationDate TEXT,
             $C_activationType INTEGER,
             $C_expirationDate TEXT,
@@ -133,7 +136,7 @@ class DbHelper {
             $C_firstName TEXT, 
             $C_lastName TEXT,
             $C_email TEXT UNIQUE ON CONFLICT ROLLBACK,
-            $C_mobileNo TEXT PRIMARY KEY NOT NULL,
+            $C_mobileNo TEXT UNIQUE ON CONFLICT ROLLBACK,
             $C_pin TEXT,
             $C_isAccountOwner INTEGER NOT NULL DEFAULT 0,
             $C_role TEXT,            
@@ -184,6 +187,28 @@ class DbHelper {
             $C_createdDate TEXT,
             FOREIGN KEY ($C_farmId) REFERENCES $Table_Farms ($C_farmId)
           )
+          ''',
+        );
+
+        // Create cropsMeta table
+        db.execute(
+          '''
+          CREATE TABLE $Table_CropsMeta (
+            cropMetaId INTEGER PRIMARY KEY AUTOINCREMENT,
+            en TEXT,
+            mr TEXT,
+            ka TEXT,
+            hi TEXT,
+            ta TEXT,
+            te TEXT,
+            ml TEXT,
+            gu TEXT,
+            pa TEXT,
+            es TEXT,
+            $C_isActive BOOLEAN,
+            isCreatedByUser BOOLEAN DEFAULT 0,
+            $C_createdDate DATETIME DEFAULT CURRENT_DATE
+          );
           ''',
         );
 
@@ -245,7 +270,7 @@ class DbHelper {
             $C_key TEXT,
             $C_value TEXT,
             $C_profile TEXT,
-            $C_isActive INTEGER NOT NULL DEFAULT 1                  
+            $C_isActive INTEGER NOT NULL DEFAULT 1 ,                 
             $C_createdDate TEXT                 
           )
           ''',
@@ -272,6 +297,9 @@ class DbHelper {
       ORDER BY
           e.$C_expenseDate DESC;
         ''');
+        } catch (e) {
+          print('Error creating tables: $e');
+        }
 
         insertInitialMetaData(db);
       },
@@ -315,6 +343,7 @@ class DbHelper {
       whereArgs: [0],
       limit: 1,
     );
+    print('active accounts : ' + result.length.toString());
     return result.isNotEmpty ? AccountModel.fromMap(result.first) : null;
   }
 
@@ -342,6 +371,17 @@ class DbHelper {
     final List<Map<String, dynamic>> maps = await dbClient.query(Table_Crops,
         where: 'isActive = ? AND isActive IS NOT NULL',
         whereArgs: [1],
+        orderBy: 'createdDate DESC');
+    return List.generate(maps.length, (i) {
+      return CropModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<List<CropModel>> getCropsByFarmId(int farmId) async {
+    final dbClient = await db;
+    final List<Map<String, dynamic>> maps = await dbClient.query(Table_Crops,
+        where: 'isActive = ? AND isActive IS NOT NULL farmId = ?',
+        whereArgs: [1, farmId],
         orderBy: 'createdDate DESC');
     return List.generate(maps.length, (i) {
       return CropModel.fromMap(maps[i]);
@@ -394,17 +434,32 @@ class DbHelper {
   }
 
   Future<void> insertInitialMetaData(Database db) async {
+    print("Initializing the metaData loading from Json file ..");
     //1. Read JSON data from account file
     String accountMetaFilePath =
         'assets/metadataFiles/account_initialization.json';
     String accountMetaJsonString =
         await rootBundle.loadString(accountMetaFilePath);
+    print(accountMetaJsonString);
     var accountMetadata = json.decode(accountMetaJsonString);
 
     // Parse JSON data AccountModel
     AccountModel account = AccountModel.fromJson(accountMetadata);
 
-    //2. Read JSON data from settings file
+    //2. Read JSON data from user file -- this is dummy data remove once ready
+    String userMetaFilePath =
+        'assets/metadataFiles/dummyUser_initialization.json';
+    String userMetaJsonString = await rootBundle.loadString(userMetaFilePath);
+    var userMetadata = json.decode(userMetaJsonString);
+
+    UserModel user = UserModel.fromJson(userMetadata);
+
+    //3. Read JSON data from cropsMeta file
+    String cropsMetaFilePath = 'assets/metadataFiles/crops_initialization.json';
+    String cropsMetaJsonString = await rootBundle.loadString(cropsMetaFilePath);
+    var cropsJsonList = json.decode(cropsMetaJsonString) as List<dynamic>;
+
+    //4. Read JSON data from settings file
     String settingsMetaFilePath =
         'assets/metadataFiles/settings_initialization.json';
     String settingsMetaJsonString =
@@ -413,11 +468,23 @@ class DbHelper {
 
     // Insert the data into the accounts
     await db.insert(Table_Account, account.toMap());
+    await db.insert(Table_Users, user.toMap());
+
+    // Iterate through the JSON list and insert each cropMeta into the cropMeta
+    for (var jsonData in cropsJsonList) {
+      await saveCropsData(CropModel.fromJson(jsonData));
+    }
 
     // Iterate through the JSON list and insert each setting into the settings
     for (var jsonData in settingsJsonList) {
       await saveSettingData(SettingModel.fromJson(jsonData));
     }
+  }
+
+  Future<int> saveCropsData(CropModel cropsMeta) async {
+    final dbClient = await db;
+    int res = await dbClient.insert(Table_CropsMeta, cropsMeta.toMap());
+    return res;
   }
 
   Future<int> saveSettingData(SettingModel setting) async {
@@ -443,6 +510,25 @@ class DbHelper {
               amount: item['amount'],
             ))
         .toList();
+  }
+
+  Future<List<String>> getCropNamesByLanguage(String languageCode) async {
+    print('loading cropNames by LanguageCode');
+    Database database = await db;
+    try {
+      // Get crop names for the specified language code
+      List<Map<String, dynamic>> result =
+          await database.rawQuery('SELECT $languageCode FROM cropsMeta');
+
+      // Extract crop names from the result
+      List<String> cropNames =
+          result.map((row) => row[languageCode]?.toString() ?? '').toList();
+
+      return cropNames;
+    } catch (e) {
+      print('SQLite error while pulling cropNames : $e');
+      return [];
+    }
   }
 
   Future<void> closeDb() async {

@@ -1,3 +1,4 @@
+import 'dart:core';
 class CropModel {
   int? cropId;
   int farmId;
@@ -50,6 +51,23 @@ class CropModel {
       endDate: DateTime.parse(map['endDate']),
       isActive: map['isActive'] == 1,
       createdDate: DateTime.parse(map['createdDate']),
+    );
+  }
+
+  factory CropModel.fromJson(Map<String, dynamic> json) {
+    return CropModel(
+      cropId: json['cropId'],
+      farmId: json['farmId'],
+      cropName: json['cropName'],
+      cropVariety: json['cropVariety'],
+      area: json['area'],
+      unit: json['unit'],
+      startDate: DateTime.parse(json['startDate']),
+      endDate: DateTime.parse(json['endDate']),
+      isActive: json['isActive'] ,
+      createdDate: json['createdDate'] != null
+          ? DateTime.parse(json['createdDate'])
+          : null,
     );
   }
 }

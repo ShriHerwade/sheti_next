@@ -1,11 +1,15 @@
+import 'dart:ffi';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
-import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
+import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import '../../common/widgets/NxDDFormField.dart';
 import 'MyFarmScreen.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 
@@ -24,6 +28,8 @@ class _CreateFarmsState extends State<CreateFarms> {
 
   String? selectedUnit;
   String? selectedType;
+ late AccountModel account;
+  late int accountId;
   DbHelper? dbHelper;
   List<String> units = [];
   List<String> farmTypes = [];
@@ -32,6 +38,19 @@ class _CreateFarmsState extends State<CreateFarms> {
   void initState() {
     super.initState();
     dbHelper = DbHelper();
+    _loadActiveAccount();
+  }
+
+  void _loadActiveAccount() async {
+    AccountModel? activeAccount = await dbHelper?.getActiveAccount();
+    if (activeAccount != null) {
+      setState(() {
+        account = activeAccount;
+        accountId = activeAccount.accountId!;
+      });
+    } else {
+      // Handle the case where no active account is found
+    }
   }
 
   @override
@@ -204,13 +223,14 @@ class _CreateFarmsState extends State<CreateFarms> {
     try {
       if (_formKey.currentState!.validate()) {
         FarmModel farm = FarmModel(
+          accountId: accountId,
           farmName: _confarmName.text,
           farmAddress: _confarmAddress.text,
           farmArea: double.parse(_confarmArea.text),
           unit: selectedUnit!,
           farmType: selectedType!,
           isActive: true,
-          createdDate: DateTime.now(),
+          createdDate: DateTime.now()
         );
 
         await dbHelper!.saveFarmData(farm);

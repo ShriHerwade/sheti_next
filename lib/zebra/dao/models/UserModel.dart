@@ -22,7 +22,7 @@ class UserModel {
       required this.lastName,
       required this.email,
       required this.mobileNo,
-      required this.pin,
+        required this.pin,
       this.isActive = true,
       this.isAccountOwner = false,
       required this.role,
@@ -30,7 +30,7 @@ class UserModel {
       this.createdDate,
       this.lastAccessedDate});
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() { // change the hardoded values once all ready
     return {
       'userId': this.userId,
       'accountId': this.accountId,
@@ -38,10 +38,10 @@ class UserModel {
       'lastName': this.lastName,
       'email': this.email,
       'mobileNo': this.mobileNo,
-      'pin': this.pin,
-      'isActive': this.isActive,
+      'pin': 123456,
+      'isActive': true,
       'isAccountOwner': this.isAccountOwner,
-      'role': this.role,
+      'role': "Admin",
       'expirationDate': this.expirationDate?.toIso8601String(),
       'createdDate': this.createdDate?.toIso8601String(),
       'lastAccessedDate': this.lastAccessedDate?.toIso8601String(),
@@ -63,6 +63,30 @@ class UserModel {
       expirationDate: DateTime.parse(map['expirationDate']),
       createdDate: DateTime.parse(map['createdDate']),
       lastAccessedDate: DateTime.parse(map['lastAccessedDate']),
+    );
+  }
+
+  factory UserModel.fromJson(Map<String, dynamic> json){
+    return UserModel(
+      userId: json['userId'],
+      accountId: json['accountId'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      email: json['email'],
+      mobileNo: json['mobileNo'],
+      pin: json['pin'],
+      isActive: json['isActive'],
+      isAccountOwner: json['isAccountOwner'],
+      role: json['role'],
+      expirationDate: json['expirationDate'] != null
+          ? DateTime.parse(json['expirationDate'])
+          : null,
+      createdDate: json['createdDate'] != null
+          ? DateTime.parse(json['createdDate'])
+          : null,
+      lastAccessedDate: json['lastAccessedDate'] != null
+          ? DateTime.parse(json['lastAccessedDate'])
+          : null,
     );
   }
 }

@@ -6,8 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
-import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
+import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import '../../common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
@@ -24,15 +25,15 @@ class _CreateExpensesState extends State<CreateExpenses> {
   final _formKey = GlobalKey<FormState>();
   final _confamount = TextEditingController();
 
-  String? selectedFarm;
-  String? selectedCrop;
+  int? selectedFarm;
+  int? selectedCrop;
   DateTime? selectedDate;
   DateTime? startDate;
   DateTime? endDate;
   DbHelper? dbHelper;
 
   List<FarmModel> farms = [];
-  List<String> crops = [];
+  List<CropModel> crops = [];
   List<String> farmExpenses = [];
   List<String> selectedExpense = [];
 
@@ -72,13 +73,21 @@ class _CreateExpensesState extends State<CreateExpenses> {
     }
   }
 
+  // Method to get crops by farmId
+  Future<void> getCropsByFarmId(int farmId) async {
+    List<CropModel> crops = await dbHelper!.getCropsByFarmId(farmId);
+    // Use the retrieved crops as needed
+    print('Crops for Farm ID $farmId: $crops');
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     if (context.locale.languageCode == 'mr') {
-      crops = CustomTranslationList.crops_mr;
+      //crops = CustomTranslationList.crops_mr;
       farmExpenses = CustomTranslationList.farmEvents_mr;
     } else if (context.locale.languageCode == 'en') {
-      crops = CustomTranslationList.crops_en;
+      //crops = CustomTranslationList.crops_en;
       farmExpenses = CustomTranslationList.farmEvents_en;
     }
     return Scaffold(
@@ -102,29 +111,42 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   width: ResponsiveUtil.screenWidth(context) * 0.4,
                 ),
                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxDDFormField(
-                  value: selectedFarm,
-                  hint: LocaleKeys.selectFarm.tr(),
+                NxDDFormField_id(
+                  selectedItemId: selectedFarm,
                   label: LocaleKeys.labelFarm.tr(),
-                  items: farms.map((farm) => farm.farmName ?? 'Unknown Farm').toList(),
-                  onChanged: (String? farmName) {
+                  hint: LocaleKeys.selectFarm.tr(),
+                  items: Map.fromIterable(
+                    farms,
+                    key: (farm) => farm.farmId,
+                    value: (farm) => farm.farmName ?? 'Unknown Farm',
+                  ),
+                  onChanged: (int? farmId) {
                     setState(() {
-                      selectedFarm = farmName;
-                      if (farmName != null) {
-                        print('Selected Farm: $farmName');
+                      selectedFarm = farmId;
+                      if (farmId != null) {
+                        print('Selected Farm ID: $farmId');
+                        getCropsByFarmId(farmId);
+
                       }
                     });
                   },
                 ),
                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxDDFormField(
-                  value: selectedCrop,
+                NxDDFormField_id(
+                  selectedItemId: selectedCrop,
                   hint: LocaleKeys.selectCrop.tr(),
                   label: LocaleKeys.labelCrop.tr(),
-                  items: crops,
-                  onChanged: (String? cropName) {
+                  items: Map.fromIterable(
+                    crops,
+                    key: (crop) => crop.cropId,
+                    value: (crop) => crop.cropName ?? 'Unknown Crop',
+                  ),
+                  onChanged: (int? cropId) {
                     setState(() {
-                      selectedCrop = cropName;
+                      selectedCrop = cropId;
+                      if (cropId != null) {
+                        print('Selected Crop ID: $cropId');
+                      }
                     });
                   },
                 ),

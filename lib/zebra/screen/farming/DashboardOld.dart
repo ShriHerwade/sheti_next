@@ -17,24 +17,27 @@ class _DashboardScreenOldState extends State<DashboardScreenOld> {
   String rain = '';
 
   List<ExpenseModel> expenses = [
-    ExpenseModel(
+   /* ExpenseModel(
+        farmId: 1,
         farmName: 'Riverside Farm',
         cropName: 'Jwari',
         expenseType: 'Sowing',
         amount: 10000,
         expenseDate: DateTime.now()),
     ExpenseModel(
+        farmId: 2,
         farmName: 'Mala Farm',
         cropName: 'Sugercane',
         expenseType: 'Irigation',
         amount: 20000,
         expenseDate: DateTime.now()),
     ExpenseModel(
+        farmId: 3,
         farmName: 'Mala Farm',
         cropName: 'Mango',
         expenseType: 'Cultivation',
         amount: 15000,
-        expenseDate: DateTime.now()),
+        expenseDate: DateTime.now()),*/
     // Add more expense data
   ];
 
@@ -48,12 +51,12 @@ class _DashboardScreenOldState extends State<DashboardScreenOld> {
   Widget build(BuildContext context) {
     // Dummy data for illustration purposes
     List<ExpenseModel> expenses = [
-      ExpenseModel(
+     /* ExpenseModel(
           farmName: 'Riverside Farm',
           cropName: 'Sugarcane',
           expenseType: 'Seeds',
           amount: 200,
-          expenseDate: DateTime.now()),
+          expenseDate: DateTime.now()),*/
       // Add more expense records
     ];
 
@@ -302,11 +305,11 @@ class _DashboardScreenOldState extends State<DashboardScreenOld> {
 
     // Calculate total expenses for each crop
     for (var expense in expenses) {
-      String cropKey = '${expense.farmName}-${expense.cropName}';
+      /*String cropKey = '${expense.farmName}-${expense.cropName}';
       if (cropWiseExpenses.containsKey(cropKey)) {
         cropWiseExpenses[cropKey] ??= 0; // Initialize to 0 if null
         cropWiseExpenses[cropKey] = cropWiseExpenses[cropKey]! + expense.amount;
-      }
+      }*/
       return Card(
         elevation: 4,
         child: Padding(
@@ -330,7 +333,7 @@ class _DashboardScreenOldState extends State<DashboardScreenOld> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('${expense.farmName} - ${expense.cropName}'),
+        /*Text('${expense.farmName} - ${expense.cropName}'),*/
         Text('${expense.expenseType} - \$${expense.amount.toString()}'),
       ],
     );

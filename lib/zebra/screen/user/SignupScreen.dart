@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
-import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
 import 'package:sheti_next/zebra/screen/user/LoginScreen.dart';
-import 'package:sheti_next/zebra/screen/user/SignupScreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sheti_next/zebra/common/widgets//NxAlert.dart';
-import 'package:sheti_next/zebra/common/util/InputValidator.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/UserModel.dart';
 
@@ -25,6 +21,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final _conpin = TextEditingController();
   final _createdDate = DateTime.now();
   final _updatedDate = DateTime.now();
+  final _lastAccessedDate = DateTime.now();
   var dbHelper;
 
   @override
@@ -34,19 +31,19 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   signUp() async {
-    String user_id = _confirstName.text;
-    String user_name = _conlastName.text;
+    String firstName = _confirstName.text;
+    String lastName = _conlastName.text;
     String email = _conemail.text;
     String mobileNo = _conmobileNo.text;
     String pin = _conpin.text;
 
-    //DateTime createdDate= _createdDate;
-    //DateTime updatedDate = _updatedDate;
+    DateTime createdDate= _createdDate;
+    DateTime lastAccessedDate = _updatedDate;
 
     if (_formKey.currentState!.validate()) {
       _formKey.currentState?.save();
 
-      UserModel uModel = UserModel(user_id, user_name, email, mobileNo, pin); //,createdDate,updatedDate);
+      UserModel uModel = UserModel(accountId: 1, firstName: firstName, lastName: lastName, email: email, mobileNo: mobileNo, role: "Admin",pin: "123456");
       await dbHelper.saveData(uModel).then((userData) {
         alertDialog(context, "Successfully Saved");
         Navigator.push(
