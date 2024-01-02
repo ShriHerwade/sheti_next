@@ -22,7 +22,7 @@ class AccountModel {
       this.receipt,
       this.rawData,
       this.disableAccount = false,
-      required this.createdDate});
+      this.createdDate});
 
 
   factory AccountModel.fromJson(Map<String, dynamic> json) {
@@ -39,7 +39,7 @@ class AccountModel {
       transactionId: json['transactionId'],
       receipt: json['receipt'],
       rawData: json['rawData'],
-      disableAccount: json['disableAccount'],
+      disableAccount: json['disableAccount'] == 1, // Convert int to bool,
       createdDate: json['createdDate'] != null
           ? DateTime.parse(json['createdDate'])
           : null,

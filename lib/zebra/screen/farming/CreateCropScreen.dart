@@ -42,9 +42,14 @@ class _CreateCropState extends State<CreateCrop> {
   void initState() {
     super.initState();
     dbHelper = DbHelper();
+  }
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
     loadFarms(); // Load farms when the widget initializes
-    crops = dbHelper?.getCropNamesByLanguage(context.locale.languageCode)
-        as List<String>;
+    crops = await dbHelper?.getCropNamesByLanguage(context.locale.languageCode)
+    as List<String>;
   }
 
   // Load farms from the database

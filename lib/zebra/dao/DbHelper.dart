@@ -109,7 +109,7 @@ class DbHelper {
     return await openDatabase(
       path,
       version: Version,
-      onCreate: (db, version) {
+      onCreate: (db, version) async {
         try {
         db.execute(
           '''
@@ -301,7 +301,7 @@ class DbHelper {
           print('Error creating tables: $e');
         }
 
-        insertInitialMetaData(db);
+        await insertInitialMetaData(db);
       },
     );
   }
