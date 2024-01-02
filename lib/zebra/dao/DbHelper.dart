@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
+import 'package:sheti_next/zebra/dao/models/CropsMetaModel.dart';
 import 'package:sheti_next/zebra/dao/models/EventModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
@@ -111,8 +112,8 @@ class DbHelper {
       version: Version,
       onCreate: (db, version) async {
         try {
-        db.execute(
-          '''
+          db.execute(
+            '''
           CREATE TABLE account (
             $C_accountId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_activationDate TEXT,
@@ -126,10 +127,10 @@ class DbHelper {
             $C_createdDate TEXT           
           )
           ''',
-        );
+          );
 
-        db.execute(
-          '''
+          db.execute(
+            '''
           CREATE TABLE $Table_Users (
             $C_userId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_accountId INTEGER,
@@ -147,11 +148,11 @@ class DbHelper {
             FOREIGN KEY ($C_accountId) REFERENCES $Table_Account ($C_accountId)
           )
           ''',
-        );
+          );
 
-        // Create farms table
-        db.execute(
-          '''
+          // Create farms table
+          db.execute(
+            '''
           CREATE TABLE $Table_Farms (
             $C_farmId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_accountId INTEGER,
@@ -169,11 +170,11 @@ class DbHelper {
              FOREIGN KEY ($C_accountId) REFERENCES $Table_Account ($C_accountId)
           )
           ''',
-        );
+          );
 
-        // Create crops table
-        db.execute(
-          '''
+          // Create crops table
+          db.execute(
+            '''
           CREATE TABLE $Table_Crops (
             $C_cropId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_farmId INTEGER NOT NULL,
@@ -188,11 +189,11 @@ class DbHelper {
             FOREIGN KEY ($C_farmId) REFERENCES $Table_Farms ($C_farmId)
           )
           ''',
-        );
+          );
 
-        // Create cropsMeta table
-        db.execute(
-          '''
+          // Create cropsMeta table
+          db.execute(
+            '''
           CREATE TABLE $Table_CropsMeta (
             cropMetaId INTEGER PRIMARY KEY AUTOINCREMENT,
             en TEXT,
@@ -210,11 +211,11 @@ class DbHelper {
             $C_createdDate DATETIME DEFAULT CURRENT_DATE
           );
           ''',
-        );
+          );
 
-        // Create Events table
-        db.execute(
-          '''
+          // Create Events table
+          db.execute(
+            '''
           CREATE TABLE $Table_Events (
             $C_eventId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_farmId INTEGER NOT NULL,
@@ -232,11 +233,11 @@ class DbHelper {
             FOREIGN KEY ($C_userId) REFERENCES $Table_Users ($C_userId)
           )
           ''',
-        );
+          );
 
-        // Create Expenses table
-        db.execute(
-          '''
+          // Create Expenses table
+          db.execute(
+            '''
           CREATE TABLE $Table_Expenses (
             $C_expenseId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_farmId INTEGER NOT NULL,
@@ -260,11 +261,11 @@ class DbHelper {
             FOREIGN KEY ($C_userId) REFERENCES $Table_Users ($C_userId)
           )
           ''',
-        );
+          );
 
-        // Create AppSetting table
-        db.execute(
-          '''
+          // Create AppSetting table
+          db.execute(
+            '''
           CREATE TABLE $Table_AppSettings (
             $C_settingId INTEGER PRIMARY KEY AUTOINCREMENT,          
             $C_key TEXT,
@@ -274,10 +275,10 @@ class DbHelper {
             $C_createdDate TEXT                 
           )
           ''',
-        );
+          );
 
-        // Create the LatestExpenseView
-        db.execute('''
+          // Create the LatestExpenseView
+          db.execute('''
       CREATE VIEW IF NOT EXISTS $View_LatestExpenses AS
       SELECT
           f.$C_farmId,
@@ -297,11 +298,10 @@ class DbHelper {
       ORDER BY
           e.$C_expenseDate DESC;
         ''');
+          //insertInitialMetaData(db);
         } catch (e) {
           print('Error creating tables: $e');
         }
-
-        await insertInitialMetaData(db);
       },
     );
   }
@@ -435,53 +435,77 @@ class DbHelper {
 
   Future<void> insertInitialMetaData(Database db) async {
     print("Initializing the metaData loading from Json file ..");
-    //1. Read JSON data from account file
-    String accountMetaFilePath =
-        'assets/metadataFiles/account_initialization.json';
-    String accountMetaJsonString =
-        await rootBundle.loadString(accountMetaFilePath);
-    print(accountMetaJsonString);
-    var accountMetadata = json.decode(accountMetaJsonString);
+    try {
+      //1. Read JSON data from account file
+      String accountMetaFilePath =
+          'assets/metadataFiles/account_initialization.json';
+      String accountMetaJsonString =
+      await rootBundle.loadString(accountMetaFilePath);
+      print(accountMetaJsonString);
+      var accountMetadata = json.decode(accountMetaJsonString);
 
-    // Parse JSON data AccountModel
-    AccountModel account = AccountModel.fromJson(accountMetadata);
+      // Parse JSON data AccountModel
+      AccountModel account = AccountModel.fromJson(accountMetadata);
+      print("Account object initialized !");
 
-    //2. Read JSON data from user file -- this is dummy data remove once ready
-    String userMetaFilePath =
-        'assets/metadataFiles/dummyUser_initialization.json';
-    String userMetaJsonString = await rootBundle.loadString(userMetaFilePath);
-    var userMetadata = json.decode(userMetaJsonString);
+      //2. Read JSON data from user file -- this is dummy data remove once ready
+     String userMetaFilePath =
+          'assets/metadataFiles/dummyUser_initialization.json';
+      String userMetaJsonString = await rootBundle.loadString(userMetaFilePath);
+      print("Load : userMetaJsonString");
+      var userMetadata = json.decode(userMetaJsonString);
+      print("create userMetadata");
+      UserModel user = UserModel.fromJson(userMetadata);
 
-    UserModel user = UserModel.fromJson(userMetadata);
+      print("User object initialized !");
 
-    //3. Read JSON data from cropsMeta file
-    String cropsMetaFilePath = 'assets/metadataFiles/crops_initialization.json';
-    String cropsMetaJsonString = await rootBundle.loadString(cropsMetaFilePath);
-    var cropsJsonList = json.decode(cropsMetaJsonString) as List<dynamic>;
+      //3. Read JSON data from cropsMeta file
+      String cropsMetaFilePath = 'assets/metadataFiles/crops_initialization.json';
+      String cropsMetaJsonString = await rootBundle.loadString(
+          cropsMetaFilePath);
+      print("Load : cropsMetaJsonString");
+      var cropsMetaJsonList = json.decode(cropsMetaJsonString) as List<dynamic>;
+      print("CropMetadata list  initialized !");
 
-    //4. Read JSON data from settings file
-    String settingsMetaFilePath =
-        'assets/metadataFiles/settings_initialization.json';
-    String settingsMetaJsonString =
-        await rootBundle.loadString(settingsMetaFilePath);
-    var settingsJsonList = json.decode(settingsMetaJsonString) as List<dynamic>;
+      //4. Read JSON data from settings file
+      String settingsMetaFilePath =
+          'assets/metadataFiles/settings_initialization.json';
+      String settingsMetaJsonString =
+      await rootBundle.loadString(settingsMetaFilePath);
+      print("Load : settingsMetaJsonString");
+      var settingsJsonList = json.decode(settingsMetaJsonString) as List<
+          dynamic>;
+      print("Settings object initialized.. saving account !");
 
-    // Insert the data into the accounts
-    await db.insert(Table_Account, account.toMap());
-    await db.insert(Table_Users, user.toMap());
+      // Insert the data into the accounts
+      await db.insert(Table_Account, account.toMap());
+      print("Account record saved... saving UserDummy");
+      await db.insert(Table_Users, user.toMap());
+      print("Dummy User record saved.");
 
-    // Iterate through the JSON list and insert each cropMeta into the cropMeta
-    for (var jsonData in cropsJsonList) {
-      await saveCropsData(CropModel.fromJson(jsonData));
-    }
-
-    // Iterate through the JSON list and insert each setting into the settings
-    for (var jsonData in settingsJsonList) {
-      await saveSettingData(SettingModel.fromJson(jsonData));
+      // Iterate through the JSON list and insert each cropMeta into the cropMeta
+      int i = 0;
+      int j = 0;
+      for (var jsonData in cropsMetaJsonList) {
+        i = i + 1;
+        print("CropMeta adding " + i.toString());
+        await saveCropsMetaData(CropMetaDataModel.fromJson(jsonData));
+      }
+      print("CropMetadata records saved.");
+      // Iterate through the JSON list and insert each setting into the settings
+      for (var jsonData in settingsJsonList) {
+        j = j + 1;
+        print("Settings adding " + j.toString());
+        await saveSettingData(SettingModel.fromJson(jsonData));
+      }
+      print("Settings records saved.");
+    } catch (e) {
+      print("Error while initialization of data from JSON: $e");
+      rethrow;
     }
   }
 
-  Future<int> saveCropsData(CropModel cropsMeta) async {
+  Future<int> saveCropsMetaData(CropMetaDataModel cropsMeta) async {
     final dbClient = await db;
     int res = await dbClient.insert(Table_CropsMeta, cropsMeta.toMap());
     return res;

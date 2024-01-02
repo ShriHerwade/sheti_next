@@ -23,50 +23,18 @@ class UserModel {
       required this.email,
       required this.mobileNo,
         required this.pin,
-      this.isActive = true,
-      this.isAccountOwner = false,
+      required this.isActive,
+      required this.isAccountOwner,
       required this.role,
       this.expirationDate,
       this.createdDate,
       this.lastAccessedDate});
 
-  Map<String, dynamic> toMap() { // change the hardoded values once all ready
-    return {
-      'userId': this.userId,
-      'accountId': this.accountId,
-      'firstName': this.firstName,
-      'lastName': this.lastName,
-      'email': this.email,
-      'mobileNo': this.mobileNo,
-      'pin': 123456,
-      'isActive': true,
-      'isAccountOwner': this.isAccountOwner,
-      'role': "Admin",
-      'expirationDate': this.expirationDate?.toIso8601String(),
-      'createdDate': this.createdDate?.toIso8601String(),
-      'lastAccessedDate': this.lastAccessedDate?.toIso8601String(),
-    };
-  }
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      userId: map['userId'],
-      accountId: map['accountId'],
-      firstName: map['firstName'],
-      lastName: map['lastName'],
-      email: map['email'],
-      mobileNo: map['mobileNo'],
-      pin: map['pin'],
-      isActive: map['isActive'] == 1,
-      isAccountOwner: map['isAccountOwner'] == 1,
-      role: map['role'],
-      expirationDate: DateTime.parse(map['expirationDate']),
-      createdDate: DateTime.parse(map['createdDate']),
-      lastAccessedDate: DateTime.parse(map['lastAccessedDate']),
-    );
-  }
+
 
   factory UserModel.fromJson(Map<String, dynamic> json){
+    try{
     return UserModel(
       userId: json['userId'],
       accountId: json['accountId'],
@@ -87,6 +55,46 @@ class UserModel {
       lastAccessedDate: json['lastAccessedDate'] != null
           ? DateTime.parse(json['lastAccessedDate'])
           : null,
+    );
+    }catch (e) {
+      print("Error parsing user JSON: $e");
+      rethrow;  // Re-throw the exception after printing the error
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'userId': this.userId,
+      'accountId': this.accountId,
+      'firstName': this.firstName,
+      'lastName': this.lastName,
+      'email': this.email,
+      'mobileNo': this.mobileNo,
+      'pin': this.pin,
+      'isActive': this.isActive ? 1 : 0, // Convert boolean to integer
+      'isAccountOwner': this.isAccountOwner ? 1 : 0, // Convert boolean to integer
+      'role': this.role,
+      'expirationDate': this.expirationDate?.toIso8601String(),
+      'createdDate': this.createdDate?.toIso8601String(),
+      'lastAccessedDate': this.lastAccessedDate?.toIso8601String(),
+    };
+  }
+
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      userId: map['userId'] as int,
+      accountId: map['accountId'] as int,
+      firstName: map['firstName'] as String,
+      lastName: map['lastName'] as String,
+      email: map['email'] as String,
+      mobileNo: map['mobileNo'] as String,
+      pin: map['pin'] as String,
+      isActive: map['isActive'] as bool,
+      isAccountOwner: map['isAccountOwner'] as bool,
+      role: map['role'] as String,
+      expirationDate: map['expirationDate'] as DateTime,
+      createdDate: map['createdDate'] as DateTime,
+      lastAccessedDate: map['lastAccessedDate'] as DateTime,
     );
   }
 }

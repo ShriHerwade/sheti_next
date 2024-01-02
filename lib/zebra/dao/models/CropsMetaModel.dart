@@ -44,9 +44,9 @@ class CropMetaDataModel {
       'gu': this.gu,
       'pa': this.pa,
       'es': this.es,
-      'isActive': this.isActive,
-      'isCreatedByUser': this.isCreatedByUser,
-      'createdDate': this.createdDate,
+      'isActive': this.isActive ? 1 : 0, // Convert boolean to integer
+      'isCreatedByUser': this.isCreatedByUser ? 1 : 0,
+      'createdDate': createdDate?.toIso8601String(),
     };
   }
 
@@ -71,22 +71,28 @@ class CropMetaDataModel {
 
 // Factory method to create a SettingModel from JSON
   factory CropMetaDataModel.fromJson(Map<String, dynamic> json) {
-    return CropMetaDataModel(
-      en: json['en'],
-      mr: json['mr'],
-      ka: json['ka'],
-      hi: json['hi'],
-      ta: json['ta'],
-      te: json['te'],
-      ml: json['ml'],
-      gu: json['gu'],
-      pa: json['pa'],
-      es: json['es'],
-      isActive: json['isActive'],
-      isCreatedByUser: json['isCreatedByUser'],
-      createdDate: json['createdDate'] != null
-          ? DateTime.parse(json['createdDate'])
-          : null,
-    );
+
+    try {
+      return CropMetaDataModel(
+        en: json['en'],
+        mr: json['mr'],
+        ka: json['ka'],
+        hi: json['hi'],
+        ta: json['ta'],
+        te: json['te'],
+        ml: json['ml'],
+        gu: json['gu'],
+        pa: json['pa'],
+        es: json['es'],
+        isActive: json['isActive'],
+        isCreatedByUser: json['isCreatedByUser'],
+        createdDate: json['createdDate'] != null
+            ? DateTime.parse(json['createdDate'])
+            : null,
+      );
+    }catch (e) {
+      print("Error parsing cropsMeta JSON: $e");
+      rethrow;  // Re-throw the exception after printing the error
+    }
   }
 }

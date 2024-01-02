@@ -4,20 +4,20 @@
     "value": "light",
     "profile": "All",
     "isActive": true,
-    "createdDate": "2023-01-15T08:00:00.000Z"
+    "createdDate": "2024-01-01T08:00:00Z"
   },
   {
     "key": "notification",
     "value": "on",
     "profile": "All",
     "isActive": true,
-    "createdDate": "2023-01-15T09:00:00.000Z"
+    "createdDate": "2024-01-01T08:00:00Z"
   },
   {
     "key": "introScreen",
     "value": "off",
     "profile": "All",
     "isActive": true,
-    "createdDate": "2023-01-15T09:00:00.000Z"
+    "createdDate": "2024-01-01T08:00:00Z"
   }
 ]

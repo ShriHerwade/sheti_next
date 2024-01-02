@@ -22,7 +22,7 @@ class SettingModel {
       'key': this.key,
       'value': this.value,
       'profile': this.profile,
-      'isActive': this.isActive ? 1 : 0,
+      'isActive': this.isActive ? 1 : 0, // Convert boolean to integer,
       'createdDate': createdDate?.toIso8601String(),
     };
   }
@@ -40,14 +40,19 @@ class SettingModel {
 
   // Factory method to create a SettingModel from JSON
   factory SettingModel.fromJson(Map<String, dynamic> json) {
-    return SettingModel(
-      key: json['key'],
-      value: json['value'],
-      profile: json['profile'],
-      isActive: json['isActive'],
-      createdDate: json['createdDate'] != null
-          ? DateTime.parse(json['createdDate'])
-          : null,
-    );
+    try {
+      return SettingModel(
+        key: json['key'],
+        value: json['value'],
+        profile: json['profile'],
+        isActive: json['isActive'],
+        createdDate: json['createdDate'] != null
+            ? DateTime.parse(json['createdDate'])
+            : null,
+      );
+    }catch (e) {
+  print("Error parsing settings JSON: $e");
+  rethrow;  // Re-throw the exception after printing the error
+  }
   }
 }

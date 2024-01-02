@@ -21,7 +21,7 @@ class AccountModel {
       this.transactionId,
       this.receipt,
       this.rawData,
-      this.disableAccount = false,
+      required this.disableAccount,
       this.createdDate});
 
   Map<String, dynamic> toMap() {
@@ -34,7 +34,7 @@ class AccountModel {
       'transactionId': this.transactionId,
       'receipt': this.receipt,
       'rawData': this.rawData,
-      'disableAccount': this.disableAccount,
+      'disableAccount': this.disableAccount ? 1 : 0, // Convert boolean to integer
       'createdDate': this.createdDate,
     };
   }
@@ -70,23 +70,28 @@ class AccountModel {
   }
 
   factory AccountModel.fromJson(Map<String, dynamic> json) {
-    return AccountModel(
-      accountId: 1,
-      activationDate: json['activationDate'] != null
-          ? DateTime.parse(json['activationDate'])
-          : null,
-      activationType: json["activationType"],
-      expirationDate: json['expirationDate'] != null
-          ? DateTime.parse(json['expirationDate'])
-          : null,
-      platform: json["platform"],
-      transactionId: json["transactionId"],
-      receipt: json["receipt"],
-      rawData: json["rawData"],
-      disableAccount: json["disableAccount"].toLowerCase() == 'false',
-      createdDate: json['createdDate'] != null
-          ? DateTime.parse(json['createdDate'])
-          : null,
-    );
+    try {
+      return AccountModel(
+        accountId: 1,
+        activationDate: json['activationDate'] != null
+            ? DateTime.parse(json['activationDate'])
+            : null,
+        activationType: json["activationType"],
+        expirationDate: json['expirationDate'] != null
+            ? DateTime.parse(json['expirationDate'])
+            : null,
+        platform: json["platform"],
+        transactionId: json["transactionId"],
+        receipt: json["receipt"],
+        rawData: json["rawData"],
+        disableAccount: json["disableAccount"],
+        createdDate: json['createdDate'] != null
+            ? DateTime.parse(json['createdDate'])
+            : null,
+      );
+    }catch (e) {
+  print("Error parsing Account JSON: $e");
+  rethrow;  // Re-throw the exception after printing the error
+  }
   }
 }

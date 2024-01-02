@@ -1,15 +1,14 @@
 {
   "userId": 1,
-  "accountId": 123,
   "firstName": "John",
   "lastName": "Doe",
   "email": "john.doe@example.com",
   "mobileNo": "1234567890",
   "pin": "1234",
-  "isActive": true,
   "isAccountOwner": true,
   "role": "Admin",
-  "expirationDate": "2023-12-31T00:00:00.000Z",
-  "createdDate": "2022-01-01T10:30:00.000Z",
-  "lastAccessedDate": "2022-02-15T15:45:00.000Z"
+  "expirationDate": "2025-01-01T12:00:00Z",
+  "lastAccessedDate": "2024-12-31T18:30:00Z",
+  "isActive": true,
+  "createdDate": "2023-01-01T08:00:00Z"
 }
