@@ -1,6 +1,6 @@
 import 'dart:core';
 class CropMetaDataModel {
-  int? cropId;
+  int? cropMetaId;
   late String en; //english value
   String? mr; // marathi value
   String? ka; // kannada value
@@ -16,7 +16,7 @@ class CropMetaDataModel {
   DateTime? createdDate;
 
   CropMetaDataModel(
-      {this.cropId,
+      {this.cropMetaId,
       required this.en,
       this.mr,
       this.ka,
@@ -33,7 +33,7 @@ class CropMetaDataModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'cropId': this.cropId,
+      'cropMetaId': this.cropMetaId,
       'en': this.en,
       'mr': this.mr,
       'ka': this.ka,
@@ -52,7 +52,7 @@ class CropMetaDataModel {
 
   factory CropMetaDataModel.fromMap(Map<String, dynamic> map) {
     return CropMetaDataModel(
-      cropId: map['cropId'] as int,
+      cropMetaId: map['cropId'] as int,
       en: map['en'] as String,
       mr: map['mr'] as String,
       ka: map['ka'] as String,

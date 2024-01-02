@@ -27,30 +27,36 @@ class AccountModel {
   Map<String, dynamic> toMap() {
     return {
       'accountId': this.accountId,
-      'activationDate': this.activationDate,
+      'activationDate': this.activationDate?.toIso8601String(),
       'activationType': this.activationType,
-      'expirationDate': this.expirationDate,
+      'expirationDate': this.expirationDate?.toIso8601String(),
       'platform': this.platform,
       'transactionId': this.transactionId,
       'receipt': this.receipt,
       'rawData': this.rawData,
       'disableAccount': this.disableAccount ? 1 : 0, // Convert boolean to integer
-      'createdDate': this.createdDate,
+      'createdDate': this.createdDate?.toIso8601String(),
     };
   }
 
   factory AccountModel.fromMap(Map<String, dynamic> map) {
     return AccountModel(
       accountId: map['accountId'] as int,
-      activationDate: map['activationDate'] as DateTime,
+      activationDate: map['activationDate'] != null
+          ? DateTime.parse(map['activationDate'])
+          : null,
       activationType: map['activationType'] as String,
-      expirationDate: map['expirationDate'] as DateTime,
+      expirationDate: map['expirationDate'] != null
+          ? DateTime.parse(map['expirationDate'])
+          : null,
       platform: map['platform'] as String,
       transactionId: map['transactionId'] as String,
       receipt: map['receipt'] as String,
       rawData: map['rawData'] as String,
-      disableAccount: map['disableAccount'] as bool,
-      createdDate: map['createdDate'] as DateTime,
+      disableAccount: map['disableAccount'] == 1, // without it parse error
+      createdDate: map['createdDate'] != null
+          ? DateTime.parse(map['createdDate'])
+          : null,
     );
   }
 
@@ -72,7 +78,6 @@ class AccountModel {
   factory AccountModel.fromJson(Map<String, dynamic> json) {
     try {
       return AccountModel(
-        accountId: 1,
         activationDate: json['activationDate'] != null
             ? DateTime.parse(json['activationDate'])
             : null,
