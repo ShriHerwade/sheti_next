@@ -9,6 +9,7 @@ import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import 'package:sqflite_common/sqlite_api.dart';
 import '../../common/widgets/NxDDFormField.dart';
 import 'MyFarmScreen.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
@@ -50,6 +51,13 @@ class _CreateFarmsState extends State<CreateFarms> {
       });
     } else {
       // Handle the case where no active account is found
+    }
+  }
+
+  void _handleInsertInitialMetaData() async {
+    Database? db = await dbHelper?.db;
+    if (db != null) {
+      await dbHelper?.insertInitialMetaData(db);
     }
   }
 
@@ -199,9 +207,24 @@ class _CreateFarmsState extends State<CreateFarms> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
+                    GestureDetector(
+                      onTap: _handleInsertInitialMetaData,
+                      child: Text.rich(
+                        TextSpan(
+                          text: 'L',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                            fontSize: fontSize,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
+
               ],
+
             ),
           ),
         ),
@@ -223,7 +246,7 @@ class _CreateFarmsState extends State<CreateFarms> {
     try {
       if (_formKey.currentState!.validate()) {
         FarmModel farm = FarmModel(
-          accountId: accountId,
+          accountId: 1,
           farmName: _confarmName.text,
           farmAddress: _confarmAddress.text,
           farmArea: double.parse(_confarmArea.text),

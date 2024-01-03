@@ -75,10 +75,18 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
   // Method to get crops by farmId
   Future<void> getCropsByFarmId(int farmId) async {
-    List<CropModel> crops = await dbHelper!.getCropsByFarmId(farmId);
+    if (farmId == null) {
+      setState(() {
+        crops = []; // Clear the crops list when farmId is null
+      });
+      return;
+    }
+    List<CropModel> pulledCrops =  await dbHelper!.getCropsByFarmId(farmId);
     // Use the retrieved crops as needed
-    print('Crops for Farm ID $farmId: $crops');
-    setState(() {});
+    print('Crops for Farm ID $farmId: $pulledCrops');
+    setState(() {
+      crops = pulledCrops;
+    });
   }
 
   @override
@@ -123,10 +131,10 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   onChanged: (int? farmId) {
                     setState(() {
                       selectedFarm = farmId;
+                      selectedCrop = null;
                       if (farmId != null) {
                         print('Selected Farm ID: $farmId');
                         getCropsByFarmId(farmId);
-
                       }
                     });
                   },

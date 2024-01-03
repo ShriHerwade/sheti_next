@@ -380,13 +380,14 @@ class DbHelper {
   Future<List<CropModel>> getCropsByFarmId(int farmId) async {
     final dbClient = await db;
     final List<Map<String, dynamic>> maps = await dbClient.query(Table_Crops,
-        where: 'isActive = ? AND isActive IS NOT NULL farmId = ?',
+        where: 'isActive = ? AND farmId = ? AND isActive IS NOT NULL',
         whereArgs: [1, farmId],
         orderBy: 'createdDate DESC');
     return List.generate(maps.length, (i) {
       return CropModel.fromMap(maps[i]);
     });
   }
+
 
   Future<List<EventModel>> getAllEvents() async {
     final dbClient = await db;
@@ -489,6 +490,7 @@ class DbHelper {
       for (var jsonData in cropsMetaJsonList) {
         i = i + 1;
         print("CropMeta adding " + i.toString());
+        print("Setttings JSON Object: $jsonData");
         await saveCropsMetaData(CropMetaDataModel.fromJson(jsonData));
       }
       print("CropMetadata records saved.");
@@ -496,6 +498,7 @@ class DbHelper {
       for (var jsonData in settingsJsonList) {
         j = j + 1;
         print("Settings adding " + j.toString());
+        print("Crop JSON Object: $jsonData");
         await saveSettingData(SettingModel.fromJson(jsonData));
       }
       print("Settings records saved.");
