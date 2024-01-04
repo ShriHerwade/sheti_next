@@ -1,4 +1,4 @@
-// create_expenses.dart
+// create_expenseScreen.dart
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,8 @@ import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 import '../../common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
+
+import '../../dao/models/ExpenseModel.dart';
 
 class CreateExpenses extends StatefulWidget {
   const CreateExpenses({Key? key});
@@ -66,12 +68,64 @@ class _CreateExpensesState extends State<CreateExpenses> {
       });
     }
   }
-
+// save data
   String formatDate(DateTime? date) {
     if (date != null) {
       return DateFormat('dd/MM/yyyy').format(date);
     } else {
       return '';
+    }
+  }
+// method to save Record
+  void saveExpenseData(BuildContext context) async {
+    try {
+      if (_formKey.currentState!.validate()) {
+        // Handle save logic using selected values (selectedFarm, selectedCrop, selectedEvent, selectedDate, _confamount.text)
+        ExpenseModel expense = ExpenseModel(
+          farmId: selectedFarm ?? 0,
+          cropId: selectedCrop ?? 0,
+          userId: userId ?? 1,
+          isFarmLevel: false, // Default value
+          isCredit: false, // Default value
+          creditBy: null, // Default value
+          invoiceNumber: null, // Default value
+          invoiceFilePath: null, // Default value
+          fileExtension: null, // Default value
+          splitBetween: 0, // Default value
+          details: null, // Default value
+          expenseType: selectedExpense.isNotEmpty ? selectedExpense.first : 'Default Expense', // Default value
+          amount: double.parse(_confamount.text),
+          expenseDate: selectedDate ?? DateTime.now(),
+          isActive: true, // Default value
+          createdDate: DateTime.now(), // Default value
+        );
+
+        await dbHelper!.saveExpenseData(expense);
+
+        _confamount.clear();
+        selectedFarm = null;
+        selectedCrop = null;
+        selectedExpense = [];
+        selectedDate = null;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Expense data saved successfully!"),
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(bottom: 16.0),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error saving expense data. Please try again."),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(bottom: 16.0),
+        ),
+      );
     }
   }
 
@@ -104,7 +158,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
       backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
         title: Text(LocaleKeys.createExpense.tr()),
-        centerTitle: true,
+        //centerTitle: true,
         actions: [
           TextButton(
             onPressed: () {
@@ -114,7 +168,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
             child: Text(
               //LocaleKeys.showExpenses.tr(),
               "Show Expenses",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.green,fontSize: 20.0),
             ),
           ),
         ],
@@ -296,39 +350,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
         selectedExpense.isNotEmpty &&
         selectedDate != null &&
         _confamount.text.isNotEmpty;
-  }
-
-  void saveExpenseData(BuildContext context) async {
-    try {
-      if (_formKey.currentState!.validate()) {
-        // Handle save logic using selected values (selectedFarm, selectedCrop, selectedEvent, selectedDate, _confamount.text)
-        //userId - use this userId while saving.
-
-        _confamount.clear();
-        selectedFarm = null;
-        selectedCrop = null;
-        selectedExpense = [];
-        selectedDate = null;
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Expense data saved successfully!"),
-            backgroundColor: Colors.green,
-            behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.only(bottom: 16.0),
-          ),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Error saving expense data. Please try again."),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.only(bottom: 16.0),
-        ),
-      );
-    }
   }
 
   void showExpenses() {

@@ -107,15 +107,30 @@ class _CreateEventsState extends State<CreateEvents> {
 
         // Save the event record
         await dbHelper!.saveEventData(event);
+        // give message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Event Record Saved Successfully'),
+              backgroundColor: Colors.black,
+              behavior: SnackBarBehavior.floating,
+              elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+            ),
+            margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
+        ));
+        // clear Controls
+        selectedFarm=null;
+        selectedCrop=null;
+        selectedFarmEvents=[];
+        startDate=null;
+        endDate=null;
+
+
 
         // Optionally, you can reset the form or navigate to a different screen
         _formKey.currentState!.reset();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MyEvents(),
-          ),
-        );
+
       } else {
         // Handle the case when required fields are not selected
         print("Please select farm, crop, and start date.");

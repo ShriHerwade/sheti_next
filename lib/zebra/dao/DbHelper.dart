@@ -442,6 +442,16 @@ class DbHelper {
     );
     print("Event record inserted");
   }
+// method to save expense data
+  Future<void> saveExpenseData(ExpenseModel expense) async {
+    final dbClient = await db;
+    await dbClient.insert(
+      Table_Expenses,
+      expense.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    print("Expenses record inserted");
+  }
 
   Future<void> insertInitialMetaData(Database db) async {
     print("Initializing the metaData loading from Json file ..");
