@@ -10,6 +10,7 @@ import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 import '../../common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
@@ -81,7 +82,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
       });
       return;
     }
-    List<CropModel> pulledCrops =  await dbHelper!.getCropsByFarmId(farmId);
+    List<CropModel> pulledCrops = await dbHelper!.getCropsByFarmId(farmId);
     // Use the retrieved crops as needed
     print('Crops for Farm ID $farmId: $pulledCrops');
     setState(() {
@@ -103,6 +104,19 @@ class _CreateExpensesState extends State<CreateExpenses> {
       appBar: AppBar(
         title: Text(LocaleKeys.createExpense.tr()),
         centerTitle: true,
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Add the logic for showing expenses here
+              showExpenses();
+            },
+            child: Text(
+              //LocaleKeys.showExpenses.tr(),
+              "Show Expenses",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
       ),
       body: Form(
         key: _formKey,
@@ -160,7 +174,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                 ),
                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
                   child: DropDownMultiSelect(
                     decoration: InputDecoration(
                       hintText: LocaleKeys.selectExpenseType.tr(),
@@ -171,7 +186,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        borderSide: BorderSide(color: Colors.lightGreen.shade400),
+                        borderSide:
+                        BorderSide(color: Colors.lightGreen.shade400),
                       ),
                       disabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -193,7 +209,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     options: farmExpenses,
                     selectedValues: selectedExpense,
                     hint: Text(LocaleKeys.selectExpenseType.tr()),
-                    hintStyle: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
+                    hintStyle: TextStyle(
+                        fontWeight: FontWeight.normal, color: Colors.black),
                   ),
                 ),
                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
@@ -205,26 +222,51 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   inputType: TextInputType.number,
                 ),
                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                Container(
-                  margin: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.1),
-                  width: double.infinity,
-                  child: TextButton(
-                    onPressed: isSaveButtonEnabled()
-                        ? () => saveExpenseData(context)
-                        : null,
-                    child: Text(
-                      LocaleKeys.save.tr(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: ResponsiveUtil.fontSize(context, 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: ResponsiveUtil.screenWidth(context) * 0.35,
+                      child: TextButton(
+                        onPressed: isSaveButtonEnabled()
+                            ? () => saveExpenseData(context)
+                            : null,
+                        child: Text(
+                          LocaleKeys.save.tr(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: ResponsiveUtil.fontSize(context, 20),
+                          ),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color:
+                        isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+
+                    Container(
+                      width: ResponsiveUtil.screenWidth(context) * 0.35,
+                      child: TextButton(
+                        onPressed: showExpenses,
+                        child: Text(
+                          //LocaleKeys.show.tr(),
+                          "Expenses",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: ResponsiveUtil.fontSize(context, 20),
+                          ),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.green, // You can change the color as per your design
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -269,9 +311,9 @@ class _CreateExpensesState extends State<CreateExpenses> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text("Expense data saved successfully!"),
-              backgroundColor: Colors.green,
-              behavior: SnackBarBehavior.floating,
-              margin: EdgeInsets.only(bottom: 16.0)
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(bottom: 16.0),
           ),
         );
       }
@@ -285,5 +327,12 @@ class _CreateExpensesState extends State<CreateExpenses> {
         ),
       );
     }
+  }
+
+  void showExpenses() {
+    // Implement logic to navigate or show expenses screen
+   Navigator.push(
+       context,MaterialPageRoute(builder: (_) => MyExpenses()));
+    // Example: Navigator.push(context, MaterialPageRoute(builder: (_) => ExpensesScreen()));
   }
 }

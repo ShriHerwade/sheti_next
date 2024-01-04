@@ -9,9 +9,13 @@ import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
+import 'package:sheti_next/zebra/screen/farming/MyEventsScreen.dart';
+import '../../dao/models/EventModel.dart';
 import '../../dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
+
+
 
 class CreateEvents extends StatefulWidget {
   const CreateEvents({Key? key}) : super(key: key);
@@ -22,13 +26,13 @@ class CreateEvents extends StatefulWidget {
 
 class _CreateEventsState extends State<CreateEvents> {
   final _formKey = GlobalKey<FormState>();
+  DbHelper? dbHelper;
 
   int? selectedFarm;
   int? selectedCrop;
   String? multiHint;
   DateTime? startDate;
   DateTime? endDate;
-  DbHelper? dbHelper;
 
   List<FarmModel> farms = [];
   List<CropModel> crops = [];
@@ -68,14 +72,14 @@ class _CreateEventsState extends State<CreateEvents> {
   }
 
   // Method to get crops by farmId
-  Future<void> getCropsByFarmId(int farmId) async {
+  Future<void> getCropsByFarmId(int? farmId) async {
     if (farmId == null) {
       setState(() {
         crops = []; // Clear the crops list when farmId is null
       });
       return;
     }
-    List<CropModel> pulledCrops =  await dbHelper!.getCropsByFarmId(farmId);
+    List<CropModel> pulledCrops = await dbHelper!.getCropsByFarmId(farmId);
     // Use the retrieved crops as needed
     print('Crops for Farm ID $farmId: $pulledCrops');
     setState(() {
@@ -83,13 +87,46 @@ class _CreateEventsState extends State<CreateEvents> {
     });
   }
 
+  Future<void> saveRecords() async {
+    if (_formKey.currentState!.validate()) {
+      // Validate the form
+      if (selectedFarm != null && selectedCrop != null && startDate != null) {
+        // Create an EventModel instance with the selected values
+        EventModel event = EventModel(
+          farmId: selectedFarm!,
+          cropId: selectedCrop!,
+          eventType: selectedFarmEvents.join(", "), // Join multiple events into a single string
+          startDate: startDate!,
+          endDate: endDate,
+          details: null, // You may want to update this with user input
+          isDone: false,
+          isActive: true,
+          createdDate: DateTime.now(),
+        );
+
+        // Save the event record
+        await dbHelper!.saveEventData(event);
+
+        // Optionally, you can reset the form or navigate to a different screen
+        _formKey.currentState!.reset();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MyEvents(),
+          ),
+        );
+      } else {
+        // Handle the case when required fields are not selected
+        print("Please select farm, crop, and start date.");
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (context.locale.languageCode == 'mr') {
-      //crops = CustomTranslationList.crops_mr;
       farmEvents = CustomTranslationList.farmEvents_mr;
     } else if (context.locale.languageCode == 'en') {
-     // crops = CustomTranslationList.crops_en;
       farmEvents = CustomTranslationList.farmEvents_en;
     }
 
@@ -130,7 +167,6 @@ class _CreateEventsState extends State<CreateEvents> {
                       if (farmId != null) {
                         print('Selected Farm ID: $farmId');
                         getCropsByFarmId(farmId);
-
                       }
                     });
                   },
@@ -156,7 +192,8 @@ class _CreateEventsState extends State<CreateEvents> {
                 ),
                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
                   child: DropDownMultiSelect(
                     decoration: InputDecoration(
                       hintText: LocaleKeys.selectEvent.tr(),
@@ -180,7 +217,6 @@ class _CreateEventsState extends State<CreateEvents> {
                       fillColor: Colors.white,
                       filled: true,
                       isDense: true,
-
                     ),
                     onChanged: (List<String> ev) {
                       setState(() {
@@ -190,34 +226,65 @@ class _CreateEventsState extends State<CreateEvents> {
                     options: farmEvents,
                     selectedValues: selectedFarmEvents,
                     hint: Text(LocaleKeys.selectEvent.tr()),
-                    hintStyle: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
+                    hintStyle: TextStyle(
+                        fontWeight: FontWeight.normal, color: Colors.black),
                   ),
                 ),
                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                buildDateField(LocaleKeys.eventStartDate.tr(), startDate, true),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                buildDateField(
+                    LocaleKeys.eventStartDate.tr(), startDate, true),
+                SizedBox(
+                    height: ResponsiveUtil.screenHeight(context) * 0.02),
                 buildDateField(LocaleKeys.eventEndDate.tr(), endDate, false),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                Container(
-                  margin: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.1),
-                  width: double.infinity,
-                  child: TextButton(
-                    onPressed: () {
-                      // Handle save logic using selected dates (startDate and endDate)
-                    },
-                    child: Text(
-                      LocaleKeys.save.tr(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: ResponsiveUtil.fontSize(context, 20),
+                SizedBox(
+                    height: ResponsiveUtil.screenHeight(context) * 0.02),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: ResponsiveUtil.screenWidth(context) * 0.35,
+                      child: TextButton(
+                        onPressed: saveRecords,
+                        child: Text(
+                          LocaleKeys.save.tr(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: ResponsiveUtil.fontSize(context, 20),
+                          ),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+                    Container(
+                      width: ResponsiveUtil.screenWidth(context) * 0.35,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyEvents(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Events",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: ResponsiveUtil.fontSize(context, 20),
+                          ),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -227,7 +294,8 @@ class _CreateEventsState extends State<CreateEvents> {
     );
   }
 
-  Widget buildDateField(String label, DateTime? selectedDate, bool isStartDate) {
+  Widget buildDateField(
+      String label, DateTime? selectedDate, bool isStartDate) {
     return NxDateField(
       label: label,
       labelText: label,
@@ -245,3 +313,6 @@ class _CreateEventsState extends State<CreateEvents> {
     );
   }
 }
+
+
+

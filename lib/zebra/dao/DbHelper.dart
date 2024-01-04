@@ -1,5 +1,5 @@
+//DbHelper.dart
 import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
@@ -89,8 +89,7 @@ class DbHelper {
   static const String C_invoiceFilePath = 'invoiceFilePath';
   static const String C_fileExtension = 'fileExtension';
   static const String C_amount = 'amount';
-  static const String C_isFarmLevel =
-      'isFarmLevel'; // if expense is not for a specific crop
+  static const String C_isFarmLevel = 'isFarmLevel'; // if expense is not for a specific crop
 
   static const String C_settingId = 'settingId';
   static const String C_key = 'key';
@@ -432,6 +431,16 @@ class DbHelper {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     print("User record inserted");
+  }
+// method to save Events
+  Future<void> saveEventData(EventModel event) async {
+    final dbClient = await db;
+    await dbClient.insert(
+      Table_Events,
+      event.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    print("Event record inserted");
   }
 
   Future<void> insertInitialMetaData(Database db) async {

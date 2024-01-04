@@ -43,7 +43,7 @@ class _SignupScreenState extends State<SignupScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState?.save();
 
-      UserModel uModel = UserModel(accountId: 1, firstName: firstName, lastName: lastName, email: email, mobileNo: mobileNo, role: "Admin",pin: "123456");
+      UserModel uModel = UserModel(accountId: 1, firstName: firstName, lastName: lastName, email: email, mobileNo: mobileNo, role: "Admin",pin: "123456",isActive: true,isAccountOwner: true,);
       await dbHelper.saveData(uModel).then((userData) {
         alertDialog(context, "Successfully Saved");
         Navigator.push(

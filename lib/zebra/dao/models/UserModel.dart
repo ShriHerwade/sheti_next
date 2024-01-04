@@ -30,9 +30,6 @@ class UserModel {
       this.createdDate,
       this.lastAccessedDate});
 
-
-
-
   factory UserModel.fromJson(Map<String, dynamic> json){
     try{
     return UserModel(

@@ -1,3 +1,4 @@
+//EventModel.dart
 class EventModel {
   int? eventId;
   late int farmId;
