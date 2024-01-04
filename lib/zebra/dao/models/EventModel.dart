@@ -1,6 +1,7 @@
 //EventModel.dart
 class EventModel {
   int? eventId;
+  late int userId;
   late int farmId;
   late int cropId;
   late String eventType;
@@ -15,6 +16,7 @@ class EventModel {
       {this.eventId,
       required this.farmId,
       required this.cropId,
+      required this.userId,
       required this.eventType,
       required this.startDate,
       this.endDate,
@@ -28,6 +30,7 @@ class EventModel {
       'eventId': this.eventId,
       'farmId': this.farmId,
       'cropId': this.cropId,
+      'userId': this.userId,
       'eventType': this.eventType,
       'startDate': this.startDate?.toIso8601String(),
       'endDate': this.endDate?.toIso8601String(),
@@ -43,6 +46,7 @@ class EventModel {
       eventId: map['eventId'],
       farmId: map['farmId'],
       cropId: map['cropId'],
+      userId: map['userId'],
       eventType: map['eventType'],
       startDate: DateTime.parse(map['startDate']),
       endDate: DateTime.parse(map['endDate']),

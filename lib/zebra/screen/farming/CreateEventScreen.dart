@@ -93,6 +93,7 @@ class _CreateEventsState extends State<CreateEvents> {
       if (selectedFarm != null && selectedCrop != null && startDate != null) {
         // Create an EventModel instance with the selected values
         EventModel event = EventModel(
+          userId :1, // it will be later changed & a global userId variable will be used here
           farmId: selectedFarm!,
           cropId: selectedCrop!,
           eventType: selectedFarmEvents.join(", "), // Join multiple events into a single string

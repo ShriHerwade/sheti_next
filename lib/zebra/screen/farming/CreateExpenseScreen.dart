@@ -28,6 +28,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
   int? selectedFarm;
   int? selectedCrop;
+  int? userId=1;
   DateTime? selectedDate;
   DateTime? startDate;
   DateTime? endDate;
@@ -301,6 +302,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
     try {
       if (_formKey.currentState!.validate()) {
         // Handle save logic using selected values (selectedFarm, selectedCrop, selectedEvent, selectedDate, _confamount.text)
+        //userId - use this userId while saving.
 
         _confamount.clear();
         selectedFarm = null;
