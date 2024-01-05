@@ -75,7 +75,7 @@ class ExpenseModel {
       details: map['details'],
       expenseType: map['expenseType'],
       amount: map['amount'],
-      expenseDate: map['expenseDate'],
+      expenseDate: DateTime.parse(map['expenseDate']),
       isActive: map['isActive'] == 1,
       createdDate: DateTime.parse(map['createdDate']),
     );

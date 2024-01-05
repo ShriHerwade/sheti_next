@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/EventModel.dart';
@@ -108,14 +109,18 @@ class _MyEventsState extends State<MyEvents> {
                       ),
                       DataCell(
                         Text(
-                          event.startDate?.toLocal().toString() ?? '',
-                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                          DateFormat("dd-MM-yyyy")
+                              .format(DateTime.parse(event.startDate.toString())),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ),
                       DataCell(
                         Text(
-                          event.endDate?.toLocal().toString() ?? '',
-                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                          DateFormat("dd-MM-yyyy")
+                              .format(DateTime.parse(event.endDate.toString())),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ),
                       DataCell(

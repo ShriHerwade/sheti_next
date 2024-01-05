@@ -51,8 +51,14 @@ class _CreateEventsState extends State<CreateEvents> {
     farms = await dbHelper!.getAllFarms();
     setState(() {});
   }
-
-  Future<void> _selectDate(BuildContext context, bool isStartDate) async {
+  String formatDate(DateTime? date) {
+    if (date != null) {
+      return DateFormat('dd/MM/yyyy').format(date);
+    } else {
+      return '';
+    }
+  }
+ /* Future<void> _selectDate(BuildContext context, bool isStartDate) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -70,7 +76,7 @@ class _CreateEventsState extends State<CreateEvents> {
       });
     }
   }
-
+*/
   // Method to get crops by farmId
   Future<void> getCropsByFarmId(int? farmId) async {
     if (farmId == null) {
@@ -272,11 +278,31 @@ class _CreateEventsState extends State<CreateEvents> {
                   ),
                 ),
                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                buildDateField(
-                    LocaleKeys.eventStartDate.tr(), startDate, true),
+               /* buildDateField(
+                    LocaleKeys.eventStartDate.tr(), startDate, true),*/
+                NxDateField(
+                  label: LocaleKeys.eventStartDate.tr(),
+                  labelText: LocaleKeys.eventStartDate.tr(),
+                  selectedDate: startDate,
+                  onTap: (DateTime? picked) {
+                    setState(() {
+                      startDate = picked;
+                    });
+                  },
+                ),
                 SizedBox(
                     height: ResponsiveUtil.screenHeight(context) * 0.02),
-                buildDateField(LocaleKeys.eventEndDate.tr(), endDate, false),
+               // buildDateField(LocaleKeys.eventEndDate.tr(), endDate, false),
+                NxDateField(
+                  label: LocaleKeys.eventEndDate.tr(),
+                  labelText: LocaleKeys.eventEndDate.tr(),
+                  selectedDate: endDate,
+                  onTap: (DateTime? picked) {
+                    setState(() {
+                      endDate = picked;
+                    });
+                  },
+                ),
                 SizedBox(
                     height: ResponsiveUtil.screenHeight(context) * 0.02),
                 Row(
@@ -335,7 +361,7 @@ class _CreateEventsState extends State<CreateEvents> {
     );
   }
 
-  Widget buildDateField(
+  /*Widget buildDateField(
       String label, DateTime? selectedDate, bool isStartDate) {
     return NxDateField(
       label: label,
@@ -352,7 +378,7 @@ class _CreateEventsState extends State<CreateEvents> {
         });
       },
     );
-  }
+  }*/
 }
 
 

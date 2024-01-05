@@ -54,7 +54,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
     setState(() {});
   }
 
-  Future<void> _selectDate(BuildContext context) async {
+ /* Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -67,7 +67,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
         selectedDate = picked;
       });
     }
-  }
+  }*/
 // save data
   String formatDate(DateTime? date) {
     if (date != null) {
@@ -76,6 +76,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
       return '';
     }
   }
+
 // method to save Record
   void saveExpenseData(BuildContext context) async {
     try {
