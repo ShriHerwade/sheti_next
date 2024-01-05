@@ -1,5 +1,3 @@
-// create_crop.dart
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -58,24 +56,6 @@ class _CreateCropState extends State<CreateCrop> {
     setState(() {});
   }
 
-  Future<void> _selectDate(BuildContext context, bool isStartDate) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2022),
-      lastDate: DateTime(2101),
-    );
-
-    if (picked != null) {
-      setState(() {
-        if (isStartDate) {
-          startDate = picked;
-        } else {
-          endDate = picked;
-        }
-      });
-    }
-  }
 
   String formatDate(DateTime? date) {
     if (date != null) {
@@ -334,9 +314,13 @@ class _CreateCropState extends State<CreateCrop> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text('Failed to save crop record'),
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-              margin: EdgeInsets.only(bottom: 16.0)),
+            backgroundColor: Colors.black,
+            behavior: SnackBarBehavior.floating,
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+            ),
+            margin: EdgeInsets.fromLTRB(50, 10, 50, 10),),
         );
       }
     }

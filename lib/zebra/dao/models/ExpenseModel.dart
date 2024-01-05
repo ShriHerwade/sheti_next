@@ -4,8 +4,8 @@ class ExpenseModel {
   int farmId;
   int cropId;
   int userId;
-  bool isFarmLevel;
-  final bool isCredit;
+  bool? isFarmLevel;
+  bool? isCredit;
   String? creditBy;
   String? invoiceNumber;
   String? invoiceFilePath;
@@ -23,8 +23,8 @@ class ExpenseModel {
       required this.farmId,
       required this.cropId,
       required this.userId,
-      this.isFarmLevel = false,
-      required this.isCredit,
+      this.isFarmLevel,
+      this.isCredit,
       this.creditBy,
       this.invoiceNumber,
       this.invoiceFilePath,
@@ -42,7 +42,8 @@ class ExpenseModel {
       'expenseId': this.expenseId,
       'farmId': this.farmId,
       'cropId': this.cropId,
-      'isFarmLevel': this.isFarmLevel ? 1 : 0,
+      'userId': this.userId,
+      'isFarmLevel': this.isFarmLevel,
       'isCredit': this.isCredit,
       'creditBy': this.creditBy,
       'invoiceNumber': this.invoiceNumber,

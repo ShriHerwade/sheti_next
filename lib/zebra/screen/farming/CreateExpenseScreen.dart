@@ -82,10 +82,10 @@ class _CreateExpensesState extends State<CreateExpenses> {
       if (_formKey.currentState!.validate()) {
         // Handle save logic using selected values (selectedFarm, selectedCrop, selectedEvent, selectedDate, _confamount.text)
         ExpenseModel expense = ExpenseModel(
-          farmId: selectedFarm ?? 0,
-          cropId: selectedCrop ?? 0,
-          userId: userId ?? 1,
-          isFarmLevel: false, // Default value
+          farmId: selectedFarm!,
+          cropId: selectedCrop!,
+          userId: 1,
+         isFarmLevel: false, // Default value
           isCredit: false, // Default value
           creditBy: null, // Default value
           invoiceNumber: null, // Default value
@@ -110,20 +110,53 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("Expense data saved successfully!"),
-            backgroundColor: Colors.green,
+            content: Row(
+              children: [
+                Container(
+                  //margin: EdgeInsets.only(right: 2.0),
+                  padding: EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 16.0,
+                  ),
+                ),
+                SizedBox(width: 6.0),
+                Text(
+                  'Record saved successfully.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            backgroundColor: Colors.black,
             behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.only(bottom: 16.0),
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+            ),
+            margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
           ),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Error saving expense data. Please try again."),
-          backgroundColor: Colors.red,
+          content: Text("Error saving expense data."),
+          backgroundColor: Colors.black,
           behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.only(bottom: 16.0),
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+          ),
+          margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
         ),
       );
     }

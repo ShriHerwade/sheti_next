@@ -110,15 +110,40 @@ class _CreateEventsState extends State<CreateEvents> {
         // give message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text('Event Record Saved Successfully'),
-              backgroundColor: Colors.black,
-              behavior: SnackBarBehavior.floating,
-              elevation: 10,
+            content: Row(
+              children: [
+                Container(
+                  //margin: EdgeInsets.only(right: 2.0),
+                  padding: EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 16.0,
+                  ),
+                ),
+                SizedBox(width: 6.0),
+                Text(
+                  'Record saved successfully.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            backgroundColor: Colors.black,
+            behavior: SnackBarBehavior.floating,
+            elevation: 10,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(4)),
             ),
             margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
-        ));
+          ),);
         // clear Controls
         selectedFarm=null;
         selectedCrop=null;

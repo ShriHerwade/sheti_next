@@ -249,7 +249,7 @@ class DbHelper {
             $C_invoiceNumber TEXT,
             $C_invoiceFilePath TEXT,
             $C_fileExtension TEXT,
-            $C_isCredit INTEGER,
+            $C_isCredit INTEGER NOT NULL DEFAULT 0,
             $C_creditBy TEXT,
             $C_splitBetween INTEGER NOT NULL DEFAULT 0,           
             $C_details TEXT,
@@ -445,11 +445,15 @@ class DbHelper {
 // method to save expense data
   Future<void> saveExpenseData(ExpenseModel expense) async {
     final dbClient = await db;
+    try{
     await dbClient.insert(
       Table_Expenses,
       expense.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    );}catch(e){
+      print("Error while saving expense data : $e");
+      rethrow;
+    }
     print("Expenses record inserted");
   }
 
