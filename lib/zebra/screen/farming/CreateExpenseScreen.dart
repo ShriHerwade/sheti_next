@@ -16,6 +16,7 @@ import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 
 import '../../dao/models/ExpenseModel.dart';
+import 'HomeScreen.dart';
 
 class CreateExpenses extends StatefulWidget {
   const CreateExpenses({Key? key});
@@ -193,171 +194,183 @@ class _CreateExpensesState extends State<CreateExpenses> {
       appBar: AppBar(
         title: Text(LocaleKeys.createExpense.tr()),
         //centerTitle: true,
-        actions: [
-          TextButton(
-            onPressed: () {
-              // Add the logic for showing expenses here
-              showExpenses();
-            },
-            child: Text(
-              //LocaleKeys.showExpenses.tr(),
-              "Show Expenses",
-              style: TextStyle(color: Colors.green,fontSize: 20.0),
-            ),
-          ),
-        ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
+        ),
       ),
       body: Form(
         key: _formKey,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-            padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
-            child: Column(
-              children: [
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                Image.asset(
-                  "assets/images/top_create-life-cycle-event-2.png",
-                  height: ResponsiveUtil.screenHeight(context) * 0.16,
-                  width: ResponsiveUtil.screenWidth(context) * 0.4,
+        child:  WillPopScope(
+          onWillPop: () async {
+            // Navigate to HomeScreen when the back button is pressed
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            // Prevent the default back button behavior
+            return false;
+          },
+          child:  Dismissible(
+            key: Key('pageDismissKey'),
+            direction: DismissDirection.endToStart,
+            onDismissed: (_) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => MyExpenses(),
                 ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxDDFormField_id(
-                  selectedItemId: selectedFarm,
-                  label: LocaleKeys.labelFarm.tr(),
-                  hint: LocaleKeys.selectFarm.tr(),
-                  items: Map.fromIterable(
-                    farms,
-                    key: (farm) => farm.farmId,
-                    value: (farm) => farm.farmName ?? 'Unknown Farm',
-                  ),
-                  onChanged: (int? farmId) {
-                    setState(() {
-                      selectedFarm = farmId;
-                      selectedCrop = null;
-                      if (farmId != null) {
-                        print('Selected Farm ID: $farmId');
-                        getCropsByFarmId(farmId);
-                      }
-                    });
-                  },
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxDDFormField_id(
-                  selectedItemId: selectedCrop,
-                  hint: LocaleKeys.selectCrop.tr(),
-                  label: LocaleKeys.labelCrop.tr(),
-                  items: Map.fromIterable(
-                    crops,
-                    key: (crop) => crop.cropId,
-                    value: (crop) => crop.cropName ?? 'Unknown Crop',
-                  ),
-                  onChanged: (int? cropId) {
-                    setState(() {
-                      selectedCrop = cropId;
-                      if (cropId != null) {
-                        print('Selected Crop ID: $cropId');
-                      }
-                    });
-                  },
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
-                  child: DropDownMultiSelect(
-                    decoration: InputDecoration(
-                      hintText: LocaleKeys.selectExpenseType.tr(),
-                      labelText: LocaleKeys.labelExpenseType.tr(),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        borderSide:
-                        BorderSide(color: Colors.lightGreen.shade400),
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      fillColor: Colors.white,
-                      filled: true,
-                      isDense: true,
-                    ),
-                    onChanged: (List<String> ex) {
-                      setState(() {
-                        selectedExpense = ex;
-                      });
-                    },
-                    options: farmExpenses,
-                    selectedValues: selectedExpense,
-                    hint: Text(LocaleKeys.selectExpenseType.tr()),
-                    hintStyle: TextStyle(
-                        fontWeight: FontWeight.normal, color: Colors.black),
-                  ),
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                buildDateField(LocaleKeys.expenseDate.tr()),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxTextFormField(
-                  controller: _confamount,
-                  hintName: LocaleKeys.expenseAmount.tr(),
-                  inputType: TextInputType.number,
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              );
+            },
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Container(
+                padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
+                child: Column(
                   children: [
-                    Container(
-                      width: ResponsiveUtil.screenWidth(context) * 0.35,
-                      child: TextButton(
-                        onPressed: isSaveButtonEnabled()
-                            ? () => saveExpenseData(context)
-                            : null,
-                        child: Text(
-                          LocaleKeys.save.tr(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: ResponsiveUtil.fontSize(context, 20),
-                          ),
-                        ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    Image.asset(
+                      "assets/images/top_create-life-cycle-event-2.png",
+                      height: ResponsiveUtil.screenHeight(context) * 0.16,
+                      width: ResponsiveUtil.screenWidth(context) * 0.4,
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    NxDDFormField_id(
+                      selectedItemId: selectedFarm,
+                      label: LocaleKeys.labelFarm.tr(),
+                      hint: LocaleKeys.selectFarm.tr(),
+                      items: Map.fromIterable(
+                        farms,
+                        key: (farm) => farm.farmId,
+                        value: (farm) => farm.farmName ?? 'Unknown Farm',
                       ),
-                      decoration: BoxDecoration(
-                        color:
-                        isSaveButtonEnabled() ? Colors.green : Colors.grey,
-                        borderRadius: BorderRadius.circular(8.0),
+                      onChanged: (int? farmId) {
+                        setState(() {
+                          selectedFarm = farmId;
+                          selectedCrop = null;
+                          if (farmId != null) {
+                            print('Selected Farm ID: $farmId');
+                            getCropsByFarmId(farmId);
+                          }
+                        });
+                      },
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    NxDDFormField_id(
+                      selectedItemId: selectedCrop,
+                      hint: LocaleKeys.selectCrop.tr(),
+                      label: LocaleKeys.labelCrop.tr(),
+                      items: Map.fromIterable(
+                        crops,
+                        key: (crop) => crop.cropId,
+                        value: (crop) => crop.cropName ?? 'Unknown Crop',
+                      ),
+                      onChanged: (int? cropId) {
+                        setState(() {
+                          selectedCrop = cropId;
+                          if (cropId != null) {
+                            print('Selected Crop ID: $cropId');
+                          }
+                        });
+                      },
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
+                      child: DropDownMultiSelect(
+                        decoration: InputDecoration(
+                          hintText: LocaleKeys.selectExpenseType.tr(),
+                          labelText: LocaleKeys.labelExpenseType.tr(),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide:
+                            BorderSide(color: Colors.lightGreen.shade400),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          fillColor: Colors.white,
+                          filled: true,
+                          isDense: true,
+                        ),
+                        onChanged: (List<String> ex) {
+                          setState(() {
+                            selectedExpense = ex;
+                          });
+                        },
+                        options: farmExpenses,
+                        selectedValues: selectedExpense,
+                        hint: Text(LocaleKeys.selectExpenseType.tr()),
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.normal, color: Colors.black),
                       ),
                     ),
-
-                    Container(
-                      width: ResponsiveUtil.screenWidth(context) * 0.35,
-                      child: TextButton(
-                        onPressed: showExpenses,
-                        child: Text(
-                          //LocaleKeys.show.tr(),
-                          "Expenses",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: ResponsiveUtil.fontSize(context, 20),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    buildDateField(LocaleKeys.expenseDate.tr()),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    NxTextFormField(
+                      controller: _confamount,
+                      hintName: LocaleKeys.expenseAmount.tr(),
+                      inputType: TextInputType.number,
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: ResponsiveUtil.screenWidth(context) * 0.35,
+                          child: TextButton(
+                            onPressed: isSaveButtonEnabled()
+                                ? () => saveExpenseData(context)
+                                : null,
+                            child: Text(
+                              LocaleKeys.save.tr(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: ResponsiveUtil.fontSize(context, 20),
+                              ),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            color:
+                            isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.green, // You can change the color as per your design
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+
+                       /* Container(
+                          width: ResponsiveUtil.screenWidth(context) * 0.35,
+                          child: TextButton(
+                            onPressed: showExpenses,
+                            child: Text(
+                              //LocaleKeys.show.tr(),
+                              "Expenses",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: ResponsiveUtil.fontSize(context, 20),
+                              ),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.green, // You can change the color as per your design
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),*/
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

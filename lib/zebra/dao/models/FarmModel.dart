@@ -1,3 +1,4 @@
+import 'dart:core';
 class FarmModel {
   int? farmId; // SQLite auto-incremented id
   final int accountId;

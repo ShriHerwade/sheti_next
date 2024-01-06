@@ -1,5 +1,4 @@
 import 'dart:core';
-
 class SettingModel {
   int? settingId;
   final String key;

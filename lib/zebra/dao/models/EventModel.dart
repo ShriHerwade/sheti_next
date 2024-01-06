@@ -1,4 +1,5 @@
 //EventModel.dart
+import 'dart:core';
 class EventModel {
   int? eventId;
   late int userId;
