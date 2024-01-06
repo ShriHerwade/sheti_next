@@ -1,5 +1,4 @@
 import 'dart:core';
-
 class UserModel {
   final int? userId;
   final int accountId;

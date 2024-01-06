@@ -1,5 +1,4 @@
 import 'dart:core';
-
 class AccountModel {
   int? accountId;
   DateTime? activationDate;

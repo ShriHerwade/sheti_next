@@ -13,7 +13,7 @@ import 'package:sqflite_common/sqlite_api.dart';
 import '../../common/widgets/NxDDFormField.dart';
 import 'MyFarmScreen.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
-
+import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
 class CreateFarms extends StatefulWidget {
   const CreateFarms({Key? key}) : super(key: key);
 
@@ -80,151 +80,176 @@ class _CreateFarmsState extends State<CreateFarms> {
       appBar: AppBar(
         title: Text(LocaleKeys.createFarm.tr()),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
+        ),
       ),
       body: Form(
         key: _formKey,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-            padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
-            child: Column(
-              children: [
-                const SizedBox(height: 30),
-                // Responsive image
-                Image.asset(
-                  "assets/images/top_create-farm-1.png",
-                  height: ResponsiveUtil.screenHeight(context) * 0.16,
-                  width: ResponsiveUtil.screenWidth(context) * 0.4,
+        child: WillPopScope(
+          onWillPop: () async {
+            // Navigate to HomeScreen when the back button is pressed
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            // Prevent the default back button behavior
+            return false;
+          },
+          child:  Dismissible(
+            key: Key('pageDismissKey'),
+            direction: DismissDirection.endToStart,
+            onDismissed: (_) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => MyFarmScreen(),
                 ),
-                // Spacer
-                 SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.04),
-                // Text form field for farm name
-                NxTextFormField(
-                  controller: _confarmName,
-                  hintName: LocaleKeys.farmName.tr(),
-                  inputType: TextInputType.name,
-                ),
-                // Spacer
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                // Text form field for farm address
-                NxTextFormField(
-                  controller: _confarmAddress,
-                  hintName: LocaleKeys.address.tr(),
-                  inputType: TextInputType.name,
-                ),
-                // Spacer
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                // Text form field for farm area
-                NxTextFormField(
-                  controller: _confarmArea,
-                  hintName: LocaleKeys.farmAea.tr(),
-                  inputType: TextInputType.number,
-                ),
-                // Spacer
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                // Dropdown form field for selecting unit
-                NxDDFormField(
-                  value: selectedUnit,
-                  hint: LocaleKeys.selectUnit.tr(),
-                  label: LocaleKeys.labelUnit.tr(),
-                  items: units,
-                  onChanged: (String? unitValue) {
-                    setState(() {
-                      selectedUnit = unitValue;
-                      if (unitValue != null) {
-                        print('Selected Unit: $unitValue');
-                      }
-                    });
-                  },
-                ),
-                // Spacer
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                // Dropdown form field for selecting farm type
-                NxDDFormField(
-                  value: selectedType,
-                  label: LocaleKeys.labelFarmType.tr(),
-                  hint: LocaleKeys.selectFarmType.tr(),
-                  items: farmTypes,
-                  onChanged: (String? typeValue) {
-                    setState(() {
-                      selectedType = typeValue;
-                      if (typeValue != null) {
-                        print('Selected Type: $typeValue');
-                      }
-                    });
-                  },
-                ),
-                // Spacer
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.01),
-                // Row with two buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              );
+            },
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Container(
+                padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
+                child: Column(
                   children: [
-                    // Save button
-                    Container(
-                      width: ResponsiveUtil.screenWidth(context) * 0.35,
-                      child: TextButton(
-                        onPressed: isSaveButtonEnabled()
-                            ? () => saveFarmData(context)
-                            : null,
-                        child: Text(
-                          LocaleKeys.save.tr(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: fontSize,
-                          ),
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+                    const SizedBox(height: 30),
+                    // Responsive image
+                    Image.asset(
+                      "assets/images/top_create-farm-1.png",
+                      height: ResponsiveUtil.screenHeight(context) * 0.16,
+                      width: ResponsiveUtil.screenWidth(context) * 0.4,
                     ),
-                    // Show all farms button
-                    Container(
-                      width: ResponsiveUtil.screenWidth(context) * 0.35,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MyFarmScreen(),
+                    // Spacer
+                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.04),
+                    // Text form field for farm name
+                    NxTextFormField(
+                      controller: _confarmName,
+                      hintName: LocaleKeys.farmName.tr(),
+                      inputType: TextInputType.name,
+                    ),
+                    // Spacer
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    // Text form field for farm address
+                    NxTextFormField(
+                      controller: _confarmAddress,
+                      hintName: LocaleKeys.address.tr(),
+                      inputType: TextInputType.name,
+                    ),
+                    // Spacer
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    // Text form field for farm area
+                    NxTextFormField(
+                      controller: _confarmArea,
+                      hintName: LocaleKeys.farmAea.tr(),
+                      inputType: TextInputType.number,
+                    ),
+                    // Spacer
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    // Dropdown form field for selecting unit
+                    NxDDFormField(
+                      value: selectedUnit,
+                      hint: LocaleKeys.selectUnit.tr(),
+                      label: LocaleKeys.labelUnit.tr(),
+                      items: units,
+                      onChanged: (String? unitValue) {
+                        setState(() {
+                          selectedUnit = unitValue;
+                          if (unitValue != null) {
+                            print('Selected Unit: $unitValue');
+                          }
+                        });
+                      },
+                    ),
+                    // Spacer
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    // Dropdown form field for selecting farm type
+                    NxDDFormField(
+                      value: selectedType,
+                      label: LocaleKeys.labelFarmType.tr(),
+                      hint: LocaleKeys.selectFarmType.tr(),
+                      items: farmTypes,
+                      onChanged: (String? typeValue) {
+                        setState(() {
+                          selectedType = typeValue;
+                          if (typeValue != null) {
+                            print('Selected Type: $typeValue');
+                          }
+                        });
+                      },
+                    ),
+                    // Spacer
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.01),
+                    // Row with two buttons
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // Save button
+                        Container(
+                          width: ResponsiveUtil.screenWidth(context) * 0.35,
+                          child: TextButton(
+                            onPressed: isSaveButtonEnabled()
+                                ? () => saveFarmData(context)
+                                : null,
+                            child: Text(
+                              LocaleKeys.save.tr(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: fontSize,
+                              ),
                             ),
-                          );
-                        },
-                        child: Text(
-                          LocaleKeys.buttonShowAllFarms.tr(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: fontSize,
+                          ),
+                          decoration: BoxDecoration(
+                            color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: _handleInsertInitialMetaData,
-                      child: Text.rich(
-                        TextSpan(
-                          text: 'L',
-                          style: TextStyle(
+                        // Show all farms button
+                        /*Container(
+                          width: ResponsiveUtil.screenWidth(context) * 0.35,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MyFarmScreen(),
+                                ),
+                              );
+                            },
+                            *//*child: Text(
+                              LocaleKeys.buttonShowAllFarms.tr(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: fontSize,
+                              ),
+                            ),*//*
+                          ),
+                          decoration: BoxDecoration(
                             color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: fontSize,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),*/
+                        GestureDetector(
+                          onTap: _handleInsertInitialMetaData,
+                          child: Text.rich(
+                            TextSpan(
+                              text: 'L',
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold,
+                                fontSize: fontSize,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
+          
                   ],
+          
                 ),
-
-              ],
-
+              ),
             ),
           ),
         ),

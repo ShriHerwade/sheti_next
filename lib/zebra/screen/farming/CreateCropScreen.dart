@@ -13,6 +13,7 @@ import 'package:sheti_next/zebra/screen/farming/MyCropScreen.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 
 import '../../common/widgets/NxDDFormField.dart';
+import 'HomeScreen.dart';
 
 class CreateCrop extends StatefulWidget {
   const CreateCrop({Key? key}) : super(key: key);
@@ -86,150 +87,168 @@ class _CreateCropState extends State<CreateCrop> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(LocaleKeys.createCrop.tr()),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
+        ),
       ),
       body: Form(
         key: _formKey,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-            padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
-            child: Column(
-              children: [
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                Image.asset(
-                  "assets/images/top_create-crop-1.png",
-                  height: ResponsiveUtil.screenHeight(context) * 0.16,
-                  width: ResponsiveUtil.screenWidth(context) * 0.4,
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxDDFormField_id(
-                  selectedItemId: selectedFarm,
-                  label: LocaleKeys.labelFarm.tr(),
-                  hint: LocaleKeys.selectFarm.tr(),
-                  items: Map.fromIterable(
-                    farms,
-                    key: (farm) => farm.farmId,
-                    value: (farm) => farm.farmName ?? 'Unknown Farm',
+        child: Dismissible(
+          key: Key('pageDismissKey'),
+          direction: DismissDirection.endToStart,
+          onDismissed: (_) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    MyCropScreen(), // Replace YourNewPage with your actual page
+              ),
+            );
+          },
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
+              child: Column(
+                children: [
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  Image.asset(
+                    "assets/images/top_create-crop-1.png",
+                    height: ResponsiveUtil.screenHeight(context) * 0.16,
+                    width: ResponsiveUtil.screenWidth(context) * 0.4,
                   ),
-                  onChanged: (int? farmId) {
-                    setState(() {
-                      selectedFarm = farmId;
-                      if (farmId != null) {
-                        print('Selected Farm ID: $farmId');
-                      }
-                    });
-                  },
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxDDFormField(
-                  value: selectedCrop,
-                  hint: LocaleKeys.selectCrop.tr(),
-                  label: LocaleKeys.labelCrop.tr(),
-                  items: crops,
-                  onChanged: (String? cropName) {
-                    setState(() {
-                      selectedCrop = cropName;
-                      if (cropName != null) {
-                        print('Selected Crop: $cropName');
-                      }
-                    });
-                  },
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxTextFormField(
-                  controller: _confarmArea,
-                  hintName: LocaleKeys.sowingArea.tr(),
-                  inputType: TextInputType.number,
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxDDFormField(
-                  value: selectedUnit,
-                  hint: LocaleKeys.selectUnit.tr(),
-                  label: LocaleKeys.labelUnit.tr(),
-                  items: units,
-                  onChanged: (String? unitValue) {
-                    setState(() {
-                      selectedUnit = unitValue;
-                      if (unitValue != null) {
-                        print('Selected Unit: $unitValue');
-                      }
-                    });
-                  },
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxDateField(
-                  label: LocaleKeys.sowingDate.tr(),
-                  labelText: LocaleKeys.sowingDate.tr(),
-                  selectedDate: startDate,
-                  onTap: (DateTime? picked) {
-                    setState(() {
-                      startDate = picked;
-                    });
-                  },
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxDateField(
-                  label: LocaleKeys.harvestingDate.tr(),
-                  labelText: LocaleKeys.harvestingDate.tr(),
-                  selectedDate: endDate,
-                  onTap: (DateTime? picked) {
-                    setState(() {
-                      endDate = picked;
-                    });
-                  },
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: ResponsiveUtil.screenWidth(context) * 0.35,
-                      child: TextButton(
-                        onPressed:
-                            isSaveButtonEnabled() ? () => saveCropData() : null,
-                        child: Text(
-                          LocaleKeys.save.tr(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: ResponsiveUtil.fontSize(context, 20),
-                          ),
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color:
-                            isSaveButtonEnabled() ? Colors.green : Colors.grey,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField_id(
+                    selectedItemId: selectedFarm,
+                    label: LocaleKeys.labelFarm.tr(),
+                    hint: LocaleKeys.selectFarm.tr(),
+                    items: Map.fromIterable(
+                      farms,
+                      key: (farm) => farm.farmId,
+                      value: (farm) => farm.farmName ?? 'Unknown Farm',
                     ),
-                    Container(
-                      width: ResponsiveUtil.screenWidth(context) * 0.35,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MyCropScreen(),
+                    onChanged: (int? farmId) {
+                      setState(() {
+                        selectedFarm = farmId;
+                        if (farmId != null) {
+                          print('Selected Farm ID: $farmId');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField(
+                    value: selectedCrop,
+                    hint: LocaleKeys.selectCrop.tr(),
+                    label: LocaleKeys.labelCrop.tr(),
+                    items: crops,
+                    onChanged: (String? cropName) {
+                      setState(() {
+                        selectedCrop = cropName;
+                        if (cropName != null) {
+                          print('Selected Crop: $cropName');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxTextFormField(
+                    controller: _confarmArea,
+                    hintName: LocaleKeys.sowingArea.tr(),
+                    inputType: TextInputType.number,
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField(
+                    value: selectedUnit,
+                    hint: LocaleKeys.selectUnit.tr(),
+                    label: LocaleKeys.labelUnit.tr(),
+                    items: units,
+                    onChanged: (String? unitValue) {
+                      setState(() {
+                        selectedUnit = unitValue;
+                        if (unitValue != null) {
+                          print('Selected Unit: $unitValue');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDateField(
+                    label: LocaleKeys.sowingDate.tr(),
+                    labelText: LocaleKeys.sowingDate.tr(),
+                    selectedDate: startDate,
+                    onTap: (DateTime? picked) {
+                      setState(() {
+                        startDate = picked;
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDateField(
+                    label: LocaleKeys.harvestingDate.tr(),
+                    labelText: LocaleKeys.harvestingDate.tr(),
+                    selectedDate: endDate,
+                    onTap: (DateTime? picked) {
+                      setState(() {
+                        endDate = picked;
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: ResponsiveUtil.screenWidth(context) * 0.35,
+                        child: TextButton(
+                          onPressed:
+                              isSaveButtonEnabled() ? () => saveCropData() : null,
+                          child: Text(
+                            LocaleKeys.save.tr(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: ResponsiveUtil.fontSize(context, 20),
                             ),
-                          );
-                        },
-                        child: Text(
-                          LocaleKeys.buttonShowAllCrops.tr(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: ResponsiveUtil.fontSize(context, 20),
                           ),
                         ),
+                        decoration: BoxDecoration(
+                          color:
+                              isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                     /* Container(
+                        width: ResponsiveUtil.screenWidth(context) * 0.35,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MyCropScreen(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            LocaleKeys.buttonShowAllCrops.tr(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: ResponsiveUtil.fontSize(context, 20),
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),*/
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

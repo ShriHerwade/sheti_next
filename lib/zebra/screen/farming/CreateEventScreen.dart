@@ -15,6 +15,8 @@ import '../../dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 
+import 'HomeScreen.dart';
+
 
 
 class CreateEvents extends StatefulWidget {
@@ -182,178 +184,203 @@ class _CreateEventsState extends State<CreateEvents> {
       appBar: AppBar(
         title: Text(LocaleKeys.createEvent.tr()),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
+        ),
       ),
       body: Form(
         key: _formKey,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-            padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
-            child: Column(
-              children: [
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                Image.asset(
-                  "assets/images/top_create-life-cycle-event-2.png",
-                  height: ResponsiveUtil.screenHeight(context) * 0.16,
-                  width: ResponsiveUtil.screenWidth(context) * 0.4,
+        child: WillPopScope(
+          onWillPop: () async {
+            // Navigate to HomeScreen when the back button is pressed
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            // Prevent the default back button behavior
+            return false;
+          },
+          child:  Dismissible(
+            key: Key('pageDismissKey'),
+            direction: DismissDirection.endToStart,
+            onDismissed: (_) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => MyEvents(),
                 ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxDDFormField_id(
-                  selectedItemId: selectedFarm,
-                  label: LocaleKeys.labelFarm.tr(),
-                  hint: LocaleKeys.selectFarm.tr(),
-                  items: Map.fromIterable(
-                    farms,
-                    key: (farm) => farm.farmId,
-                    value: (farm) => farm.farmName ?? 'Unknown Farm',
-                  ),
-                  onChanged: (int? farmId) {
-                    setState(() {
-                      selectedFarm = farmId;
-                      selectedCrop = null;
-                      if (farmId != null) {
-                        print('Selected Farm ID: $farmId');
-                        getCropsByFarmId(farmId);
-                      }
-                    });
-                  },
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                NxDDFormField_id(
-                  selectedItemId: selectedCrop,
-                  hint: LocaleKeys.selectCrop.tr(),
-                  label: LocaleKeys.labelCrop.tr(),
-                  items: Map.fromIterable(
-                    crops,
-                    key: (crop) => crop.cropId,
-                    value: (crop) => crop.cropName ?? 'Unknown Crop',
-                  ),
-                  onChanged: (int? cropId) {
-                    setState(() {
-                      selectedCrop = cropId;
-                      if (cropId != null) {
-                        print('Selected Crop ID: $cropId');
-                      }
-                    });
-                  },
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
-                  child: DropDownMultiSelect(
-                    decoration: InputDecoration(
-                      hintText: LocaleKeys.selectEvent.tr(),
-                      labelText: LocaleKeys.labelEvent.tr(),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        borderSide: BorderSide(color: Colors.lightGreen.shade400),
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      fillColor: Colors.white,
-                      filled: true,
-                      isDense: true,
-                    ),
-                    onChanged: (List<String> ev) {
-                      setState(() {
-                        selectedFarmEvents = ev;
-                      });
-                    },
-                    options: farmEvents,
-                    selectedValues: selectedFarmEvents,
-                    hint: Text(LocaleKeys.selectEvent.tr()),
-                    hintStyle: TextStyle(
-                        fontWeight: FontWeight.normal, color: Colors.black),
-                  ),
-                ),
-                SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-               /* buildDateField(
-                    LocaleKeys.eventStartDate.tr(), startDate, true),*/
-                NxDateField(
-                  label: LocaleKeys.eventStartDate.tr(),
-                  labelText: LocaleKeys.eventStartDate.tr(),
-                  selectedDate: startDate,
-                  onTap: (DateTime? picked) {
-                    setState(() {
-                      startDate = picked;
-                    });
-                  },
-                ),
-                SizedBox(
-                    height: ResponsiveUtil.screenHeight(context) * 0.02),
-               // buildDateField(LocaleKeys.eventEndDate.tr(), endDate, false),
-                NxDateField(
-                  label: LocaleKeys.eventEndDate.tr(),
-                  labelText: LocaleKeys.eventEndDate.tr(),
-                  selectedDate: endDate,
-                  onTap: (DateTime? picked) {
-                    setState(() {
-                      endDate = picked;
-                    });
-                  },
-                ),
-                SizedBox(
-                    height: ResponsiveUtil.screenHeight(context) * 0.02),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              );
+            },
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Container(
+                padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
+                child: Column(
                   children: [
-                    Container(
-                      width: ResponsiveUtil.screenWidth(context) * 0.35,
-                      child: TextButton(
-                        onPressed: saveRecords,
-                        child: Text(
-                          LocaleKeys.save.tr(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: ResponsiveUtil.fontSize(context, 20),
-                          ),
-                        ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    Image.asset(
+                      "assets/images/top_create-life-cycle-event-2.png",
+                      height: ResponsiveUtil.screenHeight(context) * 0.16,
+                      width: ResponsiveUtil.screenWidth(context) * 0.4,
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    NxDDFormField_id(
+                      selectedItemId: selectedFarm,
+                      label: LocaleKeys.labelFarm.tr(),
+                      hint: LocaleKeys.selectFarm.tr(),
+                      items: Map.fromIterable(
+                        farms,
+                        key: (farm) => farm.farmId,
+                        value: (farm) => farm.farmName ?? 'Unknown Farm',
                       ),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(8.0),
+                      onChanged: (int? farmId) {
+                        setState(() {
+                          selectedFarm = farmId;
+                          selectedCrop = null;
+                          if (farmId != null) {
+                            print('Selected Farm ID: $farmId');
+                            getCropsByFarmId(farmId);
+                          }
+                        });
+                      },
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    NxDDFormField_id(
+                      selectedItemId: selectedCrop,
+                      hint: LocaleKeys.selectCrop.tr(),
+                      label: LocaleKeys.labelCrop.tr(),
+                      items: Map.fromIterable(
+                        crops,
+                        key: (crop) => crop.cropId,
+                        value: (crop) => crop.cropName ?? 'Unknown Crop',
+                      ),
+                      onChanged: (int? cropId) {
+                        setState(() {
+                          selectedCrop = cropId;
+                          if (cropId != null) {
+                            print('Selected Crop ID: $cropId');
+                          }
+                        });
+                      },
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
+                      child: DropDownMultiSelect(
+                        decoration: InputDecoration(
+                          hintText: LocaleKeys.selectEvent.tr(),
+                          labelText: LocaleKeys.labelEvent.tr(),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.lightGreen.shade400),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          fillColor: Colors.white,
+                          filled: true,
+                          isDense: true,
+                        ),
+                        onChanged: (List<String> ev) {
+                          setState(() {
+                            selectedFarmEvents = ev;
+                          });
+                        },
+                        options: farmEvents,
+                        selectedValues: selectedFarmEvents,
+                        hint: Text(LocaleKeys.selectEvent.tr()),
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.normal, color: Colors.black),
                       ),
                     ),
-                    Container(
-                      width: ResponsiveUtil.screenWidth(context) * 0.35,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MyEvents(),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                   /* buildDateField(
+                        LocaleKeys.eventStartDate.tr(), startDate, true),*/
+                    NxDateField(
+                      label: LocaleKeys.eventStartDate.tr(),
+                      labelText: LocaleKeys.eventStartDate.tr(),
+                      selectedDate: startDate,
+                      onTap: (DateTime? picked) {
+                        setState(() {
+                          startDate = picked;
+                        });
+                      },
+                    ),
+                    SizedBox(
+                        height: ResponsiveUtil.screenHeight(context) * 0.02),
+                   // buildDateField(LocaleKeys.eventEndDate.tr(), endDate, false),
+                    NxDateField(
+                      label: LocaleKeys.eventEndDate.tr(),
+                      labelText: LocaleKeys.eventEndDate.tr(),
+                      selectedDate: endDate,
+                      onTap: (DateTime? picked) {
+                        setState(() {
+                          endDate = picked;
+                        });
+                      },
+                    ),
+                    SizedBox(
+                        height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: ResponsiveUtil.screenWidth(context) * 0.35,
+                          child: TextButton(
+                            onPressed: saveRecords,
+                            child: Text(
+                              LocaleKeys.save.tr(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: ResponsiveUtil.fontSize(context, 20),
+                              ),
                             ),
-                          );
-                        },
-                        child: Text(
-                          "Events",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: ResponsiveUtil.fontSize(context, 20),
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+                        /*Container(
+                          width: ResponsiveUtil.screenWidth(context) * 0.35,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MyEvents(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "Events",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: ResponsiveUtil.fontSize(context, 20),
+                              ),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),*/
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
