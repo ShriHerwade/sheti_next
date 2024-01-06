@@ -197,55 +197,25 @@ class _CreateCropState extends State<CreateCrop> {
                     },
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: ResponsiveUtil.screenWidth(context) * 0.35,
-                        child: TextButton(
-                          onPressed:
-                              isSaveButtonEnabled() ? () => saveCropData() : null,
-                          child: Text(
-                            LocaleKeys.save.tr(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: ResponsiveUtil.fontSize(context, 20),
-                            ),
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          color:
-                              isSaveButtonEnabled() ? Colors.green : Colors.grey,
-                          borderRadius: BorderRadius.circular(8.0),
+                  Container(
+                    width: ResponsiveUtil.screenWidth(context) * 0.8,
+                    child: TextButton(
+                      onPressed:
+                          isSaveButtonEnabled() ? () => saveCropData() : null,
+                      child: Text(
+                        LocaleKeys.save.tr(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: ResponsiveUtil.fontSize(context, 20),
                         ),
                       ),
-                     /* Container(
-                        width: ResponsiveUtil.screenWidth(context) * 0.35,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MyCropScreen(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            LocaleKeys.buttonShowAllCrops.tr(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: ResponsiveUtil.fontSize(context, 20),
-                            ),
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),*/
-                    ],
+                    ),
+                    decoration: BoxDecoration(
+                      color:
+                          isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                 ],
               ),

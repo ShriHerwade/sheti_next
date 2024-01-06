@@ -180,70 +180,64 @@ class _CreateFarmsState extends State<CreateFarms> {
                     // Spacer
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.01),
                     // Row with two buttons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        // Save button
-                        Container(
-                          width: ResponsiveUtil.screenWidth(context) * 0.35,
-                          child: TextButton(
-                            onPressed: isSaveButtonEnabled()
-                                ? () => saveFarmData(context)
-                                : null,
-                            child: Text(
-                              LocaleKeys.save.tr(),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: fontSize,
-                              ),
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                            color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
-                            borderRadius: BorderRadius.circular(8.0),
+                    Container(
+                     width: ResponsiveUtil.screenWidth(context) * 0.8,
+                      child: TextButton(
+                        onPressed: isSaveButtonEnabled()
+                            ? () => saveFarmData(context)
+                            : null,
+                        child: Text(
+                          LocaleKeys.save.tr(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: fontSize,
                           ),
                         ),
-                        // Show all farms button
-                        /*Container(
-                          width: ResponsiveUtil.screenWidth(context) * 0.35,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MyFarmScreen(),
-                                ),
-                              );
-                            },
-                            *//*child: Text(
-                              LocaleKeys.buttonShowAllFarms.tr(),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: fontSize,
-                              ),
-                            ),*//*
+                      ),
+                      decoration: BoxDecoration(
+                        color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    // Show all farms button
+                    /*Container(
+                      width: ResponsiveUtil.screenWidth(context) * 0.35,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyFarmScreen(),
+                            ),
+                          );
+                        },
+                        *//*child: Text(
+                          LocaleKeys.buttonShowAllFarms.tr(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: fontSize,
                           ),
-                          decoration: BoxDecoration(
+                        ),*//*
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),*/
+                    GestureDetector(
+                      onTap: _handleInsertInitialMetaData,
+                      child: Text.rich(
+                        TextSpan(
+                          text: 'L',
+                          style: TextStyle(
                             color: Colors.green,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),*/
-                        GestureDetector(
-                          onTap: _handleInsertInitialMetaData,
-                          child: Text.rich(
-                            TextSpan(
-                              text: 'L',
-                              style: TextStyle(
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold,
-                                fontSize: fontSize,
-                              ),
-                            ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: fontSize,
                           ),
                         ),
-                      ],
+                      ),
                     ),
           
                   ],

@@ -17,8 +17,6 @@ import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 
 import 'HomeScreen.dart';
 
-
-
 class CreateEvents extends StatefulWidget {
   const CreateEvents({Key? key}) : super(key: key);
 
@@ -53,6 +51,7 @@ class _CreateEventsState extends State<CreateEvents> {
     farms = await dbHelper!.getAllFarms();
     setState(() {});
   }
+
   String formatDate(DateTime? date) {
     if (date != null) {
       return DateFormat('dd/MM/yyyy').format(date);
@@ -60,26 +59,7 @@ class _CreateEventsState extends State<CreateEvents> {
       return '';
     }
   }
- /* Future<void> _selectDate(BuildContext context, bool isStartDate) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2022),
-      lastDate: DateTime(2101),
-    );
 
-    if (picked != null) {
-      setState(() {
-        if (isStartDate) {
-          startDate = picked;
-        } else {
-          endDate = picked;
-        }
-      });
-    }
-  }
-*/
-  // Method to get crops by farmId
   Future<void> getCropsByFarmId(int? farmId) async {
     if (farmId == null) {
       setState(() {
@@ -88,7 +68,6 @@ class _CreateEventsState extends State<CreateEvents> {
       return;
     }
     List<CropModel> pulledCrops = await dbHelper!.getCropsByFarmId(farmId);
-    // Use the retrieved crops as needed
     print('Crops for Farm ID $farmId: $pulledCrops');
     setState(() {
       crops = pulledCrops;
@@ -97,31 +76,31 @@ class _CreateEventsState extends State<CreateEvents> {
 
   Future<void> saveRecords() async {
     if (_formKey.currentState!.validate()) {
-      // Validate the form
-      if (selectedFarm != null && selectedCrop != null && startDate != null) {
-        // Create an EventModel instance with the selected values
+      if (selectedFarm != null &&
+          selectedCrop != null &&
+          startDate != null &&
+          endDate != null &&
+          selectedFarmEvents.isNotEmpty) {
         EventModel event = EventModel(
-          userId :1, // it will be later changed & a global userId variable will be used here
+          userId: 1,
           farmId: selectedFarm!,
           cropId: selectedCrop!,
-          eventType: selectedFarmEvents.join(", "), // Join multiple events into a single string
+          eventType: selectedFarmEvents.join(", "),
           startDate: startDate!,
-          endDate: endDate,
-          details: null, // You may want to update this with user input
+          endDate: endDate!,
+          details: null,
           isDone: false,
           isActive: true,
           createdDate: DateTime.now(),
         );
 
-        // Save the event record
         await dbHelper!.saveEventData(event);
-        // give message
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Row(
               children: [
                 Container(
-                  //margin: EdgeInsets.only(right: 2.0),
                   padding: EdgeInsets.all(2.0),
                   decoration: BoxDecoration(
                     color: Colors.green,
@@ -151,22 +130,18 @@ class _CreateEventsState extends State<CreateEvents> {
               borderRadius: BorderRadius.all(Radius.circular(4)),
             ),
             margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
-          ),);
-        // clear Controls
-        selectedFarm=null;
-        selectedCrop=null;
-        selectedFarmEvents=[];
-        startDate=null;
-        endDate=null;
+          ),
+        );
 
+        selectedFarm = null;
+        selectedCrop = null;
+        selectedFarmEvents = [];
+        startDate = null;
+        endDate = null;
 
-
-        // Optionally, you can reset the form or navigate to a different screen
         _formKey.currentState!.reset();
-
       } else {
-        // Handle the case when required fields are not selected
-        print("Please select farm, crop, and start date.");
+        print("Please fill in all fields.");
       }
     }
   }
@@ -195,9 +170,7 @@ class _CreateEventsState extends State<CreateEvents> {
         key: _formKey,
         child: WillPopScope(
           onWillPop: () async {
-            // Navigate to HomeScreen when the back button is pressed
             Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-            // Prevent the default back button behavior
             return false;
           },
           child:  Dismissible(
@@ -303,8 +276,6 @@ class _CreateEventsState extends State<CreateEvents> {
                       ),
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                   /* buildDateField(
-                        LocaleKeys.eventStartDate.tr(), startDate, true),*/
                     NxDateField(
                       label: LocaleKeys.eventStartDate.tr(),
                       labelText: LocaleKeys.eventStartDate.tr(),
@@ -317,7 +288,6 @@ class _CreateEventsState extends State<CreateEvents> {
                     ),
                     SizedBox(
                         height: ResponsiveUtil.screenHeight(context) * 0.02),
-                   // buildDateField(LocaleKeys.eventEndDate.tr(), endDate, false),
                     NxDateField(
                       label: LocaleKeys.eventEndDate.tr(),
                       labelText: LocaleKeys.eventEndDate.tr(),
@@ -330,53 +300,23 @@ class _CreateEventsState extends State<CreateEvents> {
                     ),
                     SizedBox(
                         height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width: ResponsiveUtil.screenWidth(context) * 0.35,
-                          child: TextButton(
-                            onPressed: saveRecords,
-                            child: Text(
-                              LocaleKeys.save.tr(),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: ResponsiveUtil.fontSize(context, 20),
-                              ),
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(8.0),
+                    Container(
+                      width: ResponsiveUtil.screenWidth(context) * 0.8,
+                      child: TextButton(
+                        onPressed: saveRecords,
+                        child: Text(
+                          LocaleKeys.save.tr(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: ResponsiveUtil.fontSize(context, 20),
                           ),
                         ),
-                        /*Container(
-                          width: ResponsiveUtil.screenWidth(context) * 0.35,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MyEvents(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              "Events",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: ResponsiveUtil.fontSize(context, 20),
-                              ),
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),*/
-                      ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
                   ],
                 ),
@@ -387,26 +327,4 @@ class _CreateEventsState extends State<CreateEvents> {
       ),
     );
   }
-
-  /*Widget buildDateField(
-      String label, DateTime? selectedDate, bool isStartDate) {
-    return NxDateField(
-      label: label,
-      labelText: label,
-      selectedDate: selectedDate,
-      isStartDate: isStartDate,
-      onTap: (DateTime? picked) {
-        setState(() {
-          if (isStartDate) {
-            startDate = picked;
-          } else {
-            endDate = picked;
-          }
-        });
-      },
-    );
-  }*/
 }
-
-
-

@@ -22,21 +22,22 @@ class _MyCropScreenState extends State<MyCropScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        // Handle the back button press here
-        // Navigate to CreateFarms screen using Navigator
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => CreateCrop()),
-        );
-        // Prevent the default back button behavior
-        return false;
+    return GestureDetector(
+      onHorizontalDragEnd: (details) {
+        // Check if the swipe is a right swipe and not ambiguous or left swipe
+        if (details.primaryVelocity != null && details.primaryVelocity! > 0) {
+          // Right swipe
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreateCrop()),
+          );
+        }
       },
       child: Scaffold(
         appBar: AppBar(
           title: Text("My Crops "),
           centerTitle: true,
+          automaticallyImplyLeading: false,
         ),
         body: FutureBuilder<List<CropModel>>(
           future: dbHelper!.getAllCrops(),
