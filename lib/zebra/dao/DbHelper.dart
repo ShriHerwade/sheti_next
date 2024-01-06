@@ -401,13 +401,19 @@ class DbHelper {
 
   Future<List<ExpenseModel>> getAllExpense() async {
     final dbClient = await db;
-    final List<Map<String, dynamic>> maps = await dbClient.query(Table_Expenses,
-        where: 'isActive = ? AND isActive IS NOT NULL',
-        whereArgs: [1],
-        orderBy: 'createdDate DESC');
-    return List.generate(maps.length, (i) {
-      return ExpenseModel.fromMap(maps[i]);
-    });
+    try {
+      final List<Map<String, dynamic>> maps = await dbClient.query(
+          Table_Expenses,
+          where: 'isActive = ? AND isActive IS NOT NULL',
+          whereArgs: [1],
+          orderBy: 'createdDate DESC');
+      return List.generate(maps.length, (i) {
+        return ExpenseModel.fromMap(maps[i]);
+      });
+    }catch(e){
+      print("Error while saving expense data : $e");
+      rethrow;
+    }
   }
 
   Future<List<SettingModel>> getAllSettings() async {

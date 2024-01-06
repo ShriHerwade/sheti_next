@@ -109,7 +109,7 @@ class _MyExpensesState extends State<MyExpenses> {
 
                       DataCell(
                         Text(
-                          expense.details ?? '',
+                      '${expense.amount}',
                           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ),
