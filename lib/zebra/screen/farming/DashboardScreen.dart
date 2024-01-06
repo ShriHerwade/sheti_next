@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sheti_next/zebra/dao/DbHelper.dart';
+import 'package:sheti_next/zebra/dao/models/LatestExpenseModel.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -12,6 +14,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
   );
 
   int _currentPage = 0;
+
+  // Placeholder list for latest expenses
+  List<LatestExpenseModel> latestExpenses = [];
+  bool showAll = false;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLatestExpenses();
+  }
+
+  Future<void> fetchLatestExpenses() async {
+    try {
+      latestExpenses = await DbHelper().getLatestExpenses();
+      setState(() {});
+    } catch (e) {
+      // Handle error
+      print('Error fetching latest expenses: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +80,58 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
           ),
+          SizedBox(height: 16),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'Latest Expenses',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: latestExpenses.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    '${latestExpenses[index].farmName} - ${latestExpenses[index].cropName}',
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${latestExpenses[index].expenseType}',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      Text(
+                        '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ],
+                  ),
+                  trailing: Text(
+                    '\₹${latestExpenses[index].amount.toStringAsFixed(2)}',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                );
+              },
+            ),
+          ),
+          if (latestExpenses.length > 6 && !showAll)
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    // Toggle the showAll flag
+                    showAll = true;
+                  });
+                  fetchLatestExpenses();
+                },
+                child: Text('Show All'),
+              ),
+            ),
         ],
       ),
     );

@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 validateEmail(String email) {
   final emailReg = new RegExp(
