@@ -105,6 +105,7 @@ class _CreateCropState extends State<CreateCrop> {
                 builder: (context) =>
                     MyCropScreen(), // Replace YourNewPage with your actual page
               ),
+
             );
           },
           child: SingleChildScrollView(
@@ -212,8 +213,8 @@ class _CreateCropState extends State<CreateCrop> {
                       ),
                     ),
                     decoration: BoxDecoration(
-                      color:
-                          isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                      color:Colors.green,
+                          //isSaveButtonEnabled() ? Colors.green : Colors.grey,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),

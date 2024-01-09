@@ -4,5 +4,5 @@ import 'package:toast/toast.dart';
 
 alertDialog(BuildContext context, String msg) {
   ToastContext().init(context);
-  Toast.show(msg, duration: Toast.lengthLong, gravity: Toast.bottom);
+  Toast.show(msg, duration: Toast.lengthShort, gravity: Toast.bottom);
 }

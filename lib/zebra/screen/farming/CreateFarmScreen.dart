@@ -1,9 +1,9 @@
-import 'dart:ffi';
-
+import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
+import 'package:sheti_next/zebra/common/widgets/NxAlert.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -11,9 +11,9 @@ import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import '../../common/widgets/NxDDFormField.dart';
-import 'MyFarmScreen.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
+import 'package:sheti_next/zebra/screen/farming/MyFarmScreen.dart';
 class CreateFarms extends StatefulWidget {
   const CreateFarms({Key? key}) : super(key: key);
 
@@ -22,6 +22,7 @@ class CreateFarms extends StatefulWidget {
 }
 
 class _CreateFarmsState extends State<CreateFarms> {
+
   final _formKey = GlobalKey<FormState>();
   final _confarmName = TextEditingController();
   final _confarmAddress = TextEditingController();
@@ -34,6 +35,8 @@ class _CreateFarmsState extends State<CreateFarms> {
   DbHelper? dbHelper;
   List<String> units = [];
   List<String> farmTypes = [];
+
+
 
   @override
   void initState() {
@@ -96,6 +99,7 @@ class _CreateFarmsState extends State<CreateFarms> {
             // Prevent the default back button behavior
             return false;
           },
+
           child:  Dismissible(
             key: Key('pageDismissKey'),
             direction: DismissDirection.endToStart,
@@ -134,6 +138,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                       controller: _confarmAddress,
                       hintName: LocaleKeys.address.tr(),
                       inputType: TextInputType.name,
+
                     ),
                     // Spacer
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
@@ -196,7 +201,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                         ),
                       ),
                       decoration: BoxDecoration(
-                        color: isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                        color: Colors.green,
+                        //isSaveButtonEnabled() ? Colors.green : Colors.grey,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
@@ -239,9 +245,9 @@ class _CreateFarmsState extends State<CreateFarms> {
                         ),
                       ),
                     ),
-          
+
                   ],
-          
+
                 ),
               ),
             ),

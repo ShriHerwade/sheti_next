@@ -27,7 +27,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
         // Check if the swipe is a right swipe and not ambiguous or left swipe
         if (details.primaryVelocity != null && details.primaryVelocity! > 0) {
           // Right swipe
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => CreateCrop()),
           );
