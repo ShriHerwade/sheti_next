@@ -90,7 +90,7 @@ class _CreateCropState extends State<CreateCrop> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
         ),
       ),
@@ -100,7 +100,7 @@ class _CreateCropState extends State<CreateCrop> {
           key: Key('pageDismissKey'),
           direction: DismissDirection.endToStart,
           onDismissed: (_) {
-            Navigator.of(context).push(
+            Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) =>
                     MyCropScreen(), // Replace YourNewPage with your actual page

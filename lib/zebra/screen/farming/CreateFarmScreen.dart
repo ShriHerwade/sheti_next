@@ -86,7 +86,7 @@ class _CreateFarmsState extends State<CreateFarms> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
         ),
       ),
@@ -95,7 +95,7 @@ class _CreateFarmsState extends State<CreateFarms> {
         child: WillPopScope(
           onWillPop: () async {
             // Navigate to HomeScreen when the back button is pressed
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
             // Prevent the default back button behavior
             return false;
           },
@@ -104,7 +104,7 @@ class _CreateFarmsState extends State<CreateFarms> {
             key: Key('pageDismissKey'),
             direction: DismissDirection.endToStart,
             onDismissed: (_) {
-              Navigator.of(context).push(
+              Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => MyFarmScreen(),
                 ),
