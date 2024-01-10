@@ -134,8 +134,13 @@ class _CreateEventsState extends State<CreateEvents> {
           ),
         );
 
-        selectedFarm = null;
-        selectedCrop = null;
+      /*  if(isCreateAnother) {
+         //do nothing
+        }else{*/
+          selectedFarm = null;
+          selectedCrop = null;
+          isCreateAnother=false;
+       // }
         selectedFarmEvents = [];
         startDate = null;
         endDate = null;
