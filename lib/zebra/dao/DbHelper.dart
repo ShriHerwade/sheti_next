@@ -563,7 +563,7 @@ class DbHelper {
               expenseId: item['expenseId'],
               expenseType: item['expenseType'],
               expenseDate: DateTime.parse(item['expenseDate']),
-              amount: item['amount'],
+              amount: item['amount'].toDouble(),
             ))
         .toList();
   }
