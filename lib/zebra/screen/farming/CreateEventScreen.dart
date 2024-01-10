@@ -38,6 +38,7 @@ class _CreateEventsState extends State<CreateEvents> {
   List<CropModel> crops = [];
   List<String> farmEvents = [];
   List<String> selectedFarmEvents = [];
+  bool isCreateAnother = false;
 
   @override
   void initState() {
@@ -295,6 +296,20 @@ class _CreateEventsState extends State<CreateEvents> {
                       onTap: (DateTime? picked) {
                         setState(() {
                           endDate = picked;
+                        });
+                      },
+                    ),
+                    SizedBox(
+                        height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    CheckboxListTile(
+                      checkColor: Colors.greenAccent,
+                      activeColor: Colors.green,
+                      title:Text("Create Another Event"),
+                      value: this.isCreateAnother,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          this.isCreateAnother = value!;
                         });
                       },
                     ),

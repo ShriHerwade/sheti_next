@@ -41,6 +41,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
   List<CropModel> crops = [];
   List<String> farmExpenses = [];
   List<String> selectedExpense = [];
+  bool isCreateAnother = false;
 
   @override
   void initState() {
@@ -320,6 +321,19 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       controller: _confamount,
                       hintName: LocaleKeys.expenseAmount.tr(),
                       inputType: TextInputType.number,
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    CheckboxListTile(
+                      checkColor: Colors.greenAccent,
+                      activeColor: Colors.green,
+                      title:Text("Create Another Expense"),
+                      value: this.isCreateAnother,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          this.isCreateAnother = value!;
+                        });
+                      },
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     Container(
