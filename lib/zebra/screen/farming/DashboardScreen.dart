@@ -9,13 +9,11 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final PageController _pageController = PageController(
-    viewportFraction: 0.5, // deals with the width of the card
+    viewportFraction: 1,
     initialPage: 0,
   );
 
   int _currentPage = 0;
-
-  // Placeholder list for latest expenses
   List<LatestExpenseModel> latestExpenses = [];
   bool showAll = false;
 
@@ -30,7 +28,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       latestExpenses = await DbHelper().getLatestExpenses();
       setState(() {});
     } catch (e) {
-      // Handle error
       print('Error fetching latest expenses: $e');
     }
   }
@@ -41,61 +38,66 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         title: Text('Dashboard'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 200,
-            child: PageView.builder(
-              controller: _pageController,
-              onPageChanged: (int page) {
-                setState(() {
-                  _currentPage = page;
-                });
-              },
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding:
-                      EdgeInsets.only(left: index == 0 ? 0.0 : 4.0, right: 4.0),
-                  child: _buildCard(index),
-                );
-              },
-              itemCount:
-                  5, // Change this number based on the total number of cards
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 200,
+              child: PageView.builder(
+                controller: _pageController,
+                onPageChanged: (int page) {
+                  setState(() {
+                    _currentPage = page;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      left: index == 4 ? 0.0 : 4.0,
+                      right: 4.0,
+                    ),
+                    child: _buildCard(index),
+                  );
+                },
+                //itemCount: latestExpenses.length > 5 ? 5 : latestExpenses.length,
+                itemCount: latestExpenses.isEmpty ? 0 : latestExpenses.length > 5 ? 5 : latestExpenses.length,
+              ),
             ),
-          ),
-          SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              5, // Change this number based on the total number of cards
-              (index) => Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                // gap between the dots
-                child: CircleAvatar(
-                  radius: 4.0,
-                  backgroundColor:
-                      _currentPage == index ? Colors.blue : Colors.grey,
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                latestExpenses.length > 5 ? 5 : latestExpenses.length,
+                    (index) => Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.0),
+                  child: CircleAvatar(
+                    radius: 4.0,
+                    backgroundColor:
+                    _currentPage == index ? Colors.blue : Colors.grey,
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 16),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'Latest Expenses',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'Latest Expenses',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: latestExpenses.length,
+            SizedBox(height: 8),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: showAll ? latestExpenses.length : 3,
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(
                     '${latestExpenses[index].farmName} - ${latestExpenses[index].cropName}',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    style:
+                    TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,52 +114,79 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   trailing: Text(
                     '\₹${latestExpenses[index].amount.toStringAsFixed(2)}',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style:
+                    TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 );
               },
             ),
-          ),
-          if (latestExpenses.length > 6 && !showAll)
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {
-                  setState(() {
-                    // Toggle the showAll flag
-                    showAll = true;
-                  });
-                  fetchLatestExpenses();
-                },
-                child: Text('Show All'),
+            if (latestExpenses.length > 5)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (!showAll)
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            showAll = true;
+                          });
+                        },
+                        child: Text('Show All'),
+                      ),
+                    if (showAll)
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            showAll = false;
+                          });
+                        },
+                        child: Text('Hide'),
+                      ),
+                  ],
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildCard(int index) {
-    switch (index) {
-      case 0:
-        return WeatherCard();
-      case 1:
-        return TaskCard();
-      case 2:
-        return ExpenditureCard();
-      case 3:
-        return PlannedEventsCard();
-      case 4:
-        return OffersCard();
-      default:
-        return Container(); // Return an empty container if index is out of bounds
+    return Container(
+      child: _getCardWidget(index),
+    );
+  }
+
+  Widget _getCardWidget(int index) {
+    if (latestExpenses.isNotEmpty && index < latestExpenses.length) {
+      LatestExpenseModel expense = latestExpenses[index];
+      switch (index % 5) {
+        case 0:
+          return WeatherCard(expense);
+        case 1:
+          return TaskCard(expense);
+        case 2:
+          return ExpenditureCard(expense);
+        case 3:
+          return PlannedEventsCard(expense);
+        case 4:
+          return OffersCard(expense);
+        default:
+          return Container();
+      }
+    } else {
+      return Container();
     }
   }
 }
 
-// ... rest of the card classes remain unchanged
-
 class WeatherCard extends StatelessWidget {
+  final LatestExpenseModel expense;
+
+  WeatherCard(this.expense);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -165,7 +194,7 @@ class WeatherCard extends StatelessWidget {
       shadowColor: Colors.black26,
       margin: EdgeInsets.only(left: 0.0, right: 4.0, top: 8.0),
       child: Container(
-        padding: EdgeInsets.all(16.0), // inner text padding
+        padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           color: Colors.blue,
           borderRadius: BorderRadius.circular(8.0),
@@ -188,6 +217,10 @@ class WeatherCard extends StatelessWidget {
 }
 
 class TaskCard extends StatelessWidget {
+  final LatestExpenseModel expense;
+
+  TaskCard(this.expense);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -220,6 +253,10 @@ class TaskCard extends StatelessWidget {
 }
 
 class ExpenditureCard extends StatelessWidget {
+  final LatestExpenseModel expense;
+
+  ExpenditureCard(this.expense);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -249,6 +286,10 @@ class ExpenditureCard extends StatelessWidget {
 }
 
 class PlannedEventsCard extends StatelessWidget {
+  final LatestExpenseModel expense;
+
+  PlannedEventsCard(this.expense);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -278,6 +319,10 @@ class PlannedEventsCard extends StatelessWidget {
 }
 
 class OffersCard extends StatelessWidget {
+  final LatestExpenseModel expense;
+
+  OffersCard(this.expense);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -305,10 +350,4 @@ class OffersCard extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: DashboardScreen(),
-  ));
 }
