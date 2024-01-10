@@ -28,7 +28,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       latestExpenses = await DbHelper().getLatestExpenses();
       setState(() {});
     } catch (e) {
-      print('Error fetching latest expenses: $e');
+      print('Error getting latest expenses: $e');
     }
   }
 
