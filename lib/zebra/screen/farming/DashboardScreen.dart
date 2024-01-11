@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/LatestExpenseModel.dart';
 
+void main() {
+  runApp(MaterialApp(
+    home: DashboardScreen(),
+  ));
+}
+
 class DashboardScreen extends StatefulWidget {
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
@@ -16,6 +22,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   int _currentPage = 0;
   List<LatestExpenseModel> latestExpenses = [];
   bool showAll = false;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -25,10 +32,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Future<void> fetchLatestExpenses() async {
     try {
-      latestExpenses = await DbHelper().getLatestExpenses();
-      setState(() {});
+      List<LatestExpenseModel> expenses =
+      await DbHelper().getLatestExpenses();
+      setState(() {
+        latestExpenses = expenses;
+        isLoading = false;
+      });
     } catch (e) {
       print('Error getting latest expenses: $e');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -38,7 +52,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         title: Text('Dashboard'),
       ),
-      body: SingleChildScrollView(
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -53,28 +69,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 },
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: EdgeInsets.only(
-                      left: index == 4 ? 0.0 : 4.0,
-                      right: 4.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 4.0),
                     child: _buildCard(index),
                   );
                 },
-                //itemCount: latestExpenses.length > 5 ? 5 : latestExpenses.length,
-                itemCount: latestExpenses.isEmpty ? 0 : latestExpenses.length > 5 ? 5 : latestExpenses.length,
+                itemCount: 5,
               ),
             ),
             SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-                latestExpenses.length > 5 ? 5 : latestExpenses.length,
+                5,
                     (index) => Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.0),
                   child: CircleAvatar(
                     radius: 4.0,
-                    backgroundColor:
-                    _currentPage == index ? Colors.blue : Colors.grey,
+                    backgroundColor: _currentPage == index
+                        ? Colors.blue
+                        : Colors.grey,
                   ),
                 ),
               ),
@@ -84,42 +97,52 @@ class _DashboardScreenState extends State<DashboardScreen> {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 'Latest Expenses',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style:
+                TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(height: 8),
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: showAll ? latestExpenses.length : 3,
+              itemCount: showAll ? latestExpenses.length : 5,
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(
-                    '${latestExpenses[index].farmName} - ${latestExpenses[index].cropName}',
-                    style:
-                    TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    index < latestExpenses.length
+                        ? '${latestExpenses[index].farmName} - ${latestExpenses[index].cropName}'
+                        : 'Empty Expense',
+                    style: TextStyle(
+                        fontSize: 13, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${latestExpenses[index].expenseType}',
+                        index < latestExpenses.length
+                            ? '${latestExpenses[index].expenseType}'
+                            : 'No Type',
                         style: TextStyle(fontSize: 14),
                       ),
                       Text(
-                        '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}',
+                        index < latestExpenses.length
+                            ? '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}'
+                            : 'No Date',
                         style: TextStyle(fontSize: 14),
                       ),
                     ],
                   ),
                   trailing: Text(
-                    '\₹${latestExpenses[index].amount.toStringAsFixed(2)}',
-                    style:
-                    TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    index < latestExpenses.length
+                        ? '\₹${latestExpenses[index].amount.toStringAsFixed(2)}'
+                        : '\₹0.00',
+                    style: TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 );
               },
             ),
+            SizedBox(height: 16),
             if (latestExpenses.length > 5)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
