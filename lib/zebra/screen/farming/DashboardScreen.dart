@@ -51,6 +51,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Dashboard'),
+        centerTitle: false,
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())

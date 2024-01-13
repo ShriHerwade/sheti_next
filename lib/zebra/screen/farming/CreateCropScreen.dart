@@ -85,10 +85,10 @@ class _CreateCropState extends State<CreateCrop> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        centerTitle: true,
+        centerTitle: false,
         title: Text(LocaleKeys.createCrop.tr()),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back,color: Colors.white),
           onPressed: () {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },

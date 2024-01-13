@@ -34,7 +34,12 @@ class MyApp extends StatelessWidget {
           canvasColor: Colors.white,
           useMaterial3: true,
           appBarTheme: AppBarTheme(
-            color: Colors.lightGreen.shade100,
+            color: Colors.green,
+              titleTextStyle : TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 20),
+            shadowColor: Colors.black.withOpacity(0.5),
+            elevation: 20,
+
+
           )
         ),
       localizationsDelegates: context.localizationDelegates,
@@ -61,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        centerTitle: false,
       ),
       body: Center(child: Container()),
     );

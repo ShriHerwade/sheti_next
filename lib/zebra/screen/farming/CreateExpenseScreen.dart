@@ -106,8 +106,13 @@ class _CreateExpensesState extends State<CreateExpenses> {
         await dbHelper!.saveExpenseData(expense);
 
         _confamount.clear();
+        /*  if(isCreateAnother) {
+         //do nothing
+        }else{*/
         selectedFarm = null;
         selectedCrop = null;
+        isCreateAnother=false;
+
         selectedExpense = [];
         selectedDate = null;
 
@@ -194,9 +199,9 @@ class _CreateExpensesState extends State<CreateExpenses> {
       backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
         title: Text(LocaleKeys.createExpense.tr()),
-        //centerTitle: true,
+        centerTitle: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back,color: Colors.white),
           onPressed: () {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
