@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           canvasColor: Colors.white,
           useMaterial3: true,
           appBarTheme: AppBarTheme(
-            color: Colors.green,
+            color: const Color(0xFF0ec45d),
               titleTextStyle : TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 20),
             shadowColor: Colors.black.withOpacity(0.5),
             elevation: 20,

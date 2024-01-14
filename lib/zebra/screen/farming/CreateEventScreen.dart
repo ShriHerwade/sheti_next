@@ -334,7 +334,7 @@ class _CreateEventsState extends State<CreateEvents> {
                         ),
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: const Color(0xFF0ec45d),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
