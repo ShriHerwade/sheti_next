@@ -5,6 +5,7 @@ import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
@@ -88,7 +89,7 @@ class _CreateCropState extends State<CreateCrop> {
         centerTitle: false,
         title: Text(LocaleKeys.createCrop.tr()),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.white),
+          icon: Icon(Icons.arrow_back,color: ColorConstants.miniIconDefaultColor),
           onPressed: () {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
@@ -206,14 +207,14 @@ class _CreateCropState extends State<CreateCrop> {
                       child: Text(
                         LocaleKeys.save.tr(),
                         style: TextStyle(
-                          color: Colors.white,
+                          color: ColorConstants.textButtonSaveTextColor,
                           fontWeight: FontWeight.bold,
                           fontSize: ResponsiveUtil.fontSize(context, 20),
                         ),
                       ),
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF0ec45d),
+                      color: ColorConstants.textButtonSaveColor,
                           //isSaveButtonEnabled() ? Colors.green : Colors.grey,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -261,7 +262,7 @@ class _CreateCropState extends State<CreateCrop> {
                  //margin: EdgeInsets.only(right: 2.0),
                   padding: EdgeInsets.all(2.0),
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: ColorConstants.snackBarSuccessCircleColor,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -281,7 +282,7 @@ class _CreateCropState extends State<CreateCrop> {
                 ),
               ],
             ),
-            backgroundColor: Colors.black,
+            backgroundColor: ColorConstants.snackBarBackgroundColor,
             behavior: SnackBarBehavior.floating,
             elevation: 10,
             shape: RoundedRectangleBorder(

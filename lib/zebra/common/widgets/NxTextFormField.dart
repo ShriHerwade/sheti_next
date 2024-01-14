@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import '../util/InputValidator.dart';
 
 class NxTextFormField extends StatelessWidget {
@@ -42,19 +43,19 @@ class NxTextFormField extends StatelessWidget {
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(width:1,color: Colors.grey)),
+                borderSide: BorderSide(width:1,color: ColorConstants.enabledFieldBorderColor)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(width: 1,color: Colors.lightGreen.shade400)),
+                borderSide: BorderSide(width: 1,color: ColorConstants.enabledFieldBorderColor)),
             disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(width: 1,color: Colors.grey,)),
+                borderSide: BorderSide(width: 1,color: ColorConstants.disabledFieldBorderColor)),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(width: 1,color: Colors.grey)),
+                borderSide: BorderSide(width: 1,color: ColorConstants.errorFieldBorderColor)),
             //prefixIcon: Icon(icon),
             hintText: hintName,//labelStyle: TextStyle(fontWeight: FontWeight.normal,color: Colors.grey),
-            labelText: hintName,labelStyle: TextStyle(fontWeight: FontWeight.normal,color: Colors.black),
+            labelText: hintName,labelStyle: TextStyle(fontWeight: FontWeight.normal,color:ColorConstants.fieldLabelTextColor),
             isDense: true,
             fillColor: Colors.white,
             filled: true),

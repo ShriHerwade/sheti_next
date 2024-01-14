@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 
 class NxDateField extends StatelessWidget {
   final String label;
@@ -30,26 +31,23 @@ class NxDateField extends StatelessWidget {
             readOnly: true,
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(color: Colors.grey),
-              ),
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  borderSide: BorderSide(width:1,color: ColorConstants.enabledFieldBorderColor)),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(color: Colors.lightGreen.shade400),
-              ),
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  borderSide: BorderSide(width: 1,color: ColorConstants.enabledFieldBorderColor)),
               disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(color: Colors.grey),
-              ),
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  borderSide: BorderSide(width: 1,color: ColorConstants.disabledFieldBorderColor)),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(color: Colors.grey),
-              ),
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  borderSide: BorderSide(width: 1,color: ColorConstants.errorFieldBorderColor)),
+
               isDense: true,
-              fillColor: Colors.white,
+              fillColor: ColorConstants.fieldFillColorDefaultColor,
               filled: true,
               hintText: selectedDate != null ? formatDate(selectedDate!) : '$label',//hintStyle: TextStyle(fontWeight: FontWeight.normal,color: Colors.grey),
-              labelText: labelText,labelStyle: TextStyle(fontWeight: FontWeight.normal,color: Colors.black),
+              labelText: labelText,labelStyle: TextStyle(fontWeight: FontWeight.normal,color: ColorConstants.fieldLabelTextColor),
               suffixIcon: Icon(Icons.calendar_today),
               border: InputBorder.none,
             ),

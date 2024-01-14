@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 
 class NxDDFormField extends StatefulWidget {
   final String? value;
@@ -32,21 +33,17 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
         child: DropdownButtonFormField<String>(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(color: Colors.grey),
-            ),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(width:1,color: ColorConstants.enabledFieldBorderColor)),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(color: Colors.lightGreen.shade400),
-            ),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(width: 1,color: ColorConstants.enabledFieldBorderColor)),
             disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(color: Colors.grey),
-            ),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(width: 1,color: ColorConstants.disabledFieldBorderColor)),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(color: Colors.grey),
-            ),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(width: 1,color: ColorConstants.errorFieldBorderColor)),
             fillColor: Colors.white,
             filled: true,
             // Show label only if the dropdown is selected
@@ -59,7 +56,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
           ),
           hint: Text(widget.hint,
               style: TextStyle(
-                  color: Colors.black, fontWeight: FontWeight.normal)),
+                  color: ColorConstants.fieldHintTextColor, fontWeight: FontWeight.normal)),
           value: widget.value,
           onChanged: widget.onChanged,
           items: widget.items.map((item) {
@@ -67,7 +64,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
               value: item,
               child: Text(item,
                   style: TextStyle(
-                      fontWeight: FontWeight.normal, color: Colors.black)),
+                      fontWeight: FontWeight.normal, color: ColorConstants.dropdownElementTextColor)),
             );
           }).toList(),
         ),

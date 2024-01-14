@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/codegen_loader.g.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
 
 
@@ -34,8 +35,8 @@ class MyApp extends StatelessWidget {
           canvasColor: Colors.white,
           useMaterial3: true,
           appBarTheme: AppBarTheme(
-            color: const Color(0xFF0ec45d),
-              titleTextStyle : TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 20),
+            color: ColorConstants.appBarBackgroundColor,
+              titleTextStyle : TextStyle(color: ColorConstants.appBarIconColor, fontWeight: FontWeight.normal, fontSize: 20),
             shadowColor: Colors.black.withOpacity(0.5),
             elevation: 20,
 

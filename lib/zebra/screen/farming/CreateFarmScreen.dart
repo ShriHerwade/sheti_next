@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
@@ -82,7 +83,7 @@ class _CreateFarmsState extends State<CreateFarms> {
         title: Text(LocaleKeys.createFarm.tr()),
         centerTitle: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.white),
+          icon: Icon(Icons.arrow_back,color: ColorConstants.miniIconDefaultColor),
           onPressed: () {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
@@ -192,14 +193,14 @@ class _CreateFarmsState extends State<CreateFarms> {
                         child: Text(
                           LocaleKeys.save.tr(),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: ColorConstants.textButtonSaveTextColor,
                             fontWeight: FontWeight.bold,
                             fontSize: fontSize,
                           ),
                         ),
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF0ec45d),
+                        color: ColorConstants.textButtonSaveColor,
                         //isSaveButtonEnabled() ? Colors.green : Colors.grey,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
@@ -297,12 +298,12 @@ class _CreateFarmsState extends State<CreateFarms> {
                   //margin: EdgeInsets.only(right: 2.0),
                   padding: EdgeInsets.all(2.0),
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: ColorConstants.snackBarSuccessCircleColor,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.check,
-                    color: Colors.white,
+                    color: ColorConstants.miniIconDefaultColor,
                     size: 16.0,
                   ),
                 ),
@@ -311,13 +312,13 @@ class _CreateFarmsState extends State<CreateFarms> {
                   'Record saved successfully.',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.white,
+                    color: ColorConstants.miniIconDefaultColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
               ],
             ),
-            backgroundColor: Colors.black,
+            backgroundColor: ColorConstants.snackBarBackgroundColor,
             behavior: SnackBarBehavior.floating,
             elevation: 10,
             shape: RoundedRectangleBorder(
