@@ -45,7 +45,7 @@ class _NxDDFormField_idState extends State<NxDDFormField_id> {
 
             fillColor: Colors.white,
             filled: true,
-            labelText: widget.selectedItemId != null ? widget.label : null,
+            labelText: widget.selectedItemId != null ? widget.label : null,labelStyle:TextStyle(fontWeight: FontWeight.normal,color:ColorConstants.fieldLabelTextColor),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             isDense: true,
           ),
