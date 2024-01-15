@@ -7,6 +7,7 @@ import 'package:multiselect/multiselect.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
@@ -124,12 +125,12 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   //margin: EdgeInsets.only(right: 2.0),
                   padding: EdgeInsets.all(2.0),
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: ColorConstants.snackBarSuccessCircleColor,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.check,
-                    color: Colors.white,
+                    color: ColorConstants.miniIconDefaultColor,
                     size: 16.0,
                   ),
                 ),
@@ -138,13 +139,13 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   'Record saved successfully.',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.white,
+                    color: ColorConstants.snackBarTextColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
               ],
             ),
-            backgroundColor: Colors.black,
+            backgroundColor: ColorConstants.snackBarBackgroundColor,
             behavior: SnackBarBehavior.floating,
             elevation: 10,
             shape: RoundedRectangleBorder(
@@ -158,7 +159,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Error saving expense data."),
-          backgroundColor: Colors.black,
+          backgroundColor: ColorConstants.snackBarBackgroundColor,
           behavior: SnackBarBehavior.floating,
           elevation: 10,
           shape: RoundedRectangleBorder(
@@ -201,7 +202,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
         title: Text(LocaleKeys.createExpense.tr()),
         centerTitle: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.white),
+          icon: Icon(Icons.arrow_back,color: ColorConstants.miniIconDefaultColor),
           onPressed: () {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
@@ -287,23 +288,18 @@ class _CreateExpensesState extends State<CreateExpenses> {
                           hintText: LocaleKeys.selectExpenseType.tr(),
                           labelText: LocaleKeys.labelExpenseType.tr(),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
+                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(width:1,color: ColorConstants.enabledFieldBorderColor)),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            borderSide:
-                            BorderSide(color: Colors.lightGreen.shade400),
-                          ),
+                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(width: 1,color: ColorConstants.focusedFieldBorderColor)),
                           disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
+                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(width: 1,color: ColorConstants.disabledFieldBorderColor)),
                           errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          fillColor: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              borderSide: BorderSide(width: 1,color: ColorConstants.errorFieldBorderColor)),
+                          fillColor: ColorConstants.fieldFillDefaultColor,
                           filled: true,
                           isDense: true,
                         ),
@@ -316,7 +312,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         selectedValues: selectedExpense,
                         hint: Text(LocaleKeys.selectExpenseType.tr()),
                         hintStyle: TextStyle(
-                            fontWeight: FontWeight.normal, color: Colors.black),
+                            fontWeight: FontWeight.normal, color: ColorConstants.fieldHintTextColor),
                       ),
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
@@ -329,8 +325,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     CheckboxListTile(
-                      checkColor: Colors.greenAccent,
-                      activeColor: Colors.green,
+                      checkColor: ColorConstants.checkBoxColor,
+                      activeColor: ColorConstants.checkBoxActiveColor,
                       title:Text("Create Another Expense"),
                       value: this.isCreateAnother,
                       controlAffinity: ListTileControlAffinity.leading,
@@ -350,14 +346,14 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         child: Text(
                           LocaleKeys.save.tr(),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: ColorConstants.textButtonSaveTextColor,
                             fontWeight: FontWeight.bold,
                             fontSize: ResponsiveUtil.fontSize(context, 20),
                           ),
                         ),
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF0ec45d),
+                        color: ColorConstants.textButtonSaveColor,
                         //isSaveButtonEnabled() ? Colors.green : Colors.grey,
                         borderRadius: BorderRadius.circular(8.0),
                       ),

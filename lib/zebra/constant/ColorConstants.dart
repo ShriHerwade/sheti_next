@@ -6,7 +6,7 @@ class ColorConstants {
   static const Color disabledFieldBorderColor = Colors.grey;
   static const Color focusedFieldBorderColor = Colors.lightGreen;
   static const Color errorFieldBorderColor = Colors.redAccent;
-  static const Color fieldFillColorDefaultColor = Colors.white;
+  static const Color fieldFillDefaultColor = Colors.white;
 
   //Field hint & label
   static const Color fieldHintTextColor = Color(0xFF807f7f); // try 807f7f,989898
@@ -32,7 +32,7 @@ class ColorConstants {
   static const Color snackBarErrorCircleColor = Color(0xFFEE4B2B); //Bright red
   static const Color snackBarSuccessCircleColor = Color(0xFF0ec45d);
 
-  static const Color checkBoxColor = Colors.grey;
+  static const Color checkBoxColor = Colors.greenAccent;
   static const Color checkBoxActiveColor = Color(0xFF0ec45d);
 
 //Dialog Button

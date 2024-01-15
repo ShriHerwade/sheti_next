@@ -44,7 +44,7 @@ class NxDateField extends StatelessWidget {
                   borderSide: BorderSide(width: 1,color: ColorConstants.errorFieldBorderColor)),
 
               isDense: true,
-              fillColor: ColorConstants.fieldFillColorDefaultColor,
+              fillColor: ColorConstants.fieldFillDefaultColor,
               filled: true,
               hintText: selectedDate != null ? formatDate(selectedDate!) : '$label',hintStyle: TextStyle(fontWeight: FontWeight.normal,color:ColorConstants.fieldLabelTextColor),
               labelText: labelText,labelStyle: TextStyle(fontWeight: FontWeight.normal,color: ColorConstants.fieldLabelTextColor),
