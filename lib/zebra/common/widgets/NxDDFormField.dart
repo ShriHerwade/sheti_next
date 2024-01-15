@@ -37,7 +37,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
                 borderSide: BorderSide(width:1,color: ColorConstants.enabledFieldBorderColor)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(width: 1,color: ColorConstants.enabledFieldBorderColor)),
+                borderSide: BorderSide(width: 1,color: ColorConstants.focusedFieldBorderColor)),
             disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 borderSide: BorderSide(width: 1,color: ColorConstants.disabledFieldBorderColor)),
