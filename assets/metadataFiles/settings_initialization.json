@@ -19,5 +19,12 @@
     "profile": "All",
     "isActive": true,
     "createdDate": "2024-01-01T08:00:00Z"
+  },
+  {
+    "key": "metaDataLoaded",
+    "value": "true",
+    "profile": "All",
+    "isActive": true,
+    "createdDate": "2024-01-01T08:00:00Z"
   }
 ]

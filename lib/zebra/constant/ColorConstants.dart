@@ -13,12 +13,12 @@ class ColorConstants {
   static const Color fieldLabelTextColor =Colors.black;  //grey
 
   //App bar
-  static const Color appBarBackgroundColor = Color(0xFF0ec45d); //primary green
+  static const Color appBarBackgroundColor = Color(0xFF0cb053); //primary green, 0cb053 - little dark, 0ec45d - aero
   static const Color appBarTextColor = Colors.white;
   static const Color appBarIconColor = Colors.white;
 
   //Button
-  static const Color textButtonSaveColor = Color(0xFF0ec45d);
+  static const Color textButtonSaveColor = Color(0xFF0cb053); //0cb053 - little dark, 0ec45d - aero
   static const Color textButtonSaveTextColor = Colors.white;
 
   //Bottom NavBar
