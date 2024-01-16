@@ -297,12 +297,45 @@ class DbHelper {
       ORDER BY
           e.$C_expenseDate DESC;
         ''');
-          //insertInitialMetaData(db);
+
+          //await _handleInsertInitialMetaData(db);
+            await _initMetadata(db);
         } catch (e) {
           print('Error creating tables: $e');
         }
       },
     );
+  }
+
+ //do not change the wrapper method calls as it will, go in infinite loop
+   Future<void> _initMetadata(Database db) async {
+    try {
+      SettingModel? setting = await getSetting(db, "metaDataLoaded");
+
+      if (setting != null) {
+        //metadata are already initialized
+        print('Metadata is already initialized.');
+        print('Setting found: ${setting.key} - ${setting.value}');
+
+        //for future use
+        /* if (setting.value.toLowerCase() == 'true') {
+              // The setting is present, and the value is "true"
+            } else if (setting.value.toLowerCase() == 'false') {
+              // The setting is present, and the value is "false"
+            } else {
+              // The value is neither "true" nor "false"
+            }*/
+      } else {
+        print('Metadata is not initialized prior, initializing now ...');
+        _handleInsertInitialMetaData(db);
+      }
+    } catch (ex) {
+      print('Error while pulling Settings or initializing metadata : $ex');
+    }
+  }
+
+  Future<void> _handleInsertInitialMetaData(Database db) async {
+    await insertInitialMetaData(db);
   }
 
   Future<void> saveFarmData(FarmModel farm) async {
@@ -416,6 +449,7 @@ class DbHelper {
     }
   }
 
+  //return all settings
   Future<List<SettingModel>> getAllSettings() async {
     final dbClient = await db;
     final List<Map<String, dynamic>> maps = await dbClient.query(
@@ -428,6 +462,21 @@ class DbHelper {
     });
   }
 
+  //return only the required setting
+  Future<SettingModel?> getSetting(Database db, String key) async {
+    try {
+      // final dbClient = await db;
+      final List<Map<String, dynamic>> result = await db.query(
+          Table_AppSettings,
+          where: 'isActive = ? AND key = ? AND isActive IS NOT NULL',
+          whereArgs: [1, key]);
+      return result.isNotEmpty ? SettingModel.fromMap(result.first) : null;
+    } catch (e) {
+      print("Error while pulling settings metadata  : $e");
+      rethrow;
+    }
+  }
+
 // Add this method is used to save data of user
   Future<void> saveUserData(UserModel user) async {
     final dbClient = await db;
@@ -438,6 +487,7 @@ class DbHelper {
     );
     print("User record inserted");
   }
+
 // method to save Events
   Future<void> saveEventData(EventModel event) async {
     final dbClient = await db;
@@ -448,6 +498,7 @@ class DbHelper {
     );
     print("Event record inserted");
   }
+
 // method to save expense data
   Future<void> saveExpenseData(ExpenseModel expense) async {
     final dbClient = await db;
@@ -464,13 +515,12 @@ class DbHelper {
   }
 
   Future<void> insertInitialMetaData(Database db) async {
-    print("Initializing the metaData loading from Json file ..");
     try {
       //1. Read JSON data from account file
       String accountMetaFilePath =
           'assets/metadataFiles/account_initialization.json';
       String accountMetaJsonString =
-      await rootBundle.loadString(accountMetaFilePath);
+          await rootBundle.loadString(accountMetaFilePath);
       print(accountMetaJsonString);
       var accountMetadata = json.decode(accountMetaJsonString);
 
@@ -479,7 +529,7 @@ class DbHelper {
       print("Account object initialized !");
 
       //2. Read JSON data from user file -- this is dummy data remove once ready
-     String userMetaFilePath =
+      String userMetaFilePath =
           'assets/metadataFiles/dummyUser_initialization.json';
       String userMetaJsonString = await rootBundle.loadString(userMetaFilePath);
       print("Load : userMetaJsonString");
@@ -490,9 +540,10 @@ class DbHelper {
       print("User object initialized !");
 
       //3. Read JSON data from cropsMeta file
-      String cropsMetaFilePath = 'assets/metadataFiles/crops_initialization.json';
-      String cropsMetaJsonString = await rootBundle.loadString(
-          cropsMetaFilePath);
+      String cropsMetaFilePath =
+          'assets/metadataFiles/crops_initialization.json';
+      String cropsMetaJsonString =
+          await rootBundle.loadString(cropsMetaFilePath);
       print("Load : cropsMetaJsonString");
       var cropsMetaJsonList = json.decode(cropsMetaJsonString) as List<dynamic>;
       print("CropMetadata list  initialized !");
@@ -501,10 +552,10 @@ class DbHelper {
       String settingsMetaFilePath =
           'assets/metadataFiles/settings_initialization.json';
       String settingsMetaJsonString =
-      await rootBundle.loadString(settingsMetaFilePath);
+          await rootBundle.loadString(settingsMetaFilePath);
       print("Load : settingsMetaJsonString");
-      var settingsJsonList = json.decode(settingsMetaJsonString) as List<
-          dynamic>;
+      var settingsJsonList =
+          json.decode(settingsMetaJsonString) as List<dynamic>;
       print("Settings object initialized.. saving account !");
 
       // Insert the data into the accounts
@@ -514,20 +565,20 @@ class DbHelper {
       print("Dummy User record saved.");
 
       // Iterate through the JSON list and insert each cropMeta into the cropMeta
-      int i = 0;
-      int j = 0;
+      /* int i = 0;
+      int j = 0;*/
       for (var jsonData in cropsMetaJsonList) {
-        i = i + 1;
+        /*i = i + 1;
         print("CropMeta adding " + i.toString());
-        print("Setttings JSON Object: $jsonData");
+        print("Setttings JSON Object: $jsonData");*/ //uncomment only while debugging
         await saveCropsMetaData(CropMetaDataModel.fromJson(jsonData));
       }
       print("CropMetadata records saved.");
       // Iterate through the JSON list and insert each setting into the settings
       for (var jsonData in settingsJsonList) {
-        j = j + 1;
+        /*j = j + 1;
         print("Settings adding " + j.toString());
-        print("Crop JSON Object: $jsonData");
+        print("Crop JSON Object: $jsonData");*/ //uncomment only while debugging
         await saveSettingData(SettingModel.fromJson(jsonData));
       }
       print("Settings records saved.");
