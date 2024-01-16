@@ -56,13 +56,6 @@ class _CreateFarmsState extends State<CreateFarms> {
     }
   }
 
-  void _handleInsertInitialMetaData() async {
-    Database? db = await dbHelper?.db;
-    if (db != null) {
-      await dbHelper?.insertInitialMetaData(db);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     // Calculate font size based on screen width
@@ -231,19 +224,6 @@ class _CreateFarmsState extends State<CreateFarms> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),*/
-                    GestureDetector(
-                      onTap: _handleInsertInitialMetaData,
-                      child: Text.rich(
-                        TextSpan(
-                          text: 'L',
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: fontSize,
-                          ),
-                        ),
-                      ),
-                    ),
 
                   ],
 
