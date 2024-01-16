@@ -56,124 +56,136 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 200,
-              child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (int page) {
-                  setState(() {
-                    _currentPage = page;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.0),
-                    child: _buildCard(index),
-                  );
-                },
-                itemCount: 5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 200,
+                    child: PageView.builder(
+                      controller: _pageController,
+                      onPageChanged: (int page) {
+                        setState(() {
+                          _currentPage = page;
+                        });
+                      },
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4.0),
+                          child: _buildCard(index),
+                        );
+                      },
+                      itemCount: 5,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      5,
+                      (index) => Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5.0),
+                        child: CircleAvatar(
+                          radius: 4.0,
+                          backgroundColor:
+                              _currentPage == index ? Colors.blue : Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(
+                      'Latest Expenses',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: showAll
+                          ? latestExpenses.length
+                          : latestExpenses.length > 5
+                              ? 5
+                              : latestExpenses.length,
+                      itemBuilder: (context, index) {
+                        if (index < latestExpenses.length) {
+                          return ListTile(
+                            title: Text(
+                              index < latestExpenses.length
+                                  ? '${latestExpenses[index].farmName} - ${latestExpenses[index].cropName}'
+                                  : 'Empty Expense',
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  index < latestExpenses.length
+                                      ? '${latestExpenses[index].expenseType}'
+                                      : 'No Type',
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                                Text(
+                                  index < latestExpenses.length
+                                      ? '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}'
+                                      : 'No Date',
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                              ],
+                            ),
+                            trailing: Text(
+                              index < latestExpenses.length
+                                  ? '\₹${latestExpenses[index].amount.toStringAsFixed(2)}'
+                                  : '\₹0.00',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          );
+                        } else {
+                          return ListTile(
+                            title: Text(
+                              'No more records !',
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.bold),
+                            ),
+                          );
+                        }
+                      }),
+                  SizedBox(height: 16),
+                  if (latestExpenses.length > 5)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          if (!showAll)
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  showAll = true;
+                                });
+                              },
+                              child: Text('Show All'),
+                            ),
+                          if (showAll)
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  showAll = false;
+                                });
+                              },
+                              child: Text('Hide'),
+                            ),
+                        ],
+                      ),
+                    ),
+                ],
               ),
             ),
-            SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                5,
-                    (index) => Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: CircleAvatar(
-                    radius: 4.0,
-                    backgroundColor: _currentPage == index
-                        ? Colors.blue
-                        : Colors.grey,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                'Latest Expenses',
-                style:
-                TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 8),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: showAll ? latestExpenses.length : 5,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    index < latestExpenses.length
-                        ? '${latestExpenses[index].farmName} - ${latestExpenses[index].cropName}'
-                        : 'Empty Expense',
-                    style: TextStyle(
-                        fontSize: 13, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        index < latestExpenses.length
-                            ? '${latestExpenses[index].expenseType}'
-                            : 'No Type',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      Text(
-                        index < latestExpenses.length
-                            ? '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}'
-                            : 'No Date',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                  trailing: Text(
-                    index < latestExpenses.length
-                        ? '\₹${latestExpenses[index].amount.toStringAsFixed(2)}'
-                        : '\₹0.00',
-                    style: TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: 16),
-            if (latestExpenses.length > 5)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    if (!showAll)
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            showAll = true;
-                          });
-                        },
-                        child: Text('Show All'),
-                      ),
-                    if (showAll)
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            showAll = false;
-                          });
-                        },
-                        child: Text('Hide'),
-                      ),
-                  ],
-                ),
-              ),
-          ],
-        ),
-      ),
     );
   }
 
