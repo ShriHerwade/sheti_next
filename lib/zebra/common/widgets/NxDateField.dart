@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 
-class NxDateField extends StatelessWidget {
+class NxDateField extends StatefulWidget {
   final String label;
   final String labelText;
   final DateTime? selectedDate;
@@ -21,38 +21,65 @@ class NxDateField extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _NxDateFieldState createState() => _NxDateFieldState();
+}
+
+class _NxDateFieldState extends State<NxDateField> {
+  final FocusNode _focusNode = FocusNode(); // Added FocusNode
+  TextEditingController _textEditingController = TextEditingController();
+  bool _hasFocus = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController.text = formatDate(widget.selectedDate);
+    _textEditingController.addListener(_onTextChanged);
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    _textEditingController.dispose();
+    super.dispose();
+  }
+
+  void _onTextChanged() {
+    setState(() {
+      _hasFocus = _textEditingController.text.isNotEmpty;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: GestureDetector(
-        onTap: () => _selectDate(context),
+        onTap: () {
+          _selectDate(context);
+          _focusNode.requestFocus(); // Request focus on tap
+        },
         child: AbsorbPointer(
-          child: TextFormField(
-            readOnly: true,
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  borderSide: BorderSide(width:1,color: ColorConstants.enabledFieldBorderColor)),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  borderSide: BorderSide(width: 1,color: ColorConstants.focusedFieldBorderColor)),
-              disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  borderSide: BorderSide(width: 1,color: ColorConstants.disabledFieldBorderColor)),
-              errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  borderSide: BorderSide(width: 1,color: ColorConstants.errorFieldBorderColor)),
-
-              isDense: true,
-              fillColor: ColorConstants.fieldFillDefaultColor,
-              filled: true,
-              hintText: selectedDate != null ? formatDate(selectedDate!) : '$label',hintStyle: TextStyle(fontWeight: FontWeight.normal,color:ColorConstants.fieldHintTextColor),
-              labelText: labelText,labelStyle: TextStyle(fontWeight: FontWeight.normal,color: ColorConstants.fieldLabelTextColor),
-              suffixIcon: Icon(Icons.calendar_today),
-              border: InputBorder.none,
-            ),
-            controller: TextEditingController(
-              text: formatDate(selectedDate),
+          child: Focus(
+            focusNode: _focusNode, // Wrap TextFormField with Focus widget
+            child: TextFormField(
+              readOnly: true,
+              controller: _textEditingController,
+              decoration: InputDecoration(
+                enabledBorder: _getOutlineInputBorder(ColorConstants.enabledFieldBorderColor),
+                focusedBorder: _getOutlineInputBorder(_hasFocus ? Colors.lightGreen : ColorConstants.focusedFieldBorderColor),
+                disabledBorder: _getOutlineInputBorder(ColorConstants.disabledFieldBorderColor),
+                errorBorder: _getOutlineInputBorder(ColorConstants.errorFieldBorderColor),
+                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                isDense: true,
+                fillColor: ColorConstants.fieldFillDefaultColor,
+                filled: true,
+                hintText: widget.selectedDate != null ? formatDate(widget.selectedDate!) : '${widget.label}',
+                hintStyle: TextStyle(fontWeight: FontWeight.normal, color: ColorConstants.fieldLabelTextColor),
+                labelText: widget.labelText,
+                labelStyle: TextStyle(fontWeight: FontWeight.normal, color: ColorConstants.fieldHintTextColor),
+                suffixIcon: Icon(Icons.calendar_today),
+                border: InputBorder.none,
+              ),
             ),
           ),
         ),
@@ -63,13 +90,14 @@ class NxDateField extends StatelessWidget {
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate ?? DateTime.now(),
+      initialDate: widget.selectedDate ?? DateTime.now(),
       firstDate: DateTime(2022),
       lastDate: DateTime(2101),
     );
 
     if (picked != null) {
-      onTap(picked);
+      widget.onTap(picked);
+      _textEditingController.text = formatDate(picked);
     }
   }
 
@@ -79,5 +107,12 @@ class NxDateField extends StatelessWidget {
     } else {
       return '';
     }
+  }
+
+  OutlineInputBorder _getOutlineInputBorder(Color color) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      borderSide: BorderSide(width: 1, color: color),
+    );
   }
 }

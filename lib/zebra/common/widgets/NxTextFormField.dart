@@ -55,8 +55,10 @@ class NxTextFormField extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 borderSide: BorderSide(width: 1,color: ColorConstants.errorFieldBorderColor)),
             //prefixIcon: Icon(icon),
-            hintText: hintName,hintStyle: TextStyle(fontWeight: FontWeight.normal,color:ColorConstants.fieldHintTextColor),
-            labelText: hintName,labelStyle: TextStyle(fontWeight: FontWeight.normal,color:ColorConstants.fieldLabelTextColor),
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
+
+            hintText: hintName,hintStyle: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey),
+            labelText: hintName,labelStyle: TextStyle(fontWeight: FontWeight.normal,color:Colors.blueGrey),
             isDense: true,
             fillColor: Colors.white,
             filled: true),

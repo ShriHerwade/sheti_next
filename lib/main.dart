@@ -34,6 +34,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.lightGreen,
           canvasColor: Colors.white,
           useMaterial3: true,
+         /* inputDecorationTheme: InputDecorationTheme(
+            hintStyle: TextStyle(fontWeight: FontWeight.normal,color:ColorConstants.fieldHintTextColor),
+            labelStyle: TextStyle(fontWeight: FontWeight.normal,color:ColorConstants.fieldLabelTextColor),
+          ),*/
           appBarTheme: AppBarTheme(
             color: ColorConstants.appBarBackgroundColor,
               titleTextStyle : TextStyle(color: ColorConstants.appBarIconColor, fontWeight: FontWeight.normal, fontSize: 20),
