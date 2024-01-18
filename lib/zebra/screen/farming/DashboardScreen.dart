@@ -56,136 +56,128 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 200,
-                    child: PageView.builder(
-                      controller: _pageController,
-                      onPageChanged: (int page) {
-                        setState(() {
-                          _currentPage = page;
-                        });
-                      },
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4.0),
-                          child: _buildCard(index),
-                        );
-                      },
-                      itemCount: 5,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      5,
-                      (index) => Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5.0),
-                        child: CircleAvatar(
-                          radius: 4.0,
-                          backgroundColor:
-                              _currentPage == index ? Colors.blue : Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      'Latest Expenses',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: showAll
-                          ? latestExpenses.length
-                          : latestExpenses.length > 5
-                              ? 5
-                              : latestExpenses.length,
-                      itemBuilder: (context, index) {
-                        if (index < latestExpenses.length) {
-                          return ListTile(
-                            title: Text(
-                              index < latestExpenses.length
-                                  ? '${latestExpenses[index].farmName} - ${latestExpenses[index].cropName}'
-                                  : 'Empty Expense',
-                              style: TextStyle(
-                                  fontSize: 13, fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  index < latestExpenses.length
-                                      ? '${latestExpenses[index].expenseType}'
-                                      : 'No Type',
-                                  style: TextStyle(fontSize: 14),
-                                ),
-                                Text(
-                                  index < latestExpenses.length
-                                      ? '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}'
-                                      : 'No Date',
-                                  style: TextStyle(fontSize: 14),
-                                ),
-                              ],
-                            ),
-                            trailing: Text(
-                              index < latestExpenses.length
-                                  ? '\₹${latestExpenses[index].amount.toStringAsFixed(2)}'
-                                  : '\₹0.00',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          );
-                        } else {
-                          return ListTile(
-                            title: Text(
-                              'No more records !',
-                              style: TextStyle(
-                                  fontSize: 13, fontWeight: FontWeight.bold),
-                            ),
-                          );
-                        }
-                      }),
-                  SizedBox(height: 16),
-                  if (latestExpenses.length > 5)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          if (!showAll)
-                            TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  showAll = true;
-                                });
-                              },
-                              child: Text('Show All'),
-                            ),
-                          if (showAll)
-                            TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  showAll = false;
-                                });
-                              },
-                              child: Text('Hide'),
-                            ),
-                        ],
-                      ),
-                    ),
-                ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 200,
+              child: PageView.builder(
+                controller: _pageController,
+                onPageChanged: (int page) {
+                  setState(() {
+                    _currentPage = page;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    child: _buildCard(index),
+                  );
+                },
+                itemCount: 5,
               ),
             ),
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                5,
+                    (index) => Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.0),
+                  child: CircleAvatar(
+                    radius: 4.0,
+                    backgroundColor:
+                    _currentPage == index ? Colors.blue : Colors.grey,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'Latest Expenses',
+                style:
+                TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 8),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: showAll
+                  ? latestExpenses.length
+                  : latestExpenses.length > 5
+                  ? 5
+                  : latestExpenses.length,
+              itemBuilder: (context, index) {
+                if (index < latestExpenses.length) {
+                  return ListTile(
+                    title: Text(
+                      '${latestExpenses[index].farmName} - ${latestExpenses[index].cropName}',
+                      style: TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${latestExpenses[index].expenseType}',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        Text(
+                          '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    trailing: Text(
+                      '\₹${latestExpenses[index].amount.toStringAsFixed(2)}',
+                      style: TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  );
+                } else {
+                  return ListTile(
+                    title: Text(
+                      'No more records !',
+                      style: TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.bold),
+                    ),
+                  );
+                }
+              },
+            ),
+            SizedBox(height: 16),
+            if (latestExpenses.length > 5)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (!showAll)
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            showAll = true;
+                          });
+                        },
+                        child: Text('Show All'),
+                      ),
+                    if (showAll)
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            showAll = false;
+                          });
+                        },
+                        child: Text('Hide'),
+                      ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -196,39 +188,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _getCardWidget(int index) {
-    if (latestExpenses.isNotEmpty && index < latestExpenses.length) {
-      LatestExpenseModel expense = latestExpenses[index];
-      switch (index % 5) {
-        case 0:
-          return WeatherCard(expense);
-        case 1:
-          return TaskCard(expense);
-        case 2:
-          return ExpenditureCard(expense);
-        case 3:
-          return PlannedEventsCard(expense);
-        case 4:
-          return OffersCard(expense);
-        default:
-          return Container();
-      }
-    } else {
-      return Container();
+    switch (index) {
+      case 0:
+        return WeatherCard();
+      case 1:
+        return TaskCard();
+      case 2:
+        return ExpenditureCard();
+      case 3:
+        return PlannedEventsCard();
+      case 4:
+        return OffersCard();
+      default:
+        return Container();
     }
   }
 }
 
 class WeatherCard extends StatelessWidget {
-  final LatestExpenseModel expense;
-
-  WeatherCard(this.expense);
-
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 25,
-      shadowColor: Colors.black26,
-      margin: EdgeInsets.only(left: 0.0, right: 4.0, top: 8.0),
+      elevation: 8,
+      shadowColor: Colors.black.withOpacity(0.2),
+      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       child: Container(
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
@@ -253,16 +236,12 @@ class WeatherCard extends StatelessWidget {
 }
 
 class TaskCard extends StatelessWidget {
-  final LatestExpenseModel expense;
-
-  TaskCard(this.expense);
-
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 8,
       shadowColor: Colors.black.withOpacity(0.2),
-      margin: EdgeInsets.only(left: 4.0, right: 4.0, top: 8.0),
+      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       child: Container(
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
@@ -272,13 +251,12 @@ class TaskCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(Icons.check_circle, size: 40, color: Colors.white),
+            Icon(Icons.check_circle, size: 40, color: Colors.black),
             SizedBox(height: 8),
-            Text('Tasks Overview',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
+            Text('Tasks Overview', style: TextStyle(color: Colors.white, fontSize: 18)),
             SizedBox(height: 8),
-            Text('Total Tasks: 10', style: TextStyle(color: Colors.white)),
-            Text('Completed: 7', style: TextStyle(color: Colors.white)),
+            Text('Total Tasks: 10', style: TextStyle(color: Colors.black)),
+            Text('Completed: 7', style: TextStyle(color: Colors.black)),
             LinearProgressIndicator(
                 value: 0.7, backgroundColor: Colors.white.withOpacity(0.5)),
           ],
@@ -289,16 +267,12 @@ class TaskCard extends StatelessWidget {
 }
 
 class ExpenditureCard extends StatelessWidget {
-  final LatestExpenseModel expense;
-
-  ExpenditureCard(this.expense);
-
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 8,
       shadowColor: Colors.black.withOpacity(0.2),
-      margin: EdgeInsets.only(left: 4.0, right: 4.0, top: 8.0),
+      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       child: Container(
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
@@ -322,16 +296,12 @@ class ExpenditureCard extends StatelessWidget {
 }
 
 class PlannedEventsCard extends StatelessWidget {
-  final LatestExpenseModel expense;
-
-  PlannedEventsCard(this.expense);
-
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 8,
       shadowColor: Colors.black.withOpacity(0.2),
-      margin: EdgeInsets.only(left: 4.0, right: 4.0, top: 8.0),
+      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       child: Container(
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
@@ -355,16 +325,12 @@ class PlannedEventsCard extends StatelessWidget {
 }
 
 class OffersCard extends StatelessWidget {
-  final LatestExpenseModel expense;
-
-  OffersCard(this.expense);
-
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 8,
       shadowColor: Colors.black.withOpacity(0.2),
-      margin: EdgeInsets.only(left: 4.0, right: 0.0, top: 8.0),
+      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       child: Container(
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(

@@ -325,6 +325,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     CheckboxListTile(
+
                       checkColor: ColorConstants.checkBoxColor,
                       activeColor: ColorConstants.checkBoxActiveColor,
                       title:Text("Create Another Expense"),
