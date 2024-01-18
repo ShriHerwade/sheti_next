@@ -57,8 +57,8 @@ class NxTextFormField extends StatelessWidget {
             //prefixIcon: Icon(icon),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
 
-            hintText: hintName,hintStyle: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey),
-            labelText: hintName,labelStyle: TextStyle(fontWeight: FontWeight.normal,color:Colors.blueGrey),
+            hintText: hintName,hintStyle: TextStyle(fontWeight: FontWeight.normal,color:ColorConstants.fieldHintTextColor),
+            labelText: hintName,labelStyle: TextStyle(fontWeight: FontWeight.normal,color:ColorConstants.fieldLabelTextColor),
             isDense: true,
             fillColor: Colors.white,
             filled: true),
