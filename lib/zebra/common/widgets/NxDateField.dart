@@ -1,5 +1,3 @@
-// nx_date_field.dart
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
@@ -8,7 +6,6 @@ class NxDateField extends StatefulWidget {
   final String label;
   final String labelText;
   final DateTime? selectedDate;
-  final bool? isStartDate;
   final Function(DateTime?) onTap;
 
   const NxDateField({
@@ -16,7 +13,6 @@ class NxDateField extends StatefulWidget {
     required this.label,
     required this.labelText,
     required this.selectedDate,
-    this.isStartDate, // Make isStartDate nullable
     required this.onTap,
   }) : super(key: key);
 
@@ -25,15 +21,18 @@ class NxDateField extends StatefulWidget {
 }
 
 class _NxDateFieldState extends State<NxDateField> {
-  final FocusNode _focusNode = FocusNode(); // Added FocusNode
+  final FocusNode _focusNode = FocusNode();
   TextEditingController _textEditingController = TextEditingController();
-  bool _hasFocus = false;
 
   @override
   void initState() {
     super.initState();
     _textEditingController.text = formatDate(widget.selectedDate);
     _textEditingController.addListener(_onTextChanged);
+
+    _focusNode.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -44,9 +43,7 @@ class _NxDateFieldState extends State<NxDateField> {
   }
 
   void _onTextChanged() {
-    setState(() {
-      _hasFocus = _textEditingController.text.isNotEmpty;
-    });
+    // Handle text changes
   }
 
   @override
@@ -56,30 +53,37 @@ class _NxDateFieldState extends State<NxDateField> {
       child: GestureDetector(
         onTap: () {
           _selectDate(context);
-          _focusNode.requestFocus(); // Request focus on tap
         },
-        child: AbsorbPointer(
-          child: Focus(
-            focusNode: _focusNode, // Wrap TextFormField with Focus widget
-            child: TextFormField(
-              readOnly: true,
-              controller: _textEditingController,
-              decoration: InputDecoration(
-                enabledBorder: _getOutlineInputBorder(ColorConstants.enabledFieldBorderColor),
-                focusedBorder: _getOutlineInputBorder(_hasFocus ? Colors.lightGreen : ColorConstants.focusedFieldBorderColor),
-                disabledBorder: _getOutlineInputBorder(ColorConstants.disabledFieldBorderColor),
-                errorBorder: _getOutlineInputBorder(ColorConstants.errorFieldBorderColor),
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                isDense: true,
-                fillColor: ColorConstants.fieldFillDefaultColor,
-                filled: true,
-                hintText: widget.selectedDate != null ? formatDate(widget.selectedDate!) : '${widget.label}',
-                hintStyle: TextStyle(fontWeight: FontWeight.normal, color: ColorConstants.fieldLabelTextColor),
-                labelText: widget.labelText,
-                labelStyle: TextStyle(fontWeight: FontWeight.normal, color: ColorConstants.fieldHintTextColor),
-                suffixIcon: Icon(Icons.calendar_today),
-                border: InputBorder.none,
-              ),
+        child: Focus(
+          focusNode: _focusNode,
+          child: TextFormField(
+            readOnly: true,
+            onTap: () {
+              _selectDate(context); // Open date picker on text field tap
+            },
+            controller: _textEditingController,
+            decoration: InputDecoration(
+              enabledBorder: _getOutlineInputBorder(
+                  ColorConstants.enabledFieldBorderColor),
+              focusedBorder: _getOutlineInputBorder(_focusNode.hasFocus
+                  ? Colors.lightGreen
+                  : ColorConstants.enabledFieldBorderColor),
+              floatingLabelBehavior: FloatingLabelBehavior.auto,
+              isDense: true,
+              filled: true,
+              fillColor: Colors.white,
+              hintText: widget.selectedDate != null
+                  ? formatDate(widget.selectedDate!)
+                  : '${widget.label}',
+              hintStyle: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: ColorConstants.fieldHintTextColor),
+              labelText: widget.labelText,
+              labelStyle: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: ColorConstants.fieldLabelTextColor),
+              suffixIcon: Icon(Icons.calendar_today),
+              border: InputBorder.none,
             ),
           ),
         ),
