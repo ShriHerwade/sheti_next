@@ -32,7 +32,7 @@ class ColorConstants {
   static const Color snackBarErrorCircleColor = Color(0xFFEE4B2B); //Bright red
   static const Color snackBarSuccessCircleColor = Color(0xFF0ec45d);
 
-  static const Color checkBoxColor = Colors.greenAccent;
+  static const Color checkBoxColor = Colors.white;
   static const Color checkBoxActiveColor = Color(0xFF0ec45d);
 
 //Dialog Button

@@ -303,20 +303,6 @@ class _CreateEventsState extends State<CreateEvents> {
                     ),
                     SizedBox(
                         height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    CheckboxListTile(
-                      checkColor:  ColorConstants.checkBoxActiveColor,
-                      activeColor: ColorConstants.checkBoxColor,
-                      title:Text("Create Another Event"),
-                      value: this.isCreateAnother,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          this.isCreateAnother = value!;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                        height: ResponsiveUtil.screenHeight(context) * 0.02),
                     Container(
                       width: ResponsiveUtil.screenWidth(context) * 0.8,
                       child: TextButton(
