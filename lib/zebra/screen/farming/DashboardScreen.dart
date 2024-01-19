@@ -32,8 +32,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Future<void> fetchLatestExpenses() async {
     try {
-      List<LatestExpenseModel> expenses =
-      await DbHelper().getLatestExpenses();
+      List<LatestExpenseModel> expenses = await DbHelper().getLatestExpenses();
       setState(() {
         latestExpenses = expenses;
         isLoading = false;
@@ -56,6 +55,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -102,50 +102,55 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             SizedBox(height: 8),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: showAll
-                  ? latestExpenses.length
-                  : latestExpenses.length > 5
-                  ? 5
-                  : latestExpenses.length,
-              itemBuilder: (context, index) {
-                if (index < latestExpenses.length) {
-                  return ListTile(
-                    title: Text(
-                      '${latestExpenses[index].farmName} - ${latestExpenses[index].cropName}',
-                      style: TextStyle(
-                          fontSize: 13, fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${latestExpenses[index].expenseType}',
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        Text(
-                          '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}',
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ],
-                    ),
-                    trailing: Text(
-                      '\₹${latestExpenses[index].amount.toStringAsFixed(2)}',
-                      style: TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  );
-                } else {
-                  return ListTile(
-                    title: Text(
-                      'No more records !',
-                      style: TextStyle(
-                          fontSize: 13, fontWeight: FontWeight.bold),
-                    ),
-                  );
-                }
-              },
+            // Wrap the ListView.builder with SingleChildScrollView
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: showAll
+                    ? latestExpenses.length
+                    : latestExpenses.length > 5
+                    ? 5
+                    : latestExpenses.length,
+                itemBuilder: (context, index) {
+                  if (index < latestExpenses.length) {
+                    return ListTile(
+                      title: Text(
+                        '${latestExpenses[index].farmName} - ${latestExpenses[index].cropName}',
+                        style: TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${latestExpenses[index].expenseType}',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          Text(
+                            '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                      trailing: Text(
+                        '\₹${latestExpenses[index].amount.toStringAsFixed(2)}',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    );
+                  } else {
+                    return ListTile(
+                      title: Text(
+                        'No more records !',
+                        style: TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.bold),
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
             SizedBox(height: 16),
             if (latestExpenses.length > 5)
@@ -253,7 +258,8 @@ class TaskCard extends StatelessWidget {
           children: [
             Icon(Icons.check_circle, size: 40, color: Colors.black),
             SizedBox(height: 8),
-            Text('Tasks Overview', style: TextStyle(color: Colors.white, fontSize: 18)),
+            Text('Tasks Overview',
+                style: TextStyle(color: Colors.white, fontSize: 18)),
             SizedBox(height: 8),
             Text('Total Tasks: 10', style: TextStyle(color: Colors.black)),
             Text('Completed: 7', style: TextStyle(color: Colors.black)),
