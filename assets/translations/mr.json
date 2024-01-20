@@ -5,6 +5,8 @@
   "createCrop": "नवीन पीक जोडा",
   "createEvent": "नवीन शेतकाम जोडा",
   "createExpense": "नवीन जमा-खर्च जोडा",
+  "createIncome": "नवीन उत्पन्न जोडा",
+
   "save": "जतन करा",
   "cancel": "रद्द करा",
   "address": "पत्ता",
@@ -30,6 +32,7 @@
   "labelExpenseType": "खर्चाचा प्रकार",
   "expenseDate": "खर्चाची तारीख",
   "expenseAmount": "रक्कम",
+
   "navBarDiary": "डायरी",
   "navBarLanguages": "भाषा",
   "navBarLangMarathi": "मराठी",
@@ -38,9 +41,10 @@
   "navBarCrops": "पीक",
   "navBarEvents": "शेत काम",
   "navBarExpenses": "जमा खर्च",
+  "navBarIncome": "उत्पन्न",
+
   "navBarHusbandry": "पशुपालन",
   "navBarMachinery": "यंत्रसामग्री",
-
   "buttonShowAllCrops" : "पीक दाखवा",
   "buttonShowAllFarms" : "शेती दाखवा ",
   "buttonShowAllEvents" : "शेत काम दाखवा ",

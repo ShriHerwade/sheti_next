@@ -7,6 +7,7 @@ abstract class  LocaleKeys {
   static const createCrop = 'createCrop';
   static const createEvent = 'createEvent';
   static const createExpense = 'createExpense';
+  static const createIncome = 'createIncome';
   static const save = 'save';
   static const cancel = 'cancel';
   static const address = 'address';
@@ -40,6 +41,7 @@ abstract class  LocaleKeys {
   static const navBarCrops = 'navBarCrops';
   static const navBarEvents = 'navBarEvents';
   static const navBarExpenses = 'navBarExpenses';
+  static const navBarIncome = 'navBarIncome';
   static const navBarHusbandry = 'navBarHusbandry';
   static const navBarMachinery = 'navBarMachinery';
   static const buttonShowAllCrops = 'buttonShowAllCrops';

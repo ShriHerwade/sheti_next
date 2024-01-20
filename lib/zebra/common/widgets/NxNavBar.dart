@@ -87,7 +87,7 @@ class NxNavBar extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (_) => ExpenseIncomeScreen()));
                       },
-                      child: Text(LocaleKeys.navBarExpenses.tr())),
+                      child: Text(LocaleKeys.navBarIncome.tr())),
                 ),
                 ListTile(
                   leading: Icon(Icons.dashboard),

@@ -5,6 +5,8 @@
   "createCrop": "Create New Crop",
   "createEvent": "Create New Event",
   "createExpense": "Create New Expense",
+  "createIncome": "Create New Income",
+
   "save": "Save",
   "cancel": "Cancel",
   "address": "Address",
@@ -30,6 +32,7 @@
   "labelExpenseType": "Expense Type",
   "expenseDate": "Expense Date",
   "expenseAmount": "Amount",
+
   "navBarDiary": "Diary",
   "navBarLanguages": "Language",
   "navBarLangMarathi": "Marathi",
@@ -38,6 +41,7 @@
   "navBarCrops": "Crop",
   "navBarEvents": "Event",
   "navBarExpenses": "Expense",
+  "navBarIncome": "Income",
   "navBarHusbandry": "Animal Husbandry",
   "navBarMachinery": "Machinery",
 
