@@ -12,6 +12,7 @@ import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
+import '../../common/widgets/NxDDFormField.dart';
 import '../../common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
@@ -41,7 +42,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
   List<FarmModel> farms = [];
   List<CropModel> crops = [];
   List<String> farmExpenses = [];
-  List<String> selectedExpense = [];
+  String? selectedExpense;
+ // List<String> selectedExpense = [];
   bool isCreateAnother = false;
 
   @override
@@ -97,7 +99,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
           fileExtension: null, // Default value
           splitBetween: 0, // Default value
           details: null, // Default value
-          expenseType: selectedExpense.isNotEmpty ? selectedExpense.first : 'Default Expense', // Default value
+          //expenseType: selectedExpense.isNotEmpty ? selectedExpense.first : 'Default Expense', // Default value
+          expenseType: selectedExpense!,
           amount: double.parse(_confamount.text),
           expenseDate: selectedDate ?? DateTime.now(),
           isActive: true, // Default value
@@ -113,8 +116,9 @@ class _CreateExpensesState extends State<CreateExpenses> {
         selectedFarm = null;
         selectedCrop = null;
         isCreateAnother=false;
+        selectedExpense = null;
 
-        selectedExpense = [];
+        //selectedExpense = [];
         selectedDate = null;
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -280,6 +284,21 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       },
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    NxDDFormField(
+                      value: selectedExpense,
+                      hint: LocaleKeys.selectExpenseType.tr(),
+                      label: LocaleKeys.labelExpenseType.tr(),
+                      items: farmExpenses,
+                      onChanged: (String? expense) {
+                        setState(() {
+                          selectedExpense = expense;
+                          if (expense != null) {
+                            print('Selected expenseType: $expense');
+                          }
+                        });
+                      },
+                    ),
+                    /*SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
@@ -314,7 +333,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.normal, color: ColorConstants.fieldHintTextColor),
                       ),
-                    ),
+                    ),*/
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     buildDateField(LocaleKeys.expenseDate.tr()),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
@@ -385,7 +404,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
   bool isSaveButtonEnabled() {
     return selectedFarm != null &&
         selectedCrop != null &&
-        selectedExpense.isNotEmpty &&
+       // selectedExpense?.isNotEmpty &&
         selectedDate != null &&
         _confamount.text.isNotEmpty;
   }

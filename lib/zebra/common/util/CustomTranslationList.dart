@@ -80,7 +80,7 @@ class CustomTranslationList {
 
   static const List<String> farmTypes_mr = [
     "स्व.मालकीचे शेत",
-    "भाड्याने घेतलेले शेत",
+    "भाडे तत्वावर घेतलेले शेत",
     "संयुक्त शेती"
   ];
 
