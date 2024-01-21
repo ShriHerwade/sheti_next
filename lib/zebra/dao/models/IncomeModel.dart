@@ -1,5 +1,5 @@
 //ExpenseModel.dart
-class ExpenseModel {
+class IncomeModel {
   int? incomeId;
   int farmId;
   int cropId;
@@ -20,7 +20,7 @@ class ExpenseModel {
   bool isActive;
   final DateTime? createdDate;
 
-  ExpenseModel(
+  IncomeModel(
       {this.incomeId,
       required this.farmId,
       required this.cropId,
@@ -63,8 +63,8 @@ class ExpenseModel {
     };
   }
 
-  factory ExpenseModel.fromMap(Map<String, dynamic> map) {
-    return ExpenseModel(
+  factory IncomeModel.fromMap(Map<String, dynamic> map) {
+    return IncomeModel(
       incomeId: map['incomeId'],
       farmId: map['farmId'],
       cropId: map['cropId'],

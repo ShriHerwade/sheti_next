@@ -8,7 +8,9 @@ import 'package:sheti_next/zebra/dao/models/CropsMetaModel.dart';
 import 'package:sheti_next/zebra/dao/models/EventModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import 'package:sheti_next/zebra/dao/models/IncomeModel.dart';
 import 'package:sheti_next/zebra/dao/models/LatestExpenseModel.dart';
+import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
 import 'package:sheti_next/zebra/dao/models/SettingModel.dart';
 import 'package:sheti_next/zebra/dao/models/UserModel.dart';
 import 'package:sqflite/sqflite.dart';
@@ -22,9 +24,11 @@ class DbHelper {
   static const String Table_Farms = 'farms';
   static const String Table_Crops = 'crops';
   static const String Table_CropsMeta = 'cropsMeta';
+  static const String Table_Poes = 'poes';
 
   static const String Table_Events = 'events';
   static const String Table_Expenses = 'expenses';
+  static const String Table_Incomes = 'incomes';
   static const String Table_AppSettings = 'settings';
 
   static const String View_LatestExpenses = 'latestExpenses';
@@ -47,6 +51,8 @@ class DbHelper {
   static const String C_cropId = 'cropId';
   static const String C_eventId = 'eventId';
   static const String C_expenseId = 'expenseId';
+  static const String C_incomeId = 'incomeId';
+  static const String C_poeId = 'poeId';
 
   static const String C_firstName = 'firstName';
   static const String C_lastName = 'lastName';
@@ -95,6 +101,24 @@ class DbHelper {
   static const String C_key = 'key';
   static const String C_value = 'value';
   static const String C_profile = 'profile';
+
+  static const String C_poeName = 'poeName';
+  static const String C_isCreditor = 'isCreditor';
+  static const String C_isShopFirm = 'isShopFirm';
+  static const String C_isBuyer = 'isBuyer';
+  static const String C_isServiceProvider = 'isServiceProvider';
+  static const String C_isFarmWorker = 'isFarmWorker';
+  static const String C_address = 'address';
+
+  static const String C_quantity = 'quantity';
+  static const String C_ratePerUnit = 'ratePerUnit';
+  static const String C_rateUnit = 'rateUnit';
+  static const String C_receiptNumber = 'receiptNumber';
+  static const String C_receiptFilePath = 'receiptFilePath';
+  static const String C_incomeType = 'incomeType';
+  static const String C_incomeDate = 'incomeDate';
+
+
 
   Future<Database> get db async {
     if (_db != null) {
@@ -250,18 +274,48 @@ class DbHelper {
             $C_invoiceFilePath TEXT,
             $C_fileExtension TEXT,
             $C_isCredit INTEGER NOT NULL DEFAULT 0,
-            $C_creditBy TEXT,
+            $C_poeId INTEGER,
             $C_splitBetween INTEGER NOT NULL DEFAULT 0,           
             $C_details TEXT,
             $C_isActive INTEGER,            
             $C_createdDate TEXT,
             FOREIGN KEY ($C_farmId) REFERENCES $Table_Farms ($C_farmId),
             FOREIGN KEY ($C_cropId) REFERENCES $Table_Crops ($C_cropId),
-            FOREIGN KEY ($C_userId) REFERENCES $Table_Users ($C_userId)
+            FOREIGN KEY ($C_userId) REFERENCES $Table_Users ($C_userId),
+            FOREIGN KEY ($C_poeId) REFERENCES $Table_Poes ($C_poeId) ON DELETE NO ACTION
+
           )
           ''',
           );
 
+          // Create Income table
+          db.execute(
+            '''
+          CREATE TABLE $Table_Incomes (
+            $C_expenseId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+            $C_farmId INTEGER NOT NULL,
+            $C_cropId INTEGER,
+            $C_userId INTEGER NOT NULL,            
+            $C_incomeType TEXT,
+            $C_quantity REAL,
+            $C_unit TEXT,
+            $C_ratePerUnit REAL,
+            $C_rateUnit TEXT,           
+            $C_amount INTEGER NOT NULL DEFAULT 0,
+            $C_incomeDate TEXT,
+            $C_receiptNumber TEXT,
+            $C_receiptFilePath TEXT,
+            $C_fileExtension TEXT,                       
+            $C_details TEXT,
+            $C_isActive INTEGER,            
+            $C_createdDate TEXT,
+            FOREIGN KEY ($C_farmId) REFERENCES $Table_Farms ($C_farmId),
+            FOREIGN KEY ($C_cropId) REFERENCES $Table_Crops ($C_cropId),
+            FOREIGN KEY ($C_userId) REFERENCES $Table_Users ($C_userId)          
+
+          )
+          ''',
+          );
           // Create AppSetting table
           db.execute(
             '''
@@ -272,6 +326,28 @@ class DbHelper {
             $C_profile TEXT,
             $C_isActive INTEGER NOT NULL DEFAULT 1 ,                 
             $C_createdDate TEXT                 
+          )
+          ''',
+          );
+
+          // Create poes table
+          db.execute(
+            '''
+          CREATE TABLE $Table_Poes (
+            $C_poeId INTEGER PRIMARY KEY AUTOINCREMENT,          
+            $C_accountId INTEGER,
+            $C_poeName TEXT,
+            $C_mobileNo TEXT,
+            $C_email TEXT ,
+            $C_address TEXT , 
+            $C_isCreditor INTEGER NOT NULL DEFAULT 1 ,
+            $C_isBuyer INTEGER NOT NULL DEFAULT 0 ,
+            $C_isShopFirm INTEGER NOT NULL DEFAULT 0 ,
+            $C_isServiceProvider INTEGER NOT NULL DEFAULT 0 ,
+            $C_isFarmWorker INTEGER NOT NULL DEFAULT 0 ,
+            $C_isActive INTEGER NOT NULL DEFAULT 1 ,                  
+            $C_createdDate TEXT,
+            FOREIGN KEY ($C_accountId) REFERENCES $Table_Account ($C_accountId)                 
           )
           ''',
           );
@@ -512,6 +588,35 @@ class DbHelper {
       rethrow;
     }
     print("Expenses record inserted");
+  }
+
+  Future<void> saveIncomeData(IncomeModel income) async {
+    final dbClient = await db;
+    try{
+      await dbClient.insert(
+        Table_Incomes,
+        income.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );}catch(e){
+      print("Error while saving income data : $e");
+      rethrow;
+    }
+    print("Income record inserted");
+  }
+
+
+  Future<void> savePoeData(PoeModel poe) async {
+    final dbClient = await db;
+    try{
+      await dbClient.insert(
+        Table_Poes,
+        poe.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );}catch(e){
+      print("Error while saving poe data : $e");
+      rethrow;
+    }
+    print("Poe record inserted");
   }
 
   Future<void> insertInitialMetaData(Database db) async {

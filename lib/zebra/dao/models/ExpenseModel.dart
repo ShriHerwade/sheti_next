@@ -6,7 +6,7 @@ class ExpenseModel {
   int userId;
   bool? isFarmLevel;
   bool? isCredit;
-  String? creditBy;
+  int? creditBy;
   String? invoiceNumber;
   String? invoiceFilePath;
   String? fileExtension;

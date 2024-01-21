@@ -3,7 +3,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:multiselect/multiselect.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
@@ -11,6 +10,7 @@ import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 import '../../common/widgets/NxDDFormField.dart';
 import '../../common/widgets/NxTextFormField.dart';
@@ -33,6 +33,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
   int? selectedFarm;
   int? selectedCrop;
+  int? selectedPoe;
   int? userId=1;
   DateTime? selectedDate;
   DateTime? startDate;
@@ -42,9 +43,12 @@ class _CreateExpensesState extends State<CreateExpenses> {
   List<FarmModel> farms = [];
   List<CropModel> crops = [];
   List<String> farmExpenses = [];
+  List<PoeModel> poes = [];
+
   String? selectedExpense;
- // List<String> selectedExpense = [];
-  bool isCreateAnother = false;
+  // List<String> selectedExpense = [];
+  bool isCreateAnotherExpense = false;
+  bool isCreditExpense = false;
 
   @override
   void initState() {
@@ -59,20 +63,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
     setState(() {});
   }
 
- /* Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2022),
-      lastDate: DateTime(2101),
-    );
 
-    if (picked != null) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }*/
 // save data
   String formatDate(DateTime? date) {
     if (date != null) {
@@ -91,7 +82,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
           farmId: selectedFarm!,
           cropId: selectedCrop!,
           userId: 1,
-         isFarmLevel: false, // Default value
+          isFarmLevel: false, // Default value
           isCredit: false, // Default value
           creditBy: null, // Default value
           invoiceNumber: null, // Default value
@@ -115,7 +106,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
         }else{*/
         selectedFarm = null;
         selectedCrop = null;
-        isCreateAnother=false;
+        isCreateAnotherExpense = false;
+        isCreditExpense = false;
         selectedExpense = null;
 
         //selectedExpense = [];
@@ -177,6 +169,12 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
   // Method to get crops by farmId
   Future<void> getCropsByFarmId(int farmId) async {
+    if (farmId == null) {
+      setState(() {
+        crops = []; // Clear the crops list when farmId is null
+      });
+      return;
+    }
     List<CropModel> pulledCrops = await dbHelper!.getCropsByFarmId(farmId);
     // Use the retrieved crops as needed
     print('Crops for Farm ID $farmId: $pulledCrops');
@@ -283,6 +281,38 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         });
                       },
                     ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    CheckboxListTile(
+                      checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
+                      activeColor: ColorConstants.checkBoxActiveColor,
+                      title:Text(LocaleKeys.checkBoxIsCreditor.tr()),
+                      value: this.isCreditExpense,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          this.isCreditExpense = value!;
+                        });
+                      },
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    NxDDFormField_id(
+                      selectedItemId: selectedPoe,
+                      label: LocaleKeys.labelCreditor.tr(),
+                      hint: LocaleKeys.hintCreditor.tr(),
+                      items: Map.fromIterable(
+                        poes,
+                        key: (poe) => poe.poeId,
+                        value: (poe) => poe.poeName ?? 'Unknown Poe',
+                      ),
+                      onChanged: (int? poeId) {
+                        setState(() {
+                          selectedPoe = poeId;
+                          if (poeId != null) {
+                            print('Selected Farm ID: $poeId');
+                          }
+                        });
+                      },
+                    ),
 
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     buildDateField(LocaleKeys.expenseDate.tr()),
@@ -298,11 +328,11 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
                       activeColor: ColorConstants.checkBoxActiveColor,
                       title:Text("Create Another Expense"),
-                      value: this.isCreateAnother,
+                      value: this.isCreateAnotherExpense,
                       controlAffinity: ListTileControlAffinity.leading,
                       onChanged: (bool? value) {
                         setState(() {
-                          this.isCreateAnother = value!;
+                          this.isCreateAnotherExpense = value!;
                         });
                       },
                     ),
@@ -353,8 +383,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
   void showExpenses() {
     // Implement logic to navigate or show expenses screen
-   Navigator.push(
-       context,MaterialPageRoute(builder: (_) => MyExpenses()));
+    Navigator.push(
+        context,MaterialPageRoute(builder: (_) => MyExpenses()));
     // Example: Navigator.push(context, MaterialPageRoute(builder: (_) => ExpensesScreen()));
   }
 }
