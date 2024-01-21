@@ -56,7 +56,3 @@ class _ExpenseIncomeScreenState extends State<ExpenseIncomeScreen> with SingleTi
     );
   }
 }
-
-
-
-
