@@ -202,7 +202,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
     }
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: Text(LocaleKeys.createExpense.tr()),
         centerTitle: false,
         leading: IconButton(
@@ -211,7 +211,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
         ),
-      ),
+      ),*/
       body: Form(
         key: _formKey,
         child:  WillPopScope(
