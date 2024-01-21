@@ -82,13 +82,12 @@ class _CreateFarmsState extends State<CreateFarms> {
       ),
       body: Form(
         key: _formKey,
-        child: PopScope(
-          canPop: true,
-          onPopInvoked: (didPop) async {
+        child: WillPopScope(
+          onWillPop: () async {
             // Navigate to HomeScreen when the back button is pressed
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
             // Prevent the default back button behavior
-             didPop =false;
+            return false;
           },
 
           child:  Dismissible(
