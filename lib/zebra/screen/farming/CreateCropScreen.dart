@@ -72,7 +72,6 @@ class _CreateCropState extends State<CreateCrop> {
   @override
   Widget build(BuildContext context) {
     // Initialize ResponsiveUtil with the current context
-    double fontSize = ResponsiveUtil.fontSize(context, 20.0);
 
     // custom list localization
     if (context.locale.languageCode == 'mr') {
@@ -203,7 +202,7 @@ class _CreateCropState extends State<CreateCrop> {
                     width: ResponsiveUtil.screenWidth(context) * 0.8,
                     child: TextButton(
                       onPressed:
-                          isSaveButtonEnabled() ? () => saveCropData() : null,
+                           () => saveCropData() ,
                       child: Text(
                         LocaleKeys.save.tr(),
                         style: TextStyle(
@@ -228,14 +227,7 @@ class _CreateCropState extends State<CreateCrop> {
     );
   }
 
-  bool isSaveButtonEnabled() {
-    return _confarmArea.text.isNotEmpty &&
-        selectedFarm != null &&
-        selectedCrop != null &&
-        selectedUnit != null &&
-        startDate != null &&
-        endDate != null;
-  }
+
 
   Future<void> saveCropData() async {
     if (_formKey.currentState!.validate()) {

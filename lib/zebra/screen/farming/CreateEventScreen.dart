@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
-import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
+
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -135,13 +135,10 @@ class _CreateEventsState extends State<CreateEvents> {
           ),
         );
 
-      /*  if(isCreateAnother) {
-         //do nothing
-        }else{*/
+
           selectedFarm = null;
           selectedCrop = null;
           isCreateAnother=false;
-       // }
         selectedFarmEvents = [];
         startDate = null;
         endDate = null;

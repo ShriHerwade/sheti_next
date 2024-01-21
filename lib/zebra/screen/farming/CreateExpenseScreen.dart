@@ -177,12 +177,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
   // Method to get crops by farmId
   Future<void> getCropsByFarmId(int farmId) async {
-    if (farmId == null) {
-      setState(() {
-        crops = []; // Clear the crops list when farmId is null
-      });
-      return;
-    }
     List<CropModel> pulledCrops = await dbHelper!.getCropsByFarmId(farmId);
     // Use the retrieved crops as needed
     print('Crops for Farm ID $farmId: $pulledCrops');
@@ -202,16 +196,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
     }
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
-      /*appBar: AppBar(
-        title: Text(LocaleKeys.createExpense.tr()),
-        centerTitle: false,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: ColorConstants.miniIconDefaultColor),
-          onPressed: () {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-          },
-        ),
-      ),*/
+
       body: Form(
         key: _formKey,
         child:  WillPopScope(
@@ -298,42 +283,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         });
                       },
                     ),
-                    /*SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
-                      child: DropDownMultiSelect(
-                        decoration: InputDecoration(
-                          hintText: LocaleKeys.selectExpenseType.tr(),
-                          labelText: LocaleKeys.labelExpenseType.tr(),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(width:1,color: ColorConstants.enabledFieldBorderColor)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(width: 1,color: ColorConstants.focusedFieldBorderColor)),
-                          disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(width: 1,color: ColorConstants.disabledFieldBorderColor)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                              borderSide: BorderSide(width: 1,color: ColorConstants.errorFieldBorderColor)),
-                          fillColor: ColorConstants.fieldFillDefaultColor,
-                          filled: true,
-                          isDense: true,
-                        ),
-                        onChanged: (List<String> ex) {
-                          setState(() {
-                            selectedExpense = ex;
-                          });
-                        },
-                        options: farmExpenses,
-                        selectedValues: selectedExpense,
-                        hint: Text(LocaleKeys.selectExpenseType.tr()),
-                        hintStyle: TextStyle(
-                            fontWeight: FontWeight.normal, color: ColorConstants.fieldHintTextColor),
-                      ),
-                    ),*/
+
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     buildDateField(LocaleKeys.expenseDate.tr()),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
@@ -360,9 +310,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     Container(
                       width: ResponsiveUtil.screenWidth(context) * 0.8,
                       child: TextButton(
-                        onPressed: isSaveButtonEnabled()
-                            ? () => saveExpenseData(context)
-                            : null,
+                        onPressed: () => saveExpenseData(context),
                         child: Text(
                           LocaleKeys.save.tr(),
                           style: TextStyle(
@@ -401,13 +349,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
     );
   }
 
-  bool isSaveButtonEnabled() {
-    return selectedFarm != null &&
-        selectedCrop != null &&
-       // selectedExpense?.isNotEmpty &&
-        selectedDate != null &&
-        _confamount.text.isNotEmpty;
-  }
+
 
   void showExpenses() {
     // Implement logic to navigate or show expenses screen

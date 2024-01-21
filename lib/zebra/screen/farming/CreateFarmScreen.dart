@@ -8,7 +8,6 @@ import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
-import 'package:sqflite_common/sqlite_api.dart';
 import '../../common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
@@ -180,9 +179,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                     Container(
                      width: ResponsiveUtil.screenWidth(context) * 0.8,
                       child: TextButton(
-                        onPressed: isSaveButtonEnabled()
-                            ? () => saveFarmData(context)
-                            : null,
+                        onPressed: ()=> saveFarmData(context),
                         child: Text(
                           LocaleKeys.save.tr(),
                           style: TextStyle(
@@ -198,32 +195,6 @@ class _CreateFarmsState extends State<CreateFarms> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                    // Show all farms button
-                    /*Container(
-                      width: ResponsiveUtil.screenWidth(context) * 0.35,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MyFarmScreen(),
-                            ),
-                          );
-                        },
-                        *//*child: Text(
-                          LocaleKeys.buttonShowAllFarms.tr(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: fontSize,
-                          ),
-                        ),*//*
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),*/
 
                   ],
 
@@ -237,13 +208,7 @@ class _CreateFarmsState extends State<CreateFarms> {
   }
 
   // Check if save button should be enabled
-  bool isSaveButtonEnabled() {
-    return _confarmName.text.isNotEmpty &&
-        _confarmAddress.text.isNotEmpty &&
-        _confarmArea.text.isNotEmpty &&
-        selectedUnit != null &&
-        selectedType != null;
-  }
+
 
   // Save farm data to the database
   void saveFarmData(BuildContext context) async {
