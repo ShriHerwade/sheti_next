@@ -11,6 +11,7 @@ import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 import '../../common/widgets/NxDDFormField.dart';
 import '../../common/widgets/NxTextFormField.dart';
@@ -33,6 +34,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
   int? selectedFarm;
   int? selectedCrop;
+  int? selectedPoe;
   int? userId=1;
   DateTime? selectedDate;
   DateTime? startDate;
@@ -42,9 +44,12 @@ class _CreateExpensesState extends State<CreateExpenses> {
   List<FarmModel> farms = [];
   List<CropModel> crops = [];
   List<String> farmExpenses = [];
+  List<PoeModel> poes = [];
+
   String? selectedExpense;
  // List<String> selectedExpense = [];
-  bool isCreateAnother = false;
+  bool isCreateAnotherExpense = false;
+  bool isCreditExpense = false;
 
   @override
   void initState() {
@@ -59,20 +64,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
     setState(() {});
   }
 
- /* Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2022),
-      lastDate: DateTime(2101),
-    );
 
-    if (picked != null) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }*/
 // save data
   String formatDate(DateTime? date) {
     if (date != null) {
@@ -115,7 +107,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
         }else{*/
         selectedFarm = null;
         selectedCrop = null;
-        isCreateAnother=false;
+        isCreateAnotherExpense = false;
+        isCreditExpense = false;
         selectedExpense = null;
 
         //selectedExpense = [];
@@ -298,6 +291,38 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         });
                       },
                     ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    CheckboxListTile(
+                      checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
+                      activeColor: ColorConstants.checkBoxActiveColor,
+                      title:Text(LocaleKeys.checkBoxIsCreditor.tr()),
+                      value: this.isCreditExpense,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          this.isCreditExpense = value!;
+                        });
+                      },
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    NxDDFormField_id(
+                      selectedItemId: selectedPoe,
+                      label: LocaleKeys.labelCreditor.tr(),
+                      hint: LocaleKeys.hintCreditor.tr(),
+                      items: Map.fromIterable(
+                        poes,
+                        key: (poe) => poe.poeId,
+                        value: (poe) => poe.poeName ?? 'Unknown Poe',
+                      ),
+                      onChanged: (int? poeId) {
+                        setState(() {
+                          selectedPoe = poeId;
+                          if (poeId != null) {
+                            print('Selected Farm ID: $poeId');
+                          }
+                        });
+                      },
+                    ),
                     /*SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     Container(
                       padding: EdgeInsets.symmetric(
@@ -348,11 +373,11 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
                       activeColor: ColorConstants.checkBoxActiveColor,
                       title:Text("Create Another Expense"),
-                      value: this.isCreateAnother,
+                      value: this.isCreateAnotherExpense,
                       controlAffinity: ListTileControlAffinity.leading,
                       onChanged: (bool? value) {
                         setState(() {
-                          this.isCreateAnother = value!;
+                          this.isCreateAnotherExpense = value!;
                         });
                       },
                     ),

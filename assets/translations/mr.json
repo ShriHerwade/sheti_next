@@ -33,6 +33,12 @@
   "expenseDate": "खर्चाची तारीख",
   "expenseAmount": "रक्कम",
 
+  "labelCreditor" : "उधार देणाऱ्याचे नाव",
+  "hintCreditor" : "उधार देणाऱ्याचे नाव निवडा ",
+
+  "checkBoxIsCreditor" : "हा खर्च उधारीवर केलेला आहे का ?",
+
+
   "navBarDiary": "डायरी",
   "navBarLanguages": "भाषा",
   "navBarLangMarathi": "मराठी",

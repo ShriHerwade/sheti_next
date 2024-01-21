@@ -33,6 +33,9 @@ abstract class  LocaleKeys {
   static const labelExpenseType = 'labelExpenseType';
   static const expenseDate = 'expenseDate';
   static const expenseAmount = 'expenseAmount';
+  static const labelCreditor = 'labelCreditor';
+  static const hintCreditor = 'hintCreditor';
+  static const checkBoxIsCreditor = 'checkBoxIsCreditor';
   static const navBarDiary = 'navBarDiary';
   static const navBarLanguages = 'navBarLanguages';
   static const navBarLangMarathi = 'navBarLangMarathi';
