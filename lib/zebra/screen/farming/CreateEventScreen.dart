@@ -1,11 +1,9 @@
 // create_events.dart
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
-
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';

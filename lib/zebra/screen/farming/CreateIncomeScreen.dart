@@ -11,7 +11,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
     return Scaffold(
 
       body: Center(
-        child: Text("This is Create Income Screen"),
+        child: Text("This is Create Income  Screen"),
       )
     );
   }

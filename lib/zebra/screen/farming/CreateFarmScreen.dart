@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
@@ -83,12 +82,13 @@ class _CreateFarmsState extends State<CreateFarms> {
       ),
       body: Form(
         key: _formKey,
-        child: WillPopScope(
-          onWillPop: () async {
+        child: PopScope(
+          canPop: true,
+          onPopInvoked: (didPop) async {
             // Navigate to HomeScreen when the back button is pressed
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
             // Prevent the default back button behavior
-            return false;
+             didPop =false;
           },
 
           child:  Dismissible(
