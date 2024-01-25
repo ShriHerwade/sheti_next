@@ -28,7 +28,7 @@ class PoeModel {
       required this.isServiceProvider, // who provide the services in the farm
       required this.isFarmWorker, // who works in our farm or wage
       required this.isActive,
-      required this.createdDate});
+      this.createdDate});
 
   Map<String, dynamic> toMap() {
     return {
