@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sheti_next/zebra/common/widgets/NxNavBar.dart';
+import '../../common/widgets/NavDrawer.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NxNavBar(),
+      drawer: NavDrawer(),
       bottomNavigationBar: GNav(
         backgroundColor: Colors.white,
         color: Colors.black,
