@@ -1,8 +1,5 @@
-// create_expenseScreen.dart
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
@@ -55,11 +52,17 @@ class _CreateExpensesState extends State<CreateExpenses> {
     super.initState();
     dbHelper = DbHelper();
     loadFarms(); // Load farms when the widget initializes
+    loadCreditors();
   }
 
   // Load farms from the database
   Future<void> loadFarms() async {
     farms = await dbHelper!.getAllFarms();
+    setState(() {});
+  }
+
+  Future<void> loadCreditors() async {
+    poes = await dbHelper!.getAllPoe();
     setState(() {});
   }
 
@@ -308,12 +311,18 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         setState(() {
                           selectedPoe = poeId;
                           if (poeId != null) {
-                            print('Selected Farm ID: $poeId');
+                            print('Selected Poe ID: $poeId');
                           }
                         });
                       },
+                      isEnabled: isCreditExpense, // Pass the isEnabled property
                     ),
-
+              IconButton(
+                icon: Icon(Icons.add,size: 15,),
+                onPressed: () {
+                  // Open the dialog to add a new creditor
+                  _showAddCreditorDialog();
+                },),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     buildDateField(LocaleKeys.expenseDate.tr()),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
@@ -379,6 +388,98 @@ class _CreateExpensesState extends State<CreateExpenses> {
     );
   }
 
+  Widget buildCreditorDropdown() {
+    return Stack(
+      children: [
+        NxDDFormField_id(
+          selectedItemId: selectedPoe,
+          label: LocaleKeys.labelCreditor.tr(),
+          hint: LocaleKeys.hintCreditor.tr(),
+          items: Map.fromIterable(
+            poes,
+            key: (poe) => poe.poeId,
+            value: (poe) => poe.poeName ?? 'Unknown Poe',
+          ),
+          onChanged: (int? poeId) {
+            setState(() {
+              selectedPoe = poeId;
+              if (poeId != null) {
+                print('Selected Farm ID: $poeId');
+              }
+            });
+          },
+          isEnabled: isCreditExpense,
+        ),
+        Positioned(
+          right: 0,
+          child: IconButton(
+            icon: Icon(Icons.add),
+            onPressed: isCreditExpense ? _showAddCreditorDialog : null,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showAddCreditorDialog() {
+    String poeName = "";
+    String poeMobileNo = "";
+    String poeAddress = "";
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Add New Creditor'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                onChanged: (value) => poeName = value,
+                decoration: InputDecoration(labelText: 'Name'),
+              ),
+              TextField(
+                onChanged: (value) => poeMobileNo = value,
+                decoration: InputDecoration(labelText: 'Mobile'),
+              ),
+              TextField(
+                onChanged: (value) => poeAddress = value,
+                decoration: InputDecoration(labelText: 'Address'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+               dbHelper!.savePoeData(PoeModel(
+                   poeName: poeName,
+                   accountId: 1, //hard coded need to replace with global variable
+                   mobileNo: poeMobileNo,
+                   address: poeAddress,
+                   email : null,
+                   isCreditor : true,
+                   isShopFirm : true,
+                   isBuyer : false,
+                   isServiceProvider : false,
+                   isFarmWorker : false,
+                   isActive : true,
+               ));
+               await loadCreditors();
+                Navigator.of(context).pop();
+              },
+              child: Text('Save'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 
   void showExpenses() {

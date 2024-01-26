@@ -496,6 +496,16 @@ class DbHelper {
     });
   }
 
+  Future<List<PoeModel>> getAllPoe() async {
+    final dbClient = await db;
+    final List<Map<String, dynamic>> maps = await dbClient.query(Table_Poes,
+        where: 'isActive = ? AND isActive IS NOT NULL',
+        whereArgs: [1],
+        orderBy: 'createdDate DESC');
+    return List.generate(maps.length, (i) {
+      return PoeModel.fromMap(maps[i]);
+    });
+  }
 
   Future<List<EventModel>> getAllEvents() async {
     final dbClient = await db;

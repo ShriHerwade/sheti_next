@@ -48,21 +48,22 @@ class PoeModel {
     };
   }
 
-  factory PoeModel.fromMap(Map<String, dynamic> map) {
+    factory PoeModel.fromMap(Map<String, dynamic> map) {
     return PoeModel(
       poeId: map['poeId'] as int,
       accountId: map['accountId'] as int,
       poeName: map['poeName'] as String,
-      email: map['email'] as String,
-      mobileNo: map['mobileNo'] as String,
-      address: map['address'] as String,
-      isCreditor: map['isCreditor'] as bool,
-      isShopFirm: map['isShopFirm'] as bool,
-      isBuyer: map['isBuyer'] as bool,
-      isServiceProvider: map['isServiceProvider'] as bool,
-      isFarmWorker: map['isFarmWorker'] as bool,
-      isActive: map['isActive'] as bool,
-      createdDate: map['createdDate'] as DateTime,
+      email: map['email'] != null ? map['email'] as String : '',
+      mobileNo: map['mobileNo'] != null ? map['mobileNo'] as String : '',
+      address: map['address'] != null ? map['address'] as String : '',
+      isCreditor: map['isCreditor'] == 1,
+      isShopFirm: map['isShopFirm'] == 1,
+      isBuyer: map['isBuyer'] == 1,
+      isServiceProvider: map['isServiceProvider'] == 1,
+      isFarmWorker: map['isFarmWorker'] == 1,
+      isActive: map['isActive'] == 1,
+      createdDate: map['createdDate'] != null ? DateTime.parse(map['createdDate'] as String) : null,
+
     );
   }
 }
