@@ -110,4 +110,12 @@ class CustomTranslationList {
     "वाहतूक",
     "इतर"
   ];
+
+  static const List<String> cultivationType_mr = ["स्वतः पिकवणे", "भागीदारी (५० - ५०%)", "भागीदारी (७५ - २५%)", "दुसऱ्यास करावयास देणे "];
+
+  static const List<String> cultivationType_en = ["Owned (Own cultivation)", "Partnership (50-50%)", "Partnership (75-25%)", "Leased (To someone else)"];
+
+  static const List<String> harvestingFrequency_mr = ["एकदाच शेवटी ", "वर्षातून एकदा", "वर्षातून दोनदा", "दर महिन्याला", "दर आठवड्याला"];
+
+  static const List<String> harvestingFrequency_en = ["Once in a lifetime", "Annually", "Biannually", "Monthly", "Weekly"];
 }
