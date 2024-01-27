@@ -11,7 +11,7 @@ abstract class  LocaleKeys {
   static const save = 'save';
   static const cancel = 'cancel';
   static const address = 'address';
-  static const farmAea = 'farmAea';
+  static const farmArea = 'farmArea';
   static const unit = 'unit';
   static const selectFarmType = 'selectFarmType';
   static const labelFarmType = 'labelFarmType';

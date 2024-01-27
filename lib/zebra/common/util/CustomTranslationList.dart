@@ -76,12 +76,11 @@ class CustomTranslationList {
 
   static const List<String> areaUnits_mr = ["गुंठा", "एकर", "हेक्टर"];
 
-  static const List<String> farmTypes_en = ["Owned", "Leased", "Joint Venture"];
+  static const List<String> farmOwnership_en = ["Owned", "Leased"];
 
-  static const List<String> farmTypes_mr = [
+  static const List<String> farmOwnership_mr = [
     "स्व.मालकीचे शेत",
-    "भाडे तत्वावर घेतलेले शेत",
-    "संयुक्त शेती"
+    "भाडे तत्वावर घेतलेले शेत"
   ];
 
   static const List<String> farmEvents_en = [

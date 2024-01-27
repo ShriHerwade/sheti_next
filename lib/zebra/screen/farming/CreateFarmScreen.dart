@@ -26,12 +26,12 @@ class _CreateFarmsState extends State<CreateFarms> {
   final _confarmArea = TextEditingController();
 
   String? selectedUnit;
-  String? selectedType;
+  String? selectedOwnership;
  late AccountModel account;
   late int accountId;
   DbHelper? dbHelper;
   List<String> units = [];
-  List<String> farmTypes = [];
+  List<String> farmOwnership = [];
 
 
 
@@ -62,10 +62,10 @@ class _CreateFarmsState extends State<CreateFarms> {
     // Set units and farm types based on the selected language
     if (context.locale.languageCode == 'mr') {
       units = CustomTranslationList.areaUnits_mr;
-      farmTypes = CustomTranslationList.farmTypes_mr;
+      farmOwnership = CustomTranslationList.farmOwnership_mr;
     } else if (context.locale.languageCode == 'en') {
       units = CustomTranslationList.areaUnits_en;
-      farmTypes = CustomTranslationList.farmTypes_en;
+      farmOwnership = CustomTranslationList.farmOwnership_en;
     }
 
     return Scaffold(
@@ -135,7 +135,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                     // Text form field for farm area
                     NxTextFormField(
                       controller: _confarmArea,
-                      hintName: LocaleKeys.farmAea.tr(),
+                      hintName: LocaleKeys.farmArea.tr(),
                       inputType: TextInputType.number,
                     ),
                     // Spacer
@@ -159,15 +159,15 @@ class _CreateFarmsState extends State<CreateFarms> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     // Dropdown form field for selecting farm type
                     NxDDFormField(
-                      value: selectedType,
+                      value: selectedOwnership,
                       label: LocaleKeys.labelFarmType.tr(),
                       hint: LocaleKeys.selectFarmType.tr(),
-                      items: farmTypes,
-                      onChanged: (String? typeValue) {
+                      items: farmOwnership,
+                      onChanged: (String? ownershipValue) {
                         setState(() {
-                          selectedType = typeValue;
-                          if (typeValue != null) {
-                            print('Selected Type: $typeValue');
+                          selectedOwnership = ownershipValue;
+                          if (ownershipValue != null) {
+                            print('Selected farmOwnership: $ownershipValue');
                           }
                         });
                       },
@@ -219,7 +219,7 @@ class _CreateFarmsState extends State<CreateFarms> {
           farmAddress: _confarmAddress.text,
           farmArea: double.parse(_confarmArea.text),
           unit: selectedUnit!,
-          farmType: selectedType!,
+          farmType: selectedOwnership!,
           isActive: true,
           createdDate: DateTime.now()
         );
@@ -231,7 +231,7 @@ class _CreateFarmsState extends State<CreateFarms> {
         _confarmAddress.clear();
         _confarmArea.clear();
         selectedUnit = null;
-        selectedType = null;
+        selectedOwnership = null;
 
         // Show a success message in green
         ScaffoldMessenger.of(context).showSnackBar(
