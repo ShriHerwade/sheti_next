@@ -49,7 +49,7 @@ class CodegenLoader extends AssetLoader{
   "expenseAmount": "Amount",
   "labelCreditor": "Creditor Name",
   "hintCreditor": "Selected Creditor Name",
-  "checkBoxIsCreditor": "Is this expense on Credit ?",
+  "checkBoxIsCreditor": "Expense on Credit ?",
   "navBarDiary": "Diary",
   "navBarLanguages": "Language",
   "navBarLangMarathi": "Marathi",

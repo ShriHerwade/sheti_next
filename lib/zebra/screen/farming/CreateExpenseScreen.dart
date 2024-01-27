@@ -43,8 +43,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
   List<PoeModel> poes = [];
 
   String? selectedExpense;
-  // List<String> selectedExpense = [];
-  bool isCreateAnotherExpense = false;
   bool isCreditExpense = false;
 
   @override
@@ -104,12 +102,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
         await dbHelper!.saveExpenseData(expense);
 
         _confamount.clear();
-        /*  if(isCreateAnother) {
-         //do nothing
-        }else{*/
         selectedFarm = null;
         selectedCrop = null;
-        isCreateAnotherExpense = false;
         isCreditExpense = false;
         selectedExpense = null;
 
@@ -285,17 +279,33 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       },
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    CheckboxListTile(
-                      checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
-                      activeColor: ColorConstants.checkBoxActiveColor,
-                      title:Text(LocaleKeys.checkBoxIsCreditor.tr()),
-                      value: this.isCreditExpense,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          this.isCreditExpense = value!;
-                        });
-                      },
+                    Row(
+                      children: [
+                        Checkbox(
+                          checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
+                          activeColor: ColorConstants.checkBoxActiveColor,
+                          value: this.isCreditExpense,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              this.isCreditExpense = value!;
+                            });
+                          },
+                        ),
+                        Text(LocaleKeys.checkBoxIsCreditor.tr()),
+                        TextButton(
+                          onPressed: () {
+                            // Open the dialog to add a new creditor
+                            _showAddCreditorDialog();
+                          },
+                          child: Text(
+                            'Add New Creditor',
+                            style: TextStyle(
+                              color: Colors.black, // Set the color you prefer
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDDFormField_id(
@@ -316,12 +326,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         });
                       },
                     ),
-              IconButton(
-                icon: Icon(Icons.add,size: 15,),
-                onPressed: () {
-                  // Open the dialog to add a new creditor
-                  _showAddCreditorDialog();
-                },),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     buildDateField(LocaleKeys.expenseDate.tr()),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
@@ -329,20 +333,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       controller: _confamount,
                       hintName: LocaleKeys.expenseAmount.tr(),
                       inputType: TextInputType.number,
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    CheckboxListTile(
-
-                      checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
-                      activeColor: ColorConstants.checkBoxActiveColor,
-                      title:Text("Create Another Expense"),
-                      value: this.isCreateAnotherExpense,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          this.isCreateAnotherExpense = value!;
-                        });
-                      },
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     Container(
