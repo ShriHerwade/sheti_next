@@ -315,7 +315,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
                           }
                         });
                       },
-                      isEnabled: isCreditExpense, // Pass the isEnabled property
                     ),
               IconButton(
                 icon: Icon(Icons.add,size: 15,),
@@ -408,7 +407,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
               }
             });
           },
-          isEnabled: isCreditExpense,
         ),
         Positioned(
           right: 0,
