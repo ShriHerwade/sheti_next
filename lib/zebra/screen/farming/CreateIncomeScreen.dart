@@ -1,22 +1,360 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sheti_next/translations/locale_keys.g.dart';
+import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
+import 'package:sheti_next/zebra/dao/DbHelper.dart';
+import 'package:sheti_next/zebra/dao/models/CropModel.dart';
+import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
+import '../../common/widgets/NxDDFormField.dart';
+import '../../common/widgets/NxTextFormField.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
+import '../../dao/models/IncomeModel.dart';
 
 class CreateIncomeScreen extends StatefulWidget {
+  const CreateIncomeScreen({Key? key});
+
   @override
   State<CreateIncomeScreen> createState() => _CreateIncomeScreenState();
 }
 
 class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _confAmount = TextEditingController();
+  final _confQuantity = TextEditingController();
+  final _confRate = TextEditingController();
+
+  int? selectedFarm;
+  int? selectedCrop;
+  int? userId = 1;
+  double? quantity;
+  String? selectedRateUnit;//selected unit for rate
+  String? selectedQuantityUnit;
+  DateTime? selectedDate;
+  DbHelper? dbHelper;
+
+  List<FarmModel> farms = [];
+  List<CropModel> crops = [];
+  List<String> farmIncomes = [];
+  List<PoeModel> poes = [];
+  List<String> cropUnit = [];
+
+  String? selectedIncomeType;
+
+  @override
+  void initState() {
+    super.initState();
+    dbHelper = DbHelper();
+    loadFarms(); // Load farms when the widget initializes
+    //loadPoes(); // Load poes when the widget initializes
+  }
+
+  // Load farms from the database
+  Future<void> loadFarms() async {
+    farms = await dbHelper!.getAllFarms();
+    setState(() {});
+  }
+
+  Future<void> loadPoes() async {
+    poes = await dbHelper!.getAllPoe();
+    setState(() {});
+  }
+
+  // Save data
+  void saveIncomeData(BuildContext context) async {
+    try {
+      if (_formKey.currentState!.validate()) {
+        // Handle save logic using selected values (selectedFarm, selectedCrop, selectedIncome, selectedDate, _confamount.text)
+        IncomeModel income = IncomeModel(
+          farmId: selectedFarm!,
+          cropId: selectedCrop!,
+          userId: 1,
+          ratePerUnit: double.parse(_confRate.text),
+          rateUnit: selectedRateUnit,
+          quantity: double.parse(_confQuantity.text),
+          unit: selectedQuantityUnit!,
+          incomeType: selectedIncomeType!,
+          amount: double.parse(_confAmount.text),
+          incomeDate: selectedDate ?? DateTime.now(),
+          isActive: true, // Default value
+          createdDate: DateTime.now(), // Default value
+        );
+
+        await dbHelper!.saveIncomeData(income);
+
+        _confAmount.clear();
+        _confQuantity.clear();
+        _confRate.clear();
+        selectedFarm = null;
+        selectedCrop = null;
+        selectedIncomeType = null;
+        selectedDate = null;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                    color: ColorConstants.snackBarSuccessCircleColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.check,
+                    color: ColorConstants.miniIconDefaultColor,
+                    size: 16.0,
+                  ),
+                ),
+                SizedBox(width: 6.0),
+                Text(
+                  'Record saved successfully.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: ColorConstants.snackBarTextColor,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            backgroundColor: ColorConstants.snackBarBackgroundColor,
+            behavior: SnackBarBehavior.floating,
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+            ),
+            margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error saving income data."),
+          backgroundColor: ColorConstants.snackBarBackgroundColor,
+          behavior: SnackBarBehavior.floating,
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+          ),
+          margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
+        ),
+      );
+    }
+  }
+
+  // Method to get crops by farmId
+  Future<void> getCropsByFarmId(int farmId) async {
+    if (farmId == null) {
+      setState(() {
+        crops = []; // Clear the crops list when farmId is null
+      });
+      return;
+    }
+    List<CropModel> pulledCrops = await dbHelper!.getCropsByFarmId(farmId);
+    // Use the retrieved crops as needed
+    print('Crops for Farm ID $farmId: $pulledCrops');
+    setState(() {
+      crops = pulledCrops;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (context.locale.languageCode == 'mr') {
+      farmIncomes = CustomTranslationList.incomeType_mr;
+      cropUnit = CustomTranslationList.cropUnits_mr;
+    } else if (context.locale.languageCode == 'en') {
+      farmIncomes = CustomTranslationList.incomeType_en;
+      cropUnit = CustomTranslationList.cropUnits_en;
+    }
     return Scaffold(
+      backgroundColor: Theme.of(context).canvasColor,
+      body: Form(
+        key: _formKey,
+        child: WillPopScope(
+          onWillPop: () async {
+            // Navigate to MyIncomesScreen when the back button is pressed
+            /*Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => MyIncomesScreen()));*/
+            // Prevent the default back button behavior
+            return false;
+          },
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
+              child: Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  // Add your image widget here
+                  NxDDFormField_id(
+                    selectedItemId: selectedFarm,
+                    label: LocaleKeys.labelFarm.tr(),
+                    hint: LocaleKeys.selectFarm.tr(),
+                    items: Map.fromIterable(
+                      farms,
+                      key: (farm) => farm.farmId,
+                      value: (farm) => farm.farmName ?? 'Unknown Farm',
+                    ),
+                    onChanged: (int? farmId) {
+                      setState(() {
+                        selectedFarm = farmId;
+                        selectedCrop = null;
+                        if (farmId != null) {
+                          print('Selected Farm ID: $farmId');
+                          getCropsByFarmId(farmId);
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  NxDDFormField_id(
+                    selectedItemId: selectedCrop,
+                    hint: LocaleKeys.selectCrop.tr(),
+                    label: LocaleKeys.labelCrop.tr(),
+                    items: Map.fromIterable(
+                      crops,
+                      key: (crop) => crop.cropId,
+                      value: (crop) => crop.cropName ?? 'Unknown Crop',
+                    ),
+                    onChanged: (int? cropId) {
+                      setState(() {
+                        selectedCrop = cropId;
+                        if (cropId != null) {
+                          print('Selected Crop ID: $cropId');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  NxDDFormField(
+                    value: selectedIncomeType,
+                    hint: LocaleKeys.selectIncomeType.tr(),
+                    label: LocaleKeys.labelIncomeType.tr(),
+                    items: farmIncomes,
+                    onChanged: (String? income) {
+                      setState(() {
+                        selectedIncomeType = income;
+                        if (income != null) {
+                          print('Selected incomeType: $income');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Rate Per Unit
+                      Expanded(
+                        child: NxTextFormField(
+                          controller: _confRate,
+                          hintName: LocaleKeys.labelRatePerUnit.tr(),
+                          inputType: TextInputType.number,
+                        ),
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      // Unit
+                      Expanded(
+                        child: NxDDFormField(
+                          value: selectedRateUnit,
+                          hint: LocaleKeys.labelRateUnit.tr(),
+                          label: LocaleKeys.labelRateUnit.tr(),
+                          items: cropUnit,
+                          onChanged: (String? rateUnit) {
+                            setState(() {
+                              selectedRateUnit = rateUnit;
+                              if (rateUnit != null) {
+                                print('Selected Rate Unit: $rateUnit');
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Quantity Sold
+                      Expanded(
+                        child: NxTextFormField(
+                          controller: _confQuantity,
+                          hintName: LocaleKeys.labelQuantitySold.tr(),
+                          inputType: TextInputType.number,
+                        ),
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      // Quantity Unit
+                      Expanded(
+                        child: NxDDFormField(
+                          value: selectedQuantityUnit,
+                          hint: LocaleKeys.labelRateUnit.tr(),
+                          label: LocaleKeys.labelRateUnit.tr(),
+                          items: cropUnit,
+                          onChanged: (String? quantityUnit) {
+                            setState(() {
+                              selectedQuantityUnit = quantityUnit!;
+                              if (quantityUnit != null) {
+                                print('Selected Quantity Unit: $quantityUnit');
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  buildDateField(LocaleKeys.labelIncomeDate.tr()),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  NxTextFormField(
+                    controller: _confAmount,
+                    hintName: LocaleKeys.labelAmountReceived.tr(),
+                    inputType: TextInputType.number,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
-      body: Center(
-        child: Text("This is Create Income  Screen"),
-      )
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextButton(
+                      onPressed: () => saveIncomeData(context),
+                      child: Text(
+                        LocaleKeys.save.tr(),
+                        style: TextStyle(
+                          color: ColorConstants.textButtonSaveTextColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: ColorConstants.textButtonSaveColor,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildDateField(String label) {
+    return NxDateField(
+      label: label,
+      labelText: label,
+      selectedDate: selectedDate,
+      onTap: (DateTime? picked) {
+        setState(() {
+          selectedDate = picked;
+        });
+      },
     );
   }
 }
-
-
-
-

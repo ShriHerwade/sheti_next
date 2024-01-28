@@ -26,12 +26,12 @@ class _ExpenseIncomeScreenState extends State<ExpenseIncomeScreen> with SingleTi
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Income/Expenses Page'),
+        title: Text('Expense & Income'),
         bottom: TabBar(
           controller: _tabController,
           tabs: [
-            Tab(child: Text("Create Expense", style: TextStyle(color: Colors.white))),
-            Tab(child: Text("Create Income", style: TextStyle(color: Colors.white))),
+            Tab(child: Text("Create Expense", style: TextStyle(color: Colors.white,fontSize: 15))),
+            Tab(child: Text("Create Income", style: TextStyle(color: Colors.white,fontSize: 15))),
           ],
         ),
       ),

@@ -73,11 +73,15 @@ class CustomTranslationList {
   ];
 
   static const List<String> areaUnits_en = ["Guntha", "Acre", "Hectare"];
-
   static const List<String> areaUnits_mr = ["गुंठा", "एकर", "हेक्टर"];
 
-  static const List<String> farmOwnership_en = ["Owned", "Leased"];
+  static const List<String> cropUnits_en = ["Grams", "Kilogram", "Quintal", "Tonne"];
+  static const List<String> cropUnits_mr = ["ग्रॅम", "किलोग्रॅम", "क्विंटल", "टन"];
 
+  static const List<String> incomeType_en = ["Crop Sales",  "Seed Sales", "Crop Residue Sales", "Value-Added Products"];
+  static const List<String> incomeType_mr = ["शेतमालाची विक्री",  "बियाणे विक्री ", "पीक अवशेष विक्री", "मूल्यवर्धित उत्पादने"];
+
+  static const List<String> farmOwnership_en = ["Owned", "Leased"];
   static const List<String> farmOwnership_mr = [
     "स्व.मालकीचे शेत",
     "भाडे तत्वावर घेतलेले शेत"
