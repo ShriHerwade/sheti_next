@@ -26,6 +26,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
   final _confQuantity = TextEditingController();
   final _confRate = TextEditingController();
   final _confNotes = TextEditingController();
+  final _confReceiptNumber = TextEditingController();
 
   int? selectedFarm;
   int? selectedCrop;
@@ -308,6 +309,12 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  NxTextFormField(
+                    controller: _confReceiptNumber,
+                    hintName: LocaleKeys.HintReceiptNumber.tr(),
+                    inputType: TextInputType.text,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   buildDateField(LocaleKeys.labelIncomeDate.tr()),

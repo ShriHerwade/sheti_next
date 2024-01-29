@@ -28,6 +28,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
   final _formKey = GlobalKey<FormState>();
   final _confAmount = TextEditingController();
   final _confNotes = TextEditingController();
+  final _confBillNumber = TextEditingController();
 
   int? selectedFarm;
   int? selectedCrop;
@@ -351,6 +352,12 @@ class _CreateExpensesState extends State<CreateExpenses> {
                           }
                         });
                       },
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    NxTextFormField(
+                      controller: _confBillNumber,
+                      hintName: LocaleKeys.HintBillNumber.tr(),
+                      inputType: TextInputType.text,
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     buildDateField(LocaleKeys.expenseDate.tr()),

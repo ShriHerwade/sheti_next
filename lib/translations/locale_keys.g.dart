@@ -54,6 +54,8 @@ abstract class  LocaleKeys {
   static const HintSoldTo = 'HintSoldTo';
   static const labelReceiptNumber = 'labelReceiptNumber';
   static const HintReceiptNumber = 'HintReceiptNumber';
+  static const labelBillNumber = 'labelBillNumber';
+  static const HintBillNumber = 'HintBillNumber';
   static const labelNotes = 'labelNotes';
   static const HintNotes = 'HintNotes';
   static const navBarDiary = 'navBarDiary';

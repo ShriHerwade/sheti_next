@@ -35,7 +35,7 @@
   "expenseDate": "Expense Date",
   "expenseAmount": "Amount",
   "labelCreditor" : "Creditor Name",
-  "hintCreditor" : "Selected Creditor Name",
+  "hintCreditor" : "Select Creditor Name",
   "checkBoxIsCreditor" : "Expense on Credit ?",
 
   "selectIncomeType" : "Select Income Type",
@@ -54,6 +54,8 @@
   "HintSoldTo" : "Sold To",
   "labelReceiptNumber" : "Receipt Number",
   "HintReceiptNumber" : "Receipt Number",
+  "labelBillNumber" : "Bill Number",
+  "HintBillNumber" : "Bill Number",
 
   "labelNotes" : "Notes",
   "HintNotes" : "Notes",
