@@ -54,6 +54,9 @@
   "labelReceiptNumber": "पावती क्रमांक",
   "HintReceiptNumber": "पावती क्रमांक",
 
+  "labelNotes" : "नोंद / टिप्पणी ",
+  "HintNotes" : "नोंद / टिप्पणी ",
+
 
   "navBarDiary": "डायरी",
   "navBarLanguages": "भाषा",

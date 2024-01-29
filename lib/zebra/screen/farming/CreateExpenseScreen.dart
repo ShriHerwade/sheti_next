@@ -26,7 +26,8 @@ class CreateExpenses extends StatefulWidget {
 
 class _CreateExpensesState extends State<CreateExpenses> {
   final _formKey = GlobalKey<FormState>();
-  final _confamount = TextEditingController();
+  final _confAmount = TextEditingController();
+  final _confNotes = TextEditingController();
 
   int? selectedFarm;
   int? selectedCrop;
@@ -93,7 +94,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
           details: null, // Default value
           //expenseType: selectedExpense.isNotEmpty ? selectedExpense.first : 'Default Expense', // Default value
           expenseType: selectedExpense!,
-          amount: double.parse(_confamount.text),
+          amount: double.parse(_confAmount.text),
           expenseDate: selectedDate ?? DateTime.now(),
           isActive: true, // Default value
           createdDate: DateTime.now(), // Default value
@@ -101,7 +102,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
         await dbHelper!.saveExpenseData(expense);
 
-        _confamount.clear();
+        _confAmount.clear();
         selectedFarm = null;
         selectedCrop = null;
         isCreditExpense = false;
@@ -330,9 +331,17 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     buildDateField(LocaleKeys.expenseDate.tr()),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxTextFormField(
-                      controller: _confamount,
+                      controller: _confAmount,
                       hintName: LocaleKeys.expenseAmount.tr(),
                       inputType: TextInputType.number,
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    NxTextFormField(
+                      controller: _confNotes,
+                      hintName: LocaleKeys.labelNotes.tr(),
+                      inputType: TextInputType.text,
+                      maxLines : 2,
+                      expands : false
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     Container(

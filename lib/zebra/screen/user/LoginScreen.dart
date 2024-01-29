@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintName: "PIN",
                   isObsecureText: true,
                   inputType: TextInputType.number,
-                  setmaxLength: 4,
+                  maxLength: 4,
 
                 ),
                 Container(

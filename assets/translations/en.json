@@ -53,6 +53,9 @@
   "labelReceiptNumber" : "Receipt Number",
   "HintReceiptNumber" : "Receipt Number",
 
+  "labelNotes" : "Notes",
+  "HintNotes" : "Notes",
+
   "navBarDiary": "Diary",
   "navBarLanguages": "Language",
   "navBarLangMarathi": "Marathi",
