@@ -25,61 +25,80 @@ class CustomTranslationList {
   static const List<String> farmExpenses_en = [
     "Rotavator",
     "Ploughing",
-    "Ploughing Labour Payment",
-    "Seed Purchase",
-    "Sowing Labour",
-    "Irrigation Bill",
-    "Irrigation Labour Payment",
-    "Compost Purchase",
-    "Compost Spreader Labour Payment",
-    "Fertilizers Purchase",
-    "Fertilizers Spreader Labour",
-    "Pesticides Purchase",
-    "Pesticides Spray Labour Payment",
+    "Seed",
+    "Sowing",
+    "Irrigation",
+    "Compost",
+    "Fertilizers",
+    "Pesticides",
     "Harvesting",
-    "Harvesting Labour Payment",
     "Storage",
-    "Storage Labour Payment",
-    "Transport",
-    "Tractor Rent",
-    "Machinery Rent",
-    "Other Farmwork Labour Payment",
+    "Tractor",
+    "Machinery",
+    "Other Farm work",
     "Other"
   ];
 
   static const List<String> farmExpenses_mr = [
     "रोटाव्हेटर",
     "नांगरणी",
-    "नांगरणी मजुरी ",
-    "बियाणं खरेदी",
-    "पेरणी मजुरी ",
-    "सिंचन बिल",
-    "सिंचन मजुरी ",
-    "सेंद्रिय खत खरेदी",
-    "सेंद्रिय खत पसरवणे मजुरी",
-    "रासायनिक खत खरेदी",
-    "रासायनिक खत पसरवणे मजुरी",
-    "कीटकनाशक खरेदी",
-    "कीटकनाशक फवारणी मजुरी",
+    "बियाणं",
+    "पेरणी ",
+    "सिंचन",
+    "सेंद्रिय खत",
+    "रासायनिक खत",
+    "कीटकनाशक",
     "कापणी",
-    "कापणी मजुरी ",
     "साठवण",
-    "साठवण मजुरी ",
     "वाहतूक",
-    "ट्रॅक्टर भाडे",
-    "यंत्रसामग्री भाडे",
-    "इतर शेतीकाम मजुरी",
+    "ट्रॅक्टर",
+    "यंत्रसामग्री",
+    "इतर शेतीकाम",
     "इतर"
   ];
 
   static const List<String> areaUnits_en = ["Guntha", "Acre", "Hectare"];
   static const List<String> areaUnits_mr = ["गुंठा", "एकर", "हेक्टर"];
 
-  static const List<String> cropUnits_en = ["Grams", "Kilogram", "Quintal", "Tonne"];
-  static const List<String> cropUnits_mr = ["ग्रॅम", "किलोग्रॅम", "क्विंटल", "टन"];
+  static const List<String> cropUnits_en = ["Kilogram", "Quintal", "Tonne"];
+  static const List<String> cropUnits_mr = ["किलोग्रॅम", "क्विंटल", "टन"];
 
-  static const List<String> incomeType_en = ["Crop Sales",  "Seed Sales", "Crop Residue Sales", "Value-Added Products"];
-  static const List<String> incomeType_mr = ["शेतमालाची विक्री",  "बियाणे विक्री ", "पीक अवशेष विक्री", "मूल्यवर्धित उत्पादने"];
+  static const List<String> incomeType_en = [
+    "Crop Sales",
+    "Seed Sales",
+    "Crop Residue Sales",
+    "Value-Added Products"
+  ];
+  static const List<String> incomeType_mr = [
+    "शेतमालाची विक्री",
+    "बियाणे विक्री ",
+    "पीक अवशेष विक्री",
+    "मूल्यवर्धित उत्पादने"
+  ];
+
+  static const List<String> expenseSubType_en = [
+    "Labour",
+    "Purchase",
+    "Transport",
+    "Repair & Maintenance",
+    "Rent",
+    "Bill",
+    "Usage Fee",
+    "Other",
+    "N/A"
+  ];
+
+  static const List<String> expenseSubType_mr = [
+    "मजुरी",
+    "खरेदी",
+    "वाहतूक",
+    "दुरुस्ती आणि देखभाल",
+    "भाडे",
+    "बिल",
+    "वापर शुल्क",
+    "इतर",
+    "N/A लागू नाही"
+  ];
 
   static const List<String> farmOwnership_en = ["Owned", "Leased"];
   static const List<String> farmOwnership_mr = [
@@ -115,11 +134,33 @@ class CustomTranslationList {
     "इतर"
   ];
 
-  static const List<String> cultivationType_mr = ["स्वतः पिकवणे", "भागीदारी (५० - ५०%)", "भागीदारी (७५ - २५%)", "दुसऱ्यास करावयास देणे "];
+  static const List<String> cultivationType_mr = [
+    "स्वतः पिकवणे",
+    "भागीदारी (५० - ५०%)",
+    "भागीदारी (७५ - २५%)",
+    "दुसऱ्यास करावयास देणे "
+  ];
 
-  static const List<String> cultivationType_en = ["Owned (Own cultivation)", "Partnership (50-50%)", "Partnership (75-25%)", "Leased (To someone else)"];
+  static const List<String> cultivationType_en = [
+    "Owned (Own cultivation)",
+    "Partnership (50-50%)",
+    "Partnership (75-25%)",
+    "Leased (To someone else)"
+  ];
 
-  static const List<String> harvestingFrequency_mr = ["एकदाच शेवटी ", "वर्षातून एकदा", "वर्षातून दोनदा", "दर महिन्याला", "दर आठवड्याला"];
+  static const List<String> harvestingFrequency_mr = [
+    "एकदाच शेवटी ",
+    "वर्षातून एकदा",
+    "वर्षातून दोनदा",
+    "दर महिन्याला",
+    "दर आठवड्याला"
+  ];
 
-  static const List<String> harvestingFrequency_en = ["Once in a lifetime", "Annually", "Biannually", "Monthly", "Weekly"];
+  static const List<String> harvestingFrequency_en = [
+    "Once in a lifetime",
+    "Annually",
+    "Biannually",
+    "Monthly",
+    "Weekly"
+  ];
 }
