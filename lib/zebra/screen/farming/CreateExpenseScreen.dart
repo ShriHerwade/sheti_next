@@ -282,27 +282,32 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     Row(
                       children: [
-                        Checkbox(
-                          checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
-                          activeColor: ColorConstants.checkBoxActiveColor,
-                          value: this.isCreditExpense,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              this.isCreditExpense = value!;
-                            });
-                          },
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Checkbox(
+                            checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
+                            activeColor: ColorConstants.checkBoxActiveColor,
+                            value: this.isCreditExpense,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                this.isCreditExpense = value!;
+                              });
+                            },
+                          ),
                         ),
-                        Text(LocaleKeys.checkBoxIsCreditor.tr()),
+                        Text(LocaleKeys.checkBoxIsCreditor.tr(),),
+
                         TextButton(
                           onPressed: () {
                             // Open the dialog to add a new creditor
                             _showAddCreditorDialog();
                           },
                           child: Text(
-                            'Add New Creditor',
+                            '+ Add New Creditor',
                             style: TextStyle(
-                              color: Colors.black, // Set the color you prefer
+                              color: Colors.black87,
                               decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
                         ),
