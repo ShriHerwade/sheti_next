@@ -117,6 +117,7 @@ class DbHelper {
   static const String C_receiptFilePath = 'receiptFilePath';
   static const String C_incomeType = 'incomeType';
   static const String C_incomeDate = 'incomeDate';
+  static const String C_buyersName = 'buyersName';
 
 
 
@@ -302,12 +303,13 @@ class DbHelper {
             $C_ratePerUnit REAL,
             $C_rateUnit TEXT,           
             $C_amount INTEGER NOT NULL DEFAULT 0,
+            $C_buyersName TEXT,
             $C_incomeDate TEXT,
             $C_receiptNumber TEXT,
             $C_receiptFilePath TEXT,
             $C_fileExtension TEXT,                       
             $C_details TEXT,
-            $C_isActive INTEGER,            
+            $C_isActive INTEGER,
             $C_createdDate TEXT,
             FOREIGN KEY ($C_farmId) REFERENCES $Table_Farms ($C_farmId),
             FOREIGN KEY ($C_cropId) REFERENCES $Table_Crops ($C_cropId),

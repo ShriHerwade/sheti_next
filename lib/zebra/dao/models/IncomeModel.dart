@@ -8,7 +8,7 @@ class IncomeModel {
   String unit;
   double? ratePerUnit;
   String? rateUnit;
-  String? soldTo;
+  String? buyersName;
   String? receiptNumber;
   String? receiptFilePath;
   String? fileExtension;
@@ -29,7 +29,7 @@ class IncomeModel {
       required this.unit,
       this.ratePerUnit,
       this.rateUnit,
-      this.soldTo,
+      this.buyersName,
       this.receiptNumber,
       this.receiptFilePath,
       this.fileExtension,
@@ -50,7 +50,7 @@ class IncomeModel {
       'unit' : this.unit,
       'ratePerUnit' : this.ratePerUnit,
       'rateUnit' : this.rateUnit,
-      'soldTo': this.soldTo,
+      'buyersName': this.buyersName,
       'receiptNumber': this.receiptNumber,
       'receiptFilePath': this.receiptFilePath,
       'fileExtension': this.fileExtension,
@@ -73,7 +73,7 @@ class IncomeModel {
       unit : map['unit'],
       ratePerUnit: map['ratePerUnit'],
       rateUnit: map['rateUnit'],
-      soldTo: map['soldTo'],
+      buyersName: map['buyersName'],
       receiptNumber: map['receiptNumber'],
       receiptFilePath: map['receiptFilePath'],
       fileExtension: map['fileExtension'],

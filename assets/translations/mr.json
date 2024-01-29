@@ -57,6 +57,8 @@
   "HintReceiptNumber": "पावती क्रमांक",
   "labelBillNumber" : "बिल क्रमांक",
   "HintBillNumber" : "बिल क्रमांक",
+  "hintBuyersName" : "खरेदीदाराचे नाव",
+  "labelBuyersName" : "खरेदीदाराचे नाव",
 
   "labelNotes" : "नोंद / टिप्पणी ",
   "HintNotes" : "नोंद / टिप्पणी ",
