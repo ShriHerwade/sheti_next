@@ -76,7 +76,7 @@ class CustomTranslationList {
     "मूल्यवर्धित उत्पादने"
   ];
 
-  static const List<String> expenseSubType_en = [
+  static const List<String> farmExpenseSubType_en = [
     "Labour",
     "Purchase",
     "Transport",
@@ -88,7 +88,7 @@ class CustomTranslationList {
     "N/A"
   ];
 
-  static const List<String> expenseSubType_mr = [
+  static const List<String> farmExpenseSubType_mr = [
     "मजुरी",
     "खरेदी",
     "वाहतूक",

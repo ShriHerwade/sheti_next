@@ -30,6 +30,8 @@
   "eventEndDate": "काम संपलेली केलेली तारीख",
   "selectExpenseType": "खर्चाचा प्रकार निवडा",
   "labelExpenseType": "खर्चाचा प्रकार",
+  "selectExpenseSubType": "खर्चाचा उपप्रकार निवडा",
+  "labelExpenseSubType": "खर्चाचा उपप्रकार",
   "expenseDate": "खर्चाची तारीख",
   "expenseAmount": "रक्कम",
 

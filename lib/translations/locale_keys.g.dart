@@ -31,6 +31,8 @@ abstract class  LocaleKeys {
   static const eventEndDate = 'eventEndDate';
   static const selectExpenseType = 'selectExpenseType';
   static const labelExpenseType = 'labelExpenseType';
+  static const selectExpenseSubType = 'selectExpenseSubType';
+  static const labelExpenseSubType = 'labelExpenseSubType';
   static const expenseDate = 'expenseDate';
   static const expenseAmount = 'expenseAmount';
   static const labelCreditor = 'labelCreditor';

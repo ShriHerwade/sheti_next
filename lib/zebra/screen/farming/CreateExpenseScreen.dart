@@ -40,10 +40,12 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
   List<FarmModel> farms = [];
   List<CropModel> crops = [];
-  List<String> farmExpenses = [];
+  List<String> farmExpenseTypes = [];
+  List<String> farmExpenseSubTypes = [];
   List<PoeModel> poes = [];
 
-  String? selectedExpense;
+  String? selectedExpenseType;
+  String? selectedExpenseSubType;
   bool isCreditExpense = false;
 
   @override
@@ -93,7 +95,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
           splitBetween: 0, // Default value
           details: null, // Default value
           //expenseType: selectedExpense.isNotEmpty ? selectedExpense.first : 'Default Expense', // Default value
-          expenseType: selectedExpense!,
+          expenseType: selectedExpenseType!,
           amount: double.parse(_confAmount.text),
           expenseDate: selectedDate ?? DateTime.now(),
           isActive: true, // Default value
@@ -106,7 +108,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
         selectedFarm = null;
         selectedCrop = null;
         isCreditExpense = false;
-        selectedExpense = null;
+        selectedExpenseType = null;
+        selectedExpenseSubType = null;
 
         //selectedExpense = [];
         selectedDate = null;
@@ -185,10 +188,12 @@ class _CreateExpensesState extends State<CreateExpenses> {
   Widget build(BuildContext context) {
     if (context.locale.languageCode == 'mr') {
       //crops = CustomTranslationList.crops_mr;
-      farmExpenses = CustomTranslationList.farmEvents_mr;
+      farmExpenseTypes = CustomTranslationList.farmExpenses_mr;
+      farmExpenseSubTypes = CustomTranslationList.farmExpenseSubType_mr;
     } else if (context.locale.languageCode == 'en') {
       //crops = CustomTranslationList.crops_en;
-      farmExpenses = CustomTranslationList.farmEvents_en;
+      farmExpenseTypes = CustomTranslationList.farmExpenses_en;
+      farmExpenseSubTypes = CustomTranslationList.farmExpenseSubType_en;
     }
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
@@ -266,15 +271,30 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDDFormField(
-                      value: selectedExpense,
+                      value: selectedExpenseType,
                       hint: LocaleKeys.selectExpenseType.tr(),
                       label: LocaleKeys.labelExpenseType.tr(),
-                      items: farmExpenses,
-                      onChanged: (String? expense) {
+                      items: farmExpenseTypes,
+                      onChanged: (String? expenseType) {
                         setState(() {
-                          selectedExpense = expense;
-                          if (expense != null) {
-                            print('Selected expenseType: $expense');
+                          selectedExpenseType = expenseType;
+                          if (expenseType != null) {
+                            print('Selected expenseType: $expenseType');
+                          }
+                        });
+                      },
+                    ),
+                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    NxDDFormField(
+                      value: selectedExpenseSubType,
+                      hint: LocaleKeys.selectExpenseSubType.tr(),
+                      label: LocaleKeys.labelExpenseSubType.tr(),
+                      items: farmExpenseSubTypes,
+                      onChanged: (String? expenseSubType) {
+                        setState(() {
+                          selectedExpenseSubType = expenseSubType;
+                          if (expenseSubType != null) {
+                            print('Selected expenseSubType: $expenseSubType');
                           }
                         });
                       },

@@ -30,6 +30,8 @@
   "eventEndDate": "Event End Date",
   "selectExpenseType": "Select Expense Type",
   "labelExpenseType": "Expense Type",
+  "selectExpenseSubType": "Select Expense Subtype",
+  "labelExpenseSubType": "Expense Subtype",
   "expenseDate": "Expense Date",
   "expenseAmount": "Amount",
   "labelCreditor" : "Creditor Name",
