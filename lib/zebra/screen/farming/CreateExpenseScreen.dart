@@ -89,14 +89,14 @@ class _CreateExpensesState extends State<CreateExpenses> {
           userId: 1,
           isFarmLevel: false, // Default value
           isCredit: false, // Default value
-          creditBy: null, // Default value
-          invoiceNumber: null, // Default value
+          poeId: selectedPoe, // Default value
+          invoiceNumber: _confBillNumber.text, // Default value
           invoiceFilePath: null, // Default value
           fileExtension: null, // Default value
           splitBetween: 0, // Default value
-          details: null, // Default value
+          details: _confNotes.text, // Default value
           //expenseType: selectedExpense.isNotEmpty ? selectedExpense.first : 'Default Expense', // Default value
-          expenseType: selectedExpenseType!,
+          expenseType: (selectedExpenseType! + (selectedExpenseSubType ?? '')),
           amount: double.parse(_confAmount.text),
           expenseDate: selectedDate ?? DateTime.now(),
           isActive: true, // Default value

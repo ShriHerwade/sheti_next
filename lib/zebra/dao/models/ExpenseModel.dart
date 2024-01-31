@@ -6,7 +6,7 @@ class ExpenseModel {
   int userId;
   bool? isFarmLevel;
   bool? isCredit;
-  int? creditBy;
+  int? poeId;
   String? invoiceNumber;
   String? invoiceFilePath;
   String? fileExtension;
@@ -25,7 +25,7 @@ class ExpenseModel {
       required this.userId,
       this.isFarmLevel,
       this.isCredit,
-      this.creditBy,
+      this.poeId,
       this.invoiceNumber,
       this.invoiceFilePath,
       this.fileExtension,
@@ -43,9 +43,9 @@ class ExpenseModel {
       'farmId': this.farmId,
       'cropId': this.cropId,
       'userId': this.userId,
-      'isFarmLevel': this.isFarmLevel,
-      'isCredit': this.isCredit,
-      'creditBy': this.creditBy,
+      'isFarmLevel': this.isFarmLevel == true ? 1 : 0,
+      'isCredit': this.isCredit== true ? 1 : 0,
+      'poeId': this.poeId,
       'invoiceNumber': this.invoiceNumber,
       'invoiceFilePath': this.invoiceFilePath,
       'fileExtension': this.fileExtension,
@@ -67,7 +67,7 @@ class ExpenseModel {
       userId: map['userId'],
       isFarmLevel: map['isFarmLevel'] == 1,
       isCredit: map['isCredit'] == 1,
-      creditBy: map['creditBy'],
+      poeId: map['poeId'],
       invoiceNumber: map['invoiceNumber'],
       invoiceFilePath: map['invoiceFilePath'],
       fileExtension: map['fileExtension'],

@@ -293,7 +293,7 @@ class DbHelper {
           db.execute(
             '''
           CREATE TABLE $Table_Incomes (
-            $C_expenseId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+            $C_incomeId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_farmId INTEGER NOT NULL,
             $C_cropId INTEGER,
             $C_userId INTEGER NOT NULL,            
