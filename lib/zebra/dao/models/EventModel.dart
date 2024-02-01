@@ -8,7 +8,7 @@ class EventModel {
   late String eventType;
   final DateTime startDate;
   DateTime? endDate;
-  String? details;
+  String? notes;
   bool? isDone;
   bool isActive;
   DateTime? createdDate;
@@ -21,7 +21,7 @@ class EventModel {
       required this.eventType,
       required this.startDate,
       this.endDate,
-      this.details,
+      this.notes,
       this.isDone,
       this.isActive = true,
       this.createdDate});
@@ -35,7 +35,7 @@ class EventModel {
       'eventType': this.eventType,
       'startDate': this.startDate?.toIso8601String(),
       'endDate': this.endDate?.toIso8601String(),
-      'details': this.details,
+      'notes': this.notes,
       'isDone': this.isDone,
       'isActive': this.isActive,
       'createdDate': createdDate?.toIso8601String(),
@@ -51,7 +51,7 @@ class EventModel {
       eventType: map['eventType'],
       startDate: DateTime.parse(map['startDate']),
       endDate: DateTime.parse(map['endDate']),
-      details: map['details'],
+      notes: map['notes'],
       isDone: map['isDone'] == 0,
       isActive: map['isActive'] == 0,
       createdDate: DateTime.parse(map['createdDate']),

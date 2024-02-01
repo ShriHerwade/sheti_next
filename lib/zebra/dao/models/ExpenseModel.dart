@@ -11,7 +11,7 @@ class ExpenseModel {
   String? invoiceFilePath;
   String? fileExtension;
   int splitBetween;
-  String? details;
+  String? notes;
   final String expenseType;
   final double amount;
   final DateTime expenseDate;
@@ -30,7 +30,7 @@ class ExpenseModel {
       this.invoiceFilePath,
       this.fileExtension,
       required this.splitBetween,
-      this.details,
+      this.notes,
       required this.expenseType,
       required this.amount,
       required this.expenseDate,
@@ -50,7 +50,7 @@ class ExpenseModel {
       'invoiceFilePath': this.invoiceFilePath,
       'fileExtension': this.fileExtension,
       'splitBetween': this.splitBetween,
-      'details': this.details,
+      'notes': this.notes,
       'expenseType': this.expenseType,
       'amount': this.amount,
       'expenseDate': this.expenseDate?.toIso8601String(),
@@ -72,7 +72,7 @@ class ExpenseModel {
       invoiceFilePath: map['invoiceFilePath'],
       fileExtension: map['fileExtension'],
       splitBetween: map['splitBetween'],
-      details: map['details'],
+      notes: map['notes'],
       expenseType: map['expenseType'],
       amount: (map['amount'] as num).toDouble(),
       expenseDate: DateTime.parse(map['expenseDate']),

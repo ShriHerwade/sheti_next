@@ -82,7 +82,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
           buyersName: _confBuyersName.text,
           amount: double.parse(_confAmount.text),
           incomeDate: selectedDate ?? DateTime.now(),
-          details: _confNotes.text,
+          notes: _confNotes.text,
           isActive: true, // Default value
           createdDate: DateTime.now(), // Default value
         );

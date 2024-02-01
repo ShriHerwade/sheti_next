@@ -88,7 +88,7 @@ class _CreateEventsState extends State<CreateEvents> {
           eventType: selectedFarmEvents.join(", "),
           startDate: startDate!,
           endDate: endDate!,
-          details: null,
+          notes: null,
           isDone: false,
           isActive: true,
           createdDate: DateTime.now(),

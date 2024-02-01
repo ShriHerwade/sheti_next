@@ -13,7 +13,7 @@ class IncomeModel {
   String? receiptFilePath;
   String? fileExtension;
 
-  String? details;
+  String? notes;
   final String incomeType;
   final double amount;
   final DateTime incomeDate;
@@ -33,7 +33,7 @@ class IncomeModel {
       this.receiptNumber,
       this.receiptFilePath,
       this.fileExtension,
-      this.details,
+      this.notes,
       required this.incomeType,
       required this.amount,
       required this.incomeDate,
@@ -54,7 +54,7 @@ class IncomeModel {
       'receiptNumber': this.receiptNumber,
       'receiptFilePath': this.receiptFilePath,
       'fileExtension': this.fileExtension,
-      'details': this.details,
+      'notes': this.notes,
       'incomeType': this.incomeType,
       'amount': this.amount,
       'incomeDate': this.incomeDate?.toIso8601String(),
@@ -77,7 +77,7 @@ class IncomeModel {
       receiptNumber: map['receiptNumber'],
       receiptFilePath: map['receiptFilePath'],
       fileExtension: map['fileExtension'],
-      details: map['details'],
+      notes: map['notes'],
       incomeType: map['incomeType'],
       amount: (map['amount'] as num).toDouble(),
       incomeDate: DateTime.parse(map['incomeDate']),

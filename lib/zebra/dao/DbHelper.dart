@@ -83,7 +83,7 @@ class DbHelper {
   static const String C_soilType = 'soilType';
 
   static const String C_eventType = 'eventType';
-  static const String C_details = 'details';
+  static const String C_notes = 'notes';
   static const String C_isDone = 'isDone';
 
   static const String C_expenseDate = 'expenseDate';
@@ -246,7 +246,7 @@ class DbHelper {
             $C_cropId INTEGER,
             $C_userId INTEGER NOT NULL,
             $C_eventType TEXT,
-            $C_details TEXT,
+            $C_notes TEXT,
             $C_startDate TEXT,
             $C_endDate TEXT,            
             $C_isActive INTEGER NOT NULL DEFAULT 1,
@@ -277,7 +277,7 @@ class DbHelper {
             $C_isCredit INTEGER NOT NULL DEFAULT 0,
             $C_poeId INTEGER,
             $C_splitBetween INTEGER NOT NULL DEFAULT 0,           
-            $C_details TEXT,
+            $C_notes TEXT,
             $C_isActive INTEGER,            
             $C_createdDate TEXT,
             FOREIGN KEY ($C_farmId) REFERENCES $Table_Farms ($C_farmId),
@@ -308,7 +308,7 @@ class DbHelper {
             $C_receiptNumber TEXT,
             $C_receiptFilePath TEXT,
             $C_fileExtension TEXT,                       
-            $C_details TEXT,
+            $C_notes TEXT,
             $C_isActive INTEGER,
             $C_createdDate TEXT,
             FOREIGN KEY ($C_farmId) REFERENCES $Table_Farms ($C_farmId),

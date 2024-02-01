@@ -137,7 +137,7 @@ class _MyEventsState extends State<MyEvents> {
                         ),
                         DataCell(
                           Text(
-                            event.details ?? '',
+                            event.notes ?? '',
                             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                           ),
                         ),

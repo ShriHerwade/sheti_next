@@ -94,7 +94,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
           invoiceFilePath: null, // Default value
           fileExtension: null, // Default value
           splitBetween: 0, // Default value
-          details: _confNotes.text, // Default value
+          notes: _confNotes.text, // Default value
           //expenseType: selectedExpense.isNotEmpty ? selectedExpense.first : 'Default Expense', // Default value
           expenseType: (selectedExpenseType! + (selectedExpenseSubType ?? '')),
           amount: double.parse(_confAmount.text),
