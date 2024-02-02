@@ -356,7 +356,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxTextFormField(
                       controller: _confBillNumber,
-                      hintName: LocaleKeys.HintBillNumber.tr(),
+                      hintText: LocaleKeys.HintBillNumber.tr(),
                       inputType: TextInputType.text,
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
@@ -364,13 +364,13 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxTextFormField(
                       controller: _confAmount,
-                      hintName: LocaleKeys.expenseAmount.tr(),
+                      hintText: LocaleKeys.expenseAmount.tr(),
                       inputType: TextInputType.number,
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxTextFormField(
                       controller: _confNotes,
-                      hintName: LocaleKeys.labelNotes.tr(),
+                      hintText: LocaleKeys.labelNotes.tr(),
                       inputType: TextInputType.text,
                       maxLines : 2,
                       expands : false

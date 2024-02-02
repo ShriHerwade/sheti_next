@@ -156,7 +156,7 @@ class _CreateCropState extends State<CreateCrop> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxTextFormField(
                     controller: _confarmArea,
-                    hintName: LocaleKeys.sowingArea.tr(),
+                    hintText: LocaleKeys.sowingArea.tr(),
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),

@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import '../util/InputValidator.dart';
-import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 
-class NxTextFormField extends StatelessWidget {
-  TextEditingController? controller;
-  String? hintName;
-  IconData? icon;
-  bool isObsecureText;
-  TextInputType inputType;
-  bool isEnable;
-  int? maxLength;
-  int? maxLines;
-  bool expands;
+class NxTextFormField extends StatefulWidget {
+  final TextEditingController? controller;
+  final String? hintText;
+  final String? labelText;
+  final IconData? icon;
+  final bool isObsecureText;
+  final TextInputType inputType;
+  final bool isEnable;
+  final int? maxLength;
+  final int? maxLines;
+  final bool expands;
 
   NxTextFormField({
     this.controller,
-    this.hintName,
+    this.hintText,
+    this.labelText,
     this.icon,
     this.isObsecureText = false,
     this.inputType = TextInputType.text,
@@ -27,22 +28,42 @@ class NxTextFormField extends StatelessWidget {
   });
 
   @override
+  _NxTextFormFieldState createState() => _NxTextFormFieldState();
+}
+
+class _NxTextFormFieldState extends State<NxTextFormField> {
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextFormField(
-        controller: controller,
-        obscureText: isObsecureText,
-        keyboardType: inputType,
-        enabled: isEnable,
-        maxLength: maxLength,
-        maxLines: expands ? null : maxLines,
-        expands: expands,
+        focusNode: _focusNode,
+        controller: widget.controller,
+        obscureText: widget.isObsecureText,
+        keyboardType: widget.inputType,
+        enabled: widget.isEnable,
+        maxLength: widget.maxLength,
+        maxLines: widget.expands ? null : widget.maxLines,
+        expands: widget.expands,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Please Enter $hintName";
+            return "Please Enter ${widget.hintText}";
           }
-          if (hintName == "Email" && !validateEmail(value)) {
+          if (widget.hintText == "Email" && !validateEmail(value)) {
             return "Please Enter a valid Email Address";
           }
           return null;
@@ -65,9 +86,9 @@ class NxTextFormField extends StatelessWidget {
             borderSide: BorderSide(width: 1, color: ColorConstants.errorFieldBorderColor),
           ),
           floatingLabelBehavior: FloatingLabelBehavior.auto,
-          hintText: hintName,
+          hintText: widget.hintText,
           hintStyle: TextStyle(fontWeight: FontWeight.normal, color: ColorConstants.fieldHintTextColor),
-          labelText: hintName,
+          labelText: _focusNode.hasFocus || widget.controller?.text.isNotEmpty == true ? widget.labelText : null, // to stop  label overriding the hint
           labelStyle: TextStyle(fontWeight: FontWeight.normal, color: ColorConstants.fieldLabelTextColor),
           isDense: true,
           fillColor: Colors.white,

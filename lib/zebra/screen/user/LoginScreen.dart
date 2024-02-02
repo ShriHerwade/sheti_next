@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 NxTextFormField(
                   controller: _conPin,
                   icon: Icons.lock,
-                  hintName: "PIN",
+                  hintText: "PIN",
                   isObsecureText: true,
                   inputType: TextInputType.number,
                   maxLength: 4,

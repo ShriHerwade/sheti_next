@@ -118,7 +118,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                     // Text form field for farm name
                     NxTextFormField(
                       controller: _confarmName,
-                      hintName: LocaleKeys.farmName.tr(),
+                      hintText: LocaleKeys.farmName.tr(),
+                      labelText: "Test Label",
                       inputType: TextInputType.name,
                     ),
                     // Spacer
@@ -126,7 +127,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                     // Text form field for farm address
                     NxTextFormField(
                       controller: _confarmAddress,
-                      hintName: LocaleKeys.address.tr(),
+                      hintText: LocaleKeys.address.tr(),
+                      labelText: "Test Label",
                       inputType: TextInputType.name,
 
                     ),
@@ -135,7 +137,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                     // Text form field for farm area
                     NxTextFormField(
                       controller: _confarmArea,
-                      hintName: LocaleKeys.farmArea.tr(),
+                      hintText: LocaleKeys.farmArea.tr(),
+                      labelText: "Test Label",
                       inputType: TextInputType.number,
                     ),
                     // Spacer

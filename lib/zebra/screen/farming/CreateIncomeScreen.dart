@@ -258,7 +258,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                       Expanded(
                         child: NxTextFormField(
                           controller: _confRate,
-                          hintName: LocaleKeys.labelRatePerUnit.tr(),
+                          hintText: LocaleKeys.labelRatePerUnit.tr(),
                           inputType: TextInputType.number,
                         ),
                       ),
@@ -290,7 +290,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                       Expanded(
                         child: NxTextFormField(
                           controller: _confQuantity,
-                          hintName: LocaleKeys.labelQuantitySold.tr(),
+                          hintText: LocaleKeys.labelQuantitySold.tr(),
                           inputType: TextInputType.number,
                         ),
                       ),
@@ -317,13 +317,13 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
                     controller: _confBuyersName,
-                    hintName: LocaleKeys.hintBuyersName.tr(),
+                    hintText: LocaleKeys.hintBuyersName.tr(),
                     inputType: TextInputType.text,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
                     controller: _confReceiptNumber,
-                    hintName: LocaleKeys.HintReceiptNumber.tr(),
+                    hintText: LocaleKeys.HintReceiptNumber.tr(),
                     inputType: TextInputType.text,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -331,13 +331,13 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
                     controller: _confAmount,
-                    hintName: LocaleKeys.labelAmountReceived.tr(),
+                    hintText: LocaleKeys.labelAmountReceived.tr(),
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
                       controller: _confNotes,
-                      hintName: LocaleKeys.labelNotes.tr(),
+                      hintText: LocaleKeys.labelNotes.tr(),
                       inputType: TextInputType.text,
                       maxLines : 2,
                       expands : false
