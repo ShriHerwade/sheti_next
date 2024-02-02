@@ -1,0 +1,14 @@
+{
+  "accountId": 1,
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "mobileNo": "1234567890",
+  "pin": "1234",
+  "isAccountOwner": true,
+  "role": "Admin",
+  "expirationDate": "2025-01-01T12:00:00Z",
+  "lastAccessedDate": "2024-12-31T18:30:00Z",
+  "isActive": true,
+  "createdDate": "2023-01-01T08:00:00Z"
+}
