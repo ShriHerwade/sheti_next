@@ -8,7 +8,7 @@ import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/ExpenseAndAllExpensesScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/ExpenseIncomeScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/DashboardScreen.dart';
-
+import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 
 
 
@@ -100,6 +100,17 @@ class NxNavBar extends StatelessWidget {
                                 builder: (_) => DashboardScreen()));
                       },
                       child: Text('Dashboard')),
+                ),
+                ListTile(
+                  leading: Icon(Icons.account_balance_sharp),
+                  title: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => MyExpenses()));
+                      },
+                      child: Text('Show All Expenses')),
                 ),
               ],
             ),

@@ -208,195 +208,184 @@ class _CreateExpensesState extends State<CreateExpenses> {
             // Prevent the default back button behavior
             return false;
           },
-          child:  Dismissible(
-            key: Key('pageDismissKey'),
-            direction: DismissDirection.endToStart,
-            onDismissed: (_) {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => MyExpenses(),
-                ),
-              );
-            },
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Container(
-                padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
-                child: Column(
-                  children: [
-                    /*SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    Image.asset(
-                      "assets/images/top_create-life-cycle-event-2.png",
-                      height: ResponsiveUtil.screenHeight(context) * 0.16,
-                      width: ResponsiveUtil.screenWidth(context) * 0.4,
-                    ),*/
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxDDFormField_id(
-                      selectedItemId: selectedFarm,
-                      label: LocaleKeys.labelFarm.tr(),
-                      hint: LocaleKeys.selectFarm.tr(),
-                      items: Map.fromIterable(
-                        farms,
-                        key: (farm) => farm.farmId,
-                        value: (farm) => farm.farmName ?? 'Unknown Farm',
-                      ),
-                      onChanged: (int? farmId) {
-                        setState(() {
-                          selectedFarm = farmId;
-                          selectedCrop = null;
-                          if (farmId != null) {
-                            print('Selected Farm ID: $farmId');
-                            getCropsByFarmId(farmId);
-                          }
-                        });
-                      },
+          child:  SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
+              child: Column(
+                children: [
+                  /*SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  Image.asset(
+                    "assets/images/top_create-life-cycle-event-2.png",
+                    height: ResponsiveUtil.screenHeight(context) * 0.16,
+                    width: ResponsiveUtil.screenWidth(context) * 0.4,
+                  ),*/
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField_id(
+                    selectedItemId: selectedFarm,
+                    label: LocaleKeys.labelFarm.tr(),
+                    hint: LocaleKeys.selectFarm.tr(),
+                    items: Map.fromIterable(
+                      farms,
+                      key: (farm) => farm.farmId,
+                      value: (farm) => farm.farmName ?? 'Unknown Farm',
                     ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxDDFormField_id(
-                      selectedItemId: selectedCrop,
-                      hint: LocaleKeys.selectCrop.tr(),
-                      label: LocaleKeys.labelCrop.tr(),
-                      items: Map.fromIterable(
-                        crops,
-                        key: (crop) => crop.cropId,
-                        value: (crop) => crop.cropName ?? 'Unknown Crop',
-                      ),
-                      onChanged: (int? cropId) {
-                        setState(() {
-                          selectedCrop = cropId;
-                          if (cropId != null) {
-                            print('Selected Crop ID: $cropId');
-                          }
-                        });
-                      },
+                    onChanged: (int? farmId) {
+                      setState(() {
+                        selectedFarm = farmId;
+                        selectedCrop = null;
+                        if (farmId != null) {
+                          print('Selected Farm ID: $farmId');
+                          getCropsByFarmId(farmId);
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField_id(
+                    selectedItemId: selectedCrop,
+                    hint: LocaleKeys.selectCrop.tr(),
+                    label: LocaleKeys.labelCrop.tr(),
+                    items: Map.fromIterable(
+                      crops,
+                      key: (crop) => crop.cropId,
+                      value: (crop) => crop.cropName ?? 'Unknown Crop',
                     ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxDDFormField(
-                      value: selectedExpenseType,
-                      hint: LocaleKeys.selectExpenseType.tr(),
-                      label: LocaleKeys.labelExpenseType.tr(),
-                      items: farmExpenseTypes,
-                      onChanged: (String? expenseType) {
-                        setState(() {
-                          selectedExpenseType = expenseType;
-                          if (expenseType != null) {
-                            print('Selected expenseType: $expenseType');
-                          }
-                        });
-                      },
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxDDFormField(
-                      value: selectedExpenseSubType,
-                      hint: LocaleKeys.selectExpenseSubType.tr(),
-                      label: LocaleKeys.labelExpenseSubType.tr(),
-                      items: farmExpenseSubTypes,
-                      onChanged: (String? expenseSubType) {
-                        setState(() {
-                          selectedExpenseSubType = expenseSubType;
-                          if (expenseSubType != null) {
-                            print('Selected expenseSubType: $expenseSubType');
-                          }
-                        });
-                      },
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Checkbox(
-                            checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
-                            activeColor: ColorConstants.checkBoxActiveColor,
-                            value: this.isCreditExpense,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                this.isCreditExpense = value!;
-                              });
-                            },
-                          ),
-                        ),
-                        Text(LocaleKeys.checkBoxIsCreditor.tr(),),
-
-                        TextButton(
-                          onPressed: () {
-                            // Open the dialog to add a new creditor
-                            _showAddCreditorDialog();
+                    onChanged: (int? cropId) {
+                      setState(() {
+                        selectedCrop = cropId;
+                        if (cropId != null) {
+                          print('Selected Crop ID: $cropId');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField(
+                    value: selectedExpenseType,
+                    hint: LocaleKeys.selectExpenseType.tr(),
+                    label: LocaleKeys.labelExpenseType.tr(),
+                    items: farmExpenseTypes,
+                    onChanged: (String? expenseType) {
+                      setState(() {
+                        selectedExpenseType = expenseType;
+                        if (expenseType != null) {
+                          print('Selected expenseType: $expenseType');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField(
+                    value: selectedExpenseSubType,
+                    hint: LocaleKeys.selectExpenseSubType.tr(),
+                    label: LocaleKeys.labelExpenseSubType.tr(),
+                    items: farmExpenseSubTypes,
+                    onChanged: (String? expenseSubType) {
+                      setState(() {
+                        selectedExpenseSubType = expenseSubType;
+                        if (expenseSubType != null) {
+                          print('Selected expenseSubType: $expenseSubType');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Checkbox(
+                          checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
+                          activeColor: ColorConstants.checkBoxActiveColor,
+                          value: this.isCreditExpense,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              this.isCreditExpense = value!;
+                            });
                           },
-                          child: Text(
-                            '+ Add New Creditor',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              decoration: TextDecoration.underline,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxDDFormField_id(
-                      selectedItemId: selectedPoe,
-                      label: LocaleKeys.labelCreditor.tr(),
-                      hint: LocaleKeys.hintCreditor.tr(),
-                      items: Map.fromIterable(
-                        poes,
-                        key: (poe) => poe.poeId,
-                        value: (poe) => poe.poeName ?? 'Unknown Poe',
                       ),
-                      onChanged: (int? poeId) {
-                        setState(() {
-                          selectedPoe = poeId;
-                          if (poeId != null) {
-                            print('Selected Poe ID: $poeId');
-                          }
-                        });
-                      },
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxTextFormField(
-                      controller: _confBillNumber,
-                      hintText: LocaleKeys.HintBillNumber.tr(),
-                      inputType: TextInputType.text,
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    buildDateField(LocaleKeys.expenseDate.tr()),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxTextFormField(
-                      controller: _confAmount,
-                      hintText: LocaleKeys.expenseAmount.tr(),
-                      inputType: TextInputType.number,
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxTextFormField(
-                      controller: _confNotes,
-                      hintText: LocaleKeys.labelNotes.tr(),
-                      inputType: TextInputType.text,
-                      maxLines : 2,
-                      expands : false
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    Container(
-                      width: ResponsiveUtil.screenWidth(context) * 0.8,
-                      child: TextButton(
-                        onPressed: () => saveExpenseData(context),
+                      Text(LocaleKeys.checkBoxIsCreditor.tr(),),
+
+                      TextButton(
+                        onPressed: () {
+                          // Open the dialog to add a new creditor
+                          _showAddCreditorDialog();
+                        },
                         child: Text(
-                          LocaleKeys.save.tr(),
+                          '+ Add New Creditor',
                           style: TextStyle(
-                            color: ColorConstants.textButtonSaveTextColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: ResponsiveUtil.fontSize(context, 20),
+                            color: Colors.black87,
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.normal,
                           ),
                         ),
                       ),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.textButtonSaveColor,
-                        //isSaveButtonEnabled() ? Colors.green : Colors.grey,
-                        borderRadius: BorderRadius.circular(8.0),
+                    ],
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField_id(
+                    selectedItemId: selectedPoe,
+                    label: LocaleKeys.labelCreditor.tr(),
+                    hint: LocaleKeys.hintCreditor.tr(),
+                    items: Map.fromIterable(
+                      poes,
+                      key: (poe) => poe.poeId,
+                      value: (poe) => poe.poeName ?? 'Unknown Poe',
+                    ),
+                    onChanged: (int? poeId) {
+                      setState(() {
+                        selectedPoe = poeId;
+                        if (poeId != null) {
+                          print('Selected Poe ID: $poeId');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxTextFormField(
+                    controller: _confBillNumber,
+                    hintText: LocaleKeys.HintBillNumber.tr(),
+                    inputType: TextInputType.text,
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  buildDateField(LocaleKeys.expenseDate.tr()),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxTextFormField(
+                    controller: _confAmount,
+                    hintText: LocaleKeys.expenseAmount.tr(),
+                    inputType: TextInputType.number,
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxTextFormField(
+                    controller: _confNotes,
+                    hintText: LocaleKeys.labelNotes.tr(),
+                    inputType: TextInputType.text,
+                    maxLines : 2,
+                    expands : false
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  Container(
+                    width: ResponsiveUtil.screenWidth(context) * 0.8,
+                    child: TextButton(
+                      onPressed: () => saveExpenseData(context),
+                      child: Text(
+                        LocaleKeys.save.tr(),
+                        style: TextStyle(
+                          color: ColorConstants.textButtonSaveTextColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: ResponsiveUtil.fontSize(context, 20),
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                    decoration: BoxDecoration(
+                      color: ColorConstants.textButtonSaveColor,
+                      //isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

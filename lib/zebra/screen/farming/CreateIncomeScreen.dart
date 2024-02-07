@@ -252,7 +252,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // Rate Per Unit
                       Expanded(
@@ -262,7 +262,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                           inputType: TextInputType.number,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      SizedBox(width: 5.0),
+                      //SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       // Unit
                       Expanded(
                         child: NxDDFormField(
@@ -284,7 +285,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // Quantity Sold
                       Expanded(
@@ -294,7 +295,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                           inputType: TextInputType.number,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      //SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       // Quantity Unit
                       Expanded(
                         child: NxDDFormField(
