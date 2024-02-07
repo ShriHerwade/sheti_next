@@ -223,8 +223,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDDFormField_id(
                     selectedItemId: selectedFarm,
-                    label: LocaleKeys.labelFarm.tr(),
-                    hint: LocaleKeys.selectFarm.tr(),
+                    label: LocaleKeys.labelSelectFarm.tr(),
+                    hint: LocaleKeys.hintSelectFarm.tr(),
                     items: Map.fromIterable(
                       farms,
                       key: (farm) => farm.farmId,
@@ -244,8 +244,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDDFormField_id(
                     selectedItemId: selectedCrop,
-                    hint: LocaleKeys.selectCrop.tr(),
-                    label: LocaleKeys.labelCrop.tr(),
+                    hint: LocaleKeys.hintSelectCrop.tr(),
+                    label: LocaleKeys.labelSelectCrop.tr(),
                     items: Map.fromIterable(
                       crops,
                       key: (crop) => crop.cropId,
@@ -263,8 +263,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDDFormField(
                     value: selectedExpenseType,
-                    hint: LocaleKeys.selectExpenseType.tr(),
-                    label: LocaleKeys.labelExpenseType.tr(),
+                    hint: LocaleKeys.hintSelectExpenseType.tr(),
+                    label: LocaleKeys.labelSelectExpenseType.tr(),
                     items: farmExpenseTypes,
                     onChanged: (String? expenseType) {
                       setState(() {
@@ -278,8 +278,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDDFormField(
                     value: selectedExpenseSubType,
-                    hint: LocaleKeys.selectExpenseSubType.tr(),
-                    label: LocaleKeys.labelExpenseSubType.tr(),
+                    hint: LocaleKeys.hintSelectExpenseSubType.tr(),
+                    label: LocaleKeys.labelSelectExpenseSubType.tr(),
                     items: farmExpenseSubTypes,
                     onChanged: (String? expenseSubType) {
                       setState(() {
@@ -327,8 +327,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDDFormField_id(
                     selectedItemId: selectedPoe,
-                    label: LocaleKeys.labelCreditor.tr(),
-                    hint: LocaleKeys.hintCreditor.tr(),
+                    label: LocaleKeys.labelSelectCreditorName.tr(),
+                    hint: LocaleKeys.hintSelectCreditorName.tr(),
                     items: Map.fromIterable(
                       poes,
                       key: (poe) => poe.poeId,
@@ -346,25 +346,27 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxTextFormField(
                     controller: _confBillNumber,
-                    hintText: LocaleKeys.HintBillNumber.tr(),
+                    hintText: LocaleKeys.hintBillNumber.tr(),
+                    labelText: LocaleKeys.labelBillNumber.tr(),
                     inputType: TextInputType.text,
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                  buildDateField(LocaleKeys.expenseDate.tr()),
+                  buildDateField(LocaleKeys.hintExpenseDate.tr()),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxTextFormField(
                     controller: _confAmount,
-                    hintText: LocaleKeys.expenseAmount.tr(),
+                    hintText: LocaleKeys.hintExpenseAmount.tr(),
+                    labelText: LocaleKeys.labelExpenseAmount.tr(),
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxTextFormField(
-                    controller: _confNotes,
-                    hintText: LocaleKeys.labelNotes.tr(),
-                    inputType: TextInputType.text,
-                    maxLines : 2,
-                    expands : false
-                  ),
+                      controller: _confNotes,
+                      hintText: LocaleKeys.hintNotes.tr(),
+                      labelText: LocaleKeys.labelNotes.tr(),
+                      inputType: TextInputType.text,
+                      maxLines: 2,
+                      expands: false),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   Container(
                     width: ResponsiveUtil.screenWidth(context) * 0.8,
@@ -412,8 +414,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
       children: [
         NxDDFormField_id(
           selectedItemId: selectedPoe,
-          label: LocaleKeys.labelCreditor.tr(),
-          hint: LocaleKeys.hintCreditor.tr(),
+          label: LocaleKeys.labelSelectCreditorName.tr(),
+          hint: LocaleKeys.hintSelectCreditorName.tr(),
           items: Map.fromIterable(
             poes,
             key: (poe) => poe.poeId,

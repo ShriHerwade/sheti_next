@@ -198,8 +198,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   // Add your image widget here
                   NxDDFormField_id(
                     selectedItemId: selectedFarm,
-                    label: LocaleKeys.labelFarm.tr(),
-                    hint: LocaleKeys.selectFarm.tr(),
+                    label: LocaleKeys.labelSelectFarm.tr(),
+                    hint: LocaleKeys.hintSelectFarm.tr(),
                     items: Map.fromIterable(
                       farms,
                       key: (farm) => farm.farmId,
@@ -219,8 +219,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxDDFormField_id(
                     selectedItemId: selectedCrop,
-                    hint: LocaleKeys.selectCrop.tr(),
-                    label: LocaleKeys.labelCrop.tr(),
+                    hint: LocaleKeys.hintSelectCrop.tr(),
+                    label: LocaleKeys.labelSelectCrop.tr(),
                     items: Map.fromIterable(
                       crops,
                       key: (crop) => crop.cropId,
@@ -238,8 +238,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxDDFormField(
                     value: selectedIncomeType,
-                    hint: LocaleKeys.selectIncomeType.tr(),
-                    label: LocaleKeys.labelIncomeType.tr(),
+                    hint: LocaleKeys.hintSelectIncomeType.tr(),
+                    label: LocaleKeys.labelSelectIncomeType.tr(),
                     items: farmIncomes,
                     onChanged: (String? income) {
                       setState(() {
@@ -268,8 +268,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                       Expanded(
                         child: NxDDFormField(
                           value: selectedRateUnit,
-                          hint: LocaleKeys.labelRateUnit.tr(),
-                          label: LocaleKeys.labelRateUnit.tr(),
+                          hint: LocaleKeys.hintRatePerUnit.tr(),
+                          label: LocaleKeys.labelRatePerUnit.tr(),
                           items: cropUnit,
                           onChanged: (String? rateUnit) {
                             setState(() {
@@ -300,8 +300,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                       Expanded(
                         child: NxDDFormField(
                           value: selectedQuantityUnit,
-                          hint: LocaleKeys.labelRateUnit.tr(),
-                          label: LocaleKeys.labelRateUnit.tr(),
+                          hint: LocaleKeys.hintSelectQuantityUnit.tr(),
+                          label: LocaleKeys.labelSelectQuantityUnit.tr(),
                           items: cropUnit,
                           onChanged: (String? quantityUnit) {
                             setState(() {
@@ -324,7 +324,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
                     controller: _confReceiptNumber,
-                    hintText: LocaleKeys.HintReceiptNumber.tr(),
+                    hintText: LocaleKeys.hintReceiptNumber.tr(),
+                    labelText: LocaleKeys.labelReceiptNumber.tr(),
                     inputType: TextInputType.text,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -333,12 +334,14 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   NxTextFormField(
                     controller: _confAmount,
                     hintText: LocaleKeys.labelAmountReceived.tr(),
+                    labelText: LocaleKeys.hintAmountReceived.tr(),
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
                       controller: _confNotes,
                       hintText: LocaleKeys.labelNotes.tr(),
+                      labelText: LocaleKeys.hintNotes.tr(),
                       inputType: TextInputType.text,
                       maxLines : 2,
                       expands : false

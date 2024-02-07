@@ -122,8 +122,8 @@ class _CreateCropState extends State<CreateCrop> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDDFormField_id(
                     selectedItemId: selectedFarm,
-                    label: LocaleKeys.labelFarm.tr(),
-                    hint: LocaleKeys.selectFarm.tr(),
+                    label: LocaleKeys.labelSelectFarm.tr(),
+                    hint: LocaleKeys.hintSelectFarm.tr(),
                     items: Map.fromIterable(
                       farms,
                       key: (farm) => farm.farmId,
@@ -141,8 +141,8 @@ class _CreateCropState extends State<CreateCrop> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDDFormField(
                     value: selectedCrop,
-                    hint: LocaleKeys.selectCrop.tr(),
-                    label: LocaleKeys.labelCrop.tr(),
+                    hint: LocaleKeys.hintSelectCrop.tr(),
+                    label: LocaleKeys.labelSelectCrop.tr(),
                     items: crops,
                     onChanged: (String? cropName) {
                       setState(() {
@@ -156,14 +156,15 @@ class _CreateCropState extends State<CreateCrop> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxTextFormField(
                     controller: _confarmArea,
-                    hintText: LocaleKeys.sowingArea.tr(),
+                    hintText: LocaleKeys.hintSowingArea.tr(),
+                    labelText: LocaleKeys.labelSowingArea.tr(),
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDDFormField(
                     value: selectedUnit,
-                    hint: LocaleKeys.selectUnit.tr(),
-                    label: LocaleKeys.labelUnit.tr(),
+                    hint: LocaleKeys.hintSelectUnit.tr(),
+                    label: LocaleKeys.labelSelectUnit.tr(),
                     items: units,
                     onChanged: (String? unitValue) {
                       setState(() {
@@ -176,8 +177,8 @@ class _CreateCropState extends State<CreateCrop> {
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDateField(
-                    label: LocaleKeys.sowingDate.tr(),
-                    labelText: LocaleKeys.sowingDate.tr(),
+                    label: LocaleKeys.labelSowingDate.tr(),
+                    labelText: LocaleKeys.hintSowingDate.tr(),
                     selectedDate: startDate,
                     onTap: (DateTime? picked) {
                       setState(() {
@@ -187,8 +188,8 @@ class _CreateCropState extends State<CreateCrop> {
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDateField(
-                    label: LocaleKeys.harvestingDate.tr(),
-                    labelText: LocaleKeys.harvestingDate.tr(),
+                    label: LocaleKeys.labelHarvestingDate.tr(),
+                    labelText: LocaleKeys.hintHarvestingDate.tr(),
                     selectedDate: endDate,
                     onTap: (DateTime? picked) {
                       setState(() {

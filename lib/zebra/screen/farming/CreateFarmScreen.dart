@@ -118,8 +118,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                     // Text form field for farm name
                     NxTextFormField(
                       controller: _confarmName,
-                      hintText: LocaleKeys.farmName.tr(),
-                      labelText: "Test Label",
+                      hintText: LocaleKeys.hintFarmName.tr(),
+                      labelText: LocaleKeys.labelFarmName.tr(),
                       inputType: TextInputType.name,
                     ),
                     // Spacer
@@ -127,8 +127,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                     // Text form field for farm address
                     NxTextFormField(
                       controller: _confarmAddress,
-                      hintText: LocaleKeys.address.tr(),
-                      labelText: "Test Label",
+                      hintText: LocaleKeys.hintAddress.tr(),
+                      labelText: LocaleKeys.labelAddress.tr(),
                       inputType: TextInputType.name,
 
                     ),
@@ -137,8 +137,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                     // Text form field for farm area
                     NxTextFormField(
                       controller: _confarmArea,
-                      hintText: LocaleKeys.farmArea.tr(),
-                      labelText: "Test Label",
+                      hintText: LocaleKeys.hintFarmArea.tr(),
+                      labelText: LocaleKeys.labelFarmArea.tr(),
                       inputType: TextInputType.number,
                     ),
                     // Spacer
@@ -146,8 +146,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                     // Dropdown form field for selecting unit
                     NxDDFormField(
                       value: selectedUnit,
-                      hint: LocaleKeys.selectUnit.tr(),
-                      label: LocaleKeys.labelUnit.tr(),
+                      hint: LocaleKeys.hintSelectUnit.tr(),
+                      label: LocaleKeys.labelSelectUnit.tr(),
                       items: units,
                       onChanged: (String? unitValue) {
                         setState(() {
@@ -163,8 +163,8 @@ class _CreateFarmsState extends State<CreateFarms> {
                     // Dropdown form field for selecting farm type
                     NxDDFormField(
                       value: selectedOwnership,
-                      label: LocaleKeys.labelFarmType.tr(),
-                      hint: LocaleKeys.selectFarmType.tr(),
+                      label: LocaleKeys.labelSelectFarmType.tr(),
+                      hint: LocaleKeys.hintSelectFarmType.tr(),
                       items: farmOwnership,
                       onChanged: (String? ownershipValue) {
                         setState(() {

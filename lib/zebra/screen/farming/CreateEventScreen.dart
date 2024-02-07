@@ -200,8 +200,8 @@ class _CreateEventsState extends State<CreateEvents> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDDFormField_id(
                       selectedItemId: selectedFarm,
-                      label: LocaleKeys.labelFarm.tr(),
-                      hint: LocaleKeys.selectFarm.tr(),
+                      label: LocaleKeys.labelSelectFarm.tr(),
+                      hint: LocaleKeys.hintSelectFarm.tr(),
                       items: Map.fromIterable(
                         farms,
                         key: (farm) => farm.farmId,
@@ -221,8 +221,8 @@ class _CreateEventsState extends State<CreateEvents> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDDFormField_id(
                       selectedItemId: selectedCrop,
-                      hint: LocaleKeys.selectCrop.tr(),
-                      label: LocaleKeys.labelCrop.tr(),
+                      hint: LocaleKeys.hintSelectCrop.tr(),
+                      label: LocaleKeys.labelSelectCrop.tr(),
                       items: Map.fromIterable(
                         crops,
                         key: (crop) => crop.cropId,
@@ -243,8 +243,8 @@ class _CreateEventsState extends State<CreateEvents> {
                           horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
                       child: DropDownMultiSelect(
                         decoration: InputDecoration(
-                          hintText: LocaleKeys.selectEvent.tr(),
-                          labelText: LocaleKeys.labelEvent.tr(),
+                          hintText: LocaleKeys.hintSelectEvent.tr(),
+                          labelText: LocaleKeys.labelSelectEvent.tr(),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(width:1,color: ColorConstants.enabledFieldBorderColor)),
@@ -268,15 +268,15 @@ class _CreateEventsState extends State<CreateEvents> {
                         },
                         options: farmEvents,
                         selectedValues: selectedFarmEvents,
-                        hint: Text(LocaleKeys.selectEvent.tr()),
+                        hint: Text(LocaleKeys.hintSelectEvent.tr()),
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.normal, color: Colors.black),
                       ),
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDateField(
-                      label: LocaleKeys.eventStartDate.tr(),
-                      labelText: LocaleKeys.eventStartDate.tr(),
+                      label: LocaleKeys.labelEventStartDate.tr(),
+                      labelText: LocaleKeys.labelEventStartDate.tr(),
                       selectedDate: startDate,
                       onTap: (DateTime? picked) {
                         setState(() {
@@ -287,8 +287,8 @@ class _CreateEventsState extends State<CreateEvents> {
                     SizedBox(
                         height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDateField(
-                      label: LocaleKeys.eventEndDate.tr(),
-                      labelText: LocaleKeys.eventEndDate.tr(),
+                      label: LocaleKeys.labelEventEndDate.tr(),
+                      labelText: LocaleKeys.hintEventEndDate.tr(),
                       selectedDate: endDate,
                       onTap: (DateTime? picked) {
                         setState(() {
