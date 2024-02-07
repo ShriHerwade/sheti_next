@@ -14,7 +14,8 @@ class NxTextFormField extends StatefulWidget {
   final int? maxLines;
   final bool expands;
 
-  NxTextFormField({
+  const NxTextFormField({
+    Key? key,
     this.controller,
     this.hintText,
     this.labelText,
@@ -25,25 +26,43 @@ class NxTextFormField extends StatefulWidget {
     this.maxLength,
     this.maxLines,
     this.expands = false,
-  });
+  }) : super(key: key);
 
   @override
   _NxTextFormFieldState createState() => _NxTextFormFieldState();
 }
 
 class _NxTextFormFieldState extends State<NxTextFormField> {
-  late FocusNode _focusNode;
+  late TextEditingController _customTextFieldController;
 
   @override
   void initState() {
     super.initState();
-    _focusNode = FocusNode();
+    _customTextFieldController = widget.controller ?? TextEditingController();
+    _customTextFieldController.addListener(updateState);
   }
 
   @override
   void dispose() {
-    _focusNode.dispose();
+    _customTextFieldController.removeListener(updateState);
+    if (widget.controller == null) {
+      _customTextFieldController.dispose();
+    }
     super.dispose();
+  }
+
+  void updateState() {
+    setState(() {});
+  }
+
+  String? validateInput(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please Enter ${widget.hintText}";
+    }
+    if (widget.hintText == "Email" && !validateEmail(value)) {
+      return "Please Enter a valid Email Address";
+    }
+    return null;
   }
 
   @override
@@ -51,23 +70,14 @@ class _NxTextFormFieldState extends State<NxTextFormField> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextFormField(
-        focusNode: _focusNode,
-        controller: widget.controller,
+        controller: _customTextFieldController,
         obscureText: widget.isObsecureText,
         keyboardType: widget.inputType,
         enabled: widget.isEnable,
         maxLength: widget.maxLength,
         maxLines: widget.expands ? null : widget.maxLines,
         expands: widget.expands,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Please Enter ${widget.hintText}";
-          }
-          if (widget.hintText == "Email" && !validateEmail(value)) {
-            return "Please Enter a valid Email Address";
-          }
-          return null;
-        },
+        validator: validateInput,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -88,7 +98,7 @@ class _NxTextFormFieldState extends State<NxTextFormField> {
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           hintText: widget.hintText,
           hintStyle: TextStyle(fontWeight: FontWeight.normal, color: ColorConstants.fieldHintTextColor),
-          labelText: _focusNode.hasFocus || widget.controller?.text.isNotEmpty == true ? widget.labelText : null, // to stop  label overriding the hint
+          labelText: _customTextFieldController.text.isNotEmpty ? widget.labelText : null,
           labelStyle: TextStyle(fontWeight: FontWeight.normal, color: ColorConstants.fieldLabelTextColor),
           isDense: true,
           fillColor: Colors.white,
