@@ -47,6 +47,8 @@ abstract class  LocaleKeys {
   static const labelSelectCreditorName = 'labelSelectCreditorName';
   static const hintSelectCreditorName = 'hintSelectCreditorName';
   static const checkBoxIsCreditor = 'checkBoxIsCreditor';
+  static const labelAddNewCreditor = 'labelAddNewCreditor';
+  static const hintAddNewCreditor = 'hintAddNewCreditor';
   static const labelSelectIncomeType = 'labelSelectIncomeType';
   static const hintSelectIncomeType = 'hintSelectIncomeType';
   static const labelIncomeDate = 'labelIncomeDate';

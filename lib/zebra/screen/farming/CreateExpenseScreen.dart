@@ -314,7 +314,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                           _showAddCreditorDialog();
                         },
                         child: Text(
-                          '+ Add New Creditor',
+                          '+'+LocaleKeys.labelAddNewCreditor.tr(),
                           style: TextStyle(
                             color: Colors.black87,
                             decoration: TextDecoration.underline,

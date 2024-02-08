@@ -65,13 +65,17 @@
   "hintSelectCreditorName" : "उधार देणाऱ्याचे नाव निवडा",
 
   "checkBoxIsCreditor" : "हा खर्च उधारीवर केलेला आहे का ?",
-
+  "labelAddNewCreditor" : "नवीन क्रेडिटर जोडा",
+  "hintAddNewCreditor" : "नवीन क्रेडिटर जोडा",
 
   "labelSelectIncomeType": "उत्पन्नाचा प्रकार",
   "hintSelectIncomeType": "उत्पन्नाचा प्रकार निवडा *",
 
-  "labelIncomeDate": "उत्पन्नाची  तारीख",
-  "hintIncomeDate": "उत्पन्नाची  तारीख *",
+  "labelSelectExpenseSubType": "उत्पन्नाचा उपप्रकार ",
+  "hintSelectExpenseSubType": "उत्पन्नाचा उपप्रकार निवडा *",
+
+  "labelIncomeDate": "उत्पन्नाची तारीख",
+  "hintIncomeDate": "उत्पन्नाची तारीख *",
 
   "labelRatePerUnit": "विक्री दर",
   "hintRatePerUnit": "विक्री दर",
