@@ -351,7 +351,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     inputType: TextInputType.text,
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                  buildDateField(LocaleKeys.hintExpenseDate.tr(),LocaleKeys.labelExpenseDate.tr()),
+                  buildDateField(LocaleKeys.labelExpenseDate.tr(),LocaleKeys.hintExpenseDate.tr()),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxTextFormField(
                     controller: _confAmount,

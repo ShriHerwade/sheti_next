@@ -191,7 +191,7 @@ class _CreateCropState extends State<CreateCrop> {
                   NxDateField(
                     label: LocaleKeys.labelHarvestingDate.tr(),
                     labelText: LocaleKeys.labelHarvestingDate.tr(),
-                    hintText: LocaleKeys.hintHarvestingDate,
+                    hintText: LocaleKeys.hintHarvestingDate.tr(),
                     selectedDate: endDate,
                     onTap: (DateTime? picked) {
                       setState(() {

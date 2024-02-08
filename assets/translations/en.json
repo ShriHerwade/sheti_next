@@ -68,7 +68,7 @@
   "checkBoxIsCreditor" : "Expense on Credit ?",
 
   "labelAddNewCreditor" : "Add New Creditor",
-  "hintAddNewCreditor"  : "Add New Creditor",
+  "hintAddNewCreditor" : "Add New Creditor",
 
   "labelSelectIncomeType" :  "Income type",
   "hintSelectIncomeType" : "Select Income Type *",

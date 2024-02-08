@@ -69,17 +69,6 @@ class NxNavBar extends StatelessWidget {
                       child: Text(LocaleKeys.navBarEvents.tr())),
                 ),
                 ListTile(
-                  leading: Icon(Icons.payments),
-                  title: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => ExpenseDetailsScreen()));
-                      },
-                      child: Text(LocaleKeys.navBarExpenses.tr())),
-                ),
-                ListTile(
                   leading: Icon(Icons.payment_rounded),
                   title: InkWell(
                       onTap: () {
@@ -88,7 +77,7 @@ class NxNavBar extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (_) => ExpenseIncomeScreen()));
                       },
-                      child: Text(LocaleKeys.navBarIncome.tr())),
+                      child: Text(LocaleKeys.navBarExpenses.tr())),
                 ),
                 ListTile(
                   leading: Icon(Icons.dashboard),
