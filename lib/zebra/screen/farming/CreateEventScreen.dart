@@ -277,6 +277,7 @@ class _CreateEventsState extends State<CreateEvents> {
                     NxDateField(
                       label: LocaleKeys.labelEventStartDate.tr(),
                       labelText: LocaleKeys.labelEventStartDate.tr(),
+                      hintText: LocaleKeys.hintEventStartDate.tr(),
                       selectedDate: startDate,
                       onTap: (DateTime? picked) {
                         setState(() {
@@ -288,7 +289,8 @@ class _CreateEventsState extends State<CreateEvents> {
                         height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDateField(
                       label: LocaleKeys.labelEventEndDate.tr(),
-                      labelText: LocaleKeys.hintEventEndDate.tr(),
+                      labelText: LocaleKeys.labelEventEndDate.tr(),
+                      hintText: LocaleKeys.hintEventEndDate.tr(),
                       selectedDate: endDate,
                       onTap: (DateTime? picked) {
                         setState(() {

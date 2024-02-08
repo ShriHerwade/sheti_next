@@ -178,7 +178,8 @@ class _CreateCropState extends State<CreateCrop> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDateField(
                     label: LocaleKeys.labelSowingDate.tr(),
-                    labelText: LocaleKeys.hintSowingDate.tr(),
+                    labelText: LocaleKeys.labelSowingDate.tr(),
+                    hintText: LocaleKeys.hintSowingDate.tr(),
                     selectedDate: startDate,
                     onTap: (DateTime? picked) {
                       setState(() {
@@ -189,7 +190,8 @@ class _CreateCropState extends State<CreateCrop> {
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDateField(
                     label: LocaleKeys.labelHarvestingDate.tr(),
-                    labelText: LocaleKeys.hintHarvestingDate.tr(),
+                    labelText: LocaleKeys.labelHarvestingDate.tr(),
+                    hintText: LocaleKeys.hintHarvestingDate,
                     selectedDate: endDate,
                     onTap: (DateTime? picked) {
                       setState(() {

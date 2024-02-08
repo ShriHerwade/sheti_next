@@ -351,7 +351,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     inputType: TextInputType.text,
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                  buildDateField(LocaleKeys.hintExpenseDate.tr()),
+                  buildDateField(LocaleKeys.hintExpenseDate.tr(),LocaleKeys.labelExpenseDate.tr()),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxTextFormField(
                     controller: _confAmount,
@@ -396,10 +396,11 @@ class _CreateExpensesState extends State<CreateExpenses> {
     );
   }
 
-  Widget buildDateField(String label) {
+  Widget buildDateField(String label, String hint) {
     return NxDateField(
       label: label,
       labelText: label,
+      hintText: hint,
       selectedDate: selectedDate,
       onTap: (DateTime? picked) {
         setState(() {

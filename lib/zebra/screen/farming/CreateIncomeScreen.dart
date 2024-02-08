@@ -329,7 +329,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                     inputType: TextInputType.text,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  buildDateField(LocaleKeys.labelIncomeDate.tr()),
+                  buildDateField(LocaleKeys.labelIncomeDate.tr(),LocaleKeys.hintIncomeDate.tr()),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
                     controller: _confAmount,
@@ -375,10 +375,11 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
     );
   }
 
-  Widget buildDateField(String label) {
+  Widget buildDateField(String label,String hint) {
     return NxDateField(
       label: label,
       labelText: label,
+      hintText: hint,
       selectedDate: selectedDate,
       onTap: (DateTime? picked) {
         setState(() {

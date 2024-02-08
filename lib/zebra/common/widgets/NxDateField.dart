@@ -5,6 +5,7 @@ import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 class NxDateField extends StatefulWidget {
   final String label;
   final String labelText;
+  final String hintText;
   final DateTime? selectedDate;
   final Function(DateTime?) onTap;
 
@@ -12,6 +13,7 @@ class NxDateField extends StatefulWidget {
     Key? key,
     required this.label,
     required this.labelText,
+    required this.hintText,
     required this.selectedDate,
     required this.onTap,
   }) : super(key: key);
@@ -74,7 +76,7 @@ class _NxDateFieldState extends State<NxDateField> {
               fillColor: Colors.white,
               hintText: widget.selectedDate != null
                   ? formatDate(widget.selectedDate!)
-                  : '${widget.label}',
+                  : '${widget.hintText}',
               hintStyle: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: ColorConstants.fieldHintTextColor),
