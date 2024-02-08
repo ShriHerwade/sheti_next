@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDDFormField_NP.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -12,6 +13,8 @@ import '../../common/widgets/NxDDFormField.dart';
 import '../../common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import '../../dao/models/IncomeModel.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
+import 'package:sheti_next/zebra/common/widgets/NxTextFormField_NP.dart';
 
 class CreateIncomeScreen extends StatefulWidget {
   const CreateIncomeScreen({Key? key});
@@ -252,21 +255,23 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       // Rate Per Unit
                       Expanded(
-                        child: NxTextFormField(
+                        child: NxTextFormField_NP(
                           controller: _confRate,
+                          labelText:LocaleKeys.hintRatePerUnit.tr(),
                           hintText: LocaleKeys.labelRatePerUnit.tr(),
                           inputType: TextInputType.number,
+
                         ),
                       ),
-                      SizedBox(width: 5.0),
-                      //SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                       // Unit
                       Expanded(
-                        child: NxDDFormField(
+                        child: NxDDFormField_NP(
                           value: selectedRateUnit,
                           hint: LocaleKeys.hintRatePerUnit.tr(),
                           label: LocaleKeys.labelRatePerUnit.tr(),
@@ -285,20 +290,18 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Quantity Sold
                       Expanded(
-                        child: NxTextFormField(
+                        child: NxTextFormField_NP(
                           controller: _confQuantity,
+                          labelText:LocaleKeys.hintQuantitySold.tr(),
                           hintText: LocaleKeys.labelQuantitySold.tr(),
                           inputType: TextInputType.number,
                         ),
                       ),
-                      //SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      // Quantity Unit
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                       Expanded(
-                        child: NxDDFormField(
+                        child: NxDDFormField_NP(
                           value: selectedQuantityUnit,
                           hint: LocaleKeys.hintSelectQuantityUnit.tr(),
                           label: LocaleKeys.labelSelectQuantityUnit.tr(),
@@ -312,7 +315,12 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                             });
                           },
                         ),
-                      ),
+                      )
+                      // Quantity Sold
+
+                      //SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      // Quantity Unit
+
                     ],
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
