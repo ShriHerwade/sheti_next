@@ -17,7 +17,8 @@ class NxDDFormField extends StatefulWidget {
     required this.label,
     required this.items,
     required this.onChanged,
-    this.padding = const EdgeInsets.symmetric(horizontal: 20.0), // Default padding
+    this.padding =
+        const EdgeInsets.symmetric(horizontal: 20.0), // Default padding
   }) : super(key: key);
 
   @override
@@ -35,19 +36,23 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(width: 1, color: ColorConstants.enabledFieldBorderColor),
+              borderSide: BorderSide(
+                  width: 1, color: ColorConstants.enabledFieldBorderColor),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(width: 1, color: ColorConstants.focusedFieldBorderColor),
+              borderSide: BorderSide(
+                  width: 1, color: ColorConstants.focusedFieldBorderColor),
             ),
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(width: 1, color: ColorConstants.disabledFieldBorderColor),
+              borderSide: BorderSide(
+                  width: 1, color: ColorConstants.disabledFieldBorderColor),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: BorderSide(width: 1, color: ColorConstants.errorFieldBorderColor),
+              borderSide: BorderSide(
+                  width: 1, color: ColorConstants.errorFieldBorderColor),
             ),
             fillColor: Colors.white,
             filled: true,

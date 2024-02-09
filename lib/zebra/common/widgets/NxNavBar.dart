@@ -10,8 +10,6 @@ import 'package:sheti_next/zebra/screen/farming/ExpenseIncomeScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/DashboardScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 
-
-
 class NxNavBar extends StatelessWidget {
   const NxNavBar({super.key});
 
@@ -94,10 +92,8 @@ class NxNavBar extends StatelessWidget {
                   leading: Icon(Icons.account_balance_sharp),
                   title: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => MyExpenses()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => MyExpenses()));
                       },
                       child: Text('Show All Expenses')),
                 ),

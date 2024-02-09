@@ -27,7 +27,8 @@ class NxTextFormField extends StatefulWidget {
     this.maxLength,
     this.maxLines,
     this.expands = false,
-    this.padding = const EdgeInsets.symmetric(horizontal: 20.0), // Default padding
+    this.padding =
+        const EdgeInsets.symmetric(horizontal: 20.0), // Default padding
   }) : super(key: key);
 
   @override
@@ -83,25 +84,35 @@ class _NxTextFormFieldState extends State<NxTextFormField> {
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            borderSide: BorderSide(width: 1, color: ColorConstants.enabledFieldBorderColor),
+            borderSide: BorderSide(
+                width: 1, color: ColorConstants.enabledFieldBorderColor),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            borderSide: BorderSide(width: 1, color: ColorConstants.focusedFieldBorderColor),
+            borderSide: BorderSide(
+                width: 1, color: ColorConstants.focusedFieldBorderColor),
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            borderSide: BorderSide(width: 1, color: ColorConstants.disabledFieldBorderColor),
+            borderSide: BorderSide(
+                width: 1, color: ColorConstants.disabledFieldBorderColor),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            borderSide: BorderSide(width: 1, color: ColorConstants.errorFieldBorderColor),
+            borderSide: BorderSide(
+                width: 1, color: ColorConstants.errorFieldBorderColor),
           ),
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           hintText: widget.hintText,
-          hintStyle: TextStyle(fontWeight: FontWeight.normal, color: ColorConstants.fieldHintTextColor),
-          labelText: _customTextFieldController.text.isNotEmpty ? widget.labelText : null,
-          labelStyle: TextStyle(fontWeight: FontWeight.normal, color: ColorConstants.fieldLabelTextColor),
+          hintStyle: TextStyle(
+              fontWeight: FontWeight.normal,
+              color: ColorConstants.fieldHintTextColor),
+          labelText: _customTextFieldController.text.isNotEmpty
+              ? widget.labelText
+              : null,
+          labelStyle: TextStyle(
+              fontWeight: FontWeight.normal,
+              color: ColorConstants.fieldLabelTextColor),
           isDense: true,
           fillColor: Colors.white,
           filled: true,
