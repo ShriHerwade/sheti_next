@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
-import 'package:sheti_next/zebra/common/widgets/NxDDFormField_NP.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -13,8 +12,6 @@ import '../../common/widgets/NxDDFormField.dart';
 import '../../common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import '../../dao/models/IncomeModel.dart';
-import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
-import 'package:sheti_next/zebra/common/widgets/NxTextFormField_NP.dart';
 
 class CreateIncomeScreen extends StatefulWidget {
   const CreateIncomeScreen({Key? key});
@@ -259,23 +256,24 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                     children: [
                       // Rate Per Unit
                       Expanded(
-                        child: NxTextFormField_NP(
+                        child: NxTextFormField(
                           controller: _confRate,
                           labelText:LocaleKeys.hintRatePerUnit.tr(),
                           hintText: LocaleKeys.labelRatePerUnit.tr(),
                           inputType: TextInputType.number,
-
+                          padding : EdgeInsets.only(left:  20.0),
                         ),
                       ),
 
                       SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                       // Unit
                       Expanded(
-                        child: NxDDFormField_NP(
+                        child: NxDDFormField(
                           value: selectedRateUnit,
                           hint: LocaleKeys.hintRatePerUnit.tr(),
                           label: LocaleKeys.labelRatePerUnit.tr(),
                           items: cropUnit,
+                          padding: EdgeInsets.only(right: 20),
                           onChanged: (String? rateUnit) {
                             setState(() {
                               selectedRateUnit = rateUnit;
@@ -292,21 +290,22 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: NxTextFormField_NP(
+                        child: NxTextFormField(
                           controller: _confQuantity,
                           labelText:LocaleKeys.labelQuantitySold.tr(),
                           hintText: LocaleKeys.hintQuantitySold.tr(),
                           inputType: TextInputType.number,
+                          padding : EdgeInsets.only(left:  20.0),
                         ),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                       Expanded(
-                        child: NxDDFormField_NP(
+                        child: NxDDFormField(
                           value: selectedQuantityUnit,
-
                           hint: LocaleKeys.hintSelectQuantityUnit.tr(),
                           label: LocaleKeys.labelSelectQuantityUnit.tr(),
                           items: cropUnit,
+                          padding: EdgeInsets.only(right: 20),
                           onChanged: (String? quantityUnit) {
                             setState(() {
                               selectedQuantityUnit = quantityUnit!;

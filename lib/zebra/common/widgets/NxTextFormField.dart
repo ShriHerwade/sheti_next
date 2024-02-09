@@ -13,6 +13,7 @@ class NxTextFormField extends StatefulWidget {
   final int? maxLength;
   final int? maxLines;
   final bool expands;
+  final EdgeInsetsGeometry padding;
 
   const NxTextFormField({
     Key? key,
@@ -26,6 +27,7 @@ class NxTextFormField extends StatefulWidget {
     this.maxLength,
     this.maxLines,
     this.expands = false,
+    this.padding = const EdgeInsets.symmetric(horizontal: 20.0), // Default padding
   }) : super(key: key);
 
   @override
@@ -68,7 +70,7 @@ class _NxTextFormFieldState extends State<NxTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      padding: widget.padding,
       child: TextFormField(
         controller: _customTextFieldController,
         obscureText: widget.isObsecureText,
