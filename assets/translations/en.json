@@ -38,7 +38,7 @@
   "hintSowingDate": "Sowing Date *",
 
   "labelHarvestingDate": "Harvesting Date",
-  "hintHarvestingDate": "Harvesting Date",
+  "hintHarvestingDate": "Harvesting Date *",
 
 
   "labelSelectEvent": "Event",

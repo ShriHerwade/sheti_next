@@ -294,8 +294,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                       Expanded(
                         child: NxTextFormField_NP(
                           controller: _confQuantity,
-                          labelText:LocaleKeys.hintQuantitySold.tr(),
-                          hintText: LocaleKeys.labelQuantitySold.tr(),
+                          labelText:LocaleKeys.labelQuantitySold.tr(),
+                          hintText: LocaleKeys.hintQuantitySold.tr(),
                           inputType: TextInputType.number,
                         ),
                       ),
@@ -303,6 +303,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                       Expanded(
                         child: NxDDFormField_NP(
                           value: selectedQuantityUnit,
+
                           hint: LocaleKeys.hintSelectQuantityUnit.tr(),
                           label: LocaleKeys.labelSelectQuantityUnit.tr(),
                           items: cropUnit,

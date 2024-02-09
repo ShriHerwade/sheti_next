@@ -37,8 +37,8 @@
   "labelSowingDate": "पेरणी ची तारीख",
   "hintSowingDate": "पेरणी ची तारीख *",
 
-  "labelHarvestingDate" : "मळणी/तोडणी ची तारीख",
-  "hintHarvestingDate" : "मळणी/तोडणी ची तारीख (अंदाजे)",
+  "labelHarvestingDate" : "कापणी/तोडणी ची तारीख",
+  "hintHarvestingDate" : "कापणी/तोडणी ची तारीख (अंदाजे) *",
 
   "labelSelectEvent": "शेती काम",
   "hintSelectEvent": "शेती काम निवडा *",
