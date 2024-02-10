@@ -122,5 +122,8 @@
   "buttonShowAllCrops" : "पीक दाखवा",
   "buttonShowAllFarms" : "शेती दाखवा ",
   "buttonShowAllEvents" : "शेत काम दाखवा ",
-  "buttonShowAllExpense" : "जमा खर्च दाखवा "
+  "buttonShowAllExpense" : "जमा खर्च दाखवा ",
+
+  "messageSaveSuccess" : "नोंद यशस्वीरित्या जतन केली आहे !",
+  "messageSaveFailed" :  "तांत्रिक समस्या, नोंद जतन केली नाही !"
 }

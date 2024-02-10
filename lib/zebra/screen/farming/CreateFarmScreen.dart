@@ -11,6 +11,8 @@ import '../../common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyFarmScreen.dart';
+
+import '../../common/widgets/NxSnackbar.dart';
 class CreateFarms extends StatefulWidget {
   const CreateFarms({Key? key}) : super(key: key);
 
@@ -229,6 +231,7 @@ class _CreateFarmsState extends State<CreateFarms> {
 
         await dbHelper!.saveFarmData(farm);
 
+
         // Clear form fields
         _confarmName.clear();
         _confarmAddress.clear();
@@ -236,59 +239,12 @@ class _CreateFarmsState extends State<CreateFarms> {
         selectedUnit = null;
         selectedOwnership = null;
 
-        // Show a success message in green
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                Container(
-                  //margin: EdgeInsets.only(right: 2.0),
-                  padding: EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.snackBarSuccessCircleColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.check,
-                    color: ColorConstants.miniIconDefaultColor,
-                    size: 16.0,
-                  ),
-                ),
-                SizedBox(width: 6.0),
-                Text(
-                  'Record saved successfully.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: ColorConstants.miniIconDefaultColor,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-            backgroundColor: ColorConstants.snackBarBackgroundColor,
-            behavior: SnackBarBehavior.floating,
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-            ),
-            margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
-          ),
-        );
+        NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
+
       }
     } catch (e) {
-      // Show an error message in red
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Error saving farm data. Please try again."),
-          backgroundColor: Colors.black,
-          behavior: SnackBarBehavior.floating,
-          elevation: 10,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-          ),
-          margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
-        ),
-      );
+      print("Error while saving farm : $e");
+      NxSnackbar.showError(context, LocaleKeys.messageSaveFailed.tr(), duration: Duration(seconds: 3));
     }
   }
 }

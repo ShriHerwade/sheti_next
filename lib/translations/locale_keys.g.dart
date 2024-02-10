@@ -88,5 +88,7 @@ abstract class  LocaleKeys {
   static const buttonShowAllFarms = 'buttonShowAllFarms';
   static const buttonShowAllEvents = 'buttonShowAllEvents';
   static const buttonShowAllExpense = 'buttonShowAllExpense';
+  static const messageSaveSuccess = 'messageSaveSuccess';
+  static const messageSaveFailed = 'messageSaveFailed';
 
 }

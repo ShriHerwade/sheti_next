@@ -101,7 +101,9 @@ class CodegenLoader extends AssetLoader{
   "buttonShowAllCrops": "Show Crops",
   "buttonShowAllFarms": "My Farms",
   "buttonShowAllEvents": "Show Events ",
-  "buttonShowAllExpense": "Show Expenses "
+  "buttonShowAllExpense": "Show Expenses ",
+  "messageSaveSuccess": "Record saved successfully",
+  "messageSaveFailed": "Failed to save record"
 };
 static const Map<String,dynamic> ka = {
   "appTitle": "ಶೆಟಿನೆಕ್ಸ್ಟ್",
@@ -197,7 +199,9 @@ static const Map<String,dynamic> mr = {
   "buttonShowAllCrops": "पीक दाखवा",
   "buttonShowAllFarms": "शेती दाखवा ",
   "buttonShowAllEvents": "शेत काम दाखवा ",
-  "buttonShowAllExpense": "जमा खर्च दाखवा "
+  "buttonShowAllExpense": "जमा खर्च दाखवा ",
+  "messageSaveSuccess": "नोंद यशस्वीरित्या जतन केली आहे!",
+  "messageSaveFailed": "तांत्रिक समस्या, नोंद जतन केली नाही!"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ka": ka, "mr": mr};
 }

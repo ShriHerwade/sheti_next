@@ -121,5 +121,8 @@
   "buttonShowAllCrops" : "Show Crops",
   "buttonShowAllFarms" : "My Farms",
   "buttonShowAllEvents" : "Show Events ",
-  "buttonShowAllExpense" : "Show Expenses "
+  "buttonShowAllExpense" : "Show Expenses ",
+
+  "messageSaveSuccess" : "Record saved successfully !",
+  "messageSaveFailed" : "Failed to save record !"
 }

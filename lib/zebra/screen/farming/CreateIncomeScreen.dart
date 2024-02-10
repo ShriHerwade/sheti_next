@@ -9,6 +9,7 @@ import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
 import '../../common/widgets/NxDDFormField.dart';
+import '../../common/widgets/NxSnackbar.dart';
 import '../../common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import '../../dao/models/IncomeModel.dart';
@@ -97,57 +98,11 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
         selectedCrop = null;
         selectedIncomeType = null;
         selectedDate = null;
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.snackBarSuccessCircleColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.check,
-                    color: ColorConstants.miniIconDefaultColor,
-                    size: 16.0,
-                  ),
-                ),
-                SizedBox(width: 6.0),
-                Text(
-                  'Record saved successfully.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: ColorConstants.snackBarTextColor,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-            backgroundColor: ColorConstants.snackBarBackgroundColor,
-            behavior: SnackBarBehavior.floating,
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-            ),
-            margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
-          ),
-        );
+        NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Error saving income data."),
-          backgroundColor: ColorConstants.snackBarBackgroundColor,
-          behavior: SnackBarBehavior.floating,
-          elevation: 10,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-          ),
-          margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
-        ),
-      );
+      print("Error while saving income : $e");
+      NxSnackbar.showError(context, LocaleKeys.messageSaveFailed.tr(), duration: Duration(seconds: 3));
     }
   }
 

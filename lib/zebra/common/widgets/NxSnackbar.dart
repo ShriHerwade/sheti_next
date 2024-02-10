@@ -9,7 +9,7 @@ class NxSnackbar {
         content: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(2.0),
+              padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0), // Adjusted padding
               decoration: BoxDecoration(
                 color: ColorConstants.snackBarSuccessCircleColor,
                 shape: BoxShape.circle,
@@ -20,7 +20,7 @@ class NxSnackbar {
                 size: 16.0,
               ),
             ),
-            SizedBox(width: 6.0),
+            //SizedBox(width: 6.0),
             Expanded(
               child: Text(
                 message,
@@ -52,7 +52,7 @@ class NxSnackbar {
         content: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(2.0),
+              padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0), // Adjusted padding
               decoration: BoxDecoration(
                 color: ColorConstants.snackBarErrorCircleColor,
                 shape: BoxShape.circle,
@@ -63,7 +63,7 @@ class NxSnackbar {
                 size: 16.0,
               ),
             ),
-            SizedBox(width: 6.0),
+            //SizedBox(width: 6.0),
             Expanded(
               child: Text(
                 message,
