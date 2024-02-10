@@ -61,8 +61,8 @@ class CodegenLoader extends AssetLoader{
   "labelSelectCreditorName": "Creditor Name",
   "hintSelectCreditorName": "Select Creditor Name",
   "checkBoxIsCreditor": "Expense on Credit ?",
-  "labelAddNewCreditor": "Add New Creditor",
-  "hintAddNewCreditor": "Add New Creditor",
+  "labelAddNewCreditor": "New Creditor",
+  "hintAddNewCreditor": "New Creditor",
   "labelSelectIncomeType": "Income type",
   "hintSelectIncomeType": "Select Income Type *",
   "labelIncomeDate": "Income Date",
@@ -102,8 +102,8 @@ class CodegenLoader extends AssetLoader{
   "buttonShowAllFarms": "My Farms",
   "buttonShowAllEvents": "Show Events ",
   "buttonShowAllExpense": "Show Expenses ",
-  "messageSaveSuccess": "Record saved successfully",
-  "messageSaveFailed": "Failed to save record"
+  "messageSaveSuccess": "Record saved successfully !",
+  "messageSaveFailed": "Failed to save record !"
 };
 static const Map<String,dynamic> ka = {
   "appTitle": "ಶೆಟಿನೆಕ್ಸ್ಟ್",
@@ -148,8 +148,8 @@ static const Map<String,dynamic> mr = {
   "hintEventEndDate": "काम संपलेली केलेली तारीख",
   "labelSelectExpenseType": "खर्चाचा प्रकार",
   "hintSelectExpenseType": "खर्चाचा प्रकार निवडा *",
-  "labelExpenseSubType": "खर्चाचा उपप्रकार",
-  "hintExpenseSubType": "खर्चाचा उपप्रकार निवडा *",
+  "labelSelectExpenseSubType": "खर्चाचा उपप्रकार",
+  "hintSelectExpenseSubType": "खर्चाचा उपप्रकार निवडा *",
   "labelExpenseDate": "खर्चाची तारीख",
   "hintExpenseDate": "खर्चाची तारीख *",
   "labelExpenseAmount": "रक्कम",
@@ -157,12 +157,10 @@ static const Map<String,dynamic> mr = {
   "labelSelectCreditorName": "उधार देणाऱ्याचे नाव",
   "hintSelectCreditorName": "उधार देणाऱ्याचे नाव निवडा",
   "checkBoxIsCreditor": "हा खर्च उधारीवर केलेला आहे का ?",
-  "labelAddNewCreditor": "नवीन क्रेडिटर जोडा",
-  "hintAddNewCreditor": "नवीन क्रेडिटर जोडा",
+  "labelAddNewCreditor": "नवीन क्रेडिटर",
+  "hintAddNewCreditor": "नवीन क्रेडिटर",
   "labelSelectIncomeType": "उत्पन्नाचा प्रकार",
   "hintSelectIncomeType": "उत्पन्नाचा प्रकार निवडा *",
-  "labelSelectExpenseSubType": "उत्पन्नाचा उपप्रकार ",
-  "hintSelectExpenseSubType": "उत्पन्नाचा उपप्रकार निवडा *",
   "labelIncomeDate": "उत्पन्नाची तारीख",
   "hintIncomeDate": "उत्पन्नाची तारीख *",
   "labelRatePerUnit": "विक्री दर",
@@ -200,8 +198,8 @@ static const Map<String,dynamic> mr = {
   "buttonShowAllFarms": "शेती दाखवा ",
   "buttonShowAllEvents": "शेत काम दाखवा ",
   "buttonShowAllExpense": "जमा खर्च दाखवा ",
-  "messageSaveSuccess": "नोंद यशस्वीरित्या जतन केली आहे!",
-  "messageSaveFailed": "तांत्रिक समस्या, नोंद जतन केली नाही!"
+  "messageSaveSuccess": "नोंद यशस्वीरित्या जतन केली आहे !",
+  "messageSaveFailed": "तांत्रिक समस्या, नोंद जतन केली नाही !"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ka": ka, "mr": mr};
 }

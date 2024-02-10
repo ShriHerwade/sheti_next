@@ -269,10 +269,10 @@ class _CreateExpensesState extends State<CreateExpenses> {
                           _showAddCreditorDialog();
                         },
                         child: Text(
-                          '+'+LocaleKeys.labelAddNewCreditor.tr(),
+                          '+ '+LocaleKeys.labelAddNewCreditor.tr(),
                           style: TextStyle(
-                            color: Colors.black87,
-                            decoration: TextDecoration.underline,
+                            color: Colors.green,
+                            //decoration: TextDecoration,
                             fontWeight: FontWeight.normal,
                           ),
                         ),
