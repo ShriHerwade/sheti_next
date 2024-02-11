@@ -11,7 +11,7 @@ import '../../common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyFarmScreen.dart';
-
+import  'package:sheti_next/zebra/common/util/InputValidator.dart';
 import '../../common/widgets/NxSnackbar.dart';
 class CreateFarms extends StatefulWidget {
   const CreateFarms({Key? key}) : super(key: key);
@@ -123,6 +123,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                       hintText: LocaleKeys.hintFarmName.tr(),
                       labelText: LocaleKeys.labelFarmName.tr(),
                       inputType: TextInputType.name,
+
                     ),
                     // Spacer
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
@@ -132,7 +133,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                       hintText: LocaleKeys.hintAddress.tr(),
                       labelText: LocaleKeys.labelAddress.tr(),
                       inputType: TextInputType.name,
-
+                      isMandatory: false,
                     ),
                     // Spacer
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
@@ -147,6 +148,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     // Dropdown form field for selecting unit
                     NxDDFormField(
+
                       value: selectedUnit,
                       hint: LocaleKeys.hintSelectUnit.tr(),
                       label: LocaleKeys.labelSelectUnit.tr(),
@@ -164,6 +166,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     // Dropdown form field for selecting farm type
                     NxDDFormField(
+                      isMandatory: false,
                       value: selectedOwnership,
                       label: LocaleKeys.labelSelectFarmType.tr(),
                       hint: LocaleKeys.hintSelectFarmType.tr(),

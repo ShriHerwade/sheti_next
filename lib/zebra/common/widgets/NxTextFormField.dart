@@ -8,13 +8,14 @@ class NxTextFormField extends StatefulWidget {
   final String? labelText;
   final IconData? icon;
   final bool isObsecureText;
+  final bool isMandatory ;
   final TextInputType inputType;
   final bool isEnable;
   final int? maxLength;
   final int? maxLines;
   final bool expands;
   final EdgeInsetsGeometry padding;
-
+  final String? Function(String?)? validator;
   const NxTextFormField({
     Key? key,
     this.controller,
@@ -27,8 +28,10 @@ class NxTextFormField extends StatefulWidget {
     this.maxLength,
     this.maxLines,
     this.expands = false,
+    this.isMandatory=true,
+    this.validator,
     this.padding =
-        const EdgeInsets.symmetric(horizontal: 20.0), // Default padding
+        const EdgeInsets.symmetric(horizontal: 20.0),  // Default padding
   }) : super(key: key);
 
   @override
@@ -58,15 +61,17 @@ class _NxTextFormFieldState extends State<NxTextFormField> {
     setState(() {});
   }
 
-  String? validateInput(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Please Enter ${widget.hintText}";
+ String? validateInput(String? value) {
+    if(widget.isMandatory==true){
+      if (value == null || value.isEmpty) {
+        return "Please Enter ${widget.labelText}";
+      }
+      if (widget.hintText == "Email" && !validateEmail(value)) {
+        return "Please Enter a valid Email Address";
+      }
+      return null;
     }
-    if (widget.hintText == "Email" && !validateEmail(value)) {
-      return "Please Enter a valid Email Address";
     }
-    return null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +85,8 @@ class _NxTextFormFieldState extends State<NxTextFormField> {
         maxLength: widget.maxLength,
         maxLines: widget.expands ? null : widget.maxLines,
         expands: widget.expands,
-        validator: validateInput,
+
+       validator: validateInput,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8.0)),

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 
 class NxDDFormField extends StatefulWidget {
+  final bool isMandatory ;
+  final String? Function(String?)? validator;
   final String? value;
   final String label;
   final String hint;
@@ -17,8 +19,10 @@ class NxDDFormField extends StatefulWidget {
     required this.label,
     required this.items,
     required this.onChanged,
+    this.isMandatory=true,
+    this.validator,
     this.padding =
-        const EdgeInsets.symmetric(horizontal: 20.0), // Default padding
+        const EdgeInsets.symmetric(horizontal: 20.0),  // Default padding
   }) : super(key: key);
 
   @override
@@ -26,13 +30,23 @@ class NxDDFormField extends StatefulWidget {
 }
 
 class _NxDDFormFieldState extends State<NxDDFormField> {
+  String? validateInput(String? value) {
+    if(widget.isMandatory==true){
+      if (value == null || value.isEmpty) {
+        return "Please Enter ${widget.label}";
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: widget.padding,
       height: 57,
       child: DropdownButtonHideUnderline(
+
         child: DropdownButtonFormField<String>(
+          validator:validateInput ,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
