@@ -35,6 +35,13 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
       if (value == null || value.isEmpty) {
         return "Please Enter ${widget.label}";
       }
+      else
+        {
+          setState(() {
+
+          });
+          return null;
+        }
     }
   }
 
@@ -44,9 +51,9 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
       padding: widget.padding,
       height: 57,
       child: DropdownButtonHideUnderline(
-
         child: DropdownButtonFormField<String>(
           validator:validateInput ,
+
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -68,13 +75,18 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
               borderSide: BorderSide(
                   width: 1, color: ColorConstants.errorFieldBorderColor),
             ),
+            focusedErrorBorder:OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              borderSide: BorderSide(
+                  width: 1, color: ColorConstants.enabledFieldBorderColor),
+            ),
             fillColor: Colors.white,
             filled: true,
             labelText: widget.value != null && widget.value!.isNotEmpty
                 ? widget.label
                 : null,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
-            isDense: true,
+            //isDense: true,
           ),
           hint: Text(
             widget.hint,
