@@ -11,7 +11,7 @@ import '../../common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyFarmScreen.dart';
-import  'package:sheti_next/zebra/common/util/InputValidator.dart';
+
 import '../../common/widgets/NxSnackbar.dart';
 class CreateFarms extends StatefulWidget {
   const CreateFarms({Key? key}) : super(key: key);
@@ -166,11 +166,12 @@ class _CreateFarmsState extends State<CreateFarms> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     // Dropdown form field for selecting farm type
                     NxDDFormField(
-                      isMandatory: false,
+                      isMandatory: true,
                       value: selectedOwnership,
                       label: LocaleKeys.labelSelectFarmType.tr(),
                       hint: LocaleKeys.hintSelectFarmType.tr(),
                       items: farmOwnership,
+
                       onChanged: (String? ownershipValue) {
                         setState(() {
                           selectedOwnership = ownershipValue;
@@ -241,7 +242,6 @@ class _CreateFarmsState extends State<CreateFarms> {
         _confarmArea.clear();
         selectedUnit = null;
         selectedOwnership = null;
-
         NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
 
       }
