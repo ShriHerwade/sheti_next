@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 
 class NxDDFormField extends StatefulWidget {
-  final bool isMandatory ;
+  final bool isMandatory;
   final bool isError;
   final String? Function(String?)? validator;
   final String? value;
@@ -20,11 +20,11 @@ class NxDDFormField extends StatefulWidget {
     required this.label,
     required this.items,
     required this.onChanged,
-    this.isMandatory=true,
+    this.isMandatory = true,
     this.validator,
-    this.isError=false,
+    this.isError = false,
     this.padding =
-        const EdgeInsets.symmetric(horizontal: 20.0),  // Default padding
+        const EdgeInsets.symmetric(horizontal: 20.0), // Default padding
   }) : super(key: key);
 
   @override
@@ -33,22 +33,20 @@ class NxDDFormField extends StatefulWidget {
 
 class _NxDDFormFieldState extends State<NxDDFormField> {
   bool? _isError;
+
   String? validateInput(String? value) {
-    if(widget.isMandatory==true){
+    if (widget.isMandatory == true) {
       if (value == null || value.isEmpty) {
         setState(() {
           _isError = _isError == null ? null : true;
         });
         return "Please Enter ${widget.label}";
+      } else {
+        setState(() {
+          _isError = _isError == null ? null : false;
+        });
+        return null;
       }
-      else
-        {
-          setState(() {
-            _isError = _isError == null ? null : false;
-
-          });
-          return null;
-        }
     }
   }
 
@@ -59,9 +57,9 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
       height: 57,
       child: DropdownButtonHideUnderline(
         child: DropdownButtonFormField<String>(
-          validator:validateInput,
+          validator: validateInput,
           decoration: InputDecoration(
-            errorStyle: TextStyle(height: 0,fontSize: 0.1),
+            errorStyle: TextStyle(height: 0, fontSize: 0.1),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
               borderSide: BorderSide(
@@ -82,7 +80,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
               borderSide: BorderSide(
                   width: 1, color: ColorConstants.errorFieldBorderColor),
             ),
-            focusedErrorBorder:OutlineInputBorder(
+            focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
               borderSide: BorderSide(
                   width: 1, color: ColorConstants.enabledFieldBorderColor),
