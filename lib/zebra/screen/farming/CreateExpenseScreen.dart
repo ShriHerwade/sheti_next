@@ -284,6 +284,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     selectedItemId: selectedPoe,
                     label: LocaleKeys.labelSelectCreditorName.tr(),
                     hint: LocaleKeys.hintSelectCreditorName.tr(),
+                    isMandatory: false,
+                    isError : false,
                     items: Map.fromIterable(
                       poes,
                       key: (poe) => poe.poeId,
@@ -304,6 +306,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     hintText: LocaleKeys.hintBillNumber.tr(),
                     labelText: LocaleKeys.labelBillNumber.tr(),
                     inputType: TextInputType.text,
+                    isMandatory: false,
+                    isError : false,
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   buildDateField(LocaleKeys.labelExpenseDate.tr(),LocaleKeys.hintExpenseDate.tr()),
@@ -321,7 +325,10 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       labelText: LocaleKeys.labelNotes.tr(),
                       inputType: TextInputType.text,
                       maxLines: 2,
-                      expands: false),
+                      expands: false,
+                      isMandatory: false,
+                      isError : false,
+                  ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   Container(
                     width: ResponsiveUtil.screenWidth(context) * 0.8,
@@ -357,6 +364,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
       labelText: label,
       hintText: hint,
       selectedDate: selectedDate,
+      isMandatory: true,
+      isError : false,
       onTap: (DateTime? picked) {
         setState(() {
           selectedDate = picked;

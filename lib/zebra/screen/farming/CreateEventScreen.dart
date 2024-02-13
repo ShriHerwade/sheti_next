@@ -251,6 +251,8 @@ class _CreateEventsState extends State<CreateEvents> {
                       labelText: LocaleKeys.labelEventStartDate.tr(),
                       hintText: LocaleKeys.hintEventStartDate.tr(),
                       selectedDate: startDate,
+                      isMandatory: true,
+                      isError : false,
                       onTap: (DateTime? picked) {
                         setState(() {
                           startDate = picked;
@@ -264,6 +266,8 @@ class _CreateEventsState extends State<CreateEvents> {
                       labelText: LocaleKeys.labelEventEndDate.tr(),
                       hintText: LocaleKeys.hintEventEndDate.tr(),
                       selectedDate: endDate,
+                      isMandatory: true,
+                      isError : false,
                       onTap: (DateTime? picked) {
                         setState(() {
                           endDate = picked;

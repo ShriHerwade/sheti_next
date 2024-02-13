@@ -91,7 +91,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
                 ? widget.label
                 : null,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
-            //isDense: true,
+            isDense: true,
           ),
           hint: Text(
             widget.hint,

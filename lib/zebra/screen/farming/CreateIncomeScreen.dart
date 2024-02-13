@@ -217,6 +217,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                           hintText: LocaleKeys.labelRatePerUnit.tr(),
                           inputType: TextInputType.number,
                           padding : EdgeInsets.only(left:  20.0),
+                          isMandatory: false,
+                          isError : false,
                         ),
                       ),
 
@@ -229,6 +231,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                           label: LocaleKeys.labelRatePerUnit.tr(),
                           items: cropUnit,
                           padding: EdgeInsets.only(right: 20),
+                          isMandatory: false,
+                          isError : false,
                           onChanged: (String? rateUnit) {
                             setState(() {
                               selectedRateUnit = rateUnit;
@@ -296,8 +300,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
                     controller: _confAmount,
-                    hintText: LocaleKeys.labelAmountReceived.tr(),
-                    labelText: LocaleKeys.hintAmountReceived.tr(),
+                    hintText: LocaleKeys.hintAmountReceived.tr(),
+                    labelText: LocaleKeys.labelAmountReceived.tr(),
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -307,7 +311,9 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                       labelText: LocaleKeys.hintNotes.tr(),
                       inputType: TextInputType.text,
                       maxLines : 2,
-                      expands : false
+                      expands : false,
+                      isMandatory: false,
+                      isError : false,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
@@ -344,6 +350,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
       labelText: label,
       hintText: hint,
       selectedDate: selectedDate,
+      isMandatory: true,
+      isError : false,
       onTap: (DateTime? picked) {
         setState(() {
           selectedDate = picked;

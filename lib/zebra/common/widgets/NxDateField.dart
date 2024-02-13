@@ -8,6 +8,10 @@ class NxDateField extends StatefulWidget {
   final String hintText;
   final DateTime? selectedDate;
   final Function(DateTime?) onTap;
+  final bool isMandatory;
+  final bool isError;
+  final EdgeInsetsGeometry padding;
+  final String? Function(String?)? validator;
 
   const NxDateField({
     Key? key,
@@ -16,6 +20,10 @@ class NxDateField extends StatefulWidget {
     required this.hintText,
     required this.selectedDate,
     required this.onTap,
+    this.isMandatory = true,
+    this.isError=false,
+    this.padding = const EdgeInsets.symmetric(horizontal: 20.0),
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -25,13 +33,14 @@ class NxDateField extends StatefulWidget {
 class _NxDateFieldState extends State<NxDateField> {
   final FocusNode _focusNode = FocusNode();
   TextEditingController _textEditingController = TextEditingController();
+  bool? _isError;
 
   @override
   void initState() {
     super.initState();
     _textEditingController.text = formatDate(widget.selectedDate);
     _textEditingController.addListener(_onTextChanged);
-
+    _isError= widget.isError;
     _focusNode.addListener(() {
       setState(() {});
     });
@@ -51,7 +60,7 @@ class _NxDateFieldState extends State<NxDateField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      padding: widget.padding,
       child: GestureDetector(
         onTap: () {
           _selectDate(context);
@@ -61,15 +70,43 @@ class _NxDateFieldState extends State<NxDateField> {
           child: TextFormField(
             readOnly: true,
             onTap: () {
-              _selectDate(context); // Open date picker on text field tap
+              _selectDate(context);
+
+              setState(() {
+                _isError = _isError == null ? null : false;
+              });// Open date picker on text field tap
+            },
+            validator: (value) {
+              if (widget.isMandatory && (value == null || value.isEmpty)) {
+                setState(() {
+                  // Check for null before updating _isError
+                  _isError = _isError == null ? null : true;
+                });
+                return "Please Enter ${widget.labelText}";
+              }
+              return null;
             },
             controller: _textEditingController,
             decoration: InputDecoration(
+              errorStyle: TextStyle(height: 0, fontSize: 0.1),
               enabledBorder: _getOutlineInputBorder(
                   ColorConstants.enabledFieldBorderColor),
               focusedBorder: _getOutlineInputBorder(_focusNode.hasFocus
                   ? Colors.lightGreen
                   : ColorConstants.enabledFieldBorderColor),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(
+                  width: 1,
+                  color: ColorConstants.errorFieldBorderColor,
+                ),
+              ),
+              focusedErrorBorder:  OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(
+                  width: 1,color: ColorConstants.focusedFieldBorderColor,
+                ),
+              ),
               floatingLabelBehavior: FloatingLabelBehavior.auto,
               isDense: true,
               filled: true,

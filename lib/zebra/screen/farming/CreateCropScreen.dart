@@ -68,7 +68,6 @@ class _CreateCropState extends State<CreateCrop> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     // Initialize ResponsiveUtil with the current context
@@ -182,6 +181,8 @@ class _CreateCropState extends State<CreateCrop> {
                     labelText: LocaleKeys.labelSowingDate.tr(),
                     hintText: LocaleKeys.hintSowingDate.tr(),
                     selectedDate: startDate,
+                    isMandatory: true,
+                    isError: false,
                     onTap: (DateTime? picked) {
                       setState(() {
                         startDate = picked;
@@ -194,6 +195,8 @@ class _CreateCropState extends State<CreateCrop> {
                     labelText: LocaleKeys.labelHarvestingDate.tr(),
                     hintText: LocaleKeys.hintHarvestingDate.tr(),
                     selectedDate: endDate,
+                    isMandatory: true,
+                    isError: false,
                     onTap: (DateTime? picked) {
                       setState(() {
                         endDate = picked;
