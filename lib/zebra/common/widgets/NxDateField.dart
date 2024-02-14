@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
+import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 
 class NxDateField extends StatefulWidget {
   final String label;
@@ -122,7 +123,8 @@ class _NxDateFieldState extends State<NxDateField> {
                   : null,
               labelStyle: TextStyle(
                   fontWeight: FontWeight.normal,
-                  color: ColorConstants.fieldLabelTextColor),
+                  color: ColorConstants.fieldLabelTextColor,
+                  fontSize: SizeConstants.floatingLabelFontSize,),
               suffixIcon: Icon(Icons.calendar_today),
               border: InputBorder.none,
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
+import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 
 class NxDDFormField_id extends StatefulWidget {
   final int? selectedItemId;
@@ -100,6 +101,7 @@ class _NxDDFormField_idState extends State<NxDDFormField_id> {
             fillColor: Colors.white,
             filled: true,
             labelText: widget.selectedItemId != null ? widget.label : null,
+            labelStyle: TextStyle(fontSize: SizeConstants.floatingLabelFontSize),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             isDense: true,
           ),

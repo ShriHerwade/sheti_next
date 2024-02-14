@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
+import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 
 class NxDDFormField extends StatefulWidget {
   final bool isMandatory;
@@ -90,6 +91,7 @@ class _NxDDFormFieldState extends State<NxDDFormField> {
             labelText: widget.value != null && widget.value!.isNotEmpty
                 ? widget.label
                 : null,
+            labelStyle: TextStyle(fontSize: SizeConstants.floatingLabelFontSize),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             isDense: true,
           ),

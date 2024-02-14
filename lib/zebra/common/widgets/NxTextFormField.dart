@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
+import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import '../util/InputValidator.dart';
 
 class NxTextFormField extends StatefulWidget {
@@ -131,7 +132,8 @@ class _NxTextFormFieldState extends State<NxTextFormField> {
               : null,
           labelStyle: TextStyle(
               fontWeight: FontWeight.normal,
-              color: ColorConstants.fieldLabelTextColor),
+              color: ColorConstants.fieldLabelTextColor,
+              fontSize: SizeConstants.floatingLabelFontSize),
           isDense: true,
           fillColor: Colors.white,
           filled: true,
