@@ -82,6 +82,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
 // method to save Record
   void saveExpenseData(BuildContext context) async {
     try {
+      double expenseAmount = double.tryParse(_confAmount.text) ?? 0.0;
+
       if (_formKey.currentState!.validate()) {
         // Handle save logic using selected values (selectedFarm, selectedCrop, selectedEvent, selectedDate, _confamount.text)
         ExpenseModel expense = ExpenseModel(
@@ -98,7 +100,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
           notes: _confNotes.text, // Default value
           //expenseType: selectedExpense.isNotEmpty ? selectedExpense.first : 'Default Expense', // Default value
           expenseType: (selectedExpenseType! + (selectedExpenseSubType ?? '')),
-          amount: double.parse(_confAmount.text),
+          amount: expenseAmount,
           expenseDate: selectedDate ?? DateTime.now(),
           isActive: true, // Default value
           createdDate: DateTime.now(), // Default value

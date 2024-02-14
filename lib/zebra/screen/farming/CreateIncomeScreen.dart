@@ -69,19 +69,26 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
   // Save data
   void saveIncomeData(BuildContext context) async {
     try {
+      //below parsing added to handle double with null value
+      double ratePerUnit = double.tryParse(_confRate.text) ?? 0.0;
+      double quantity = double.tryParse(_confQuantity.text) ?? 0.0;
+      double incomeAmount = double.tryParse(_confAmount.text) ?? 0.0;
+
       if (_formKey.currentState!.validate()) {
         // Handle save logic using selected values (selectedFarm, selectedCrop, selectedIncome, selectedDate, _confamount.text)
+        print("_confRate : "+_confRate.text);
+        print("_confQuantity : "+_confQuantity.text);
         IncomeModel income = IncomeModel(
           farmId: selectedFarm!,
           cropId: selectedCrop!,
           userId: 1,
-          ratePerUnit: double.parse(_confRate.text),
+          ratePerUnit: ratePerUnit,
           rateUnit: selectedRateUnit,
-          quantity: double.parse(_confQuantity.text),
+          quantity: quantity,
           unit: selectedQuantityUnit!,
           incomeType: selectedIncomeType!,
           buyersName: _confBuyersName.text,
-          amount: double.parse(_confAmount.text),
+          amount: incomeAmount,
           incomeDate: selectedDate ?? DateTime.now(),
           notes: _confNotes.text,
           isActive: true, // Default value
@@ -276,10 +283,6 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                         ),
                       )
                       // Quantity Sold
-
-                      //SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      // Quantity Unit
-
                     ],
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -287,6 +290,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                     controller: _confBuyersName,
                     hintText: LocaleKeys.hintBuyersName.tr(),
                     inputType: TextInputType.text,
+                    isMandatory: false,
+                    isError : false,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
@@ -294,6 +299,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                     hintText: LocaleKeys.hintReceiptNumber.tr(),
                     labelText: LocaleKeys.labelReceiptNumber.tr(),
                     inputType: TextInputType.text,
+                    isMandatory: false,
+                    isError : false,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   buildDateField(LocaleKeys.labelIncomeDate.tr(),LocaleKeys.hintIncomeDate.tr()),

@@ -166,12 +166,12 @@ class _CreateFarmsState extends State<CreateFarms> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     // Dropdown form field for selecting farm type
                     NxDDFormField(
-                      isMandatory: true,
                       value: selectedOwnership,
                       label: LocaleKeys.labelSelectFarmType.tr(),
                       hint: LocaleKeys.hintSelectFarmType.tr(),
                       items: farmOwnership,
-
+                      isMandatory: true,
+                      isError : false,
                       onChanged: (String? ownershipValue) {
                         setState(() {
                           selectedOwnership = ownershipValue;
