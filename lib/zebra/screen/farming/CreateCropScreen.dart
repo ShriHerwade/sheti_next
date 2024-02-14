@@ -12,6 +12,7 @@ import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import 'package:sheti_next/zebra/screen/farming/MyCropScreen.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 
+import '../../common/widgets/NxButton.dart';
 import '../../common/widgets/NxDDFormField.dart';
 import '../../common/widgets/NxSnackbar.dart';
 import 'HomeScreen.dart';
@@ -204,7 +205,7 @@ class _CreateCropState extends State<CreateCrop> {
                     },
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                  Container(
+                  /*Container(
                     width: ResponsiveUtil.screenWidth(context) * 0.8,
                     child: TextButton(
                       onPressed:
@@ -223,8 +224,11 @@ class _CreateCropState extends State<CreateCrop> {
                           //isSaveButtonEnabled() ? Colors.green : Colors.grey,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                  ),
-                ],
+                  ),*/
+                  NxButton(buttonText: LocaleKeys.save.tr(),
+                    onPressed: ()=> saveCropData() ,
+                    width:ResponsiveUtil.screenWidth(context) * 0.8,
+                  )                ],
               ),
             ),
           ),

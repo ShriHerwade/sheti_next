@@ -9,6 +9,7 @@ import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/screen/farming/MyEventsScreen.dart';
+import '../../common/widgets/NxButton.dart';
 import '../../common/widgets/NxSnackbar.dart';
 import '../../dao/models/EventModel.dart';
 import '../../dao/models/FarmModel.dart';
@@ -276,7 +277,7 @@ class _CreateEventsState extends State<CreateEvents> {
                     ),
                     SizedBox(
                         height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    Container(
+                    /*Container(
                       width: ResponsiveUtil.screenWidth(context) * 0.8,
                       child: TextButton(
                         onPressed: saveRecords,
@@ -293,7 +294,11 @@ class _CreateEventsState extends State<CreateEvents> {
                         color: ColorConstants.textButtonSaveColor,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                    ),
+                    ),*/
+                    NxButton(buttonText: LocaleKeys.save.tr(),
+                      onPressed: ()=> saveRecords(),
+                      width:ResponsiveUtil.screenWidth(context) * 0.8,
+                    )
                   ],
                 ),
               ),

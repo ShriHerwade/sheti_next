@@ -9,6 +9,7 @@ import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
+import '../../common/widgets/NxButton.dart';
 import '../../common/widgets/NxDDFormField.dart';
 import '../../common/widgets/NxSnackbar.dart';
 import '../../common/widgets/NxTextFormField.dart';
@@ -332,7 +333,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       isError : false,
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                  Container(
+                 /* Container(
                     width: ResponsiveUtil.screenWidth(context) * 0.8,
                     child: TextButton(
                       onPressed: () => saveExpenseData(context),
@@ -350,7 +351,11 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       //isSaveButtonEnabled() ? Colors.green : Colors.grey,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                  ),
+                  ),*/
+                  NxButton(buttonText: LocaleKeys.save.tr(),
+                    onPressed: ()=> saveExpenseData(context),
+                    width:ResponsiveUtil.screenWidth(context) * 0.8,
+                  )
                 ],
               ),
             ),

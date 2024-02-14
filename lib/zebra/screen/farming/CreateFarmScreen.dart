@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
+import 'package:sheti_next/zebra/common/widgets/NxButton.dart';
 import 'package:sheti_next/zebra/common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -34,8 +35,6 @@ class _CreateFarmsState extends State<CreateFarms> {
   DbHelper? dbHelper;
   List<String> units = [];
   List<String> farmOwnership = [];
-
-
 
   @override
   void initState() {
@@ -184,7 +183,7 @@ class _CreateFarmsState extends State<CreateFarms> {
                     // Spacer
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.01),
                     // Row with two buttons
-                    Container(
+                    /*Container(
                      width: ResponsiveUtil.screenWidth(context) * 0.8,
                       child: TextButton(
                         onPressed: ()=> saveFarmData(context),
@@ -202,7 +201,11 @@ class _CreateFarmsState extends State<CreateFarms> {
                         //isSaveButtonEnabled() ? Colors.green : Colors.grey,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                    ),
+                    ),*/
+                    NxButton(buttonText: LocaleKeys.save.tr(),
+                        onPressed: ()=> saveFarmData(context),
+                        width:ResponsiveUtil.screenWidth(context) * 0.8,
+                    )
 
                   ],
 
