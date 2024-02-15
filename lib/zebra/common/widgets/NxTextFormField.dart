@@ -127,7 +127,7 @@ class _NxTextFormFieldState extends State<NxTextFormField> {
           hintStyle: TextStyle(
               fontWeight: FontWeight.normal,
               color: ColorConstants.fieldHintTextColor),
-          labelText: _customTextFieldController.text.isNotEmpty
+          labelText: _customTextFieldController.text != null && _customTextFieldController.text.isNotEmpty
               ? widget.labelText
               : null,
           labelStyle: TextStyle(
