@@ -162,4 +162,19 @@ class _NxDateFieldState extends State<NxDateField> {
       borderSide: BorderSide(width: 1, color: color),
     );
   }
+
+
+  // Create a method to clear the selected date and show the hint
+  void clearDateAndHint() {
+    final _textEditingController = TextEditingController();
+    _textEditingController.text = widget.hintText;
+    _isError = false;
+
+    // Update the state
+    setState(() {
+      widget.onTap(null);
+      _textEditingController.text = widget.hintText;
+      _isError = false;
+    });
+  }
 }

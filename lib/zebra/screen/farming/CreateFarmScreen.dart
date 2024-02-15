@@ -224,6 +224,7 @@ class _CreateFarmsState extends State<CreateFarms> {
   // Save farm data to the database
   void saveFarmData(BuildContext context) async {
     try {
+
       if (_formKey.currentState!.validate()) {
         FarmModel farm = FarmModel(
           accountId: 1,
@@ -243,8 +244,11 @@ class _CreateFarmsState extends State<CreateFarms> {
         _confarmName.clear();
         _confarmAddress.clear();
         _confarmArea.clear();
-        selectedUnit = null;
-        selectedOwnership = null;
+        setState(() {
+          selectedUnit=null;
+          selectedOwnership =null ;
+        });
+
         NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
 
       }

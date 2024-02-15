@@ -99,14 +99,16 @@ class _CreateEventsState extends State<CreateEvents> {
 
           await dbHelper!.saveEventData(event);
 
+          setState(() {
+            selectedFarm = null;
+            selectedCrop = null;
+            isCreateAnother = false;
+            selectedFarmEvents = [];
+            startDate = null;
+            endDate = null;
+          });
 
-          selectedFarm = null;
-          selectedCrop = null;
-          isCreateAnother = false;
-          selectedFarmEvents = [];
-          startDate = null;
-          endDate = null;
-          _formKey.currentState!.reset();
+          //_formKey.currentState!.reset();
 
           NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(),
               duration: Duration(seconds: 3));

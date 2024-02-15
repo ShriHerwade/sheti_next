@@ -28,6 +28,7 @@ class _CreateCropState extends State<CreateCrop> {
   final _formKey = GlobalKey<FormState>();
   final _confarmArea = TextEditingController();
 
+
   String? selectedUnit;
   String? selectedCrop;
   int? selectedFarm;
@@ -178,6 +179,7 @@ class _CreateCropState extends State<CreateCrop> {
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDateField(
+
                     label: LocaleKeys.labelSowingDate.tr(),
                     labelText: LocaleKeys.labelSowingDate.tr(),
                     hintText: LocaleKeys.hintSowingDate.tr(),
@@ -192,6 +194,7 @@ class _CreateCropState extends State<CreateCrop> {
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDateField(
+
                     label: LocaleKeys.labelHarvestingDate.tr(),
                     labelText: LocaleKeys.labelHarvestingDate.tr(),
                     hintText: LocaleKeys.hintHarvestingDate.tr(),
@@ -228,7 +231,8 @@ class _CreateCropState extends State<CreateCrop> {
                   NxButton(buttonText: LocaleKeys.save.tr(),
                     onPressed: ()=> saveCropData() ,
                     width:ResponsiveUtil.screenWidth(context) * 0.8,
-                  )                ],
+                  ),
+                ],
               ),
             ),
           ),
@@ -257,12 +261,16 @@ class _CreateCropState extends State<CreateCrop> {
         await dbHelper!.saveCropData(crop);
 
         _confarmArea.clear();
+
         setState(() {
           selectedFarm = null;
           selectedUnit = null;
           selectedCrop = null;
-          startDate = null;
+          startDate =null ;
           endDate = null;
+
+          //
+
         });
         NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
       } catch (e) {
@@ -272,3 +280,5 @@ class _CreateCropState extends State<CreateCrop> {
     }
   }
 }
+
+

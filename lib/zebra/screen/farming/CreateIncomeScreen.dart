@@ -8,10 +8,12 @@ import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
+import '../../common/widgets/NxButton.dart';
 import '../../common/widgets/NxDDFormField.dart';
 import '../../common/widgets/NxSnackbar.dart';
 import '../../common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
+import '../../common/widgets/responsive_util.dart';
 import '../../dao/models/IncomeModel.dart';
 
 class CreateIncomeScreen extends StatefulWidget {
@@ -96,15 +98,22 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
         );
 
         await dbHelper!.saveIncomeData(income);
+        setState(() {
+          _confAmount.clear();
+          _confQuantity.clear();
+          _confRate.clear();
+          _confBuyersName.clear();
+          selectedFarm = null;
+          selectedCrop = null;
+          selectedIncomeType = null;
+          selectedDate = null;
+          _confNotes.clear();
+          _confReceiptNumber.clear();
+          selectedQuantityUnit=null;
+          selectedRateUnit=null;
 
-        _confAmount.clear();
-        _confQuantity.clear();
-        _confRate.clear();
-        _confBuyersName.clear();
-        selectedFarm = null;
-        selectedCrop = null;
-        selectedIncomeType = null;
-        selectedDate = null;
+        });
+
         NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
       }
     } catch (e) {
@@ -324,7 +333,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
-                  Container(
+                  /*Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: TextButton(
                       onPressed: () => saveIncomeData(context),
@@ -341,7 +350,11 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                       color: ColorConstants.textButtonSaveColor,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                  ),
+                  ),*/
+                  NxButton(buttonText: LocaleKeys.save.tr(),
+                    onPressed: ()=> saveIncomeData(context),
+                    width:ResponsiveUtil.screenWidth(context) * 0.8,
+                  )
                 ],
               ),
             ),

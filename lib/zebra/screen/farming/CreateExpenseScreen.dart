@@ -110,13 +110,19 @@ class _CreateExpensesState extends State<CreateExpenses> {
         await dbHelper!.saveExpenseData(expense);
 
         _confAmount.clear();
-        selectedFarm = null;
-        selectedCrop = null;
         isCreditExpense = false;
-        selectedExpenseType = null;
-        selectedExpenseSubType = null;
-        //selectedExpense = [];
-        selectedDate = null;
+        setState(() {
+          selectedFarm = null;
+          selectedCrop = null;
+          selectedExpenseType = null;
+          selectedExpenseSubType = null;
+          _confBillNumber.clear();
+          selectedPoe=null;
+          //selectedExpense = [];
+          selectedDate = null;
+          _confNotes.clear();
+        });
+
 
         NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
       }
