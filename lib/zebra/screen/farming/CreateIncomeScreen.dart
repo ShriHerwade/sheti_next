@@ -229,8 +229,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                       Expanded(
                         child: NxTextFormField(
                           controller: _confRate,
-                          labelText:LocaleKeys.hintRatePerUnit.tr(),
-                          hintText: LocaleKeys.labelRatePerUnit.tr(),
+                          labelText:LocaleKeys.labelRatePerUnit.tr(),
+                          hintText: LocaleKeys.hintRatePerUnit.tr(),
                           inputType: TextInputType.number,
                           padding : EdgeInsets.only(left:  20.0),
                           isMandatory: false,
@@ -243,8 +243,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                       Expanded(
                         child: NxDDFormField(
                           value: selectedRateUnit,
-                          hint: LocaleKeys.hintRatePerUnit.tr(),
-                          label: LocaleKeys.labelRatePerUnit.tr(),
+                          hint: LocaleKeys.labelSelectRateUnit.tr(),
+                          label: LocaleKeys.hintSelectRateUnit.tr(),
                           items: cropUnit,
                           padding: EdgeInsets.only(right: 20),
                           isMandatory: false,
