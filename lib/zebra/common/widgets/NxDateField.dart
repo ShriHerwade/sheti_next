@@ -118,7 +118,8 @@ class _NxDateFieldState extends State<NxDateField> {
               hintStyle: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: ColorConstants.fieldHintTextColor),
-              labelText: _textEditingController.text.isNotEmpty
+              labelText: _textEditingController.text.isNotEmpty ||
+                  widget.selectedDate != null
                   ? widget.labelText
                   : null,
               labelStyle: TextStyle(
