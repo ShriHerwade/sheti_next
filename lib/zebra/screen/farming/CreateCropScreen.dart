@@ -27,6 +27,8 @@ class CreateCrop extends StatefulWidget {
 class _CreateCropState extends State<CreateCrop> {
   final _formKey = GlobalKey<FormState>();
   final _confarmArea = TextEditingController();
+  final TextEditingController _datePickerStartDateController = TextEditingController();
+  final TextEditingController _datePickerEndDateController = TextEditingController();
 
 
   String? selectedUnit;
@@ -179,7 +181,7 @@ class _CreateCropState extends State<CreateCrop> {
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDateField(
-
+                    controller: _datePickerStartDateController,
                     label: LocaleKeys.labelSowingDate.tr(),
                     labelText: LocaleKeys.labelSowingDate.tr(),
                     hintText: LocaleKeys.hintSowingDate.tr(),
@@ -194,7 +196,7 @@ class _CreateCropState extends State<CreateCrop> {
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDateField(
-
+                    controller: _datePickerEndDateController,
                     label: LocaleKeys.labelHarvestingDate.tr(),
                     labelText: LocaleKeys.labelHarvestingDate.tr(),
                     hintText: LocaleKeys.hintHarvestingDate.tr(),
@@ -268,9 +270,8 @@ class _CreateCropState extends State<CreateCrop> {
           selectedCrop = null;
           startDate =null ;
           endDate = null;
-
-          //
-
+          _datePickerEndDateController.clear();
+          _datePickerStartDateController.clear();
         });
         NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
       } catch (e) {

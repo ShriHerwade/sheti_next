@@ -27,6 +27,8 @@ class CreateEvents extends StatefulWidget {
 
 class _CreateEventsState extends State<CreateEvents> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _datePickerStartDateController = TextEditingController();
+  final TextEditingController _datePickerEndDateController = TextEditingController();
   DbHelper? dbHelper;
 
   int? selectedFarm;
@@ -106,6 +108,8 @@ class _CreateEventsState extends State<CreateEvents> {
             selectedFarmEvents = [];
             startDate = null;
             endDate = null;
+            _datePickerEndDateController.clear();
+            _datePickerStartDateController.clear();
           });
 
           //_formKey.currentState!.reset();
@@ -250,6 +254,7 @@ class _CreateEventsState extends State<CreateEvents> {
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDateField(
+                      controller: _datePickerStartDateController,
                       label: LocaleKeys.labelEventStartDate.tr(),
                       labelText: LocaleKeys.labelEventStartDate.tr(),
                       hintText: LocaleKeys.hintEventStartDate.tr(),
@@ -265,6 +270,7 @@ class _CreateEventsState extends State<CreateEvents> {
                     SizedBox(
                         height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDateField(
+                      controller: _datePickerEndDateController,
                       label: LocaleKeys.labelEventEndDate.tr(),
                       labelText: LocaleKeys.labelEventEndDate.tr(),
                       hintText: LocaleKeys.hintEventEndDate.tr(),

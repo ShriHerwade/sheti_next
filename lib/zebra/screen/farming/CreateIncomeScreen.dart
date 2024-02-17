@@ -25,6 +25,7 @@ class CreateIncomeScreen extends StatefulWidget {
 
 class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _datePickerIncomeDateController = TextEditingController();
   final _confAmount = TextEditingController();
   final _confQuantity = TextEditingController();
   final _confRate = TextEditingController();
@@ -111,6 +112,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
           _confReceiptNumber.clear();
           selectedQuantityUnit=null;
           selectedRateUnit=null;
+          _datePickerIncomeDateController.clear();
 
         });
 
@@ -366,6 +368,7 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
 
   Widget buildDateField(String label,String hint) {
     return NxDateField(
+      controller: _datePickerIncomeDateController,
       label: label,
       labelText: label,
       hintText: hint,

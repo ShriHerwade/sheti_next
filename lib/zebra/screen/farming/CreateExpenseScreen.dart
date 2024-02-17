@@ -28,6 +28,7 @@ class CreateExpenses extends StatefulWidget {
 
 class _CreateExpensesState extends State<CreateExpenses> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _datePickerExpenseDateController = TextEditingController();
   final _confAmount = TextEditingController();
   final _confNotes = TextEditingController();
   final _confBillNumber = TextEditingController();
@@ -111,6 +112,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
         _confAmount.clear();
         isCreditExpense = false;
+        onClearDate: ();
         setState(() {
           selectedFarm = null;
           selectedCrop = null;
@@ -121,6 +123,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
           //selectedExpense = [];
           selectedDate = null;
           _confNotes.clear();
+          _datePickerExpenseDateController.clear();
         });
 
 
@@ -373,6 +376,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
 
   Widget buildDateField(String label, String hint) {
     return NxDateField(
+      controller: _datePickerExpenseDateController,
       label: label,
       labelText: label,
       hintText: hint,
@@ -423,61 +427,172 @@ class _CreateExpensesState extends State<CreateExpenses> {
     String poeName = "";
     String poeMobileNo = "";
     String poeAddress = "";
+    bool _isError = false; // Add a flag to track the error state
+    bool isCreditor = true;
+    bool isShopFirm = false;
+    bool isBuyer = false;
+    bool isSeller = false;
+    bool isServiceProvider = false;
+    bool isFarmWorker = false;
+
+    // Define a common border style
+    final inputDecoration = InputDecoration(
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: _isError ? Colors.red : Colors.grey[400] ?? Colors.grey,
+          width: 1.0,
+        ),
+      ),
+    );
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Add New Creditor'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                onChanged: (value) => poeName = value,
-                decoration: InputDecoration(labelText: 'Name'),
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text('Add New Creditor',
+                  style: TextStyle(fontSize: 20, color: Colors.black87)),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    onChanged: (value) {
+                      poeName = value;
+                      setState(() {
+                        _isError = poeName.isEmpty; // Set the error flag based on whether the field is empty
+                      });
+                    },
+                    decoration: inputDecoration.copyWith(
+                      labelText: 'Name',
+                      errorText: _isError ? 'Poe Name is mandatory' : null,
+                    ), // Apply common border style and error text
+                  ),
+                  TextField(
+                    onChanged: (value) => poeMobileNo = value,
+                    decoration: inputDecoration.copyWith(labelText: 'Mobile'), // Apply common border style
+                  ),
+                  TextField(
+                    onChanged: (value) => poeAddress = value,
+                    decoration: inputDecoration.copyWith(labelText: 'Address'), // Apply common border style
+                  ),
+                  SizedBox(height: 15),
+                  _buildCompactSwitchListTile(
+                    title: 'Creditor',
+                    value: true, // Make isCreditor always true
+                    onChanged: (value) {} // Disable user interaction
+                  ),
+                  _buildCompactSwitchListTile(
+                    title: 'Seller',
+                    value: isSeller,
+                    onChanged: (value) {
+                      setState(() {
+                        isSeller = value;
+                      });
+                    },
+                  ),
+                  _buildCompactSwitchListTile(
+                    title: 'Buyer',
+                    value: isBuyer,
+                    onChanged: (value) {
+                      setState(() {
+                        isBuyer = value;
+                      });
+                    },
+                  ),
+                  _buildCompactSwitchListTile(
+                    title: 'Service Provider',
+                    value: isServiceProvider,
+                    onChanged: (value) {
+                      setState(() {
+                        isServiceProvider = value;
+                      });
+                    },
+                  ),
+                 /* _buildCompactSwitchListTile(
+                    title: 'Farm Worker',
+                    value: isFarmWorker,
+                    onChanged: (value) {
+                      setState(() {
+                        isFarmWorker = value;
+                      });
+                    },
+                  ),*/
+                  _buildCompactSwitchListTile(
+                    title: 'Shop Or Firm',
+                    value: isShopFirm,
+                    onChanged: (value) {
+                      setState(() {
+                        isShopFirm = value;
+                      });
+                    },
+                  ),
+                ],
               ),
-              TextField(
-                onChanged: (value) => poeMobileNo = value,
-                decoration: InputDecoration(labelText: 'Mobile'),
-              ),
-              TextField(
-                onChanged: (value) => poeAddress = value,
-                decoration: InputDecoration(labelText: 'Address'),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () async {
-               dbHelper!.savePoeData(PoeModel(
-                   poeName: poeName,
-                   accountId: 1, //hard coded need to replace with global variable
-                   mobileNo: poeMobileNo,
-                   address: poeAddress,
-                   email : null,
-                   isCreditor : true,
-                   isShopFirm : true,
-                   isBuyer : false,
-                   isServiceProvider : false,
-                   isFarmWorker : false,
-                   isActive : true,
-               ));
-               await loadCreditors();
-                Navigator.of(context).pop();
-              },
-              child: Text('Save'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cancel'),
-            ),
-          ],
+              actions: [
+                TextButton(
+                  onPressed: () async {
+                    if (poeName.isEmpty) {
+                      setState(() {
+                        _isError = true; // Set the error flag if Poe Name is empty
+                      });
+                    } else {
+                      dbHelper!.savePoeData(
+                        PoeModel(
+                          poeName: poeName,
+                          accountId: 1, // Hard coded need to replace with global variable
+                          mobileNo: poeMobileNo,
+                          address: poeAddress,
+                          email: null,
+                          isCreditor: isCreditor,
+                          isShopFirm: isShopFirm,
+                          isBuyer: isBuyer,
+                         // isSeller: isSeller,
+                          isServiceProvider: isServiceProvider,
+                          isFarmWorker: isFarmWorker,
+                          isActive: true,
+                        ),
+                      );
+                      await loadCreditors();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text('Save'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel'),
+                ),
+              ],
+            );
+          },
         );
       },
     );
   }
+
+  Widget _buildCompactSwitchListTile({
+    required String title,
+    required bool value,
+    required Function(bool) onChanged,
+  }) {
+    return Row(
+      children: [
+        Text(title),
+        Spacer(),
+        Transform.scale(
+          scale: 0.8, // Adjust the scale as needed to make the switch smaller
+          child: Switch(
+            value: value,
+            onChanged: onChanged,
+          ),
+        ),
+      ],
+    );
+  }
+
 
 
   void showExpenses() {

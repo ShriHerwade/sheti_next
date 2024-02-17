@@ -4,6 +4,7 @@ import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 
 class NxDateField extends StatefulWidget {
+  final TextEditingController controller;
   final String label;
   final String labelText;
   final String hintText;
@@ -16,13 +17,14 @@ class NxDateField extends StatefulWidget {
 
   const NxDateField({
     Key? key,
+    required this.controller,
     required this.label,
     required this.labelText,
     required this.hintText,
     required this.selectedDate,
     required this.onTap,
     this.isMandatory = true,
-    this.isError=false,
+    this.isError = false,
     this.padding = const EdgeInsets.symmetric(horizontal: 20.0),
     this.validator,
   }) : super(key: key);
@@ -41,7 +43,7 @@ class _NxDateFieldState extends State<NxDateField> {
     super.initState();
     _textEditingController.text = formatDate(widget.selectedDate);
     _textEditingController.addListener(_onTextChanged);
-    _isError= widget.isError;
+    _isError = widget.isError;
     _focusNode.addListener(() {
       setState(() {});
     });
@@ -63,16 +65,14 @@ class _NxDateFieldState extends State<NxDateField> {
     return Container(
       padding: widget.padding,
       child: GestureDetector(
-        onTap: () {
-          _selectDate(context);
-        },
+        onTap: () => _selectDate(context),
         child: Focus(
           focusNode: _focusNode,
           child: TextFormField(
+            controller: widget.controller,
             readOnly: true,
             onTap: () {
               _selectDate(context);
-
               setState(() {
                 _isError = _isError == null ? null : false;
               });// Open date picker on text field tap
@@ -87,7 +87,6 @@ class _NxDateFieldState extends State<NxDateField> {
               }
               return null;
             },
-            controller: _textEditingController,
             decoration: InputDecoration(
               errorStyle: TextStyle(height: 0, fontSize: 0.1),
               enabledBorder: _getOutlineInputBorder(
@@ -102,10 +101,11 @@ class _NxDateFieldState extends State<NxDateField> {
                   color: ColorConstants.errorFieldBorderColor,
                 ),
               ),
-              focusedErrorBorder:  OutlineInputBorder(
+              focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 borderSide: BorderSide(
-                  width: 1,color: ColorConstants.focusedFieldBorderColor,
+                  width: 1,
+                  color: ColorConstants.focusedFieldBorderColor,
                 ),
               ),
               floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -122,9 +122,10 @@ class _NxDateFieldState extends State<NxDateField> {
                   ? widget.labelText
                   : null,
               labelStyle: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  color: ColorConstants.fieldLabelTextColor,
-                  fontSize: SizeConstants.floatingLabelFontSize,),
+                fontWeight: FontWeight.normal,
+                color: ColorConstants.fieldLabelTextColor,
+                fontSize: SizeConstants.floatingLabelFontSize,
+              ),
               suffixIcon: Icon(Icons.calendar_today),
               border: InputBorder.none,
             ),
@@ -134,18 +135,11 @@ class _NxDateFieldState extends State<NxDateField> {
     );
   }
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: widget.selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2022),
-      lastDate: DateTime(2101),
+  OutlineInputBorder _getOutlineInputBorder(Color color) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      borderSide: BorderSide(width: 1, color: color),
     );
-
-    if (picked != null) {
-      widget.onTap(picked);
-      _textEditingController.text = formatDate(picked);
-    }
   }
 
   String formatDate(DateTime? date) {
@@ -156,25 +150,17 @@ class _NxDateFieldState extends State<NxDateField> {
     }
   }
 
-  OutlineInputBorder _getOutlineInputBorder(Color color) {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      borderSide: BorderSide(width: 1, color: color),
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      firstDate: DateTime(2023),
+      lastDate: DateTime(2101),
     );
-  }
-
-
-  // Create a method to clear the selected date and show the hint
-  void clearDateAndHint() {
-    final _textEditingController = TextEditingController();
-    _textEditingController.text = widget.hintText;
-    _isError = false;
-
-    // Update the state
-    setState(() {
-      widget.onTap(null);
-      _textEditingController.text = widget.hintText;
-      _isError = false;
-    });
+    if (pickedDate != null) {
+      widget.onTap(pickedDate);
+      setState(() {
+        widget.controller.text = DateFormat('dd/MM/yyyy').format(pickedDate);
+      });
+    }
   }
 }
