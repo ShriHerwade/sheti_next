@@ -480,7 +480,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   _buildCompactSwitchListTile(
                     title: 'Creditor',
                     value: true, // Make isCreditor always true
-                    onChanged: (value) {} // Disable user interaction
+                    onChanged: (value) {}, // Disable user interaction
+                    useThumbIcon: true,
                   ),
                   _buildCompactSwitchListTile(
                     title: 'Seller',
@@ -490,6 +491,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         isSeller = value;
                       });
                     },
+                    useThumbIcon: true,
                   ),
                   _buildCompactSwitchListTile(
                     title: 'Buyer',
@@ -499,6 +501,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         isBuyer = value;
                       });
                     },
+                    useThumbIcon: true,
                   ),
                   _buildCompactSwitchListTile(
                     title: 'Service Provider',
@@ -508,6 +511,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         isServiceProvider = value;
                       });
                     },
+                    useThumbIcon: true,
                   ),
                  /* _buildCompactSwitchListTile(
                     title: 'Farm Worker',
@@ -517,6 +521,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         isFarmWorker = value;
                       });
                     },
+                     useThumbIcon: true,
                   ),*/
                   _buildCompactSwitchListTile(
                     title: 'Shop Or Firm',
@@ -526,6 +531,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                         isShopFirm = value;
                       });
                     },
+                    useThumbIcon: true,
                   ),
                 ],
               ),
@@ -573,25 +579,32 @@ class _CreateExpensesState extends State<CreateExpenses> {
     );
   }
 
+  final MaterialStateProperty<Icon?> thumbIcon =
+  MaterialStateProperty.resolveWith<Icon?>(
+        (Set<MaterialState> states) {
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(Icons.check);
+      }
+      //return const Icon(Icons.close);
+    },
+  );
+
   Widget _buildCompactSwitchListTile({
     required String title,
     required bool value,
     required Function(bool) onChanged,
+    bool useThumbIcon = false, // Added parameter to indicate whether to use thumbIcon
   }) {
-    return Row(
-      children: [
-        Text(title),
-        Spacer(),
-        Transform.scale(
-          scale: 0.8, // Adjust the scale as needed to make the switch smaller
-          child: Switch(
-            value: value,
-            onChanged: onChanged,
-          ),
-        ),
-      ],
+    return ListTile(
+      title: Text(title),
+      trailing: Switch(
+        value: value,
+        onChanged: onChanged,
+        thumbIcon: useThumbIcon ? thumbIcon : null, // Set thumbIcon if needed
+      ),
     );
   }
+
 
 
 
