@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateEventScreen.dart';
-import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';
+
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
-import 'package:sheti_next/zebra/screen/farming/ExpenseAndAllExpensesScreen.dart';
+
 import 'package:sheti_next/zebra/screen/farming/ExpenseIncomeScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/DashboardScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
