@@ -465,17 +465,17 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     },
                     decoration: inputDecoration.copyWith(
                       labelText: 'Name',
-                      errorText: _isError ? 'Poe Name is mandatory' : null,
+                      errorText: _isError ? 'Name is mandatory' : null,
                     ), // Apply common border style and error text
                   ),
-                  TextField(
+                 /* TextField(
                     onChanged: (value) => poeMobileNo = value,
                     decoration: inputDecoration.copyWith(labelText: 'Mobile'), // Apply common border style
                   ),
                   TextField(
                     onChanged: (value) => poeAddress = value,
                     decoration: inputDecoration.copyWith(labelText: 'Address'), // Apply common border style
-                  ),
+                  ),*/
                   SizedBox(height: 15),
                   _buildCompactSwitchListTile(
                     title: 'Creditor',
