@@ -106,6 +106,25 @@
   "labelNotes" : "Notes",
   "hintNotes" : "Notes",
 
+  "hintName" : "Name *",
+  "labelName" : "Name",
+
+  "hintEmail" : "Email ID",
+  "labelEmail" : "Email ID",
+
+  "hintMobileNumber" : "Mobile Number",
+  "labelMobileNumber" : "Mobile Number",
+
+  "labelAddNewCreditor" : "Add New Creditor",
+  "labelCreditor" : "Creditor",
+  "labelSeller" : "Seller",
+  "labelBuyer" : "Buyer",
+  "labelServiceProvider" : "Service Provider",
+  "labelShopOrFirm" : "Shop or Firm",
+  "labelFarmWorker" : "Farm Worker",
+  "labelLinkSave" : "Save",
+  "labelLinkCancel" : "Cancel",
+
   "navBarDiary": "Diary",
   "navBarLanguages": "Language",
   "navBarLangMarathi": "Marathi",

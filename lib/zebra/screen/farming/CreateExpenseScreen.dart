@@ -451,7 +451,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: Text('Add New Creditor',
+              title: Text(LocaleKeys.labelAddNewCreditor.tr(),
                   style: TextStyle(fontSize: 20, color: Colors.black87)),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -464,8 +464,9 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       });
                     },
                     decoration: inputDecoration.copyWith(
-                      labelText: 'Name',
+                      labelText: LocaleKeys.labelName.tr(),
                       errorText: _isError ? 'Name is mandatory' : null,
+                      errorStyle: TextStyle(height: 0, fontSize: 0.1),
                     ), // Apply common border style and error text
                   ),
                  /* TextField(
@@ -478,13 +479,13 @@ class _CreateExpensesState extends State<CreateExpenses> {
                   ),*/
                   SizedBox(height: 15),
                   _buildCompactSwitchListTile(
-                    title: 'Creditor',
+                    title: LocaleKeys.labelCreditor.tr(),
                     value: true, // Make isCreditor always true
                     onChanged: (value) {}, // Disable user interaction
                     useThumbIcon: true,
                   ),
                   _buildCompactSwitchListTile(
-                    title: 'Seller',
+                    title: LocaleKeys.labelSeller.tr(),
                     value: isSeller,
                     onChanged: (value) {
                       setState(() {
@@ -494,7 +495,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     useThumbIcon: true,
                   ),
                   _buildCompactSwitchListTile(
-                    title: 'Buyer',
+                    title: LocaleKeys.labelBuyer.tr(),
                     value: isBuyer,
                     onChanged: (value) {
                       setState(() {
@@ -504,7 +505,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                     useThumbIcon: true,
                   ),
                   _buildCompactSwitchListTile(
-                    title: 'Service Provider',
+                    title: LocaleKeys.labelServiceProvider.tr(),
                     value: isServiceProvider,
                     onChanged: (value) {
                       setState(() {
@@ -524,7 +525,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
                      useThumbIcon: true,
                   ),*/
                   _buildCompactSwitchListTile(
-                    title: 'Shop Or Firm',
+                    title: LocaleKeys.labelShopOrFirm.tr(),
                     value: isShopFirm,
                     onChanged: (value) {
                       setState(() {
@@ -563,13 +564,13 @@ class _CreateExpensesState extends State<CreateExpenses> {
                       Navigator.of(context).pop();
                     }
                   },
-                  child: Text('Save'),
+                  child: Text(LocaleKeys.labelLinkSave.tr()),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('Cancel'),
+                  child: Text(LocaleKeys.labelLinkCancel.tr()),
                 ),
               ],
             );
@@ -604,8 +605,6 @@ class _CreateExpensesState extends State<CreateExpenses> {
       ),
     );
   }
-
-
 
 
   void showExpenses() {

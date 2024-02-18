@@ -64,7 +64,7 @@
   "labelSelectCreditorName" : "उधार देणाऱ्याचे नाव",
   "hintSelectCreditorName" : "उधार देणाऱ्याचे नाव निवडा",
 
-  "checkBoxIsCreditor" : "हा खर्च उधारीवर केलेला आहे का ?",
+  "checkBoxIsCreditor" : "उधार खर्च ?",
   "labelAddNewCreditor" : "नवीन क्रेडिटर",
   "hintAddNewCreditor" : "नवीन क्रेडिटर",
 
@@ -103,6 +103,25 @@
 
   "labelNotes" : "नोंद / टिप्पणी ",
   "hintNotes" : "नोंद / टिप्पणी ",
+
+  "hintName": "नाव *",
+  "labelName": "नाव",
+
+  "hintEmail": "ईमेल पत्ता",
+  "labelEmail": "ईमेल पत्ता",
+
+  "hintMobileNumber": "मोबाइल नंबर",
+  "labelMobileNumber": "मोबाइल नंबर",
+
+  "labelAddNewCreditor": "नवीन ऋणदाता जोडा",
+  "labelCreditor": "ऋणदाता",
+  "labelSeller": "विक्रेता",
+  "labelBuyer": "खरेदीकर्ता",
+  "labelServiceProvider": "सेवा प्रदाता",
+  "labelShopOrFirm": "दुकान किंवा कंपनी",
+  "labelFarmWorker": "शेत कामगार",
+  "labelLinkSave": "जतन करा",
+  "labelLinkCancel": "रद्द करा",
 
   "navBarDiary": "डायरी",
   "navBarLanguages": "भाषा",
