@@ -8,9 +8,12 @@ import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
+import '../../common/widgets/NxButton.dart';
 import '../../common/widgets/NxDDFormField.dart';
+import '../../common/widgets/NxSnackbar.dart';
 import '../../common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
+import '../../common/widgets/responsive_util.dart';
 import '../../dao/models/IncomeModel.dart';
 
 class CreateIncomeScreen extends StatefulWidget {
@@ -22,6 +25,7 @@ class CreateIncomeScreen extends StatefulWidget {
 
 class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _datePickerIncomeDateController = TextEditingController();
   final _confAmount = TextEditingController();
   final _confQuantity = TextEditingController();
   final _confRate = TextEditingController();
@@ -68,19 +72,26 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
   // Save data
   void saveIncomeData(BuildContext context) async {
     try {
+      //below parsing added to handle double with null value
+      double ratePerUnit = double.tryParse(_confRate.text) ?? 0.0;
+      double quantity = double.tryParse(_confQuantity.text) ?? 0.0;
+      double incomeAmount = double.tryParse(_confAmount.text) ?? 0.0;
+
       if (_formKey.currentState!.validate()) {
         // Handle save logic using selected values (selectedFarm, selectedCrop, selectedIncome, selectedDate, _confamount.text)
+        print("_confRate : "+_confRate.text);
+        print("_confQuantity : "+_confQuantity.text);
         IncomeModel income = IncomeModel(
           farmId: selectedFarm!,
           cropId: selectedCrop!,
           userId: 1,
-          ratePerUnit: double.parse(_confRate.text),
+          ratePerUnit: ratePerUnit,
           rateUnit: selectedRateUnit,
-          quantity: double.parse(_confQuantity.text),
+          quantity: quantity,
           unit: selectedQuantityUnit!,
           incomeType: selectedIncomeType!,
           buyersName: _confBuyersName.text,
-          amount: double.parse(_confAmount.text),
+          amount: incomeAmount,
           incomeDate: selectedDate ?? DateTime.now(),
           notes: _confNotes.text,
           isActive: true, // Default value
@@ -88,66 +99,28 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
         );
 
         await dbHelper!.saveIncomeData(income);
+        setState(() {
+          _confAmount.clear();
+          _confQuantity.clear();
+          _confRate.clear();
+          _confBuyersName.clear();
+          selectedFarm = null;
+          selectedCrop = null;
+          selectedIncomeType = null;
+          selectedDate = null;
+          _confNotes.clear();
+          _confReceiptNumber.clear();
+          selectedQuantityUnit=null;
+          selectedRateUnit=null;
+          _datePickerIncomeDateController.clear();
 
-        _confAmount.clear();
-        _confQuantity.clear();
-        _confRate.clear();
-        _confBuyersName.clear();
-        selectedFarm = null;
-        selectedCrop = null;
-        selectedIncomeType = null;
-        selectedDate = null;
+        });
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.snackBarSuccessCircleColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.check,
-                    color: ColorConstants.miniIconDefaultColor,
-                    size: 16.0,
-                  ),
-                ),
-                SizedBox(width: 6.0),
-                Text(
-                  'Record saved successfully.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: ColorConstants.snackBarTextColor,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-            backgroundColor: ColorConstants.snackBarBackgroundColor,
-            behavior: SnackBarBehavior.floating,
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-            ),
-            margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
-          ),
-        );
+        NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Error saving income data."),
-          backgroundColor: ColorConstants.snackBarBackgroundColor,
-          behavior: SnackBarBehavior.floating,
-          elevation: 10,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-          ),
-          margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
-        ),
-      );
+      print("Error while saving income : $e");
+      NxSnackbar.showError(context, LocaleKeys.messageSaveFailed.tr(), duration: Duration(seconds: 3));
     }
   }
 
@@ -198,8 +171,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   // Add your image widget here
                   NxDDFormField_id(
                     selectedItemId: selectedFarm,
-                    label: LocaleKeys.labelFarm.tr(),
-                    hint: LocaleKeys.selectFarm.tr(),
+                    label: LocaleKeys.labelSelectFarm.tr(),
+                    hint: LocaleKeys.hintSelectFarm.tr(),
                     items: Map.fromIterable(
                       farms,
                       key: (farm) => farm.farmId,
@@ -219,8 +192,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxDDFormField_id(
                     selectedItemId: selectedCrop,
-                    hint: LocaleKeys.selectCrop.tr(),
-                    label: LocaleKeys.labelCrop.tr(),
+                    hint: LocaleKeys.hintSelectCrop.tr(),
+                    label: LocaleKeys.labelSelectCrop.tr(),
                     items: Map.fromIterable(
                       crops,
                       key: (crop) => crop.cropId,
@@ -238,8 +211,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxDDFormField(
                     value: selectedIncomeType,
-                    hint: LocaleKeys.selectIncomeType.tr(),
-                    label: LocaleKeys.labelIncomeType.tr(),
+                    hint: LocaleKeys.hintSelectIncomeType.tr(),
+                    label: LocaleKeys.labelSelectIncomeType.tr(),
                     items: farmIncomes,
                     onChanged: (String? income) {
                       setState(() {
@@ -252,24 +225,32 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       // Rate Per Unit
                       Expanded(
                         child: NxTextFormField(
                           controller: _confRate,
-                          hintText: LocaleKeys.labelRatePerUnit.tr(),
+                          labelText:LocaleKeys.labelRatePerUnit.tr(),
+                          hintText: LocaleKeys.hintRatePerUnit.tr(),
                           inputType: TextInputType.number,
+                          padding : EdgeInsets.only(left:  20.0),
+                          isMandatory: false,
+                          isError : false,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                       // Unit
                       Expanded(
                         child: NxDDFormField(
                           value: selectedRateUnit,
-                          hint: LocaleKeys.labelRateUnit.tr(),
-                          label: LocaleKeys.labelRateUnit.tr(),
+                          hint: LocaleKeys.labelSelectRateUnit.tr(),
+                          label: LocaleKeys.hintSelectRateUnit.tr(),
                           items: cropUnit,
+                          padding: EdgeInsets.only(right: 20),
+                          isMandatory: false,
+                          isError : false,
                           onChanged: (String? rateUnit) {
                             setState(() {
                               selectedRateUnit = rateUnit;
@@ -284,24 +265,24 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Quantity Sold
                       Expanded(
                         child: NxTextFormField(
                           controller: _confQuantity,
-                          hintText: LocaleKeys.labelQuantitySold.tr(),
+                          labelText:LocaleKeys.labelQuantitySold.tr(),
+                          hintText: LocaleKeys.hintQuantitySold.tr(),
                           inputType: TextInputType.number,
+                          padding : EdgeInsets.only(left:  20.0),
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      // Quantity Unit
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                       Expanded(
                         child: NxDDFormField(
                           value: selectedQuantityUnit,
-                          hint: LocaleKeys.labelRateUnit.tr(),
-                          label: LocaleKeys.labelRateUnit.tr(),
+                          hint: LocaleKeys.hintSelectQuantityUnit.tr(),
+                          label: LocaleKeys.labelSelectQuantityUnit.tr(),
                           items: cropUnit,
+                          padding: EdgeInsets.only(right: 20),
                           onChanged: (String? quantityUnit) {
                             setState(() {
                               selectedQuantityUnit = quantityUnit!;
@@ -311,7 +292,8 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                             });
                           },
                         ),
-                      ),
+                      )
+                      // Quantity Sold
                     ],
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -319,32 +301,41 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                     controller: _confBuyersName,
                     hintText: LocaleKeys.hintBuyersName.tr(),
                     inputType: TextInputType.text,
+                    isMandatory: false,
+                    isError : false,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
                     controller: _confReceiptNumber,
-                    hintText: LocaleKeys.HintReceiptNumber.tr(),
+                    hintText: LocaleKeys.hintReceiptNumber.tr(),
+                    labelText: LocaleKeys.labelReceiptNumber.tr(),
                     inputType: TextInputType.text,
+                    isMandatory: false,
+                    isError : false,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  buildDateField(LocaleKeys.labelIncomeDate.tr()),
+                  buildDateField(LocaleKeys.labelIncomeDate.tr(),LocaleKeys.hintIncomeDate.tr()),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
                     controller: _confAmount,
-                    hintText: LocaleKeys.labelAmountReceived.tr(),
+                    hintText: LocaleKeys.hintAmountReceived.tr(),
+                    labelText: LocaleKeys.labelAmountReceived.tr(),
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   NxTextFormField(
                       controller: _confNotes,
                       hintText: LocaleKeys.labelNotes.tr(),
+                      labelText: LocaleKeys.hintNotes.tr(),
                       inputType: TextInputType.text,
                       maxLines : 2,
-                      expands : false
+                      expands : false,
+                      isMandatory: false,
+                      isError : false,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
-                  Container(
+                  /*Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: TextButton(
                       onPressed: () => saveIncomeData(context),
@@ -361,7 +352,11 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
                       color: ColorConstants.textButtonSaveColor,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                  ),
+                  ),*/
+                  NxButton(buttonText: LocaleKeys.save.tr(),
+                    onPressed: ()=> saveIncomeData(context),
+                    width:ResponsiveUtil.screenWidth(context) * 0.8,
+                  )
                 ],
               ),
             ),
@@ -371,11 +366,15 @@ class _CreateIncomeScreenState extends State<CreateIncomeScreen> {
     );
   }
 
-  Widget buildDateField(String label) {
+  Widget buildDateField(String label,String hint) {
     return NxDateField(
+      controller: _datePickerIncomeDateController,
       label: label,
       labelText: label,
+      hintText: hint,
       selectedDate: selectedDate,
+      isMandatory: true,
+      isError : false,
       onTap: (DateTime? picked) {
         setState(() {
           selectedDate = picked;

@@ -9,7 +9,7 @@ class ColorConstants {
   static const Color fieldFillDefaultColor = Colors.white;
 
   //Field hint & label
-  static const Color fieldHintTextColor = Color(0xFF616161); //grey 700 hex configured // old 807f7f,989898
+  static const Color fieldHintTextColor = Color(0xFF989898); //grey 700 hex(616161) // old 807f7f,989898
   static const Color fieldLabelTextColor = Color(0xFF616161);
 
   //App bar

@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateEventScreen.dart';
-import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';
+
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
-import 'package:sheti_next/zebra/screen/farming/ExpenseAndAllExpensesScreen.dart';
+
 import 'package:sheti_next/zebra/screen/farming/ExpenseIncomeScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/DashboardScreen.dart';
-
-
-
+import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 
 class NxNavBar extends StatelessWidget {
   const NxNavBar({super.key});
@@ -69,17 +67,6 @@ class NxNavBar extends StatelessWidget {
                       child: Text(LocaleKeys.navBarEvents.tr())),
                 ),
                 ListTile(
-                  leading: Icon(Icons.payments),
-                  title: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => ExpenseDetailsScreen()));
-                      },
-                      child: Text(LocaleKeys.navBarExpenses.tr())),
-                ),
-                ListTile(
                   leading: Icon(Icons.payment_rounded),
                   title: InkWell(
                       onTap: () {
@@ -88,7 +75,7 @@ class NxNavBar extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (_) => ExpenseIncomeScreen()));
                       },
-                      child: Text(LocaleKeys.navBarIncome.tr())),
+                      child: Text(LocaleKeys.navBarExpenses.tr())),
                 ),
                 ListTile(
                   leading: Icon(Icons.dashboard),
@@ -100,6 +87,15 @@ class NxNavBar extends StatelessWidget {
                                 builder: (_) => DashboardScreen()));
                       },
                       child: Text('Dashboard')),
+                ),
+                ListTile(
+                  leading: Icon(Icons.account_balance_sharp),
+                  title: InkWell(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => MyExpenses()));
+                      },
+                      child: Text('Show All Expenses')),
                 ),
               ],
             ),

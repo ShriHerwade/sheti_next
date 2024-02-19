@@ -9,7 +9,9 @@ import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
+import '../../common/widgets/NxButton.dart';
 import '../../common/widgets/NxDDFormField.dart';
+import '../../common/widgets/NxSnackbar.dart';
 import '../../common/widgets/NxTextFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
@@ -26,6 +28,7 @@ class CreateExpenses extends StatefulWidget {
 
 class _CreateExpensesState extends State<CreateExpenses> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _datePickerExpenseDateController = TextEditingController();
   final _confAmount = TextEditingController();
   final _confNotes = TextEditingController();
   final _confBillNumber = TextEditingController();
@@ -81,6 +84,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
 // method to save Record
   void saveExpenseData(BuildContext context) async {
     try {
+      double expenseAmount = double.tryParse(_confAmount.text) ?? 0.0;
+
       if (_formKey.currentState!.validate()) {
         // Handle save logic using selected values (selectedFarm, selectedCrop, selectedEvent, selectedDate, _confamount.text)
         ExpenseModel expense = ExpenseModel(
@@ -97,7 +102,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
           notes: _confNotes.text, // Default value
           //expenseType: selectedExpense.isNotEmpty ? selectedExpense.first : 'Default Expense', // Default value
           expenseType: (selectedExpenseType! + (selectedExpenseSubType ?? '')),
-          amount: double.parse(_confAmount.text),
+          amount: expenseAmount,
           expenseDate: selectedDate ?? DateTime.now(),
           isActive: true, // Default value
           createdDate: DateTime.now(), // Default value
@@ -106,66 +111,28 @@ class _CreateExpensesState extends State<CreateExpenses> {
         await dbHelper!.saveExpenseData(expense);
 
         _confAmount.clear();
-        selectedFarm = null;
-        selectedCrop = null;
         isCreditExpense = false;
-        selectedExpenseType = null;
-        selectedExpenseSubType = null;
+        onClearDate: ();
+        setState(() {
+          selectedFarm = null;
+          selectedCrop = null;
+          selectedExpenseType = null;
+          selectedExpenseSubType = null;
+          _confBillNumber.clear();
+          selectedPoe=null;
+          //selectedExpense = [];
+          selectedDate = null;
+          _confNotes.clear();
+          _datePickerExpenseDateController.clear();
+        });
 
-        //selectedExpense = [];
-        selectedDate = null;
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                Container(
-                  //margin: EdgeInsets.only(right: 2.0),
-                  padding: EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.snackBarSuccessCircleColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.check,
-                    color: ColorConstants.miniIconDefaultColor,
-                    size: 16.0,
-                  ),
-                ),
-                SizedBox(width: 6.0),
-                Text(
-                  'Record saved successfully.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: ColorConstants.snackBarTextColor,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-            backgroundColor: ColorConstants.snackBarBackgroundColor,
-            behavior: SnackBarBehavior.floating,
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-            ),
-            margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
-          ),
-        );
+        NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Error saving expense data."),
-          backgroundColor: ColorConstants.snackBarBackgroundColor,
-          behavior: SnackBarBehavior.floating,
-          elevation: 10,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-          ),
-          margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
-        ),
-      );
+      print("Error while saving expense : $e");
+      NxSnackbar.showError(context, LocaleKeys.messageSaveFailed.tr(),
+          duration: Duration(seconds: 3));
     }
   }
 
@@ -208,195 +175,197 @@ class _CreateExpensesState extends State<CreateExpenses> {
             // Prevent the default back button behavior
             return false;
           },
-          child:  Dismissible(
-            key: Key('pageDismissKey'),
-            direction: DismissDirection.endToStart,
-            onDismissed: (_) {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => MyExpenses(),
-                ),
-              );
-            },
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Container(
-                padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
-                child: Column(
-                  children: [
-                    /*SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    Image.asset(
-                      "assets/images/top_create-life-cycle-event-2.png",
-                      height: ResponsiveUtil.screenHeight(context) * 0.16,
-                      width: ResponsiveUtil.screenWidth(context) * 0.4,
-                    ),*/
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxDDFormField_id(
-                      selectedItemId: selectedFarm,
-                      label: LocaleKeys.labelFarm.tr(),
-                      hint: LocaleKeys.selectFarm.tr(),
-                      items: Map.fromIterable(
-                        farms,
-                        key: (farm) => farm.farmId,
-                        value: (farm) => farm.farmName ?? 'Unknown Farm',
-                      ),
-                      onChanged: (int? farmId) {
-                        setState(() {
-                          selectedFarm = farmId;
-                          selectedCrop = null;
-                          if (farmId != null) {
-                            print('Selected Farm ID: $farmId');
-                            getCropsByFarmId(farmId);
-                          }
-                        });
-                      },
+          child:  SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
+              child: Column(
+                children: [
+                  /*SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  Image.asset(
+                    "assets/images/top_create-life-cycle-event-2.png",
+                    height: ResponsiveUtil.screenHeight(context) * 0.16,
+                    width: ResponsiveUtil.screenWidth(context) * 0.4,
+                  ),*/
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField_id(
+                    selectedItemId: selectedFarm,
+                    label: LocaleKeys.labelSelectFarm.tr(),
+                    hint: LocaleKeys.hintSelectFarm.tr(),
+                    items: Map.fromIterable(
+                      farms,
+                      key: (farm) => farm.farmId,
+                      value: (farm) => farm.farmName ?? 'Unknown Farm',
                     ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxDDFormField_id(
-                      selectedItemId: selectedCrop,
-                      hint: LocaleKeys.selectCrop.tr(),
-                      label: LocaleKeys.labelCrop.tr(),
-                      items: Map.fromIterable(
-                        crops,
-                        key: (crop) => crop.cropId,
-                        value: (crop) => crop.cropName ?? 'Unknown Crop',
-                      ),
-                      onChanged: (int? cropId) {
-                        setState(() {
-                          selectedCrop = cropId;
-                          if (cropId != null) {
-                            print('Selected Crop ID: $cropId');
-                          }
-                        });
-                      },
+                    onChanged: (int? farmId) {
+                      setState(() {
+                        selectedFarm = farmId;
+                        selectedCrop = null;
+                        if (farmId != null) {
+                          print('Selected Farm ID: $farmId');
+                          getCropsByFarmId(farmId);
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField_id(
+                    selectedItemId: selectedCrop,
+                    hint: LocaleKeys.hintSelectCrop.tr(),
+                    label: LocaleKeys.labelSelectCrop.tr(),
+                    items: Map.fromIterable(
+                      crops,
+                      key: (crop) => crop.cropId,
+                      value: (crop) => crop.cropName ?? 'Unknown Crop',
                     ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxDDFormField(
-                      value: selectedExpenseType,
-                      hint: LocaleKeys.selectExpenseType.tr(),
-                      label: LocaleKeys.labelExpenseType.tr(),
-                      items: farmExpenseTypes,
-                      onChanged: (String? expenseType) {
-                        setState(() {
-                          selectedExpenseType = expenseType;
-                          if (expenseType != null) {
-                            print('Selected expenseType: $expenseType');
-                          }
-                        });
-                      },
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxDDFormField(
-                      value: selectedExpenseSubType,
-                      hint: LocaleKeys.selectExpenseSubType.tr(),
-                      label: LocaleKeys.labelExpenseSubType.tr(),
-                      items: farmExpenseSubTypes,
-                      onChanged: (String? expenseSubType) {
-                        setState(() {
-                          selectedExpenseSubType = expenseSubType;
-                          if (expenseSubType != null) {
-                            print('Selected expenseSubType: $expenseSubType');
-                          }
-                        });
-                      },
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Checkbox(
-                            checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
-                            activeColor: ColorConstants.checkBoxActiveColor,
-                            value: this.isCreditExpense,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                this.isCreditExpense = value!;
-                              });
-                            },
-                          ),
-                        ),
-                        Text(LocaleKeys.checkBoxIsCreditor.tr(),),
-
-                        TextButton(
-                          onPressed: () {
-                            // Open the dialog to add a new creditor
-                            _showAddCreditorDialog();
+                    onChanged: (int? cropId) {
+                      setState(() {
+                        selectedCrop = cropId;
+                        if (cropId != null) {
+                          print('Selected Crop ID: $cropId');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField(
+                    value: selectedExpenseType,
+                    hint: LocaleKeys.hintSelectExpenseType.tr(),
+                    label: LocaleKeys.labelSelectExpenseType.tr(),
+                    items: farmExpenseTypes,
+                    onChanged: (String? expenseType) {
+                      setState(() {
+                        selectedExpenseType = expenseType;
+                        if (expenseType != null) {
+                          print('Selected expenseType: $expenseType');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField(
+                    value: selectedExpenseSubType,
+                    hint: LocaleKeys.hintSelectExpenseSubType.tr(),
+                    label: LocaleKeys.labelSelectExpenseSubType.tr(),
+                    items: farmExpenseSubTypes,
+                    onChanged: (String? expenseSubType) {
+                      setState(() {
+                        selectedExpenseSubType = expenseSubType;
+                        if (expenseSubType != null) {
+                          print('Selected expenseSubType: $expenseSubType');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Checkbox(
+                          checkColor: ColorConstants.checkBoxColor.withOpacity(0.9),
+                          activeColor: ColorConstants.checkBoxActiveColor,
+                          value: this.isCreditExpense,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              this.isCreditExpense = value!;
+                            });
                           },
-                          child: Text(
-                            '+ Add New Creditor',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              decoration: TextDecoration.underline,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxDDFormField_id(
-                      selectedItemId: selectedPoe,
-                      label: LocaleKeys.labelCreditor.tr(),
-                      hint: LocaleKeys.hintCreditor.tr(),
-                      items: Map.fromIterable(
-                        poes,
-                        key: (poe) => poe.poeId,
-                        value: (poe) => poe.poeName ?? 'Unknown Poe',
                       ),
-                      onChanged: (int? poeId) {
-                        setState(() {
-                          selectedPoe = poeId;
-                          if (poeId != null) {
-                            print('Selected Poe ID: $poeId');
-                          }
-                        });
-                      },
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxTextFormField(
-                      controller: _confBillNumber,
-                      hintText: LocaleKeys.HintBillNumber.tr(),
-                      inputType: TextInputType.text,
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    buildDateField(LocaleKeys.expenseDate.tr()),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxTextFormField(
-                      controller: _confAmount,
-                      hintText: LocaleKeys.expenseAmount.tr(),
-                      inputType: TextInputType.number,
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    NxTextFormField(
-                      controller: _confNotes,
-                      hintText: LocaleKeys.labelNotes.tr(),
-                      inputType: TextInputType.text,
-                      maxLines : 2,
-                      expands : false
-                    ),
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    Container(
-                      width: ResponsiveUtil.screenWidth(context) * 0.8,
-                      child: TextButton(
-                        onPressed: () => saveExpenseData(context),
+                      Text(LocaleKeys.checkBoxIsCreditor.tr(),),
+
+                      TextButton(
+                        onPressed: () {
+                          // Open the dialog to add a new creditor
+                          _showAddCreditorDialog();
+                        },
                         child: Text(
-                          LocaleKeys.save.tr(),
+                          '+ '+LocaleKeys.labelAddNewCreditor.tr(),
                           style: TextStyle(
-                            color: ColorConstants.textButtonSaveTextColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: ResponsiveUtil.fontSize(context, 20),
+                            color: Colors.green,
+                            //decoration: TextDecoration,
+                            fontWeight: FontWeight.normal,
                           ),
                         ),
                       ),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.textButtonSaveColor,
-                        //isSaveButtonEnabled() ? Colors.green : Colors.grey,
-                        borderRadius: BorderRadius.circular(8.0),
+                    ],
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField_id(
+                    selectedItemId: selectedPoe,
+                    label: LocaleKeys.labelSelectCreditorName.tr(),
+                    hint: LocaleKeys.hintSelectCreditorName.tr(),
+                    isMandatory: false,
+                    isError : false,
+                    items: Map.fromIterable(
+                      poes,
+                      key: (poe) => poe.poeId,
+                      value: (poe) => poe.poeName ?? 'Unknown Poe',
+                    ),
+                    onChanged: (int? poeId) {
+                      setState(() {
+                        selectedPoe = poeId;
+                        if (poeId != null) {
+                          print('Selected Poe ID: $poeId');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxTextFormField(
+                    controller: _confBillNumber,
+                    hintText: LocaleKeys.hintBillNumber.tr(),
+                    labelText: LocaleKeys.labelBillNumber.tr(),
+                    inputType: TextInputType.text,
+                    isMandatory: false,
+                    isError : false,
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  buildDateField(LocaleKeys.labelExpenseDate.tr(),LocaleKeys.hintExpenseDate.tr()),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxTextFormField(
+                    controller: _confAmount,
+                    hintText: LocaleKeys.hintExpenseAmount.tr(),
+                    labelText: LocaleKeys.labelExpenseAmount.tr(),
+                    inputType: TextInputType.number,
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxTextFormField(
+                      controller: _confNotes,
+                      hintText: LocaleKeys.hintNotes.tr(),
+                      labelText: LocaleKeys.labelNotes.tr(),
+                      inputType: TextInputType.text,
+                      maxLines: 2,
+                      expands: false,
+                      isMandatory: false,
+                      isError : false,
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                 /* Container(
+                    width: ResponsiveUtil.screenWidth(context) * 0.8,
+                    child: TextButton(
+                      onPressed: () => saveExpenseData(context),
+                      child: Text(
+                        LocaleKeys.save.tr(),
+                        style: TextStyle(
+                          color: ColorConstants.textButtonSaveTextColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: ResponsiveUtil.fontSize(context, 20),
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                    decoration: BoxDecoration(
+                      color: ColorConstants.textButtonSaveColor,
+                      //isSaveButtonEnabled() ? Colors.green : Colors.grey,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),*/
+                  NxButton(buttonText: LocaleKeys.save.tr(),
+                    onPressed: ()=> saveExpenseData(context),
+                    width:ResponsiveUtil.screenWidth(context) * 0.8,
+                  )
+                ],
               ),
             ),
           ),
@@ -405,11 +374,15 @@ class _CreateExpensesState extends State<CreateExpenses> {
     );
   }
 
-  Widget buildDateField(String label) {
+  Widget buildDateField(String label, String hint) {
     return NxDateField(
+      controller: _datePickerExpenseDateController,
       label: label,
       labelText: label,
+      hintText: hint,
       selectedDate: selectedDate,
+      isMandatory: true,
+      isError : false,
       onTap: (DateTime? picked) {
         setState(() {
           selectedDate = picked;
@@ -423,8 +396,8 @@ class _CreateExpensesState extends State<CreateExpenses> {
       children: [
         NxDDFormField_id(
           selectedItemId: selectedPoe,
-          label: LocaleKeys.labelCreditor.tr(),
-          hint: LocaleKeys.hintCreditor.tr(),
+          label: LocaleKeys.labelSelectCreditorName.tr(),
+          hint: LocaleKeys.hintSelectCreditorName.tr(),
           items: Map.fromIterable(
             poes,
             key: (poe) => poe.poeId,
@@ -454,59 +427,182 @@ class _CreateExpensesState extends State<CreateExpenses> {
     String poeName = "";
     String poeMobileNo = "";
     String poeAddress = "";
+    bool _isError = false; // Add a flag to track the error state
+    bool isCreditor = true;
+    bool isShopFirm = false;
+    bool isBuyer = false;
+    bool isSeller = false;
+    bool isServiceProvider = false;
+    bool isFarmWorker = false;
+
+    // Define a common border style
+    final inputDecoration = InputDecoration(
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: _isError ? Colors.red : Colors.grey[400] ?? Colors.grey,
+          width: 1.0,
+        ),
+      ),
+    );
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Add New Creditor'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                onChanged: (value) => poeName = value,
-                decoration: InputDecoration(labelText: 'Name'),
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text(LocaleKeys.labelAddNewCreditor.tr(),
+                  style: TextStyle(fontSize: 20, color: Colors.black87)),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    onChanged: (value) {
+                      poeName = value;
+                      setState(() {
+                        _isError = poeName.isEmpty; // Set the error flag based on whether the field is empty
+                      });
+                    },
+                    decoration: inputDecoration.copyWith(
+                      labelText: LocaleKeys.labelName.tr(),
+                      errorText: _isError ? 'Name is mandatory' : null,
+                      errorStyle: TextStyle(height: 0, fontSize: 0.1),
+                    ), // Apply common border style and error text
+                  ),
+                 /* TextField(
+                    onChanged: (value) => poeMobileNo = value,
+                    decoration: inputDecoration.copyWith(labelText: 'Mobile'), // Apply common border style
+                  ),
+                  TextField(
+                    onChanged: (value) => poeAddress = value,
+                    decoration: inputDecoration.copyWith(labelText: 'Address'), // Apply common border style
+                  ),*/
+                  SizedBox(height: 15),
+                  _buildCompactSwitchListTile(
+                    title: LocaleKeys.labelCreditor.tr(),
+                    value: true, // Make isCreditor always true
+                    onChanged: (value) {}, // Disable user interaction
+                    useThumbIcon: true,
+                  ),
+                  _buildCompactSwitchListTile(
+                    title: LocaleKeys.labelSeller.tr(),
+                    value: isSeller,
+                    onChanged: (value) {
+                      setState(() {
+                        isSeller = value;
+                      });
+                    },
+                    useThumbIcon: true,
+                  ),
+                  _buildCompactSwitchListTile(
+                    title: LocaleKeys.labelBuyer.tr(),
+                    value: isBuyer,
+                    onChanged: (value) {
+                      setState(() {
+                        isBuyer = value;
+                      });
+                    },
+                    useThumbIcon: true,
+                  ),
+                  _buildCompactSwitchListTile(
+                    title: LocaleKeys.labelServiceProvider.tr(),
+                    value: isServiceProvider,
+                    onChanged: (value) {
+                      setState(() {
+                        isServiceProvider = value;
+                      });
+                    },
+                    useThumbIcon: true,
+                  ),
+                 /* _buildCompactSwitchListTile(
+                    title: 'Farm Worker',
+                    value: isFarmWorker,
+                    onChanged: (value) {
+                      setState(() {
+                        isFarmWorker = value;
+                      });
+                    },
+                     useThumbIcon: true,
+                  ),*/
+                  _buildCompactSwitchListTile(
+                    title: LocaleKeys.labelShopOrFirm.tr(),
+                    value: isShopFirm,
+                    onChanged: (value) {
+                      setState(() {
+                        isShopFirm = value;
+                      });
+                    },
+                    useThumbIcon: true,
+                  ),
+                ],
               ),
-              TextField(
-                onChanged: (value) => poeMobileNo = value,
-                decoration: InputDecoration(labelText: 'Mobile'),
-              ),
-              TextField(
-                onChanged: (value) => poeAddress = value,
-                decoration: InputDecoration(labelText: 'Address'),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () async {
-               dbHelper!.savePoeData(PoeModel(
-                   poeName: poeName,
-                   accountId: 1, //hard coded need to replace with global variable
-                   mobileNo: poeMobileNo,
-                   address: poeAddress,
-                   email : null,
-                   isCreditor : true,
-                   isShopFirm : true,
-                   isBuyer : false,
-                   isServiceProvider : false,
-                   isFarmWorker : false,
-                   isActive : true,
-               ));
-               await loadCreditors();
-                Navigator.of(context).pop();
-              },
-              child: Text('Save'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cancel'),
-            ),
-          ],
+              actions: [
+                TextButton(
+                  onPressed: () async {
+                    if (poeName.isEmpty) {
+                      setState(() {
+                        _isError = true; // Set the error flag if Poe Name is empty
+                      });
+                    } else {
+                      dbHelper!.savePoeData(
+                        PoeModel(
+                          poeName: poeName,
+                          accountId: 1, // Hard coded need to replace with global variable
+                          mobileNo: poeMobileNo,
+                          address: poeAddress,
+                          email: null,
+                          isCreditor: isCreditor,
+                          isShopFirm: isShopFirm,
+                          isBuyer: isBuyer,
+                         // isSeller: isSeller,
+                          isServiceProvider: isServiceProvider,
+                          isFarmWorker: isFarmWorker,
+                          isActive: true,
+                        ),
+                      );
+                      await loadCreditors();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(LocaleKeys.labelLinkSave.tr()),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(LocaleKeys.labelLinkCancel.tr()),
+                ),
+              ],
+            );
+          },
         );
       },
+    );
+  }
+
+  final MaterialStateProperty<Icon?> thumbIcon =
+  MaterialStateProperty.resolveWith<Icon?>(
+        (Set<MaterialState> states) {
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(Icons.check);
+      }
+      //return const Icon(Icons.close);
+    },
+  );
+
+  Widget _buildCompactSwitchListTile({
+    required String title,
+    required bool value,
+    required Function(bool) onChanged,
+    bool useThumbIcon = false, // Added parameter to indicate whether to use thumbIcon
+  }) {
+    return ListTile(
+      title: Text(title),
+      trailing: Switch(
+        value: value,
+        onChanged: onChanged,
+        thumbIcon: useThumbIcon ? thumbIcon : null, // Set thumbIcon if needed
+      ),
     );
   }
 

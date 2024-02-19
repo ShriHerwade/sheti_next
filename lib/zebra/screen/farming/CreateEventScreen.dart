@@ -9,6 +9,8 @@ import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/screen/farming/MyEventsScreen.dart';
+import '../../common/widgets/NxButton.dart';
+import '../../common/widgets/NxSnackbar.dart';
 import '../../dao/models/EventModel.dart';
 import '../../dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
@@ -25,6 +27,8 @@ class CreateEvents extends StatefulWidget {
 
 class _CreateEventsState extends State<CreateEvents> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _datePickerStartDateController = TextEditingController();
+  final TextEditingController _datePickerEndDateController = TextEditingController();
   DbHelper? dbHelper;
 
   int? selectedFarm;
@@ -75,76 +79,51 @@ class _CreateEventsState extends State<CreateEvents> {
   }
 
   Future<void> saveRecords() async {
-    if (_formKey.currentState!.validate()) {
-      if (selectedFarm != null &&
-          selectedCrop != null &&
-          startDate != null &&
-          endDate != null &&
-          selectedFarmEvents.isNotEmpty) {
-        EventModel event = EventModel(
-          userId: 1,
-          farmId: selectedFarm!,
-          cropId: selectedCrop!,
-          eventType: selectedFarmEvents.join(", "),
-          startDate: startDate!,
-          endDate: endDate!,
-          notes: null,
-          isDone: false,
-          isActive: true,
-          createdDate: DateTime.now(),
-        );
+    try {
+      if (_formKey.currentState!.validate()) {
+        if (selectedFarm != null &&
+            selectedCrop != null &&
+            startDate != null &&
+            endDate != null &&
+            selectedFarmEvents.isNotEmpty) {
+          EventModel event = EventModel(
+            userId: 1,
+            farmId: selectedFarm!,
+            cropId: selectedCrop!,
+            eventType: selectedFarmEvents.join(", "),
+            startDate: startDate!,
+            endDate: endDate!,
+            notes: null,
+            isDone: false,
+            isActive: true,
+            createdDate: DateTime.now(),
+          );
 
-        await dbHelper!.saveEventData(event);
+          await dbHelper!.saveEventData(event);
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.snackBarSuccessCircleColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.check,
-                    color: ColorConstants.miniIconDefaultColor,
-                    size: 16.0,
-                  ),
-                ),
-                SizedBox(width: 6.0),
-                Text(
-                  'Record saved successfully.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: ColorConstants.snackBarTextColor,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-            backgroundColor: Colors.black,
-            behavior: SnackBarBehavior.floating,
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-            ),
-            margin: EdgeInsets.fromLTRB(50, 10, 50, 10),
-          ),
-        );
+          setState(() {
+            selectedFarm = null;
+            selectedCrop = null;
+            isCreateAnother = false;
+            selectedFarmEvents = [];
+            startDate = null;
+            endDate = null;
+            _datePickerEndDateController.clear();
+            _datePickerStartDateController.clear();
+          });
 
+          //_formKey.currentState!.reset();
 
-          selectedFarm = null;
-          selectedCrop = null;
-          isCreateAnother=false;
-        selectedFarmEvents = [];
-        startDate = null;
-        endDate = null;
-
-        _formKey.currentState!.reset();
-      } else {
-        print("Please fill in all fields.");
+          NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(),
+              duration: Duration(seconds: 3));
+        } else {
+          print("Please fill in all fields.");
+        }
       }
+    } catch (e) {
+      print("Error while saving event : $e");
+      NxSnackbar.showError(context, LocaleKeys.messageSaveFailed.tr(),
+          duration: Duration(seconds: 3));
     }
   }
 
@@ -200,8 +179,8 @@ class _CreateEventsState extends State<CreateEvents> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDDFormField_id(
                       selectedItemId: selectedFarm,
-                      label: LocaleKeys.labelFarm.tr(),
-                      hint: LocaleKeys.selectFarm.tr(),
+                      label: LocaleKeys.labelSelectFarm.tr(),
+                      hint: LocaleKeys.hintSelectFarm.tr(),
                       items: Map.fromIterable(
                         farms,
                         key: (farm) => farm.farmId,
@@ -221,8 +200,8 @@ class _CreateEventsState extends State<CreateEvents> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDDFormField_id(
                       selectedItemId: selectedCrop,
-                      hint: LocaleKeys.selectCrop.tr(),
-                      label: LocaleKeys.labelCrop.tr(),
+                      hint: LocaleKeys.hintSelectCrop.tr(),
+                      label: LocaleKeys.labelSelectCrop.tr(),
                       items: Map.fromIterable(
                         crops,
                         key: (crop) => crop.cropId,
@@ -243,8 +222,8 @@ class _CreateEventsState extends State<CreateEvents> {
                           horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
                       child: DropDownMultiSelect(
                         decoration: InputDecoration(
-                          hintText: LocaleKeys.selectEvent.tr(),
-                          labelText: LocaleKeys.labelEvent.tr(),
+                          hintText: LocaleKeys.hintSelectEvent.tr(),
+                          labelText: LocaleKeys.labelSelectEvent.tr(),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(8.0)),
                               borderSide: BorderSide(width:1,color: ColorConstants.enabledFieldBorderColor)),
@@ -268,16 +247,20 @@ class _CreateEventsState extends State<CreateEvents> {
                         },
                         options: farmEvents,
                         selectedValues: selectedFarmEvents,
-                        hint: Text(LocaleKeys.selectEvent.tr()),
+                        hint: Text(LocaleKeys.hintSelectEvent.tr()),
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.normal, color: Colors.black),
                       ),
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDateField(
-                      label: LocaleKeys.eventStartDate.tr(),
-                      labelText: LocaleKeys.eventStartDate.tr(),
+                      controller: _datePickerStartDateController,
+                      label: LocaleKeys.labelEventStartDate.tr(),
+                      labelText: LocaleKeys.labelEventStartDate.tr(),
+                      hintText: LocaleKeys.hintEventStartDate.tr(),
                       selectedDate: startDate,
+                      isMandatory: true,
+                      isError : false,
                       onTap: (DateTime? picked) {
                         setState(() {
                           startDate = picked;
@@ -287,9 +270,13 @@ class _CreateEventsState extends State<CreateEvents> {
                     SizedBox(
                         height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDateField(
-                      label: LocaleKeys.eventEndDate.tr(),
-                      labelText: LocaleKeys.eventEndDate.tr(),
+                      controller: _datePickerEndDateController,
+                      label: LocaleKeys.labelEventEndDate.tr(),
+                      labelText: LocaleKeys.labelEventEndDate.tr(),
+                      hintText: LocaleKeys.hintEventEndDate.tr(),
                       selectedDate: endDate,
+                      isMandatory: true,
+                      isError : false,
                       onTap: (DateTime? picked) {
                         setState(() {
                           endDate = picked;
@@ -298,7 +285,7 @@ class _CreateEventsState extends State<CreateEvents> {
                     ),
                     SizedBox(
                         height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    Container(
+                    /*Container(
                       width: ResponsiveUtil.screenWidth(context) * 0.8,
                       child: TextButton(
                         onPressed: saveRecords,
@@ -315,7 +302,11 @@ class _CreateEventsState extends State<CreateEvents> {
                         color: ColorConstants.textButtonSaveColor,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                    ),
+                    ),*/
+                    NxButton(buttonText: LocaleKeys.save.tr(),
+                      onPressed: ()=> saveRecords(),
+                      width:ResponsiveUtil.screenWidth(context) * 0.8,
+                    )
                   ],
                 ),
               ),
