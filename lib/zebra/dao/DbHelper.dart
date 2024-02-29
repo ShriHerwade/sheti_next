@@ -13,10 +13,13 @@ import 'package:sheti_next/zebra/dao/models/LatestExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
 import 'package:sheti_next/zebra/dao/models/SettingModel.dart';
 import 'package:sheti_next/zebra/dao/models/UserModel.dart';
-import 'package:sqflite/sqflite.dart';
+//import 'package:sqflite/sqflite.dart'; //do not remove, required for nonKey db access
+import 'package:sqflite_sqlcipher/sqflite.dart';
 
 class DbHelper {
   static Database? _db;
+  static const String encryptionKey = 'llm-cpt3-3d4-e9f-6g2-h1i0'; // encryption key
+
 
   static const String DB_Name = 'shetiNext.db';
   static const String Table_Account = 'account';
@@ -133,6 +136,7 @@ class DbHelper {
     final path = join(await getDatabasesPath(), DB_Name);
     return await openDatabase(
       path,
+      password: encryptionKey,
       version: Version,
       onCreate: (db, version) async {
         try {

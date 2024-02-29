@@ -51,6 +51,8 @@ dev_dependencies:
   shared_preferences: ^2.2.1
   toast: ^0.3.0
   sqflite_common_ffi: ^2.3.0+2
+  sqflite_sqlcipher: 2.1.1 #encryption ; latest version supports android SDK 21 & above hence downgraded
+  flutter_secure_storage: ^5.0.3 #secure storage- check n remove if not used
   google_nav_bar: ^5.0.6
   intl: ^0.18.0
   carousel_slider: ^4.2.1
