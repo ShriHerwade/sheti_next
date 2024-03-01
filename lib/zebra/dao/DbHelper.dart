@@ -6,10 +6,12 @@ import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropsMetaModel.dart';
 import 'package:sheti_next/zebra/dao/models/EventModel.dart';
+import 'package:sheti_next/zebra/dao/models/ExpenseBarChartModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
+import 'package:sheti_next/zebra/dao/models/ExpensePieChartModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/dao/models/IncomeModel.dart';
-import 'package:sheti_next/zebra/dao/models/LatestExpenseModel.dart';
+import 'package:sheti_next/zebra/dao/models/ViewExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
 import 'package:sheti_next/zebra/dao/models/SettingModel.dart';
 import 'package:sheti_next/zebra/dao/models/UserModel.dart';
@@ -18,7 +20,7 @@ import 'package:sqflite_sqlcipher/sqflite.dart';
 
 class DbHelper {
   static Database? _db;
-  static const String encryptionKey = 'llm-cpt3-3d4-e9f-6g2-h1i0'; // encryption key
+  static const String encryptionKey = 'llm-cpt3-3d4-e9f-6g2-h1i0'; // encryption key, need to move to secure storage
 
 
   static const String DB_Name = 'shetiNext.db';
@@ -35,6 +37,11 @@ class DbHelper {
   static const String Table_AppSettings = 'settings';
 
   static const String View_LatestExpenses = 'latestExpenses';
+  static const String View_ExpensesByFarm = 'expenseByFarm';
+  static const String View_ExpensesByCrop = 'expenseByCrop';
+  static const String View_ExpensesTillPastDate = 'expenseTillPastDate';
+  static const String View_ExpenseForBarChartByMonth = 'expenseForBarChartByMonth';
+  static const String View_ExpenseForPieChartByCrop = 'expenseForPaiChartByCrop';
 
   static const int Version = 2;
 
@@ -380,6 +387,112 @@ class DbHelper {
           e.$C_expenseDate DESC;
         ''');
 
+
+          // Create the ExpensesByFarm
+          db.execute('''
+      CREATE VIEW IF NOT EXISTS $View_ExpensesByFarm AS
+      SELECT
+          f.$C_farmId,
+          f.$C_farmName,
+          c.$C_cropId,
+          c.$C_cropName,
+          e.$C_expenseId,
+          e.$C_expenseType,
+          e.$C_expenseDate,
+          e.$C_amount
+      FROM
+          $Table_Farms f
+      JOIN $Table_Crops c ON f.$C_farmId = c.$C_farmId
+      JOIN $Table_Expenses e ON c.$C_cropId = e.$C_cropId
+      WHERE
+          e.$C_isActive = 1
+      GROUP BY
+          f.$C_farmId, c.$C_cropId
+      ORDER BY
+          e.$C_expenseDate DESC;
+        ''');
+
+          // Create the ExpensesByCrop
+          db.execute('''
+      CREATE VIEW IF NOT EXISTS $View_ExpensesByCrop AS
+      SELECT
+          c.$C_cropId,
+          c.$C_cropName,
+          e.$C_expenseId,
+          e.$C_expenseType,
+          e.$C_expenseDate,
+          e.$C_amount
+      FROM
+          $Table_Crops c
+      JOIN $Table_Expenses e ON c.$C_cropId = e.$C_cropId
+      WHERE
+          e.$C_isActive = 1
+      GROUP BY
+          c.$C_cropId
+      ORDER BY
+          e.$C_expenseDate DESC;
+        ''');
+
+          // Create the ExpensesTillPastDate
+          db.execute('''
+      CREATE VIEW IF NOT EXISTS $View_ExpensesTillPastDate AS
+      SELECT
+          f.$C_farmId,
+          f.$C_farmName,
+          c.$C_cropId,
+          c.$C_cropName,
+          e.$C_expenseId,
+          e.$C_expenseType,
+          e.$C_expenseDate,
+          e.$C_amount
+      FROM
+          $Table_Farms f
+      JOIN $Table_Crops c ON f.$C_farmId = c.$C_farmId
+      JOIN $Table_Expenses e ON c.$C_cropId = e.$C_cropId
+      WHERE
+          e.$C_isActive = 1
+          AND e.$C_expenseDate >= @pastDate
+      ORDER BY
+          e.$C_expenseDate DESC;
+        ''');
+
+          // Create the BarChartByMonthExpense
+          db.execute('''
+      CREATE VIEW IF NOT EXISTS $View_ExpenseForBarChartByMonth AS
+      SELECT
+          strftime('%Y-%m', e.$C_expenseDate) AS month_year,
+          SUM(e.$C_amount) AS total_amount
+      FROM
+          $Table_Farms f
+      JOIN $Table_Crops c ON f.$C_farmId = c.$C_farmId
+      JOIN $Table_Expenses e ON c.$C_cropId = e.$C_cropId
+      WHERE
+          e.$C_isActive = 1
+      GROUP BY
+          strftime('%Y-%m', e.$C_expenseDate)
+      ORDER BY
+          month_year DESC;
+        ''');
+
+          // Create the PieChartByCropExpense
+          db.execute('''
+      CREATE VIEW IF NOT EXISTS $View_ExpenseForPieChartByCrop AS
+      SELECT
+          c.$C_cropName AS crop_name,
+          SUM(e.$C_amount) AS total_amount_spent
+      FROM
+          $Table_Farms f
+      JOIN $Table_Crops c ON f.$C_farmId = c.$C_farmId
+      JOIN $Table_Expenses e ON c.$C_cropId = e.$C_cropId
+      WHERE
+          e.$C_isActive = 1
+      GROUP BY
+          c.$C_cropId
+      ORDER BY
+          total_amount_spent DESC;
+        ''');
+
+
           //await _handleInsertInitialMetaData(db);
             await _initMetadata(db);
         } catch (e) {
@@ -721,13 +834,13 @@ class DbHelper {
     return res;
   }
 
-  Future<List<LatestExpenseModel>> getLatestExpenses() async {
+  Future<List<ViewExpenseModel>> getLatestExpenses() async {
     var dbClient = await db;
     List<Map<String, dynamic>> result =
         await dbClient.rawQuery('SELECT * FROM $View_LatestExpenses');
 
     return result
-        .map((item) => LatestExpenseModel(
+        .map((item) => ViewExpenseModel(
               farmId: item['farmId'],
               farmName: item['farmName'],
               cropId: item['cropId'],
@@ -739,6 +852,116 @@ class DbHelper {
             ))
         .toList();
   }
+
+  Future<List<ViewExpenseModel>> getExpenseByFarm() async {
+    var dbClient = await db;
+    List<Map<String, dynamic>> result =
+    await dbClient.rawQuery('SELECT * FROM $View_ExpensesByFarm');
+
+    return result
+        .map((item) => ViewExpenseModel(
+      farmId: item['farmId'],
+      farmName: item['farmName'],
+      cropId: item['cropId'],
+      cropName: item['cropName'],
+      expenseId: item['expenseId'],
+      expenseType: item['expenseType'],
+      expenseDate: DateTime.parse(item['expenseDate']),
+      amount: item['amount'].toDouble(),
+    ))
+        .toList();
+  }
+
+  Future<List<ViewExpenseModel>> getExpenseByCrop() async {
+    var dbClient = await db;
+    List<Map<String, dynamic>> result =
+    await dbClient.rawQuery('SELECT * FROM $View_ExpensesByCrop');
+
+    return result
+        .map((item) => ViewExpenseModel(
+      farmId: item['farmId'],
+      farmName: item['farmName'],
+      cropId: item['cropId'],
+      cropName: item['cropName'],
+      expenseId: item['expenseId'],
+      expenseType: item['expenseType'],
+      expenseDate: DateTime.parse(item['expenseDate']),
+      amount: item['amount'].toDouble(),
+    ))
+        .toList();
+  }
+
+  Future<List<ExpenseBarChartModel>> getExpenseForBarChartByMonth() async {
+    var dbClient = await db;
+    List<Map<String, dynamic>> result = await dbClient.rawQuery('''
+    SELECT
+        month_year,
+        total_amount
+    FROM
+        $View_ExpenseForBarChartByMonth
+  ''');
+
+    return result.map((item) {
+      return ExpenseBarChartModel(
+        monthYear: item['month_year'],
+        totalAmount: item['total_amount'].toDouble(),
+      );
+    }).toList();
+  }
+
+  Future<List<ExpensePieChartModel>> getExpenseForPieChartByCrop() async {
+    var dbClient = await db;
+    List<Map<String, dynamic>> result = await dbClient.rawQuery('''
+    SELECT
+        crop_name,
+        total_amount_spent
+    FROM
+        $View_ExpenseForPieChartByCrop
+  ''');
+
+    return result.map((item) {
+      return ExpensePieChartModel(
+        cropName: item['crop_name'],
+        totalAmountSpent: item['total_amount_spent'].toDouble(),
+      );
+    }).toList();
+  }
+
+  Future<List<ViewExpenseModel>> getExpensesTillPastDate(DateTime pastDate) async {
+    var dbClient = await db;
+    List<Map<String, dynamic>> result = await dbClient.rawQuery('''
+    SELECT
+        f.$C_farmId,
+        f.$C_farmName,
+        c.$C_cropId,
+        c.$C_cropName,
+        e.$C_expenseId,
+        e.$C_expenseType,
+        e.$C_expenseDate,
+        e.$C_amount
+    FROM
+        $View_ExpensesTillPastDate
+    WHERE
+        e.$C_isActive = 1
+        AND e.$C_expenseDate >= ?
+    ORDER BY
+        e.$C_expenseDate DESC;
+  ''', [pastDate.toString()]);
+
+    return result.map((item) {
+      return ViewExpenseModel(
+        farmId: item['$C_farmId'],
+        farmName: item['$C_farmName'],
+        cropId: item['$C_cropId'],
+        cropName: item['$C_cropName'],
+        expenseId: item['$C_expenseId'],
+        expenseType: item['$C_expenseType'],
+        expenseDate: DateTime.parse(item['$C_expenseDate']),
+        amount: item['$C_amount'].toDouble(),
+      );
+    }).toList();
+  }
+
 
   Future<List<String>> getCropNamesByLanguage(String languageCode) async {
     print('loading cropNames by LanguageCode');

@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 
-class LatestExpenseModel {
+class ViewExpenseModel {
   final int farmId;
   final String farmName;
   final int cropId;
@@ -10,7 +10,7 @@ class LatestExpenseModel {
   final DateTime expenseDate;
   final double amount;
 
-  LatestExpenseModel({
+  ViewExpenseModel({
     required this.farmId,
     required this.farmName,
     required this.cropId,
@@ -34,8 +34,8 @@ class LatestExpenseModel {
     };
   }
 
-  factory LatestExpenseModel.fromMap(Map<String, dynamic> map) {
-    return LatestExpenseModel(
+  factory ViewExpenseModel.fromMap(Map<String, dynamic> map) {
+    return ViewExpenseModel(
       farmId: map['farmId'] as int,
       farmName: map['farmName'] as String,
       cropId: map['cropId'] as int,

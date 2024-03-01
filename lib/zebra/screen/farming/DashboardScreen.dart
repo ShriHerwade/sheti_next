@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../dao/DbHelper.dart';
-import '../../dao/models/LatestExpenseModel.dart';
+import '../../dao/models/ViewExpenseModel.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -21,7 +21,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   );
 
   int _currentPage = 0;
-  List<LatestExpenseModel> latestExpenses = [];
+  List<ViewExpenseModel> latestExpenses = [];
   bool showAll = false;
   bool isLoading = true;
 
@@ -43,7 +43,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Future<void> fetchLatestExpenses() async {
     try {
-      List<LatestExpenseModel> expenses = await DbHelper().getLatestExpenses();
+      List<ViewExpenseModel> expenses = await DbHelper().getLatestExpenses();
       setState(() {
         latestExpenses = expenses;
         isLoading = false;
