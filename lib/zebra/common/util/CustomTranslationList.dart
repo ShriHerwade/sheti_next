@@ -50,7 +50,6 @@ class CustomTranslationList {
     "कीटकनाशक",
     "कापणी",
     "साठवण",
-    "वाहतूक",
     "ट्रॅक्टर",
     "यंत्रसामग्री",
     "इतर शेतीकाम",
@@ -85,6 +84,7 @@ class CustomTranslationList {
     "Bill",
     "Usage Fee",
     "Other",
+    "Fuel"
     "N/A"
   ];
 
@@ -97,7 +97,8 @@ class CustomTranslationList {
     "बिल",
     "वापर शुल्क",
     "इतर",
-    "N/A लागू नाही"
+    "इंधन"
+    "लागू नाही"
   ];
 
   static const List<String> farmOwnership_en = ["Owned", "Leased"];
