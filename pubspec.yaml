@@ -38,24 +38,24 @@ dependencies:
   easy_localization: ^3.0.3 # Localization
   multiselect: ^0.1.0 # Multiselect control
   fl_chart: ^0.66.0 # Charts & graph
-  http: ^1.1.2 # Rest call
+  #http: ^1.1.2 # Rest call
   path: ^1.8.3
+  sqflite: ^2.3.0
+  sqflite_common_ffi: ^2.3.0+2
+  sqflite_sqlcipher: ^2.2.1 #encryption ; latest version supports android SDK 21 & above hence downgraded
+  #flutter_secure_storage: ^5.0.3 #secure storage- check n remove if not used
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   introduction_screen: ^3.1.11
-  sqflite: ^2.3.0
   path_provider: ^2.1.1
   shared_preferences: ^2.2.1
   toast: ^0.3.0
-  sqflite_common_ffi: ^2.3.0+2
-  sqflite_sqlcipher: 2.1.1 #encryption ; latest version supports android SDK 21 & above hence downgraded
-  flutter_secure_storage: ^5.0.3 #secure storage- check n remove if not used
   google_nav_bar: ^5.0.6
   intl: ^0.18.0
-  carousel_slider: ^4.2.1
+  #carousel_slider: ^4.2.1
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
