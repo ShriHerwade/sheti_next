@@ -84,7 +84,7 @@ class CustomTranslationList {
     "Bill",
     "Usage Fee",
     "Other",
-    "Fuel"
+    "Fuel",
     "N/A"
   ];
 
@@ -97,7 +97,7 @@ class CustomTranslationList {
     "बिल",
     "वापर शुल्क",
     "इतर",
-    "इंधन"
+    "इंधन",
     "लागू नाही"
   ];
 
