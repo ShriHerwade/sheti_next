@@ -1,22 +1,22 @@
 class ExpenseBarChartModel {
-  final String monthYear;
+  final String monthName;
   final double totalAmount;
 
   ExpenseBarChartModel({
-    required this.monthYear,
+    required this.monthName,
     required this.totalAmount,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'monthYear': this.monthYear,
+      'monthName': this.monthName,
       'totalAmount': this.totalAmount,
     };
   }
 
   factory ExpenseBarChartModel.fromMap(Map<String, dynamic> map) {
     return ExpenseBarChartModel(
-      monthYear: map['monthYear'] as String,
+      monthName: map['monthName'] as String,
       totalAmount: map['totalAmount'] as double,
     );
   }

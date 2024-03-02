@@ -40,7 +40,7 @@ class DbHelper {
   static const String View_ExpensesByFarm = 'expenseByFarm';
   static const String View_ExpensesByCrop = 'expenseByCrop';
   static const String View_ExpensesTillPastDate = 'expenseTillPastDate';
-  static const String View_ExpenseForBarChartByMonth = 'expenseForBarChartByMonth';
+  static const String View_ExpenseForBarChartByYear = 'expenseForBarChartByYear';
   static const String View_ExpenseForPieChartByCrop = 'expenseForPaiChartByCrop';
 
   static const int Version = 2;
@@ -456,11 +456,11 @@ class DbHelper {
           e.$C_expenseDate DESC;
         ''');
 
-          // Create the BarChartByMonthExpense
+          // Create the ExpenseForBarChartByYear
           db.execute('''
-      CREATE VIEW IF NOT EXISTS $View_ExpenseForBarChartByMonth AS
+      CREATE VIEW IF NOT EXISTS $View_ExpenseForBarChartByYear AS
       SELECT
-          strftime('%Y-%m', e.$C_expenseDate) AS month_year,
+          strftime('%B', e.$C_expenseDate) AS month_name,
           SUM(e.$C_amount) AS total_amount
       FROM
           $Table_Farms f
@@ -468,10 +468,11 @@ class DbHelper {
       JOIN $Table_Expenses e ON c.$C_cropId = e.$C_cropId
       WHERE
           e.$C_isActive = 1
+          AND strftime('%Y', e.$C_expenseDate) = ?
       GROUP BY
-          strftime('%Y-%m', e.$C_expenseDate)
+          month_name
       ORDER BY
-          month_year DESC;
+          strftime('%m', e.$C_expenseDate) ASC;
         ''');
 
           // Create the PieChartByCropExpense
@@ -891,19 +892,21 @@ class DbHelper {
         .toList();
   }
 
-  Future<List<ExpenseBarChartModel>> getExpenseForBarChartByMonth() async {
+  Future<List<ExpenseBarChartModel>> getExpenseForBarChartByYear(int year) async {
     var dbClient = await db;
     List<Map<String, dynamic>> result = await dbClient.rawQuery('''
     SELECT
-        month_year,
+        month_name,
         total_amount
     FROM
-        $View_ExpenseForBarChartByMonth
-  ''');
+        $View_ExpenseForBarChartByYear
+    WHERE
+        strftime('%Y', e.$C_expenseDate) = ?
+  ''', [year.toString()]);
 
     return result.map((item) {
       return ExpenseBarChartModel(
-        monthYear: item['month_year'],
+        monthName: item['month_name'],
         totalAmount: item['total_amount'].toDouble(),
       );
     }).toList();
