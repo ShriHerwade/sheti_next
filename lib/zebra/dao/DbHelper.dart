@@ -15,8 +15,8 @@ import 'package:sheti_next/zebra/dao/models/ViewExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
 import 'package:sheti_next/zebra/dao/models/SettingModel.dart';
 import 'package:sheti_next/zebra/dao/models/UserModel.dart';
-//import 'package:sqflite/sqflite.dart'; //do not remove, required for nonKey db access
-import 'package:sqflite_sqlcipher/sqflite.dart';
+import 'package:sqflite/sqflite.dart'; //do not remove, required for nonKey db access
+//import 'package:sqflite_sqlcipher/sqflite.dart';
 
 class DbHelper {
   static Database? _db;
@@ -39,8 +39,8 @@ class DbHelper {
   static const String View_LatestExpenses = 'latestExpenses';
   static const String View_ExpensesByFarm = 'expenseByFarm';
   static const String View_ExpensesByCrop = 'expenseByCrop';
-  static const String View_ExpensesTillPastDate = 'expenseTillPastDate';
-  static const String View_ExpenseForBarChartByYear = 'expenseForBarChartByYear';
+  /*static const String View_ExpensesTillPastDate = 'expenseTillPastDate';
+  static const String View_ExpenseForBarChartByYear = 'expenseForBarChartByYear';*/
   static const String View_ExpenseForPieChartByCrop = 'expenseForPaiChartByCrop';
 
   static const int Version = 2;
@@ -143,7 +143,7 @@ class DbHelper {
     final path = join(await getDatabasesPath(), DB_Name);
     return await openDatabase(
       path,
-      password: encryptionKey,
+      //password: encryptionKey,
       version: Version,
       onCreate: (db, version) async {
         try {
@@ -431,48 +431,6 @@ class DbHelper {
           c.$C_cropId
       ORDER BY
           e.$C_expenseDate DESC;
-        ''');
-
-          // Create the ExpensesTillPastDate
-          db.execute('''
-      CREATE VIEW IF NOT EXISTS $View_ExpensesTillPastDate AS
-      SELECT
-          f.$C_farmId,
-          f.$C_farmName,
-          c.$C_cropId,
-          c.$C_cropName,
-          e.$C_expenseId,
-          e.$C_expenseType,
-          e.$C_expenseDate,
-          e.$C_amount
-      FROM
-          $Table_Farms f
-      JOIN $Table_Crops c ON f.$C_farmId = c.$C_farmId
-      JOIN $Table_Expenses e ON c.$C_cropId = e.$C_cropId
-      WHERE
-          e.$C_isActive = 1
-          AND e.$C_expenseDate >= @pastDate
-      ORDER BY
-          e.$C_expenseDate DESC;
-        ''');
-
-          // Create the ExpenseForBarChartByYear
-          db.execute('''
-      CREATE VIEW IF NOT EXISTS $View_ExpenseForBarChartByYear AS
-      SELECT
-          strftime('%B', e.$C_expenseDate) AS month_name,
-          SUM(e.$C_amount) AS total_amount
-      FROM
-          $Table_Farms f
-      JOIN $Table_Crops c ON f.$C_farmId = c.$C_farmId
-      JOIN $Table_Expenses e ON c.$C_cropId = e.$C_cropId
-      WHERE
-          e.$C_isActive = 1
-          AND strftime('%Y', e.$C_expenseDate) = ?
-      GROUP BY
-          month_name
-      ORDER BY
-          strftime('%m', e.$C_expenseDate) ASC;
         ''');
 
           // Create the PieChartByCropExpense
@@ -892,17 +850,23 @@ class DbHelper {
         .toList();
   }
 
-  Future<List<ExpenseBarChartModel>> getExpenseForBarChartByYear(int year) async {
-    var dbClient = await db;
-    List<Map<String, dynamic>> result = await dbClient.rawQuery('''
-    SELECT
-        month_name,
-        total_amount
-    FROM
-        $View_ExpenseForBarChartByYear
-    WHERE
-        strftime('%Y', e.$C_expenseDate) = ?
-  ''', [year.toString()]);
+  Future<List<ExpenseBarChartModel>> getExpenseForBarChartByYear(Database db, int year) async {
+    List<Map<String, dynamic>> result = await db.rawQuery('''
+      SELECT
+          strftime('%B', e.$C_expenseDate) AS month_name,
+          SUM(e.$C_amount) AS total_amount
+      FROM
+          $Table_Farms f
+      JOIN $Table_Crops c ON f.$C_farmId = c.$C_farmId
+      JOIN $Table_Expenses e ON c.$C_cropId = e.$C_cropId
+      WHERE
+          e.$C_isActive = 1
+          AND strftime('%Y', e.$C_expenseDate) = ?
+      GROUP BY
+          month_name
+      ORDER BY
+          strftime('%m', e.$C_expenseDate) ASC;
+    ''', [year.toString()]);
 
     return result.map((item) {
       return ExpenseBarChartModel(
@@ -930,39 +894,43 @@ class DbHelper {
     }).toList();
   }
 
-  Future<List<ViewExpenseModel>> getExpensesTillPastDate(DateTime pastDate) async {
-    var dbClient = await db;
-    List<Map<String, dynamic>> result = await dbClient.rawQuery('''
-    SELECT
-        f.$C_farmId,
-        f.$C_farmName,
-        c.$C_cropId,
-        c.$C_cropName,
-        e.$C_expenseId,
-        e.$C_expenseType,
-        e.$C_expenseDate,
-        e.$C_amount
-    FROM
-        $View_ExpensesTillPastDate
-    WHERE
-        e.$C_isActive = 1
-        AND e.$C_expenseDate >= ?
-    ORDER BY
-        e.$C_expenseDate DESC;
-  ''', [pastDate.toString()]);
+  static Future<List<ViewExpenseModel>> getExpensesTillPastDate(Database db, String pastDateString) async {
+    DateTime pastDate = DateTime.parse(pastDateString);
+    List<Map<String, dynamic>> results = await db.rawQuery('''
+        SELECT
+            f.$C_farmId,
+            f.$C_farmName,
+            c.$C_cropId,
+            c.$C_cropName,
+            e.$C_expenseId,
+            e.$C_expenseType,
+            e.$C_expenseDate,
+            e.$C_amount
+        FROM
+            $Table_Farms f
+        JOIN $Table_Crops c ON f.$C_farmId = c.$C_farmId
+        JOIN $Table_Expenses e ON c.$C_cropId = e.$C_cropId
+        WHERE
+            e.$C_isActive = 1
+            AND e.$C_expenseDate >= ?
+        ORDER BY
+            e.$C_expenseDate DESC;
+          ''', [pastDate.millisecondsSinceEpoch]);
 
-    return result.map((item) {
+    List<ViewExpenseModel> expenseModels = results.map((map) {
       return ViewExpenseModel(
-        farmId: item['$C_farmId'],
-        farmName: item['$C_farmName'],
-        cropId: item['$C_cropId'],
-        cropName: item['$C_cropName'],
-        expenseId: item['$C_expenseId'],
-        expenseType: item['$C_expenseType'],
-        expenseDate: DateTime.parse(item['$C_expenseDate']),
-        amount: item['$C_amount'].toDouble(),
+        farmId: map[C_farmId],
+        farmName: map[C_farmName],
+        cropId: map[C_cropId],
+        cropName: map[C_cropName],
+        expenseId: map[C_expenseId],
+        expenseType: map[C_expenseType],
+        expenseDate: DateTime.fromMillisecondsSinceEpoch(map[C_expenseDate]),
+        amount: map[C_amount],
       );
     }).toList();
+
+    return expenseModels;
   }
 
 
