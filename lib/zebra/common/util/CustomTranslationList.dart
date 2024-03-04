@@ -1,26 +1,5 @@
 class CustomTranslationList {
-  static const List<String> crops_en = [
-    "Sugarcane",
-    "Sugarcane - 80032",
-    "Sugarcane - 80011",
-    "Sugarcane - Other",
-    "Jwari",
-    "Jwari - Shalu",
-    "Jwari - Hybrid",
-    "Jwari - Other"
-  ];
 
-  static const List<String> crops_mr = [
-    "ऊस",
-    "ऊस - 80032",
-    "ऊस - 80011",
-    "ऊस - 80070",
-    "ऊस - इतर",
-    "ज्वारी",
-    "ज्वारी - शाळू",
-    "ज्वारी - हायब्रीड",
-    "ज्वारी - इतर"
-  ];
 
   static const List<String> farmExpenses_en = [
     "Rotavator",
@@ -150,7 +129,7 @@ class CustomTranslationList {
   ];
 
   static const List<String> harvestingFrequency_mr = [
-    "एकदाच शेवटी ",
+    "एकदाच शेवटी",
     "वर्षातून एकदा",
     "वर्षातून दोनदा",
     "दर महिन्याला",
