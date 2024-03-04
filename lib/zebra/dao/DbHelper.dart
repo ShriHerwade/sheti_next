@@ -33,15 +33,15 @@ class DbHelper {
 
   static const String Table_Events = 'events';
   static const String Table_Expenses = 'expenses';
+  static const String Table_ExpenseTypeMeta = 'expenseTypeMeta';
+  static const String Table_ExpenseSubTypeMeta = 'expenseSubTypeMeta';
   static const String Table_Incomes = 'incomes';
   static const String Table_AppSettings = 'settings';
 
-  static const String View_LatestExpenses = 'latestExpenses';
-  static const String View_ExpensesByFarm = 'expenseByFarm';
-  static const String View_ExpensesByCrop = 'expenseByCrop';
-  /*static const String View_ExpensesTillPastDate = 'expenseTillPastDate';
-  static const String View_ExpenseForBarChartByYear = 'expenseForBarChartByYear';*/
-  static const String View_ExpenseForPieChartByCrop = 'expenseForPaiChartByCrop';
+  static const String View_LatestExpenses = 'viewLatestExpenses';
+  static const String View_ExpensesByFarm = 'viewExpenseByFarm';
+  static const String View_ExpensesByCrop = 'viewExpenseByCrop';
+  static const String View_ExpenseForPieChartByCrop = 'viewExpenseForPaiChartByCrop';
 
   static const int Version = 2;
 
@@ -248,6 +248,31 @@ class DbHelper {
           ''',
           );
 
+          // Create cropsMeta table
+          db.execute(
+              '''
+          CREATE TABLE DropdownMeta (
+              dropdownItemId INTEGER PRIMARY KEY AUTOINCREMENT,
+              key TEXT,
+              en TEXT,
+              mr TEXT,
+              ka TEXT,
+              hi TEXT,
+              ta TEXT,
+              te TEXT,
+              ml TEXT,
+              gu TEXT,
+              pa TEXT,
+              es TEXT,
+              category TEXT,
+              displayOrder INTEGER,
+              $C_isActive BOOLEAN,
+              isCreatedByUser BOOLEAN DEFAULT 0,
+              $C_createdDate DATETIME DEFAULT CURRENT_DATE
+          );
+          ''',
+          );
+
           // Create Events table
           db.execute(
             '''
@@ -450,7 +475,6 @@ class DbHelper {
       ORDER BY
           total_amount_spent DESC;
         ''');
-
 
           //await _handleInsertInitialMetaData(db);
             await _initMetadata(db);
