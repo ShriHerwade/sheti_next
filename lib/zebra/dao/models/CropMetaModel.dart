@@ -1,5 +1,5 @@
 import 'dart:core';
-class CropMetaDataModel {
+class CropMetaModel {
   int? cropMetaId;
   late String en; //english value
   String? mr; // marathi value
@@ -15,7 +15,7 @@ class CropMetaDataModel {
   late bool isCreatedByUser;
   DateTime? createdDate;
 
-  CropMetaDataModel(
+  CropMetaModel(
       {this.cropMetaId,
       required this.en,
       this.mr,
@@ -50,8 +50,8 @@ class CropMetaDataModel {
     };
   }
 
-  factory CropMetaDataModel.fromMap(Map<String, dynamic> map) {
-    return CropMetaDataModel(
+  factory CropMetaModel.fromMap(Map<String, dynamic> map) {
+    return CropMetaModel(
       cropMetaId: map['cropId'] as int,
       en: map['en'] as String,
       mr: map['mr'] as String,
@@ -69,11 +69,11 @@ class CropMetaDataModel {
     );
   }
 
-// Factory method to create a SettingModel from JSON
-  factory CropMetaDataModel.fromJson(Map<String, dynamic> json) {
+// Factory method to create a CropMetaModel from JSON
+  factory CropMetaModel.fromJson(Map<String, dynamic> json) {
 
     try {
-      return CropMetaDataModel(
+      return CropMetaModel(
         en: json['en'],
         mr: json['mr'],
         ka: json['ka'],

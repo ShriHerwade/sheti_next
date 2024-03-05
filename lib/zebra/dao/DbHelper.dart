@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
-import 'package:sheti_next/zebra/dao/models/CropsMetaModel.dart';
+import 'package:sheti_next/zebra/dao/models/CropMetaModel.dart';
 import 'package:sheti_next/zebra/dao/models/EventModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseBarChartModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
@@ -16,7 +16,7 @@ import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
 import 'package:sheti_next/zebra/dao/models/SettingModel.dart';
 import 'package:sheti_next/zebra/dao/models/UserModel.dart';
 import 'package:sqflite/sqflite.dart';
-import 'models/DropDownsMetaModel.dart'; //do not remove, required for nonKey db access
+import 'models/DropDownMetaModel.dart'; //do not remove, required for nonKey db access
 //import 'package:sqflite_sqlcipher/sqflite.dart';
 
 class DbHelper {
@@ -797,12 +797,12 @@ class DbHelper {
         /*i = i + 1;
         print("CropMeta adding " + i.toString());
         print("Setttings JSON Object: $jsonData");*/ //uncomment only while debugging
-        await saveCropsMetaData(CropMetaDataModel.fromJson(jsonData));
+        await saveCropsMetaData(CropMetaModel.fromJson(jsonData));
       }
       print("CropMetadata records saved.");
 
       for (var jsonData in ddMetaJsonList) {
-        await saveDdMetaData(DropDownsMetaModel.fromJson(jsonData));
+        await saveDdMetaData(DropDownMetaModel.fromJson(jsonData));
       }
       print("DropDownMeta records saved.");
 
@@ -820,13 +820,13 @@ class DbHelper {
     }
   }
 
-  Future<int> saveCropsMetaData(CropMetaDataModel cropsMeta) async {
+  Future<int> saveCropsMetaData(CropMetaModel cropsMeta) async {
     final dbClient = await db;
     int res = await dbClient.insert(Table_CropsMeta, cropsMeta.toMap());
     return res;
   }
 
-  Future<int> saveDdMetaData(DropDownsMetaModel ddMeta) async {
+  Future<int> saveDdMetaData(DropDownMetaModel ddMeta) async {
     final dbClient = await db;
     int res = await dbClient.insert(Table_DropDownsMeta, ddMeta.toMap());
     return res;

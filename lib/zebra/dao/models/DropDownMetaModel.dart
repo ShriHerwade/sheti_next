@@ -1,6 +1,6 @@
 import 'dart:core';
 
-class DropDownsMetaModel {
+class DropDownMetaModel {
   int? dropdownItemId;
   String? key;
   late String en; //english value
@@ -19,7 +19,7 @@ class DropDownsMetaModel {
   late bool isCreatedByUser;
   DateTime? createdDate;
 
-  DropDownsMetaModel(
+  DropDownMetaModel(
       {this.dropdownItemId,
       required this.key,
       required this.en,
@@ -60,8 +60,8 @@ class DropDownsMetaModel {
     };
   }
 
-  factory DropDownsMetaModel.fromMap(Map<String, dynamic> map) {
-    return DropDownsMetaModel(
+  factory DropDownMetaModel.fromMap(Map<String, dynamic> map) {
+    return DropDownMetaModel(
       dropdownItemId: map['dropdownItemId'] as int,
       key: map['key'] as String,
       en: map['en'] as String,
@@ -83,9 +83,9 @@ class DropDownsMetaModel {
   }
 
 // Factory method to create a DropDownsMetaModel from JSON
-  factory DropDownsMetaModel.fromJson(Map<String, dynamic> json) {
+  factory DropDownMetaModel.fromJson(Map<String, dynamic> json) {
     try {
-      return DropDownsMetaModel(
+      return DropDownMetaModel(
         key: json['key'],
         en: json['en'],
         mr: json['mr'],
