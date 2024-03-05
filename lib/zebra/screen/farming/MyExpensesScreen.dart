@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
-import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';// Import your DbHelper file
+import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';
+
+import 'HomeScreen.dart';
 
 class MyExpenses extends StatefulWidget {
   @override
@@ -10,19 +13,20 @@ class MyExpenses extends StatefulWidget {
 }
 
 class _MyExpensesState extends State<MyExpenses> {
-
   late DbHelper dbHelper;
+  bool isHovered = false;
+
   @override
   void initState() {
     super.initState();
     initializeDbHelper();
   }
+
   Future<void> initializeDbHelper() async {
     dbHelper = DbHelper();
     await dbHelper.initDb();
     setState(() {});
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +37,10 @@ class _MyExpensesState extends State<MyExpenses> {
     }
     return GestureDetector(
       onHorizontalDragEnd: (details) {
-        // Check if the swipe is a right swipe and not ambiguous or left swipe
         if (details.primaryVelocity != null && details.primaryVelocity! > 0) {
-          // Right swipe
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => CreateExpenses()),
+            MaterialPageRoute(builder: (context) =>HomeScreen()),
           );
         }
       },
@@ -48,7 +50,7 @@ class _MyExpensesState extends State<MyExpenses> {
           centerTitle: true,
           automaticallyImplyLeading: false,
         ),
-        body:FutureBuilder<List<ExpenseModel>>(
+        body: FutureBuilder<List<ExpenseModel>>(
           future: dbHelper.getAllExpense(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -64,82 +66,77 @@ class _MyExpensesState extends State<MyExpenses> {
                 child: Text("No Expenses available."),
               );
             } else {
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: DataTable(
-                  columnSpacing: 26.0,
-                  headingRowHeight: 60,
-                  dataRowHeight: 56,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 2,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  columns: [
-                    DataColumn(
-                      label: Text(
-                        "Expense Type",
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        "Expense Date",
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        "Amount",
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-                      ),
-                    ),
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  ExpenseModel expense = snapshot.data![index];
 
-                  ],
-                  rows: snapshot.data!.map((expense) {
-                    return DataRow(
-                      cells: [
-                        DataCell(
-                          Text(
-                            expense.expenseType ?? '',
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                          ),
+                  return InkWell(
+                    onTap: () {
+                      // Handle card tap
+                    },
+                    onHover: (hover) {
+                      setState(() {
+                        isHovered = hover;
+                      });
+                    },
+                    child: Card(
+                      elevation: 8.0,
+                      margin: EdgeInsets.all(10.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(15.0),
+                        title: Row(
+                          children: [
+                            Container(
+                              width: 10.0,
+                              height: 10.0,
+                              decoration: BoxDecoration(
+                                color: Colors.black, // Square bullet color
+                                shape: BoxShape.rectangle,
+                              ),
+                              margin: EdgeInsets.only(right: 10.0),
+                            ),
+                            Text(
+                              expense.expenseType ?? '',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
-                        DataCell(
-                          Text(
-                            DateFormat("dd-MM-yyyy")
-                                .format(DateTime.parse(expense.expenseDate.toString())),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, color: Colors.black),
-                          ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 8.0),
+                            Text(
+                              'Expense Date: ${DateFormat("dd-MM-yyyy").format(DateTime.parse(expense.expenseDate.toString()))}',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            SizedBox(height: 8.0),
+                            Text(
+                              'Amount: ${expense.amount}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.0,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
-
-                        DataCell(
-                          Text(
-                        '${expense.amount}',
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                          ),
-                        ),
-                      ],
-                    );
-                  }).toList(),
-                ),
+                      ),
+                    ),
+                  );
+                },
               );
             }
           },
         ),
-          //above is pasted
-
       ),
     );
   }
-
-
 }

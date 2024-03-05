@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
@@ -55,92 +56,41 @@ class _MyCropScreenState extends State<MyCropScreen> {
                 child: Text("No Crops available."),
               );
             } else {
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: DataTable(
-                  columnSpacing: 26.0,
-                  // Increased space between columns
-                  headingRowHeight: 60,
-                  dataRowHeight: 56,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 2,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  columns: [
-                    DataColumn(
-                      label: Text(
-                        "Crop Name",
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  CropModel crop = snapshot.data![index];
+
+                  return Card(
+                    elevation: 5.0,
+                    margin: EdgeInsets.all(10.0),
+                    child: ListTile(
+                      title: Text(
+                        crop.cropName ?? '',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.green),
+                            fontWeight: FontWeight.bold, color: Colors.black),
                       ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        "Area",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.green),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        "Start Date",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.green),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        "End Date",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.green),
-                      ),
-                    ),
-                  ],
-                  rows: snapshot.data!.map((crop) {
-                    return DataRow(
-                      cells: [
-                        DataCell(
-                          Text(
-                            crop.cropName ?? '',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, color: Colors.black),
-                          ),
-                        ),
-                        DataCell(
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Text(
                             '${crop.area} ${crop.unit}',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, color: Colors.black),
                           ),
-                        ),
-                        DataCell(
                           Text(
-                            DateFormat("dd-MM-yyyy")
-                                .format(DateTime.parse(crop.startDate.toString())),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, color: Colors.black),
+                            'Start Date: ${DateFormat("dd-MM-yyyy").format(DateTime.parse(crop.startDate.toString()))}',
+                            style: TextStyle(color: Colors.grey),
                           ),
-                        ),
-                        DataCell(
                           Text(
-                            DateFormat("dd-MM-yyyy")
-                                .format(DateTime.parse(crop.endDate.toString())),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, color: Colors.black),
+                            'End Date: ${DateFormat("dd-MM-yyyy").format(DateTime.parse(crop.endDate.toString()))}',
+                            style: TextStyle(color: Colors.grey),
                           ),
-                        ),
-                      ],
-                    );
-                  }).toList(),
-                ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               );
             }
           },
