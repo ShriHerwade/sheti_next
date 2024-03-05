@@ -15,7 +15,8 @@ import 'package:sheti_next/zebra/dao/models/ViewExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/PoeModel.dart';
 import 'package:sheti_next/zebra/dao/models/SettingModel.dart';
 import 'package:sheti_next/zebra/dao/models/UserModel.dart';
-import 'package:sqflite/sqflite.dart'; //do not remove, required for nonKey db access
+import 'package:sqflite/sqflite.dart';
+import 'models/DropDownsMetaModel.dart'; //do not remove, required for nonKey db access
 //import 'package:sqflite_sqlcipher/sqflite.dart';
 
 class DbHelper {
@@ -29,6 +30,7 @@ class DbHelper {
   static const String Table_Farms = 'farms';
   static const String Table_Crops = 'crops';
   static const String Table_CropsMeta = 'cropsMeta';
+  static const String Table_DropDownsMeta = 'dropDownsMeta';
   static const String Table_Poes = 'poes';
 
   static const String Table_Events = 'events';
@@ -251,7 +253,7 @@ class DbHelper {
           // Create cropsMeta table
           db.execute(
               '''
-          CREATE TABLE DropdownMeta (
+          CREATE TABLE $Table_DropDownsMeta (
               dropdownItemId INTEGER PRIMARY KEY AUTOINCREMENT,
               key TEXT,
               en TEXT,
@@ -765,7 +767,14 @@ class DbHelper {
       var cropsMetaJsonList = json.decode(cropsMetaJsonString) as List<dynamic>;
       print("CropMetadata list  initialized !");
 
-      //4. Read JSON data from settings file
+      //4. Read JSON data from cropsMeta file
+      String ddMetaFilePath =
+          'assets/metadataFiles/dropDownMeta_initialization.json';
+      String ddMetaJsonString = await rootBundle.loadString(ddMetaFilePath);
+      var ddMetaJsonList = json.decode(ddMetaJsonString) as List<dynamic>;
+      print("dropDown meta object initialized!");
+
+      //5. Read JSON data from settings file
       String settingsMetaFilePath =
           'assets/metadataFiles/settings_initialization.json';
       String settingsMetaJsonString =
@@ -791,6 +800,12 @@ class DbHelper {
         await saveCropsMetaData(CropMetaDataModel.fromJson(jsonData));
       }
       print("CropMetadata records saved.");
+
+      for (var jsonData in ddMetaJsonList) {
+        await saveDdMetaData(DropDownsMetaModel.fromJson(jsonData));
+      }
+      print("DropDownMeta records saved.");
+
       // Iterate through the JSON list and insert each setting into the settings
       for (var jsonData in settingsJsonList) {
         /*j = j + 1;
@@ -808,6 +823,12 @@ class DbHelper {
   Future<int> saveCropsMetaData(CropMetaDataModel cropsMeta) async {
     final dbClient = await db;
     int res = await dbClient.insert(Table_CropsMeta, cropsMeta.toMap());
+    return res;
+  }
+
+  Future<int> saveDdMetaData(DropDownsMetaModel ddMeta) async {
+    final dbClient = await db;
+    int res = await dbClient.insert(Table_DropDownsMeta, ddMeta.toMap());
     return res;
   }
 
