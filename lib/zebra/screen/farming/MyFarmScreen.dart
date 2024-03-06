@@ -31,6 +31,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
         }
       },
       child: Scaffold(
+        backgroundColor: Colors.grey.shade200,
         appBar: AppBar(
           title: Text("My Farms "),
           centerTitle: true,
@@ -56,68 +57,60 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   FarmModel farm = snapshot.data![index];
+                  return Card(
+                    elevation: 1.5,
+                    margin: EdgeInsets.fromLTRB(15.0,5.0,15.0,5.0),
+                    color: Colors.white,
+                    // Set card color to white
 
-                  return InkWell(
-                    onTap: () {
-                      // Handle card tap
-                    },
-                    child: Card(
-                      elevation: 8.0,
-                      margin: EdgeInsets.all(10.0),
+                    child: ListTile(
+                      tileColor: Colors.white,
+                      contentPadding: EdgeInsets.all(15.0),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(15.0),
-                        title: Row(
-                          children: [
-                            Container(
-                              width: 10.0,
-                              height: 10.0,
-                              decoration: BoxDecoration(
-                                color: Colors.black, // Bullet color
-                                shape: BoxShape.circle,
-                              ),
-                              margin: EdgeInsets.only(right: 10.0),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            farm.farmName ?? '',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0,
+                              color: Colors.black, // Farm name color
                             ),
-                            Text(
-                              farm.farmName ?? '',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0,
-                                color: Colors.black,
-                              ),
+                          ),
+                         // SizedBox(width: 28.0), // Space between lines
+                          Text(
+                            'Area: ${farm.farmArea} ${farm.unit}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0,
+                              color: Colors.grey, // Area color
                             ),
-                          ],
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 8.0),
-                            Text(
-                              'Address: ${farm.farmAddress ?? ''}',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            SizedBox(height: 8.0),
-                            Text(
-                              'Area: ${farm.farmArea} ${farm.unit}',
-                              style: TextStyle(
+                          ),
+                        ],
+                      ),
+                      subtitle: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${farm.farmAddress ?? ''}',
+                            style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16.0,
-                                color: Colors.black,
-                              ),
+                                color: Colors.grey),
+                          ),
+                          //SizedBox(width: 28.0),
+                          Text(
+                            'Type: ${farm.farmType ?? ''}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0,
+                              color: Colors.grey,
                             ),
-                            SizedBox(height: 8.0),
-                            Text(
-                              'Type: ${farm.farmType ?? ''}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   );
