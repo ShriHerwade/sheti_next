@@ -12,6 +12,7 @@ class FarmModel {
   String? irrigationType;
   String? soilType;
   bool isActive;
+  bool isExpanded;
   final DateTime createdDate;
 
   FarmModel(
@@ -27,6 +28,7 @@ class FarmModel {
       this.irrigationType,
       this.soilType,
       this.isActive = true,
+        this.isExpanded=true,
       required this.createdDate});
 
   Map<String, dynamic> toMap() {
@@ -43,7 +45,9 @@ class FarmModel {
       'irrigationType': this.irrigationType,
       'soilType': this.soilType,
       'isActive': isActive ? 1 : 0,
+      'isExpanded': isExpanded ? 1 : 0,
       'createdDate': createdDate?.toIso8601String(),
+
     };
   }
 
@@ -61,6 +65,7 @@ class FarmModel {
       irrigationType: map['irrigationType'],
       soilType: map['soilType'],
       isActive: map['isActive'] == 1,
+      isExpanded:map['isExpansed']==1,
       createdDate: DateTime.parse(map['createdDate']),
     );
   }

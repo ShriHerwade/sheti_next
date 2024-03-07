@@ -9,6 +9,7 @@ class CropModel {
   final DateTime startDate;
   final DateTime endDate;
   bool isActive;
+  bool isExpanded;
   DateTime? createdDate;
 
   CropModel({
@@ -21,6 +22,7 @@ class CropModel {
     required this.startDate,
     required this.endDate,
     this.isActive = true,
+    this.isExpanded=true,
     this.createdDate,
   });
 
@@ -35,6 +37,7 @@ class CropModel {
       'startDate': this.startDate?.toIso8601String(),
       'endDate': this.endDate?.toIso8601String(),
       'isActive': isActive ? 1 : 0,
+      'isExpanded': isExpanded ? 1 : 0,
       'createdDate': createdDate?.toIso8601String(),
     };
   }
@@ -50,6 +53,7 @@ class CropModel {
       startDate: DateTime.parse(map['startDate']),
       endDate: DateTime.parse(map['endDate']),
       isActive: map['isActive'] == 1,
+      isExpanded: map['isExpanded'] == 1,
       createdDate: DateTime.parse(map['createdDate']),
     );
   }
