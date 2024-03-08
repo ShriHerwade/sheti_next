@@ -234,6 +234,7 @@ class _CreateFarmsState extends State<CreateFarms> {
           unit: selectedUnit!,
           farmType: selectedOwnership!,
           isActive: true,
+          isExpanded: true,
           createdDate: DateTime.now()
         );
 

@@ -257,6 +257,7 @@ class _CreateCropState extends State<CreateCrop> {
           startDate: startDate!,
           endDate: endDate!,
           isActive: true,
+          isExpanded: true,
           createdDate: DateTime.now(),
         );
 

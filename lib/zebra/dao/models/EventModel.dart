@@ -40,7 +40,7 @@ class EventModel {
       'notes': this.notes,
       'isDone': this.isDone,
       'isActive': this.isActive,
-      'isExpanded': this.isExpanded,
+      //'isExpanded': this.isExpanded,
       'createdDate': createdDate?.toIso8601String(),
     };
   }
@@ -57,7 +57,7 @@ class EventModel {
       notes: map['notes'],
       isDone: map['isDone'] == 0,
       isActive: map['isActive'] == 0,
-      isExpanded: map['isExpanded'] == 0,
+      isExpanded: map['isExpanded'] == 1,
       createdDate: DateTime.parse(map['createdDate']),
     );
   }

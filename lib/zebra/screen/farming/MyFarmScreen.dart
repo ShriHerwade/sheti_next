@@ -53,11 +53,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                   elevation: 1.5,
                   margin: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
                   color: Colors.white,
-                  child: ExpansionTile(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(11.0)
-                    ),
+                  child: ListTile(
                     title: Text(
                       farm.farmName ?? '',
                       style: TextStyle(
@@ -66,44 +62,37 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                         color: Colors.black,
                       ),
                     ),
-                    children: [
-                      ListTile(
-                        contentPadding: EdgeInsets.all(15.0),
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Address: ${farm.farmAddress ?? ''}',
-
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            SizedBox(height: 8.0),
-                            Text(
-                              'Area: ${farm.farmArea} ${farm.unit}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            SizedBox(height: 8.0),
-                            Text(
-                              'Type: ${farm.farmType ?? ''}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            // Add more fields as needed
-                          ],
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Address: ${farm.farmAddress ?? ''}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.0,
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 8.0),
+                        Text(
+                          'Area: ${farm.farmArea} ${farm.unit}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          'Type: ${farm.farmType ?? ''}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

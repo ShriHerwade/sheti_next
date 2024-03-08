@@ -18,6 +18,7 @@ class IncomeModel {
   final double amount;
   final DateTime incomeDate;
   bool isActive;
+  bool isExpanded;
   final DateTime? createdDate;
 
   IncomeModel(
@@ -38,6 +39,7 @@ class IncomeModel {
       required this.amount,
       required this.incomeDate,
       this.isActive = true,
+        this.isExpanded = true,
       this.createdDate});
 
   Map<String, dynamic> toMap() {
@@ -59,6 +61,7 @@ class IncomeModel {
       'amount': this.amount,
       'incomeDate': this.incomeDate?.toIso8601String(),
       'isActive': isActive ? 1 : 0,
+    //  'isExpanded': isExpanded ? 1 : 0,
       'createdDate': createdDate?.toIso8601String(),
     };
   }
@@ -82,6 +85,7 @@ class IncomeModel {
       amount: (map['amount'] as num).toDouble(),
       incomeDate: DateTime.parse(map['incomeDate']),
       isActive: map['isActive'] == 1,
+      isExpanded: map['isExpanded'] == 1,
       createdDate: DateTime.parse(map['createdDate']),
     );
   }
