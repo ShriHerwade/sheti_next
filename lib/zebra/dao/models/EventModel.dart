@@ -25,7 +25,7 @@ class EventModel {
       this.notes,
       this.isDone,
       this.isActive = true,
-        this.isExpanded = true,
+      this.isExpanded = true,
       this.createdDate});
 
   Map<String, dynamic> toMap() {
@@ -40,7 +40,6 @@ class EventModel {
       'notes': this.notes,
       'isDone': this.isDone,
       'isActive': this.isActive,
-      //'isExpanded': this.isExpanded,
       'createdDate': createdDate?.toIso8601String(),
     };
   }

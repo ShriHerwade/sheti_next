@@ -46,7 +46,6 @@ class FarmModel {
       'irrigationType': this.irrigationType,
       'soilType': this.soilType,
       'isActive': isActive ? 1 : 0,
-      //'isExpanded': isExpanded ? 1 : 0,
       'createdDate': createdDate?.toIso8601String(),
     };
   }

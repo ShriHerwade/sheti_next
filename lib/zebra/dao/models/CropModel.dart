@@ -37,7 +37,6 @@ class CropModel {
       'startDate': this.startDate?.toIso8601String(),
       'endDate': this.endDate?.toIso8601String(),
       'isActive': isActive ? 1 : 0,
-      //'isExpanded': isExpanded ? 1 : 0,
       'createdDate': createdDate?.toIso8601String(),
     };
   }
