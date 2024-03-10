@@ -45,12 +45,12 @@ class ColorConstants {
   //icon
   static const Color miniIconDefaultColor = Colors.white;
 
-  //List All Pages
-  static const Color listViewBackgroundColor = Colors.black;
+  //ListView
+  static const Color listViewBackgroundColor = Color(0xFFF5F5F5); //grey 100
   static const Color listViewTitleTextColor = Colors.black;
-  static const Color listViewSubTitleTextColor = Colors.black;
-  static const Color listViewChildTextColor = Colors.black;
-  static const Color listViewSurfaceTintColor = Colors.black;
+  static const Color listViewSubTitleTextColor = Color(0xFF616161); //grey 700
+  static const Color listViewChildTextColor = Color(0xFF616161); //grey 700
+  static const Color listViewSurfaceTintColor = Color(0xFFF5F5F5); //grey 100
 
 
 }
