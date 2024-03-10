@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
@@ -49,48 +50,59 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
               itemBuilder: (context, index) {
                 FarmModel farm = snapshot.data![index];
                 return Card(
-                  surfaceTintColor: Colors.white,
+                  surfaceTintColor: ColorConstants.listViewSurfaceTintColor,
                   elevation: 1.5,
-                  margin: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
+                  margin: EdgeInsets.fromLTRB(12.0, 5.0, 12.0, 5.0),
                   color: Colors.white,
                   child: ListTile(
-                    title: Text(
-                      farm.farmName ?? '',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                        color: Colors.black,
-                      ),
+                    title:Column(
+                      children: [
+                        SizedBox(height: 18.0),
+                        Row(
+                          children: [
+                            Text(
+                              farm.farmName ?? '',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
+                                color: ColorConstants.listViewTitleTextColor,
+                              ),
+                            ),
+                            SizedBox(width: 8.0),
+                            Text(
+                              ' (${farm.farmType ?? ''})',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.0,
+                                color: ColorConstants.listViewSubTitleTextColor,
+                              ),
+                            ),
+                            SizedBox(width: 8.0),
+                            Text(
+                              '${farm.farmArea} ${farm.unit}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.0,
+                                color: ColorConstants.listViewSubTitleTextColor,
+                              ),
+                            ),
+                            SizedBox(height: 8.0),
+                          ],
+                        ),
+                      ],
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Address: ${farm.farmAddress ?? ''}',
+                          '${farm.farmAddress ?? ''}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16.0,
-                            color: Colors.grey,
+                            color: ColorConstants.listViewSubTitleTextColor,
                           ),
                         ),
-                        SizedBox(height: 8.0),
-                        Text(
-                          'Area: ${farm.farmArea} ${farm.unit}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.0,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        SizedBox(height: 8.0),
-                        Text(
-                          'Type: ${farm.farmType ?? ''}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.0,
-                            color: Colors.grey,
-                          ),
-                        ),
+                        SizedBox(height: 28.0),
                       ],
                     ),
                   ),
