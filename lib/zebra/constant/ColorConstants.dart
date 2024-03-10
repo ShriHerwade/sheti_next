@@ -35,7 +35,7 @@ class ColorConstants {
   static const Color checkBoxColor = Colors.white;
   static const Color checkBoxActiveColor = Color(0xFF0ec45d);
 
-//Dialog Button
+  //Dialog Button
   static const Color dialogBoxButtonSaveColor = Color(0xFF0ec45d);
   static const Color dialogBoxButtonCancelColor = Color(0xFF0ec45d);
 
@@ -44,5 +44,13 @@ class ColorConstants {
 
   //icon
   static const Color miniIconDefaultColor = Colors.white;
+
+  //List All Pages
+  static const Color listViewBackgroundColor = Colors.black;
+  static const Color listViewTitleTextColor = Colors.black;
+  static const Color listViewSubTitleTextColor = Colors.black;
+  static const Color listViewChildTextColor = Colors.black;
+  static const Color listViewSurfaceTintColor = Colors.black;
+
 
 }
