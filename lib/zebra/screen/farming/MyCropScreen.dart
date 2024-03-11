@@ -69,8 +69,8 @@ class _MyCropScreenState extends State<MyCropScreen> {
                             Text(
                               crop.cropName ?? '',
                               style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 18.0,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.0,
                                 color: ColorConstants.listViewTitleTextColor,
                               ),
                             ),
@@ -130,7 +130,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                       "Expected",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w900,
-                                        fontSize: 14.0,
+                                        fontSize: 15.0,
                                         color: ColorConstants
                                             .listViewChildTextColor,
                                       ),
@@ -144,7 +144,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                       "Yeild : 20 Tons",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 14.0,
+                                        fontSize: 15.0,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
                                     ),
@@ -153,7 +153,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                      "Income : 12000/-",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 14.0,
+                                        fontSize: 15.0,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
                                     ),
@@ -166,7 +166,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                       "Total",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w900,
-                                        fontSize: 14.0,
+                                        fontSize: 15.0,
                                         color: ColorConstants
                                             .listViewChildTextColor,
                                       ),
@@ -182,7 +182,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                       "Expenses: 35000/-",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 14.0,
+                                        fontSize: 15.0,
                                         color:ColorConstants.listViewTitleTextColor,
                                       ),
                                     ),
@@ -191,7 +191,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                      "Income: 55000/-",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 14.0,
+                                        fontSize: 15.0,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
                                     ),

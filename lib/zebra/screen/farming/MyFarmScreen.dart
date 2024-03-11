@@ -63,8 +63,8 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                             Text(
                               farm.farmName ?? '',
                               style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 18.0,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.0,
                                 color: ColorConstants.listViewTitleTextColor,
                               ),
                             ),
