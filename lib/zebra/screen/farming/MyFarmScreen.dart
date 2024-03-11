@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
+import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
@@ -64,7 +65,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                               farm.farmName ?? '',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: 15.0,
+                                fontSize:  SizeConstants.listViewDataFontSize,
                                 color: ColorConstants.listViewTitleTextColor,
                               ),
                             ),
@@ -73,7 +74,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                               ' (${farm.farmType ?? ''})',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize: 15.0,
+                                fontSize:  SizeConstants.listViewDataFontSize,
                                 color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
@@ -82,7 +83,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                               '${farm.farmArea} ${farm.unit}',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize: 15.0,
+                                fontSize:  SizeConstants.listViewDataFontSize,
                                 color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
@@ -98,7 +99,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                           '${farm.farmAddress ?? ''}',
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
-                            fontSize: 15.0,
+                            fontSize:  SizeConstants.listViewDataFontSize,
                             color: ColorConstants.listViewChildTextColor,
                           ),
                         ),

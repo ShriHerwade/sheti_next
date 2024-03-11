@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
+import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
@@ -69,8 +70,8 @@ class _MyCropScreenState extends State<MyCropScreen> {
                             Text(
                               crop.cropName ?? '',
                               style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15.0,
+                                fontWeight: SizeConstants.listViewDataFontSemiBold,
+                                fontSize: SizeConstants.listViewDataFontSize,
                                 color: ColorConstants.listViewTitleTextColor,
                               ),
                             ),
@@ -79,7 +80,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                               '  ${crop.area} ${crop.unit}',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize: 16.0,
+                                fontSize:  SizeConstants.listViewDataFontSize,
                                 color:ColorConstants.listViewTitleTextColor,
                               ),
                             ),
@@ -98,7 +99,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                               'Season : ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize: 15.0,
+                                fontSize:  SizeConstants.listViewDataFontSize,
                                 color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
@@ -129,8 +130,8 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                     Text(
                                       "Expected",
                                       style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15.0,
+                                        fontWeight: SizeConstants.listViewDataFontSemiBold,
+                                        fontSize:  SizeConstants.listViewDataFontSize,
                                         color: ColorConstants
                                             .listViewChildTextColor,
                                       ),
@@ -144,7 +145,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                       "Yeild : 20 Tons",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 15.0,
+                                        fontSize:  SizeConstants.listViewDataFontSize,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
                                     ),
@@ -153,7 +154,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                      "Income : 12000/-",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 15.0,
+                                        fontSize:  SizeConstants.listViewDataFontSize,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
                                     ),
@@ -165,8 +166,8 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                     Text(
                                       "Total",
                                       style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15.0,
+                                        fontWeight: SizeConstants.listViewDataFontSemiBold,
+                                        fontSize:  SizeConstants.listViewDataFontSize,
                                         color: ColorConstants
                                             .listViewChildTextColor,
                                       ),
@@ -182,7 +183,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                       "Expenses: 35000/-",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 15.0,
+                                        fontSize:  SizeConstants.listViewDataFontSize,
                                         color:ColorConstants.listViewTitleTextColor,
                                       ),
                                     ),
@@ -191,7 +192,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                      "Income: 55000/-",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 15.0,
+                                        fontSize:  SizeConstants.listViewDataFontSize,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
                                     ),
