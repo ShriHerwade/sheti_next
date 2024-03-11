@@ -70,7 +70,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                               crop.cropName ?? '',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: 16.0,
+                                fontSize: 15.0,
                                 color: ColorConstants.listViewTitleTextColor,
                               ),
                             ),
@@ -98,7 +98,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                               'Season : ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize: 16.0,
+                                fontSize: 15.0,
                                 color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
@@ -129,7 +129,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                     Text(
                                       "Expected",
                                       style: TextStyle(
-                                        fontWeight: FontWeight.w900,
+                                        fontWeight: FontWeight.w600,
                                         fontSize: 15.0,
                                         color: ColorConstants
                                             .listViewChildTextColor,
@@ -165,7 +165,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                     Text(
                                       "Total",
                                       style: TextStyle(
-                                        fontWeight: FontWeight.w900,
+                                        fontWeight: FontWeight.w600,
                                         fontSize: 15.0,
                                         color: ColorConstants
                                             .listViewChildTextColor,

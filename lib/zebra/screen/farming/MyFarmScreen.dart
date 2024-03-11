@@ -64,7 +64,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                               farm.farmName ?? '',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: 16.0,
+                                fontSize: 15.0,
                                 color: ColorConstants.listViewTitleTextColor,
                               ),
                             ),
@@ -73,7 +73,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                               ' (${farm.farmType ?? ''})',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize: 16.0,
+                                fontSize: 15.0,
                                 color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
@@ -82,7 +82,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                               '${farm.farmArea} ${farm.unit}',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize: 16.0,
+                                fontSize: 15.0,
                                 color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
@@ -98,7 +98,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                           '${farm.farmAddress ?? ''}',
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
-                            fontSize: 16.0,
+                            fontSize: 15.0,
                             color: ColorConstants.listViewChildTextColor,
                           ),
                         ),
