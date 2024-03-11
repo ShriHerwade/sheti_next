@@ -49,7 +49,7 @@ class ColorConstants {
   static const Color listViewBackgroundColor = Color(0xFFF5F5F5); //grey 100
   static const Color listViewTitleTextColor = Colors.black;
   static const Color listViewSubTitleTextColor = Color(0xFF616161); //grey 700
-  static const Color listViewChildTextColor = Color(0xFF616161); //grey 700
+  static const Color listViewChildTextColor = Colors.black; //grey 700
   static const Color listViewSurfaceTintColor = Color(0xFFF5F5F5); //grey 100
 
 

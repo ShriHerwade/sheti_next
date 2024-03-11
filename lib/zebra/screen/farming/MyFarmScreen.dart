@@ -63,7 +63,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                             Text(
                               farm.farmName ?? '',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w900,
                                 fontSize: 18.0,
                                 color: ColorConstants.listViewTitleTextColor,
                               ),
@@ -72,18 +72,18 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                             Text(
                               ' (${farm.farmType ?? ''})',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.normal,
                                 fontSize: 16.0,
-                                color: ColorConstants.listViewSubTitleTextColor,
+                                color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
                             SizedBox(width: 8.0),
                             Text(
                               '${farm.farmArea} ${farm.unit}',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.normal,
                                 fontSize: 16.0,
-                                color: ColorConstants.listViewSubTitleTextColor,
+                                color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
                             SizedBox(height: 8.0),
@@ -97,9 +97,9 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                         Text(
                           '${farm.farmAddress ?? ''}',
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.normal,
                             fontSize: 16.0,
-                            color: ColorConstants.listViewSubTitleTextColor,
+                            color: ColorConstants.listViewChildTextColor,
                           ),
                         ),
                         SizedBox(height: 28.0),

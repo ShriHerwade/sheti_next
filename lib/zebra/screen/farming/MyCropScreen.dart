@@ -64,49 +64,53 @@ class _MyCropScreenState extends State<MyCropScreen> {
                       children: [
                         SizedBox(height: 18.0),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               crop.cropName ?? '',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w900,
                                 fontSize: 18.0,
-                                color: ColorConstants.listViewChildTextColor,
+                                color: ColorConstants.listViewTitleTextColor,
                               ),
                             ),
 
                             Text(
-                              'Start Date: ${DateFormat("dd-MM-yyyy").format(crop.startDate)}',
+                              '  ${crop.area} ${crop.unit}',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.normal,
                                 fontSize: 16.0,
-                                color: ColorConstants.listViewChildTextColor,
+                                color:ColorConstants.listViewTitleTextColor,
                               ),
                             ),
+                            /*Icon(
+                              Icons.calendar_month_sharp, // Use the calendar icon from the Material Icons library
+                              color: Colors.grey, // Adjust the color of the icon as needed
+                            ),*/
                           ],
                         ),
                         SizedBox(height: 8.0),
                         Row(
                           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                          //crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              'Area: ${crop.area} ${crop.unit}',
+                              'Season : ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                                color:ColorConstants.listViewTitleTextColor,
-                              ),
-                            ),
-                            SizedBox(width: 20.0),
-                            Text(
-                              'End Date: ${DateFormat("dd-MM-yyyy").format(crop.endDate)}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.normal,
                                 fontSize: 16.0,
                                 color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
+                            /*SizedBox(width: 20.0),
+                            Text(
+                              'End Date: ${DateFormat("dd-MM-yyyy").format(crop.endDate)}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 16.0,
+                                color: ColorConstants.listViewChildTextColor,
+                              ),
+                            ),*/
                           ],
                         ),
                         SizedBox(height: 15.0),
@@ -121,21 +125,34 @@ class _MyCropScreenState extends State<MyCropScreen> {
                             Column(
                               children: [
                                 Row(
+                                  children: [
+                                    Text(
+                                      "Expected",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 14.0,
+                                        color: ColorConstants
+                                            .listViewChildTextColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Expected Yeild : 20 Tons",
+                                      "Yeild : 20 Tons",
                                       style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.normal,
                                         fontSize: 14.0,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
                                     ),
 
                                     Text(
-                                     "Expected Income : 12000/-",
+                                     "Income : 12000/-",
                                       style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.normal,
                                         fontSize: 14.0,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
@@ -144,23 +161,36 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                 ),
                                 SizedBox(height: 8.0),
                                 Row(
-                                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Total",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 14.0,
+                                        color: ColorConstants
+                                            .listViewChildTextColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.end,
 
                                   children: [
                                     Text(
-                                      "Total Expenses: 35000/-",
+                                      "Expenses: 35000/-",
                                       style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.normal,
                                         fontSize: 14.0,
                                         color:ColorConstants.listViewTitleTextColor,
                                       ),
                                     ),
                                     SizedBox(width: 9.0),
                                     Text(
-                                     "Total Income: 55000/-",
+                                     "Income: 55000/-",
                                       style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.normal,
                                         fontSize: 14.0,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
