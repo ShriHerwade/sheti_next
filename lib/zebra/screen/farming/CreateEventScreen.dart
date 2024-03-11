@@ -1,9 +1,10 @@
 // create_events.dart
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:multiselect/multiselect.dart';
+//import 'package:multiselect/multiselect.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/common/util/CustomTranslationList.dart';
+import 'package:sheti_next/zebra/common/widgets/NxDDFormField.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -34,13 +35,13 @@ class _CreateEventsState extends State<CreateEvents> {
   int? selectedFarm;
   int? selectedCrop;
   String? multiHint;
+  String? selectedFarmEvents;
   DateTime? startDate;
   DateTime? endDate;
 
   List<FarmModel> farms = [];
   List<CropModel> crops = [];
   List<String> farmEvents = [];
-  List<String> selectedFarmEvents = [];
   bool isCreateAnother = false;
 
   @override
@@ -85,12 +86,12 @@ class _CreateEventsState extends State<CreateEvents> {
             selectedCrop != null &&
             startDate != null &&
             endDate != null &&
-            selectedFarmEvents.isNotEmpty) {
+            selectedFarmEvents!.isNotEmpty) {
           EventModel event = EventModel(
             userId: 1,
             farmId: selectedFarm!,
             cropId: selectedCrop!,
-            eventType: selectedFarmEvents.join(", "),
+            eventType: selectedFarmEvents!,
             startDate: startDate!,
             endDate: endDate!,
             notes: null,
@@ -105,7 +106,7 @@ class _CreateEventsState extends State<CreateEvents> {
             selectedFarm = null;
             selectedCrop = null;
             isCreateAnother = false;
-            selectedFarmEvents = [];
+            selectedFarmEvents = null;
             startDate = null;
             endDate = null;
             _datePickerEndDateController.clear();
@@ -217,7 +218,23 @@ class _CreateEventsState extends State<CreateEvents> {
                       },
                     ),
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                    Container(
+                    NxDDFormField(
+                      value: selectedFarmEvents,
+                      label: LocaleKeys.labelSelectEvent.tr(),
+                      hint: LocaleKeys.hintSelectEvent.tr(),
+                      items: farmEvents,
+                      isMandatory: true,
+                      isError : false,
+                      onChanged: (String? eventsValue) {
+                        setState(() {
+                          selectedFarmEvents = eventsValue;
+                          if (eventsValue != null) {
+                            print('Selected farmEvents: $eventsValue');
+                          }
+                        });
+                      },
+                    ),
+                    /*Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: ResponsiveUtil.screenWidth(context) * 0.05),
                       child: DropDownMultiSelect(
@@ -251,7 +268,7 @@ class _CreateEventsState extends State<CreateEvents> {
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.normal, color: Colors.black),
                       ),
-                    ),
+                    ),*/
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDateField(
                       controller: _datePickerStartDateController,
