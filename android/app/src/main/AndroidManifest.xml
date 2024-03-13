@@ -3,7 +3,9 @@
         android:label="sheti_next"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/round_ic_launcher">
+        android:roundIcon="@mipmap/round_ic_launcher"
+        android:allowBackup="false"
+        android:fullBackupContent="false">
         <activity
             android:name=".MainActivity"
             android:exported="true"
