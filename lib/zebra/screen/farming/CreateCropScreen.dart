@@ -143,7 +143,9 @@ class _CreateCropState extends State<CreateCrop> {
                       setState(() {
                         selectedFarm = farmId;
                         if (farmId != null) {
+                          selectedFarmName = farms.firstWhere((farm) => farm.farmId == farmId).farmName;
                           print('Selected Farm ID: $farmId');
+                          print('Selected Farm Name: $selectedFarmName');
                         }
                       });
                     },
@@ -287,7 +289,7 @@ class _CreateCropState extends State<CreateCrop> {
           farmId: selectedFarm!,
           cropName: selectedCrop!,
           cropVariety: '',
-          farmName:'',
+          farmName: selectedFarmName!,
           area: double.parse(_confarmArea.text),
           unit: selectedUnit!,
           startDate: startDate!,
@@ -312,16 +314,16 @@ class _CreateCropState extends State<CreateCrop> {
 
         setState(() {
           selectedFarm = null;
+          selectedFarmName = null;
           selectedUnit = null;
-          selectedYieldUnit=null;
+          selectedYieldUnit = null;
           selectedCrop = null;
-          startDate =null ;
+          startDate = null;
           endDate = null;
           _datePickerEndDateController.clear();
           _datePickerStartDateController.clear();
           _conExpectedYield.clear();
           _conExpectedIncome.clear();
-
         });
         NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
       } catch (e) {

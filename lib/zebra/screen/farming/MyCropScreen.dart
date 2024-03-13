@@ -69,7 +69,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                           children: [
                             Text(
                               crop.cropName ?? '',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: SizeConstants.listViewDataFontSemiBold,
                                 fontSize: SizeConstants.listViewDataFontSize,
                                 color: ColorConstants.listViewTitleTextColor,
@@ -78,7 +78,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
 
                             Text(
                               '  ${crop.area} ${crop.unit}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize:  SizeConstants.listViewDataFontSize,
                                 color:ColorConstants.listViewTitleTextColor,
@@ -90,6 +90,18 @@ class _MyCropScreenState extends State<MyCropScreen> {
                             ),*/
                           ],
                         ),
+                        Row(
+                          children: [
+                            Text(
+                              crop.farmName,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: SizeConstants.listViewDataFontSize,
+                                color: ColorConstants.listViewChildTextColor,
+                              ),
+                            ),
+                          ],
+                        ),
                         SizedBox(height: 8.0),
                         Row(
                           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,7 +109,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                           children: [
                             Text(
                               'Season : ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize:  SizeConstants.listViewDataFontSize,
                                 color: ColorConstants.listViewChildTextColor,
@@ -125,7 +137,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                           children: [
                             Column(
                               children: [
-                                Row(
+                                const Row(
                                   children: [
                                     Text(
                                       "Expected",
@@ -143,7 +155,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                   children: [
                                     Text(
                                       "Yield : ${crop.expectedYield} ${crop.expectedYieldUnit}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,
                                         color: ColorConstants.listViewChildTextColor,
@@ -152,7 +164,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
 
                                     Text(
                                      "Income : ${crop.expectedIncome}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,
                                         color: ColorConstants.listViewChildTextColor,
@@ -161,7 +173,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                   ],
                                 ),
                                 SizedBox(height: 8.0),
-                                Row(
+                                const Row(
                                   children: [
                                     Text(
                                       "Total",
@@ -181,7 +193,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                   children: [
                                     Text(
                                       "Expenses: ${crop.totalExpense}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,
                                         color:ColorConstants.listViewTitleTextColor,
@@ -190,7 +202,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                     SizedBox(width: 9.0),
                                     Text(
                                      "Income: ${crop.totalIncome}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,
                                         color: ColorConstants.listViewChildTextColor,
