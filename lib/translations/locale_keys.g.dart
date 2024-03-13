@@ -30,6 +30,12 @@ abstract class  LocaleKeys {
   static const hintSowingDate = 'hintSowingDate';
   static const labelHarvestingDate = 'labelHarvestingDate';
   static const hintHarvestingDate = 'hintHarvestingDate';
+  static const labelExpectedIncome = 'labelExpectedIncome';
+  static const hintExpectedIncome = 'hintExpectedIncome';
+  static const labelExpectedYield = 'labelExpectedYield';
+  static const hintExpectedYield = 'hintExpectedYield';
+  static const labelExpectedYieldUnit = 'labelExpectedYieldUnit';
+  static const hintExpectedYieldUnit = 'hintExpectedYieldUnit';
   static const labelSelectEvent = 'labelSelectEvent';
   static const hintSelectEvent = 'hintSelectEvent';
   static const labelEventStartDate = 'labelEventStartDate';

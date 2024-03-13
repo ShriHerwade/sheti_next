@@ -27,13 +27,16 @@ class CreateCrop extends StatefulWidget {
 class _CreateCropState extends State<CreateCrop> {
   final _formKey = GlobalKey<FormState>();
   final _confarmArea = TextEditingController();
+  final _conExpectedYield = TextEditingController();
+  final _conExpectedIncome = TextEditingController();
   final TextEditingController _datePickerStartDateController = TextEditingController();
   final TextEditingController _datePickerEndDateController = TextEditingController();
 
-
   String? selectedUnit;
+  String? selectedYieldUnit;
   String? selectedCrop;
   int? selectedFarm;
+  String? selectedFarmName;
   DateTime? startDate;
   DateTime? endDate;
   DbHelper? dbHelper;
@@ -41,6 +44,7 @@ class _CreateCropState extends State<CreateCrop> {
   List<FarmModel> farms = [];
   List<String> crops = [];
   List<String> units = [];
+  List<String> yieldUnits = [];
 
   @override
   void initState() {
@@ -80,9 +84,11 @@ class _CreateCropState extends State<CreateCrop> {
     if (context.locale.languageCode == 'mr') {
       units = CustomTranslationList.areaUnits_mr;
       // crops = CustomTranslationList.crops_mr;
+      yieldUnits= CustomTranslationList.cropUnits_mr;
     } else if (context.locale.languageCode == 'en') {
       units = CustomTranslationList.areaUnits_en;
       // crops = CustomTranslationList.crops_en;
+      yieldUnits= CustomTranslationList.cropUnits_en;
     }
 
     return Scaffold(
@@ -210,6 +216,34 @@ class _CreateCropState extends State<CreateCrop> {
                     },
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxTextFormField(
+                    controller: _conExpectedYield,
+                    hintText: LocaleKeys.hintExpectedYield.tr(),
+                    labelText: LocaleKeys.labelExpectedYield.tr(),
+                    inputType: TextInputType.number,
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxDDFormField(
+                    value: selectedYieldUnit,
+                    hint: LocaleKeys.hintExpectedYieldUnit.tr(),
+                    label: LocaleKeys.labelExpectedYieldUnit.tr(),
+                    items: yieldUnits,
+                    onChanged: (String? yieldUnitValue) {
+                      setState(() {
+                        selectedYieldUnit = yieldUnitValue;
+                        if (yieldUnitValue != null) {
+                          print('Selected Yield Unit: $yieldUnitValue');
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                  NxTextFormField(
+                    controller: _conExpectedIncome,
+                    hintText: LocaleKeys.hintExpectedIncome.tr(),
+                    labelText: LocaleKeys.labelExpectedIncome.tr(),
+                    inputType: TextInputType.number,
+                  ),
                   /*Container(
                     width: ResponsiveUtil.screenWidth(context) * 0.8,
                     child: TextButton(
@@ -230,6 +264,7 @@ class _CreateCropState extends State<CreateCrop> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),*/
+                  SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxButton(buttonText: LocaleKeys.save.tr(),
                     onPressed: ()=> saveCropData() ,
                     width:ResponsiveUtil.screenWidth(context) * 0.8,
@@ -252,10 +287,20 @@ class _CreateCropState extends State<CreateCrop> {
           farmId: selectedFarm!,
           cropName: selectedCrop!,
           cropVariety: '',
+          farmName:'',
           area: double.parse(_confarmArea.text),
           unit: selectedUnit!,
           startDate: startDate!,
           endDate: endDate!,
+          cropLifeState: "Live",
+          stateUpdatedDate: DateTime.now(),
+          expectedIncome: double.parse(_conExpectedIncome.text),
+          expectedYield: double.parse(_conExpectedYield.text),
+          expectedYieldUnit: selectedYieldUnit!,
+          totalExpense: 0.0,
+          totalIncome: 0.0,
+          totalYield: 0.0,
+          totalYieldUnit: "Tone",
           isActive: true,
           isExpanded: true,
           createdDate: DateTime.now(),
@@ -268,11 +313,15 @@ class _CreateCropState extends State<CreateCrop> {
         setState(() {
           selectedFarm = null;
           selectedUnit = null;
+          selectedYieldUnit=null;
           selectedCrop = null;
           startDate =null ;
           endDate = null;
           _datePickerEndDateController.clear();
           _datePickerStartDateController.clear();
+          _conExpectedYield.clear();
+          _conExpectedIncome.clear();
+
         });
         NxSnackbar.showSuccess(context, LocaleKeys.messageSaveSuccess.tr(), duration: Duration(seconds: 3));
       } catch (e) {

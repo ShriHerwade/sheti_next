@@ -58,6 +58,16 @@ class DbHelper {
   static const String C_rawData = 'rawData'; // key hash
   static const String C_disableAccount = 'disableAccount'; // disable account
 
+  static const String C_expectedIncome = 'expectedIncome';
+  static const String C_expectedYield = 'expectedYield';
+  static const String C_expectedYieldUnit = 'expectedYieldUnit';
+  static const String C_totalYield = 'totalYield';
+  static const String C_totalYieldUnit = 'totalYieldUnit';
+  static const String C_totalIncome = 'totalIncome';
+  static const String C_totalExpense = 'totalExpense';
+  static const String C_cropLifeState = 'cropLifeState';
+  static const String C_stateUpdatedDate = 'stateUpdatedDate';
+
   static const String C_userId = 'userId';
   static const String C_farmId = 'farmId';
   static const String C_cropId = 'cropId';
@@ -217,10 +227,20 @@ class DbHelper {
             $C_farmId INTEGER NOT NULL,
             $C_cropName TEXT NOT NULL,
             $C_cropVariety TEXT,
+            $C_farmName TEXT,
             $C_area REAL,
             $C_unit TEXT,
             $C_startDate TEXT,
             $C_endDate TEXT,
+            $C_expectedIncome REAL,
+            $C_expectedYield REAL,
+            $C_expectedYieldUnit TEXT,
+            $C_totalYield REAL,
+            $C_totalYieldUnit TEXT,
+            $C_totalIncome REAL,
+            $C_totalExpense REAL,
+            $C_cropLifeState TEXT NOT NULL,
+            $C_stateUpdatedDate TEXT,
             $C_isActive INTEGER NOT NULL DEFAULT 1,
             $C_createdDate TEXT,
             FOREIGN KEY ($C_farmId) REFERENCES $Table_Farms ($C_farmId)

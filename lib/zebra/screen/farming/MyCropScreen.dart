@@ -142,7 +142,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Yeild : 20 Tons",
+                                      "Yield : ${crop.expectedYield} ${crop.expectedYieldUnit}",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,
@@ -151,7 +151,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                     ),
 
                                     Text(
-                                     "Income : 12000/-",
+                                     "Income : ${crop.expectedIncome}",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,
@@ -180,7 +180,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
 
                                   children: [
                                     Text(
-                                      "Expenses: 35000/-",
+                                      "Expenses: ${crop.totalExpense}",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,
@@ -189,7 +189,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                     ),
                                     SizedBox(width: 9.0),
                                     Text(
-                                     "Income: 55000/-",
+                                     "Income: ${crop.totalIncome}",
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,

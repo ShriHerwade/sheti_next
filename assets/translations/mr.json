@@ -40,6 +40,15 @@
   "labelHarvestingDate" : "कापणी/तोडणी ची तारीख",
   "hintHarvestingDate" : "कापणी/तोडणी ची तारीख (अंदाजे) *",
 
+  "labelExpectedIncome": "अपेक्षित उत्पन्न",
+  "hintExpectedIncome": "अपेक्षित उत्पन्न",
+
+  "labelExpectedYield": "अपेक्षित उत्पादन",
+  "hintExpectedYield": "अपेक्षित उत्पादन",
+
+  "labelExpectedYieldUnit": "उत्पादन एकक",
+  "hintExpectedYieldUnit": "एकक निवडा",
+
   "labelSelectEvent": "शेती काम",
   "hintSelectEvent": "शेती काम निवडा *",
 

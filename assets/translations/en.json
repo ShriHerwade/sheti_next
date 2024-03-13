@@ -40,6 +40,15 @@
   "labelHarvestingDate": "Harvesting Date",
   "hintHarvestingDate": "Harvesting Date *",
 
+  "labelExpectedIncome": "Expected Income",
+  "hintExpectedIncome": "Expected Income",
+
+  "labelExpectedYield": "Expected Yield",
+  "hintExpectedYield": "Expected Yield",
+
+  "labelExpectedYieldUnit": "Unit",
+  "hintExpectedYieldUnit": "Select Yield Unit",
+
 
   "labelSelectEvent": "Event",
   "hintSelectEvent": "Select Event *",
