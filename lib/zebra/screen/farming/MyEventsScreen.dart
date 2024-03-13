@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
+import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
-import 'package:sheti_next/zebra/dao/models/EventModel.dart';
-import 'package:sheti_next/zebra/screen/farming/CreateEventScreen.dart';
+import 'package:sheti_next/zebra/dao/models/CropModel.dart';
+import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
 import 'package:intl/intl.dart';
+import 'package:sheti_next/zebra/screen/farming/MyEventTimeline.dart';
 
 class MyEvents extends StatefulWidget {
   const MyEvents({Key? key}) : super(key: key);
@@ -29,8 +32,8 @@ class _MyEventsState extends State<MyEvents> {
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
-      body: FutureBuilder<List<EventModel>>(
-        future: dbHelper!.getAllEvents(),
+      body: FutureBuilder<List<CropModel>>(
+        future: dbHelper!.getAllCrops(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -42,68 +45,63 @@ class _MyEventsState extends State<MyEvents> {
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(
-              child: Text("No events available."),
+              child: Text("No crops available."),
             );
           } else {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                EventModel event = snapshot.data![index];
-                return Card(
-                  surfaceTintColor: Colors.white,
-                  elevation: 1.5,
-                  margin: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
-                  color: Colors.white,
-                  child: ExpansionTile(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(11.0),
-                    ),
-                    title: Text(
-                      event.eventType ?? '',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                        color: Colors.black,
+                CropModel crop = snapshot.data![index];
+                return GestureDetector(
+                  onTap: () {
+                    // Navigate to MyEventTimeline page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyEventTimeline(),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    surfaceTintColor: ColorConstants.listViewSurfaceTintColor,
+                    elevation: 1.5,
+                    margin: EdgeInsets.fromLTRB(12.0, 5.0, 12.0, 5.0),
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            crop.cropName ?? '',
+                            style: TextStyle(
+                              fontWeight: SizeConstants.listViewDataFontSemiBold,
+                              fontSize: SizeConstants.listViewDataFontSize,
+                              color: ColorConstants.listViewTitleTextColor,
+                            ),
+                          ),
+                          SizedBox(height: 8.0),
+                          Text(
+                            'Area: ${crop.area} ${crop.unit}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: SizeConstants.listViewDataFontSize,
+                              color: ColorConstants.listViewTitleTextColor,
+                            ),
+                          ),
+                          SizedBox(height: 8.0),
+                          Text(
+                            'Season: ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: SizeConstants.listViewDataFontSize,
+                              color: ColorConstants.listViewChildTextColor,
+                            ),
+                          ),
+                          SizedBox(height: 8.0),
+                        ],
                       ),
                     ),
-                    children: [
-                      ListTile(
-                        contentPadding: EdgeInsets.all(15.0),
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 8.0),
-                            Text(
-                              'Start Date: ${DateFormat("dd-MM-yyyy").format(event.startDate!)}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            SizedBox(height: 8.0),
-                            Text(
-                              'End Date: ${DateFormat("dd-MM-yyyy").format(event.endDate!)}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            SizedBox(height: 8.0),
-                            Text(
-                              event.notes ?? '',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 16.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
                   ),
                 );
               },
