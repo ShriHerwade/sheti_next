@@ -36,6 +36,12 @@ abstract class  LocaleKeys {
   static const hintExpectedYield = 'hintExpectedYield';
   static const labelExpectedYieldUnit = 'labelExpectedYieldUnit';
   static const hintExpectedYieldUnit = 'hintExpectedYieldUnit';
+  static const labelExpected = 'labelExpected';
+  static const labelYield = 'labelYield';
+  static const labelTotal = 'labelTotal';
+  static const labelIncome = 'labelIncome';
+  static const labelSeason = 'labelSeason';
+  static const labelExpense = 'labelExpense';
   static const labelSelectEvent = 'labelSelectEvent';
   static const hintSelectEvent = 'hintSelectEvent';
   static const labelEventStartDate = 'labelEventStartDate';
@@ -110,5 +116,10 @@ abstract class  LocaleKeys {
   static const buttonShowAllExpense = 'buttonShowAllExpense';
   static const messageSaveSuccess = 'messageSaveSuccess';
   static const messageSaveFailed = 'messageSaveFailed';
+  static const labelAppTitleMyFarm = 'labelAppTitleMyFarm';
+  static const labelAppTitleMyCrop = 'labelAppTitleMyCrop';
+  static const labelAppTitleMyEvents = 'labelAppTitleMyEvents';
+  static const labelMessageNoFarmAvailable = 'labelMessageNoFarmAvailable';
+  static const labelMessageNoCropAvailable = 'labelMessageNoCropAvailable';
 
 }

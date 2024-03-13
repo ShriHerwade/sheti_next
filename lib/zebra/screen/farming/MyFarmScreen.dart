@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -26,7 +28,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        title: Text("My Farms"),
+        title: Text(LocaleKeys.labelAppTitleMyFarm),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -43,7 +45,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(
-              child: Text("No farms available."),
+              child: Text(LocaleKeys.labelMessageNoFarmAvailable.tr()),
             );
           } else {
             return ListView.builder(

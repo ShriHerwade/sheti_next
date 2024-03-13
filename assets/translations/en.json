@@ -49,6 +49,12 @@
   "labelExpectedYieldUnit": "Unit",
   "hintExpectedYieldUnit": "Select Yield Unit",
 
+  "labelExpected": "Expected",
+  "labelYield": "Yield",
+  "labelTotal": "Total",
+  "labelIncome": "Income",
+  "labelSeason": "Season",
+  "labelExpense": "Expense",
 
   "labelSelectEvent": "Event",
   "hintSelectEvent": "Select Event *",
@@ -152,5 +158,11 @@
   "buttonShowAllExpense" : "Show Expenses ",
 
   "messageSaveSuccess" : "Record saved successfully !",
-  "messageSaveFailed" : "Failed to save record !"
+  "messageSaveFailed" : "Failed to save record !",
+
+  "labelAppTitleMyFarm" : "My Farm",
+  "labelAppTitleMyCrop" : "My Crop",
+  "labelAppTitleMyEvents": "My Events",
+  "labelMessageNoFarmAvailable" : "No farms available. Create a new one.",
+  "labelMessageNoCropAvailable" : "No crops available. Create a new one."
 }

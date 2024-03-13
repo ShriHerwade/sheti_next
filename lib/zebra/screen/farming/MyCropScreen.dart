@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -27,7 +29,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        title: Text("My Crops"),
+        title: Text(LocaleKeys.labelAppTitleMyCrop.tr()),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -44,7 +46,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(
-              child: Text("No crops available."),
+              child: Text(LocaleKeys.labelMessageNoCropAvailable.tr()),
             );
           } else {
             return ListView.builder(
@@ -108,7 +110,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                           //crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              'Season : ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
+                              '${LocaleKeys.labelSeason.tr()} : ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
                               style: const TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize:  SizeConstants.listViewDataFontSize,
@@ -137,10 +139,10 @@ class _MyCropScreenState extends State<MyCropScreen> {
                           children: [
                             Column(
                               children: [
-                                const Row(
+                                 Row(
                                   children: [
                                     Text(
-                                      "Expected",
+                                      LocaleKeys.labelExpected.tr(),
                                       style: TextStyle(
                                         fontWeight: SizeConstants.listViewDataFontSemiBold,
                                         fontSize:  SizeConstants.listViewDataFontSize,
@@ -154,7 +156,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Yield : ${crop.expectedYield} ${crop.expectedYieldUnit}",
+                                      "${LocaleKeys.labelYield.tr()} : ${crop.expectedYield} ${crop.expectedYieldUnit}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,
@@ -163,7 +165,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                     ),
 
                                     Text(
-                                     "Income : ${crop.expectedIncome}",
+                                     "${LocaleKeys.labelIncome.tr()} : ${crop.expectedIncome}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,
@@ -173,10 +175,10 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                   ],
                                 ),
                                 SizedBox(height: 8.0),
-                                const Row(
+                                 Row(
                                   children: [
                                     Text(
-                                      "Total",
+                                      LocaleKeys.labelTotal.tr(),
                                       style: TextStyle(
                                         fontWeight: SizeConstants.listViewDataFontSemiBold,
                                         fontSize:  SizeConstants.listViewDataFontSize,
@@ -192,7 +194,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
 
                                   children: [
                                     Text(
-                                      "Expenses: ${crop.totalExpense}",
+                                      "${LocaleKeys.labelExpense.tr()}: ${crop.totalExpense}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,
@@ -201,7 +203,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                     ),
                                     SizedBox(width: 9.0),
                                     Text(
-                                     "Income: ${crop.totalIncome}",
+                                     "${LocaleKeys.labelIncome.tr()}: ${crop.totalIncome}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize:  SizeConstants.listViewDataFontSize,

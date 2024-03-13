@@ -49,6 +49,14 @@
   "labelExpectedYieldUnit": "उत्पादन एकक",
   "hintExpectedYieldUnit": "एकक निवडा",
 
+  "labelExpected": "अपेक्षित",
+  "labelYield": "उत्पादन",
+  "labelTotal": "एकूण",
+  "labelIncome": "उत्पन्न",
+  "labelSeason": "हंगाम",
+  "labelExpense": "खर्च",
+
+
   "labelSelectEvent": "शेती काम",
   "hintSelectEvent": "शेती काम निवडा *",
 
@@ -150,5 +158,11 @@
   "buttonShowAllExpense" : "जमा खर्च दाखवा ",
 
   "messageSaveSuccess" : "नोंद यशस्वीरित्या जतन केली आहे !",
-  "messageSaveFailed" :  "तांत्रिक समस्या, नोंद जतन केली नाही !"
+  "messageSaveFailed" :  "तांत्रिक समस्या, नोंद जतन केली नाही !",
+
+  "labelAppTitleMyFarm" : "माझं शेत",
+  "labelAppTitleMyCrop" : "माझं  पीक",
+  "labelAppTitleMyEvents": "माझी शेत काम",
+  "labelMessageNoFarmAvailable" : "कोणतेही शेत उपलब्ध नाही.एक नवीन शेत तयार करा.",
+  "labelMessageNoCropAvailable" : "कोणतेही पीक उपलब्ध नाही.एक नवीन पीक तयार करा."
 }

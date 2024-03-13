@@ -50,6 +50,12 @@ class CodegenLoader extends AssetLoader{
   "hintExpectedYield": "Expected Yield",
   "labelExpectedYieldUnit": "Unit",
   "hintExpectedYieldUnit": "Select Yield Unit",
+  "labelExpected": "Expected",
+  "labelYield": "Yield",
+  "labelTotal": "Total",
+  "labelIncome": "Income",
+  "labelSeason": "Season",
+  "labelExpense": "Expense",
   "labelSelectEvent": "Event",
   "hintSelectEvent": "Select Event *",
   "labelEventStartDate": "Event Start Date",
@@ -123,7 +129,12 @@ class CodegenLoader extends AssetLoader{
   "buttonShowAllEvents": "Show Events ",
   "buttonShowAllExpense": "Show Expenses ",
   "messageSaveSuccess": "Record saved successfully !",
-  "messageSaveFailed": "Failed to save record !"
+  "messageSaveFailed": "Failed to save record !",
+  "labelAppTitleMyFarm": "My Farm",
+  "labelAppTitleMyCrop": "My Crop",
+  "labelAppTitleMyEvents": "My Events",
+  "labelMessageNoFarmAvailable": "No farms available. Create a new one.",
+  "labelMessageNoCropAvailable": "No crops available. Create a new one."
 };
 static const Map<String,dynamic> ka = {
   "appTitle": "ಶೆಟಿನೆಕ್ಸ್ಟ್",
@@ -166,6 +177,12 @@ static const Map<String,dynamic> mr = {
   "hintExpectedYield": "अपेक्षित उत्पादन",
   "labelExpectedYieldUnit": "उत्पादन एकक",
   "hintExpectedYieldUnit": "एकक निवडा",
+  "labelExpected": "अपेक्षित",
+  "labelYield": "उत्पादन",
+  "labelTotal": "एकूण",
+  "labelIncome": "उत्पन्न",
+  "labelSeason": "हंगाम",
+  "labelExpense": "खर्च",
   "labelSelectEvent": "शेती काम",
   "hintSelectEvent": "शेती काम निवडा *",
   "labelEventStartDate": "काम सुरु केलेली तारीख",
@@ -239,7 +256,12 @@ static const Map<String,dynamic> mr = {
   "buttonShowAllEvents": "शेत काम दाखवा ",
   "buttonShowAllExpense": "जमा खर्च दाखवा ",
   "messageSaveSuccess": "नोंद यशस्वीरित्या जतन केली आहे !",
-  "messageSaveFailed": "तांत्रिक समस्या, नोंद जतन केली नाही !"
+  "messageSaveFailed": "तांत्रिक समस्या, नोंद जतन केली नाही !",
+  "labelAppTitleMyFarm": "माझं शेत",
+  "labelAppTitleMyCrop": "माझं  पीक",
+  "labelAppTitleMyEvents": "माझी शेत काम",
+  "labelMessageNoFarmAvailable": "कोणतेही शेत उपलब्ध नाही.एक नवीन शेत तयार करा.",
+  "labelMessageNoCropAvailable": "कोणतेही पीक उपलब्ध नाही.एक नवीन पीक तयार करा."
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ka": ka, "mr": mr};
 }
