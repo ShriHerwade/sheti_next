@@ -44,10 +44,10 @@
   "hintExpectedIncome": "Expected Income",
 
   "labelExpectedYield": "Expected Yield",
-  "hintExpectedYield": "Expected Yield",
+  "hintExpectedYield": "Expected Yield*",
 
   "labelExpectedYieldUnit": "Unit",
-  "hintExpectedYieldUnit": "Select Yield Unit",
+  "hintExpectedYieldUnit": "Select Yield Unit*",
 
   "labelExpected": "Expected",
   "labelYield": "Yield",

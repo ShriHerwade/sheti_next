@@ -28,7 +28,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        title: Text(LocaleKeys.labelAppTitleMyFarm),
+        title: Text(LocaleKeys.labelAppTitleMyFarm.tr()),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),

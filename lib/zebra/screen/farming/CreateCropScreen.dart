@@ -223,6 +223,8 @@ class _CreateCropState extends State<CreateCrop> {
                     hintText: LocaleKeys.hintExpectedYield.tr(),
                     labelText: LocaleKeys.labelExpectedYield.tr(),
                     inputType: TextInputType.number,
+                    isMandatory: true,
+                    isError: false,
                   ),
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDDFormField(
@@ -230,6 +232,8 @@ class _CreateCropState extends State<CreateCrop> {
                     hint: LocaleKeys.hintExpectedYieldUnit.tr(),
                     label: LocaleKeys.labelExpectedYieldUnit.tr(),
                     items: yieldUnits,
+                    isMandatory: true,
+                    isError: false,
                     onChanged: (String? yieldUnitValue) {
                       setState(() {
                         selectedYieldUnit = yieldUnitValue;
@@ -245,6 +249,8 @@ class _CreateCropState extends State<CreateCrop> {
                     hintText: LocaleKeys.hintExpectedIncome.tr(),
                     labelText: LocaleKeys.labelExpectedIncome.tr(),
                     inputType: TextInputType.number,
+                    isMandatory: false,
+                    isError: false,
                   ),
                   /*Container(
                     width: ResponsiveUtil.screenWidth(context) * 0.8,

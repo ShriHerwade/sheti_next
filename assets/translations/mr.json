@@ -44,10 +44,10 @@
   "hintExpectedIncome": "अपेक्षित उत्पन्न",
 
   "labelExpectedYield": "अपेक्षित उत्पादन",
-  "hintExpectedYield": "अपेक्षित उत्पादन",
+  "hintExpectedYield": "अपेक्षित उत्पादन*",
 
   "labelExpectedYieldUnit": "उत्पादन एकक",
-  "hintExpectedYieldUnit": "एकक निवडा",
+  "hintExpectedYieldUnit": "उत्पादन एकक निवडा*",
 
   "labelExpected": "अपेक्षित",
   "labelYield": "उत्पादन",
