@@ -28,7 +28,7 @@ class _MyEventsState extends State<MyEvents> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        title: Text("My Events"),
+        title: Text("My Tasks"),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),

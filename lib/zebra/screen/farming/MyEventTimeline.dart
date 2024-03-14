@@ -26,9 +26,14 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        title: Text("My Events Timeline"),
+        title: Text("My Task Timeline"),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop(); // Navigate back when back arrow is clicked
+          },
+        ),
       ),
       body: FutureBuilder<List<EventModel>>(
         future: dbHelper!.getAllEvents(),
@@ -43,22 +48,27 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(
-              child: Text("No events available."),
+              child: Text("No Task available."),
             );
           } else {
+            // Reverse the order of events
+            List<EventModel> reversedEvents = snapshot.data!.reversed.toList();
             return ListView.builder(
-              itemCount: snapshot.data!.length,
+              itemCount: reversedEvents.length,
               itemBuilder: (context, index) {
-                EventModel event = snapshot.data![index];
+                EventModel event = reversedEvents[index];
                 return TimelineTile(
                   alignment: TimelineAlign.manual,
                   lineXY: 0.1, // Adjust this value as needed for proper alignment
                   isFirst: index == 0,
-                  isLast: index == snapshot.data!.length - 1,
+                  isLast: index == reversedEvents.length - 1,
                   indicatorStyle: IndicatorStyle(
-                    width: 20,
-                    height: 20,
-                    indicator: _buildEventIndicator(event),
+                    width: 40,
+                    height: 40,
+                    indicator: _buildEventIndicator(),
+                  ),
+                  beforeLineStyle: LineStyle(
+                    color: Colors.green, // Set the color of the timeline line to green
                   ),
                   startChild: Container(), // Empty container for the timeline line
                   endChild: _buildEventCard(event),
@@ -71,16 +81,16 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
     );
   }
 
-  Widget _buildEventIndicator(EventModel event) {
+  Widget _buildEventIndicator() {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.blue,
+        color: Colors.green,
       ),
-      child: Center(
-        child: Container(
-          color: Colors.green,
-        ),
+      child: Icon(
+        Icons.check,
+        color: Colors.white,
+        size: 20,
       ),
     );
   }
@@ -88,9 +98,8 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
   Widget _buildEventCard(EventModel event) {
     return Card(
       elevation: 1.5,
-
       surfaceTintColor: ColorConstants.listViewSurfaceTintColor,
-      margin: EdgeInsets.fromLTRB(30.0, 5.0, 80.0, 5.0),
+      margin: EdgeInsets.fromLTRB(30.0, 20.0, 80.0, 20.0),
       color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(11.0),
@@ -112,18 +121,18 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
             Text(
               'Start Date: ${DateFormat("dd-MM-yyyy").format(event.startDate!)}',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.normal,
                 fontSize: 16.0,
-                color: Colors.grey,
+                color: Colors.black,
               ),
             ),
             SizedBox(height: 8.0),
             Text(
               'End Date: ${DateFormat("dd-MM-yyyy").format(event.endDate!)}',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.normal,
                 fontSize: 16.0,
-                color: Colors.grey,
+                color: Colors.black,
               ),
             ),
             Text(
@@ -131,7 +140,7 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 fontSize: 16.0,
-                color: Colors.grey,
+                color: Colors.black,
               ),
             ),
           ],
