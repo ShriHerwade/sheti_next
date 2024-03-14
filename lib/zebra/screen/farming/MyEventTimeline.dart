@@ -48,7 +48,7 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(
-              child: Text("No Task available."),
+              child: Text("No Tasks available."),
             );
           } else {
             // Reverse the order of events
