@@ -64,7 +64,7 @@ class NxNavBar extends StatelessWidget {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (_) => CreateTask()));
                       },
-                      child: Text(LocaleKeys.navBarEvents.tr())),
+                      child: Text(LocaleKeys.navBarTasks.tr())),
                 ),
                 ListTile(
                   leading: Icon(Icons.payment_rounded),

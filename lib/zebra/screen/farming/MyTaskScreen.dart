@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -27,7 +29,7 @@ class _MyTaskState extends State<MyTask> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        title: Text("My Tasks"),
+        title: Text(LocaleKeys.labelAppTitleMyTasks.tr()),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),

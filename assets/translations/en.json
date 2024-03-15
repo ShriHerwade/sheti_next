@@ -3,7 +3,7 @@
   "dashboard": "Dashboard",
   "createFarm": "Create New Farm",
   "createCrop": "Create New Crop",
-  "createEvent": "Create New Event",
+  "createTask": "Create New Task",
   "createExpense": "Create New Expense",
   "createIncome": "Create New Income",
 
@@ -56,14 +56,14 @@
   "labelSeason": "Season",
   "labelExpense": "Expense",
 
-  "labelSelectEvent": "Event",
-  "hintSelectEvent": "Select Event *",
+  "labelSelectTask": "Task",
+  "hintSelectTask": "Select Task *",
 
-  "labelEventStartDate": "Event Start Date",
-  "hintEventStartDate": "Event Start Date *",
+  "labelTaskStartDate": "Task Start Date",
+  "hintTaskStartDate": "Task Start Date *",
 
-  "labelEventEndDate": "Event End Date",
-  "hintEventEndDate": "Event End Date *",
+  "labelTaskEndDate": "Task End Date",
+  "hintTaskEndDate": "Task End Date *",
 
   "labelSelectExpenseType": "Expense Type",
   "hintSelectExpenseType": "Select Expense Type *",
@@ -146,7 +146,7 @@
   "navBarLangEnglish": "English",
   "navBarFarms": "Farm",
   "navBarCrops": "Crop",
-  "navBarEvents": "Event",
+  "navBarTasks": "Task",
   "navBarExpenses": "Expense",
   "navBarIncome": "Income",
   "navBarHusbandry": "Animal Husbandry",
@@ -154,7 +154,7 @@
 
   "buttonShowAllCrops" : "Show Crops",
   "buttonShowAllFarms" : "My Farms",
-  "buttonShowAllEvents" : "Show Events ",
+  "buttonShowAllTasks" : "Show Tasks ",
   "buttonShowAllExpense" : "Show Expenses ",
 
   "messageSaveSuccess" : "Record saved successfully !",
@@ -162,7 +162,8 @@
 
   "labelAppTitleMyFarm" : "My Farm",
   "labelAppTitleMyCrop" : "My Crop",
-  "labelAppTitleMyEvents": "My Events",
+  "labelAppTitleMyTasks": "My Tasks",
+  "labelAppTitleMyTaskTimeline": "My Task Timeline",
   "labelMessageNoFarmAvailable" : "No farms available. Create a new one.",
   "labelMessageNoCropAvailable" : "No crops available. Create a new one."
 }

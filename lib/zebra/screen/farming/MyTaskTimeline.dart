@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
@@ -32,7 +34,7 @@ class _MyTaskTimelineState extends State<MyTaskTimeline> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        title: Text("My Task Timeline"),
+        title: Text(LocaleKeys.labelAppTitleMyTaskTimeline.tr()),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

@@ -139,7 +139,7 @@ class _CreateTaskState extends State<CreateTask> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(LocaleKeys.createEvent.tr()),
+        title: Text(LocaleKeys.createTask.tr()),
         centerTitle: false,
         leading: IconButton(
           icon: Icon(Icons.arrow_back,color: ColorConstants.miniIconDefaultColor),
@@ -220,8 +220,8 @@ class _CreateTaskState extends State<CreateTask> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDDFormField(
                       value: selectedFarmEvents,
-                      label: LocaleKeys.labelSelectEvent.tr(),
-                      hint: LocaleKeys.hintSelectEvent.tr(),
+                      label: LocaleKeys.labelSelectTask.tr(),
+                      hint: LocaleKeys.hintSelectTask.tr(),
                       items: farmEvents,
                       isMandatory: true,
                       isError : false,
@@ -272,9 +272,9 @@ class _CreateTaskState extends State<CreateTask> {
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDateField(
                       controller: _datePickerStartDateController,
-                      label: LocaleKeys.labelEventStartDate.tr(),
-                      labelText: LocaleKeys.labelEventStartDate.tr(),
-                      hintText: LocaleKeys.hintEventStartDate.tr(),
+                      label: LocaleKeys.labelTaskStartDate.tr(),
+                      labelText: LocaleKeys.labelTaskStartDate.tr(),
+                      hintText: LocaleKeys.hintTaskStartDate.tr(),
                       selectedDate: startDate,
                       isMandatory: true,
                       isError : false,
@@ -288,9 +288,9 @@ class _CreateTaskState extends State<CreateTask> {
                         height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDateField(
                       controller: _datePickerEndDateController,
-                      label: LocaleKeys.labelEventEndDate.tr(),
-                      labelText: LocaleKeys.labelEventEndDate.tr(),
-                      hintText: LocaleKeys.hintEventEndDate.tr(),
+                      label: LocaleKeys.labelTaskEndDate.tr(),
+                      labelText: LocaleKeys.labelTaskEndDate.tr(),
+                      hintText: LocaleKeys.hintTaskEndDate.tr(),
                       selectedDate: endDate,
                       isMandatory: true,
                       isError : false,
