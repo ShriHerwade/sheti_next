@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
-import 'package:sheti_next/zebra/dao/models/EventModel.dart';
+import 'package:sheti_next/zebra/dao/models/TaskModel.dart';
 import 'package:intl/intl.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-class MyEventTimeline extends StatefulWidget {
+class MyTaskTimeline extends StatefulWidget {
   final int cropId; // Add cropId parameter
-  const MyEventTimeline({Key? key, required this.cropId}) : super(key: key);
+  const MyTaskTimeline({Key? key, required this.cropId}) : super(key: key);
 
   @override
-  _MyEventTimelineState createState() => _MyEventTimelineState();
+  _MyTaskTimelineState createState() => _MyTaskTimelineState();
 }
 
-class _MyEventTimelineState extends State<MyEventTimeline> {
+class _MyTaskTimelineState extends State<MyTaskTimeline> {
   DbHelper? dbHelper;
 
   @override
@@ -23,8 +23,8 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
     dbHelper = DbHelper();
   }
 
-  Future<List<EventModel>> _fetchEventsByCropId() async {
-    return dbHelper!.getEventsByCropId(widget.cropId);
+  Future<List<TaskModel>> _fetchTaskssByCropId() async {
+    return dbHelper!.getTasksByCropId(widget.cropId);
   }
 
   @override
@@ -41,8 +41,8 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
           },
         ),
       ),
-      body: FutureBuilder<List<EventModel>>(
-        future: _fetchEventsByCropId(),
+      body: FutureBuilder<List<TaskModel>>(
+        future: _fetchTaskssByCropId(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -58,11 +58,11 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
             );
           } else {
             // Reverse the order of events
-            List<EventModel> reversedEvents = snapshot.data!.reversed.toList();
+            List<TaskModel> reversedEvents = snapshot.data!.reversed.toList();
             return ListView.builder(
               itemCount: reversedEvents.length,
               itemBuilder: (context, index) {
-                EventModel event = reversedEvents[index];
+                TaskModel event = reversedEvents[index];
                 return TimelineTile(
                   alignment: TimelineAlign.manual,
                   lineXY: 0.1, // Adjust this value as needed for proper alignment
@@ -101,7 +101,7 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
     );
   }
 
-  Widget _buildEventCard(EventModel event) {
+  Widget _buildEventCard(TaskModel task) {
     return Card(
       elevation: 1.5,
       surfaceTintColor: ColorConstants.listViewSurfaceTintColor,
@@ -116,7 +116,7 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              event.eventType ?? '',
+              task.taskType ?? '',
               style: TextStyle(
                 fontWeight: SizeConstants.listViewDataFontSemiBold,
                 fontSize: SizeConstants.listViewDataFontSize,
@@ -125,7 +125,7 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
             ),
             SizedBox(height: 5.0),
             Text(
-              'Start Date: ${DateFormat("dd-MM-yyyy").format(event.startDate!)}',
+              'Start Date: ${DateFormat("dd-MM-yyyy").format(task.startDate!)}',
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 fontSize: SizeConstants.listViewDataFontSize,
@@ -134,7 +134,7 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
             ),
             SizedBox(height: 4.0),
             Text(
-              'End Date: ${DateFormat("dd-MM-yyyy").format(event.endDate!)}',
+              'End Date  : ${DateFormat("dd-MM-yyyy").format(task.endDate!)}',
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 fontSize: SizeConstants.listViewDataFontSize,
@@ -142,7 +142,7 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
               ),
             ),
             Text(
-              event.notes ?? '',
+              task.notes ?? '',
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 fontSize: SizeConstants.listViewDataFontSize,

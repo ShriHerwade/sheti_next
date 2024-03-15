@@ -5,7 +5,7 @@ import 'package:path/path.dart';
 import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropMetaModel.dart';
-import 'package:sheti_next/zebra/dao/models/EventModel.dart';
+import 'package:sheti_next/zebra/dao/models/TaskModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseBarChartModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpensePieChartModel.dart';
@@ -33,7 +33,7 @@ class DbHelper {
   static const String Table_DropDownsMeta = 'dropDownsMeta';
   static const String Table_Poes = 'poes';
 
-  static const String Table_Events = 'events';
+  static const String Table_Tasks = 'tasks';
   static const String Table_Expenses = 'expenses';
   static const String Table_ExpenseTypeMeta = 'expenseTypeMeta';
   static const String Table_ExpenseSubTypeMeta = 'expenseSubTypeMeta';
@@ -71,7 +71,7 @@ class DbHelper {
   static const String C_userId = 'userId';
   static const String C_farmId = 'farmId';
   static const String C_cropId = 'cropId';
-  static const String C_eventId = 'eventId';
+  static const String C_taskId = 'taskId';
   static const String C_expenseId = 'expenseId';
   static const String C_incomeId = 'incomeId';
   static const String C_poeId = 'poeId';
@@ -104,7 +104,7 @@ class DbHelper {
   static const String C_irrigationType = 'irrigationType';
   static const String C_soilType = 'soilType';
 
-  static const String C_eventType = 'eventType';
+  static const String C_taskType = 'taskType';
   static const String C_notes = 'notes';
   static const String C_isDone = 'isDone';
 
@@ -295,15 +295,15 @@ class DbHelper {
           ''',
           );
 
-          // Create Events table
+          // Create Tasks table
           db.execute(
             '''
-          CREATE TABLE $Table_Events (
-            $C_eventId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+          CREATE TABLE $Table_Tasks (
+            $C_taskId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $C_farmId INTEGER NOT NULL,
             $C_cropId INTEGER,
             $C_userId INTEGER NOT NULL,
-            $C_eventType TEXT,
+            $C_taskType TEXT,
             $C_notes TEXT,
             $C_startDate TEXT,
             $C_endDate TEXT,            
@@ -631,28 +631,33 @@ class DbHelper {
     });
   }
 
-  Future<List<EventModel>> getAllEvents() async {
+  Future<List<TaskModel>> getAllTasks() async {
     final dbClient = await db;
-    final List<Map<String, dynamic>> maps = await dbClient.query(Table_Events,
+    final List<Map<String, dynamic>> maps = await dbClient.query(Table_Tasks,
         where: 'isActive = ? AND isActive IS NOT NULL',
         whereArgs: [1],
         orderBy: 'createdDate DESC');
     return List.generate(maps.length, (i) {
-      return EventModel.fromMap(maps[i]);
+      return TaskModel.fromMap(maps[i]);
     });
   }
 
-  Future<List<EventModel>> getEventsByCropId(int cropId) async {
+  Future<List<TaskModel>> getTasksByCropId(int cropId) async {
     final dbClient = await db;
+    try {
     final List<Map<String, dynamic>> maps = await dbClient.query(
-      Table_Events,
+      Table_Tasks,
       where: 'isActive = ? AND isActive IS NOT NULL AND cropId = ?', // Add condition for cropId
       whereArgs: [1, cropId], // Pass cropId as a whereArg
       orderBy: 'createdDate DESC',
     );
     return List.generate(maps.length, (i) {
-      return EventModel.fromMap(maps[i]);
+      return TaskModel.fromMap(maps[i]);
     });
+    }catch(e){
+      print("Error while pulling task data : $e");
+      rethrow;
+    }
   }
 
   Future<List<ExpenseModel>> getAllExpense() async {
@@ -711,15 +716,15 @@ class DbHelper {
     print("User record inserted");
   }
 
-// method to save Events
-  Future<void> saveEventData(EventModel event) async {
+// method to save Task
+  Future<void> saveTaskData(TaskModel task) async {
     final dbClient = await db;
     await dbClient.insert(
-      Table_Events,
-      event.toMap(),
+      Table_Tasks,
+      task.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-    print("Event record inserted");
+    print("Task record inserted");
   }
 
 // method to save expense data

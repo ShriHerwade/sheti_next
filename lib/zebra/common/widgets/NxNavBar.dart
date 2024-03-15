@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sheti_next/translations/locale_keys.g.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
-import 'package:sheti_next/zebra/screen/farming/CreateEventScreen.dart';
+import 'package:sheti_next/zebra/screen/farming/CreateTaskScreen.dart';
 
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
 
@@ -62,7 +62,7 @@ class NxNavBar extends StatelessWidget {
                   title: InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => CreateEvents()));
+                            MaterialPageRoute(builder: (_) => CreateTask()));
                       },
                       child: Text(LocaleKeys.navBarEvents.tr())),
                 ),

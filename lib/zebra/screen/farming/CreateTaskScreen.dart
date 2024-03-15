@@ -9,24 +9,24 @@ import 'package:sheti_next/zebra/common/widgets/NxDDFormField_id.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
-import 'package:sheti_next/zebra/screen/farming/MyEventsScreen.dart';
+import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
+import 'package:sheti_next/zebra/dao/models/TaskModel.dart';
+import 'package:sheti_next/zebra/screen/farming/MyTaskScreen.dart';
 import '../../common/widgets/NxButton.dart';
 import '../../common/widgets/NxSnackbar.dart';
-import '../../dao/models/EventModel.dart';
-import '../../dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/common/widgets/NxDateField.dart';
 import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 
 import 'HomeScreen.dart';
 
-class CreateEvents extends StatefulWidget {
-  const CreateEvents({Key? key}) : super(key: key);
+class CreateTask extends StatefulWidget {
+  const CreateTask({Key? key}) : super(key: key);
 
   @override
-  State<CreateEvents> createState() => _CreateEventsState();
+  State<CreateTask> createState() => _CreateTaskState();
 }
 
-class _CreateEventsState extends State<CreateEvents> {
+class _CreateTaskState extends State<CreateTask> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _datePickerStartDateController = TextEditingController();
   final TextEditingController _datePickerEndDateController = TextEditingController();
@@ -87,11 +87,11 @@ class _CreateEventsState extends State<CreateEvents> {
             startDate != null &&
             endDate != null &&
             selectedFarmEvents!.isNotEmpty) {
-          EventModel event = EventModel(
+            TaskModel event = TaskModel(
             userId: 1,
             farmId: selectedFarm!,
             cropId: selectedCrop!,
-            eventType: selectedFarmEvents!,
+            taskType: selectedFarmEvents!,
             startDate: startDate!,
             endDate: endDate!,
             notes: null,
@@ -100,7 +100,7 @@ class _CreateEventsState extends State<CreateEvents> {
             createdDate: DateTime.now(),
           );
 
-          await dbHelper!.saveEventData(event);
+          await dbHelper!.saveTaskData(event);
 
           setState(() {
             selectedFarm = null;
@@ -161,7 +161,7 @@ class _CreateEventsState extends State<CreateEvents> {
             onDismissed: (_) {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => MyEvents(),
+                  builder: (context) => MyTask(),
                 ),
               );
             },

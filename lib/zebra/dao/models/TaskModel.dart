@@ -1,11 +1,10 @@
-//EventModel.dart
 import 'dart:core';
-class EventModel {
-  int? eventId;
+class TaskModel {
+  int? taskId;
   late int userId;
   late int farmId;
   late int cropId;
-  late String eventType;
+  late String taskType;
   final DateTime startDate;
   DateTime? endDate;
   String? notes;
@@ -14,12 +13,12 @@ class EventModel {
   bool isExpanded;
   DateTime? createdDate;
 
-  EventModel(
-      {this.eventId,
+  TaskModel(
+      {this.taskId,
       required this.farmId,
       required this.cropId,
       required this.userId,
-      required this.eventType,
+      required this.taskType,
       required this.startDate,
       this.endDate,
       this.notes,
@@ -30,11 +29,11 @@ class EventModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'eventId': this.eventId,
+      'taskId': this.taskId,
       'farmId': this.farmId,
       'cropId': this.cropId,
       'userId': this.userId,
-      'eventType': this.eventType,
+      'taskType': this.taskType,
       'startDate': this.startDate?.toIso8601String(),
       'endDate': this.endDate?.toIso8601String(),
       'notes': this.notes,
@@ -44,13 +43,13 @@ class EventModel {
     };
   }
 
-  factory EventModel.fromMap(Map<String, dynamic> map) {
-    return EventModel(
-      eventId: map['eventId'],
+  factory TaskModel.fromMap(Map<String, dynamic> map) {
+    return TaskModel(
+      taskId: map['taskId'],
       farmId: map['farmId'],
       cropId: map['cropId'],
       userId: map['userId'],
-      eventType: map['eventType'],
+      taskType: map['taskType'],
       startDate: DateTime.parse(map['startDate']),
       endDate: DateTime.parse(map['endDate']),
       notes: map['notes'],

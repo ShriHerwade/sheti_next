@@ -3,18 +3,17 @@ import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
-import 'package:sheti_next/zebra/screen/farming/CreateCropScreen.dart';
 import 'package:intl/intl.dart';
-import 'package:sheti_next/zebra/screen/farming/MyEventTimeline.dart';
+import 'package:sheti_next/zebra/screen/farming/MyTaskTimeline.dart';
 
-class MyEvents extends StatefulWidget {
-  const MyEvents({Key? key}) : super(key: key);
+class MyTask extends StatefulWidget {
+  const MyTask({Key? key}) : super(key: key);
 
   @override
-  _MyEventsState createState() => _MyEventsState();
+  _MyTaskState createState() => _MyTaskState();
 }
 
-class _MyEventsState extends State<MyEvents> {
+class _MyTaskState extends State<MyTask> {
   DbHelper? dbHelper;
 
   @override
@@ -58,7 +57,7 @@ class _MyEventsState extends State<MyEvents> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MyEventTimeline(cropId: crop.cropId ?? 0),
+                        builder: (context) => MyTaskTimeline(cropId: crop.cropId ?? 0),
                       ),
                     );
                   },
