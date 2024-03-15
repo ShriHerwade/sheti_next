@@ -58,7 +58,7 @@ class _MyEventsState extends State<MyEvents> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MyEventTimeline(),
+                        builder: (context) => MyEventTimeline(cropId: crop.cropId ?? 0),
                       ),
                     );
                   },

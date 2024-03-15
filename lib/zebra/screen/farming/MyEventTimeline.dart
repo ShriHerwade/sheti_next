@@ -6,7 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class MyEventTimeline extends StatefulWidget {
-  const MyEventTimeline({Key? key}) : super(key: key);
+  final int cropId; // Add cropId parameter
+  const MyEventTimeline({Key? key, required this.cropId}) : super(key: key);
 
   @override
   _MyEventTimelineState createState() => _MyEventTimelineState();
@@ -19,6 +20,10 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
   void initState() {
     super.initState();
     dbHelper = DbHelper();
+  }
+
+  Future<List<EventModel>> _fetchEventsByCropId() async {
+    return dbHelper!.getEventsByCropId(widget.cropId);
   }
 
   @override
@@ -36,7 +41,7 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
         ),
       ),
       body: FutureBuilder<List<EventModel>>(
-        future: dbHelper!.getAllEvents(),
+        future: _fetchEventsByCropId(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
