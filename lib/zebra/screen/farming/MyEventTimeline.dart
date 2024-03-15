@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
+import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/EventModel.dart';
 import 'package:intl/intl.dart';
@@ -117,26 +118,26 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
             Text(
               event.eventType ?? '',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontWeight: SizeConstants.listViewDataFontSemiBold,
+                fontSize: SizeConstants.listViewDataFontSize,
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 8.0),
+            SizedBox(height: 5.0),
             Text(
               'Start Date: ${DateFormat("dd-MM-yyyy").format(event.startDate!)}',
               style: TextStyle(
                 fontWeight: FontWeight.normal,
-                fontSize: 16.0,
+                fontSize: SizeConstants.listViewDataFontSize,
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 8.0),
+            SizedBox(height: 4.0),
             Text(
               'End Date: ${DateFormat("dd-MM-yyyy").format(event.endDate!)}',
               style: TextStyle(
                 fontWeight: FontWeight.normal,
-                fontSize: 16.0,
+                fontSize: SizeConstants.listViewDataFontSize,
                 color: Colors.black,
               ),
             ),
@@ -144,7 +145,7 @@ class _MyEventTimelineState extends State<MyEventTimeline> {
               event.notes ?? '',
               style: TextStyle(
                 fontWeight: FontWeight.normal,
-                fontSize: 16.0,
+                fontSize: SizeConstants.listViewDataFontSize,
                 color: Colors.black,
               ),
             ),
