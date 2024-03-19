@@ -163,6 +163,69 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               SizedBox(height: 20),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12.0)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      child: Card(
+                        elevation: 0.0,
+                        child: Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("This week"),
+                              Text(totalFarms.toString(), style: TextStyle(fontSize: 26)),
+                              SizedBox(height: 10),
+                              Text("Task Pending", style: TextStyle(fontWeight: FontWeight.normal)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Card(
+                        elevation: 0.0,
+                        child: Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(""),
+                              Text(totalCrops.toString(), style: TextStyle(fontSize: 26)),
+                              SizedBox(height: 10),
+                              Text("Total"+'\n' "Income", style: TextStyle(fontWeight: FontWeight.normal)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Card(
+                        elevation: 0.0,
+                        child: Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(""),
+                              Text("0", style: TextStyle(fontSize: 26)),
+                              SizedBox(height: 10),
+                              Text("Total Expenses", style: TextStyle(fontWeight: FontWeight.normal)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
               GridView.count(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -170,49 +233,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
                 children: [
-                  Card(
-                    elevation: 0.0,
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Pending Tasks", style: TextStyle(fontWeight: FontWeight.normal)),
-                          SizedBox(height: 10),
-                          // Add functionality for displaying pending tasks
-                        ],
-                      ),
-                    ),
-                  ),
-                  Card(
-                    elevation: 0.0,
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Total Income", style: TextStyle(fontWeight: FontWeight.normal)),
-                          SizedBox(height: 10),
-                          // Add functionality for displaying total income
-                        ],
-                      ),
-                    ),
-                  ),
-                  Card(
-                    elevation: 0.0,
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Total Expenses", style: TextStyle(fontWeight: FontWeight.normal)),
-                          SizedBox(height: 10),
-                          // Add functionality for displaying total expenses
-                        ],
-                      ),
-                    ),
-                  ),
-
                   _buildButtonContainer("Create Farm", Icons.add, () {}, CreateFarms()),
                   _buildButtonContainer("View Farm", Icons.visibility, () {}, MyFarmScreen()),
                   _buildButtonContainer("Update Farm", Icons.edit, () {}, HomeScreen()),

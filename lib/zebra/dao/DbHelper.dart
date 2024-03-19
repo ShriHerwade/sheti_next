@@ -1042,4 +1042,6 @@ class DbHelper {
       _db = null;
     }
   }
+
+  updateFarmData(FarmModel updatedFarm) {}
 }
