@@ -19,6 +19,8 @@ import 'package:sheti_next/zebra/screen/farming/MyIncomeScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyTaskScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyTaskTimeline.dart';
 
+import 'ExpenseIncomeScreen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -54,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Widget _buildButtonContainer(String text, IconData iconData, VoidCallback onPressed, Widget destinationScreen) {
+  Widget _buildButtonContainer(String text, String imagePath, VoidCallback onPressed, Widget destinationScreen) {
     return ElevatedButton(
       onPressed: () {
         Navigator.push(
@@ -63,7 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       },
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black, backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.white,
         elevation: 1,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -73,7 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Align(
             alignment: Alignment.bottomLeft,
-           // child: Icon(iconData),
+            child: Image.asset(
+              imagePath,
+              width: 100, // Adjust width as needed
+              height: 90, // Adjust height as needed
+            ),
           ),
           Center(
             child: Text(text),
@@ -90,20 +97,20 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("Home Page"),
       ),
-        bottomNavigationBar: GNav(
-          backgroundColor: Colors.white,
-          color: Colors.black,
-          tabBackgroundColor: Colors.lightGreen,
-          padding: EdgeInsets.all(16),
-          gap: 8,
-          tabs: [
-            GButton(icon: Icons.home, text: "Home"),
-            GButton(icon: Icons.local_activity, text: "Activity"),
-            GButton(icon: Icons.add, text: ""),
-            GButton(icon: Icons.notifications, text: "Notification"),
-            GButton(icon: Icons.ac_unit, text: "Other"),
-          ],
-        ),
+      bottomNavigationBar: GNav(
+        backgroundColor: Colors.white,
+        color: Colors.black,
+        tabBackgroundColor: Colors.green,
+        padding: EdgeInsets.all(16),
+        gap: 8,
+        tabs: [
+          GButton(icon: Icons.home, text: "Home"),
+          GButton(icon: Icons.local_activity, text: "Activity"),
+          GButton(icon: Icons.add, text: ""),
+          GButton(icon: Icons.notifications, text: "Notification"),
+          GButton(icon: Icons.ac_unit, text: "Other"),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Container(
           color: Colors.grey.shade200,
@@ -165,8 +172,8 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12.0)
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12.0)
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -229,22 +236,22 @@ class _HomeScreenState extends State<HomeScreen> {
               GridView.count(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 3,
+                crossAxisCount: 2,
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
                 children: [
-                  _buildButtonContainer("Create Farm", Icons.add, () {}, CreateFarms()),
-                  _buildButtonContainer("View Farm", Icons.visibility, () {}, MyFarmScreen()),
-                  _buildButtonContainer("Update Farm", Icons.edit, () {}, HomeScreen()),
-                  _buildButtonContainer("Create Crop", Icons.add, () {}, CreateCrop()),
-                  _buildButtonContainer("View Crop", Icons.visibility, () {}, MyCropScreen()),
-                  _buildButtonContainer("Update Crop", Icons.edit, () {}, HomeScreen()),
-                  _buildButtonContainer("Create Task", Icons.add, () {}, CreateTask()),
-                  _buildButtonContainer("View Task", Icons.visibility, () {}, MyTask()),
-                  _buildButtonContainer("Update Task", Icons.edit, () {}, HomeScreen()),
-                  _buildButtonContainer("Add Expenses", Icons.add, () {}, CreateExpenses()),
-                  _buildButtonContainer("Add Income", Icons.visibility, () {}, CreateIncomeScreen()),
-                  _buildButtonContainer("Dashboard", Icons.edit, () {}, DashboardScreen()),
+                  _buildButtonContainer("Create Farm", "assets/icons/home/create_farm_menu_ic.png", () {}, CreateFarms()),
+                  _buildButtonContainer("View Farm", "assets/icons/home/create_farm_menu_ic.png", () {}, MyFarmScreen()),
+                  //_buildButtonContainer("Update Farm", Icons.edit, () {}, HomeScreen()),
+                  _buildButtonContainer("Create Crop", "assets/icons/home/create_crop_menu_ic.png", () {}, CreateCrop()),
+                  _buildButtonContainer("View Crop", "assets/icons/home/create_crop_menu_ic.png", () {}, MyCropScreen()),
+                  //_buildButtonContainer("Update Crop", Icons.edit, () {}, HomeScreen()),
+                  _buildButtonContainer("Create Task", "assets/icons/home/create_task_menu_ic.png", () {}, CreateTask()),
+                  _buildButtonContainer("View Task", "assets/icons/home/create_task_menu_ic.png", () {}, MyTask()),
+                  //_buildButtonContainer("Update Task", Icons.edit, () {}, HomeScreen()),
+                  _buildButtonContainer("Add Expenses/Income", "assets/icons/home/create_income_exp_menu_ic.png", () {}, ExpenseIncomeScreen()),
+                  //_buildButtonContainer("Add Income", Icons.visibility, () {}, CreateIncomeScreen()),
+                  _buildButtonContainer("Dashboard", "assets/icons/home/create_farm_menu_ic.png", () {}, DashboardScreen()),
                 ],
               ),
             ],
