@@ -249,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
                 children: [
-                  _buildButtonContainer("Create Farm", "assets/icons/home/create_farm_ic_3.png", () {}, CreateFarms()),
+                  _buildButtonContainer("Create Farm", "assets/icons/home/create_farm_ic_2.png", () {}, CreateFarms()),
                   _buildButtonContainer("View Farm", "assets/icons/home/view_farm_ic_2.png", () {}, MyFarmScreen()),
                   //_buildButtonContainer("Update Farm", Icons.edit, () {}, HomeScreen()),
                   _buildButtonContainer("Create Crop", "assets/icons/home/create_crop_ic_2.png", () {}, CreateCrop()),
