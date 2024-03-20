@@ -15,4 +15,12 @@ class SizeConstants {
 
   static const double listViewDataFontSize = 15;
   static const FontWeight listViewDataFontSemiBold = FontWeight.w600;
+
+  static const double sizeBoxBetweenAppBarToPageStart = 8;
+  static const double sizeBoxBetweenSubmitButtonToPageEnd = 8;
+  static const double sizeBoxBetweenFormLastElementToSubmitButton = 8;
+  static const double sizeBoxBetweenEachFormComponent = 8;
+
+
+
 }
