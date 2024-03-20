@@ -12,6 +12,7 @@ import 'package:sheti_next/zebra/screen/farming/CreateIncomeScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateTaskScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/DashboardScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/ExpenseAndAllExpensesScreen.dart';
+import 'package:sheti_next/zebra/screen/farming/ExpenseInsight.dart';
 import 'package:sheti_next/zebra/screen/farming/MyCropScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyExpensesScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyFarmScreen.dart';
@@ -34,6 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
   double totalArea = 0;
 
   final dbHelper = DbHelper();
+
+  get expenses => dbHelper.getAllExpense();
 
   @override
   void initState() {
@@ -67,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         elevation: 1,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -260,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   //_buildButtonContainer("Update Task", Icons.edit, () {}, HomeScreen()),
                   _buildButtonContainer("Add Exp/Income", "assets/icons/home/create_income_exp_ic_2.png", () {}, ExpenseIncomeScreen()),
                   //_buildButtonContainer("Add Income", Icons.visibility, () {}, CreateIncomeScreen()),
-                  _buildButtonContainer("Dashboard", "assets/icons/home/dashboard_ic_2.png", () {}, DashboardScreen()),
+                  _buildButtonContainer("Dashboard", "assets/icons/home/dashboard_ic_2.png", () {}, ExpenseInsightPage(expenses: expenses)),
                 ],
               ),
             ],
