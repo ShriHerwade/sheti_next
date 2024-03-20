@@ -73,17 +73,26 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       child: Stack(
+        alignment: Alignment.center,
         children: [
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Image.asset(
-              imagePath,
-              width: 100, // Adjust width as needed
-              height: 90, // Adjust height as needed
+          Positioned(
+            bottom: 0,
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+                color: Colors.black,// Adjust font size as needed
+              ),
             ),
           ),
           Center(
-            child: Text(text),
+            child: Image.asset(
+              imagePath,
+              width: 110, // Adjust width as needed
+              height: 110, // Adjust height as needed
+            ),
           ),
         ],
       ),
@@ -240,18 +249,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
                 children: [
-                  _buildButtonContainer("Create Farm", "assets/icons/home/create_farm_menu_ic.png", () {}, CreateFarms()),
-                  _buildButtonContainer("View Farm", "assets/icons/home/create_farm_menu_ic.png", () {}, MyFarmScreen()),
+                  _buildButtonContainer("Create Farm", "assets/icons/home/create_farm_ic_3.png", () {}, CreateFarms()),
+                  _buildButtonContainer("View Farm", "assets/icons/home/view_farm_ic_2.png", () {}, MyFarmScreen()),
                   //_buildButtonContainer("Update Farm", Icons.edit, () {}, HomeScreen()),
-                  _buildButtonContainer("Create Crop", "assets/icons/home/create_crop_menu_ic.png", () {}, CreateCrop()),
-                  _buildButtonContainer("View Crop", "assets/icons/home/create_crop_menu_ic.png", () {}, MyCropScreen()),
+                  _buildButtonContainer("Create Crop", "assets/icons/home/create_crop_ic_2.png", () {}, CreateCrop()),
+                  _buildButtonContainer("View Crop", "assets/icons/home/view_crop_ic_2.png", () {}, MyCropScreen()),
                   //_buildButtonContainer("Update Crop", Icons.edit, () {}, HomeScreen()),
-                  _buildButtonContainer("Create Task", "assets/icons/home/create_task_menu_ic.png", () {}, CreateTask()),
-                  _buildButtonContainer("View Task", "assets/icons/home/create_task_menu_ic.png", () {}, MyTask()),
+                  _buildButtonContainer("Create Task", "assets/icons/home/create_task_ic_2.png", () {}, CreateTask()),
+                  _buildButtonContainer("View Task", "assets/icons/home/view_task_ic_2.png", () {}, MyTask()),
                   //_buildButtonContainer("Update Task", Icons.edit, () {}, HomeScreen()),
-                  _buildButtonContainer("Add Expenses/Income", "assets/icons/home/create_income_exp_menu_ic.png", () {}, ExpenseIncomeScreen()),
+                  _buildButtonContainer("Add Exp/Income", "assets/icons/home/create_income_exp_ic_2.png", () {}, ExpenseIncomeScreen()),
                   //_buildButtonContainer("Add Income", Icons.visibility, () {}, CreateIncomeScreen()),
-                  _buildButtonContainer("Dashboard", "assets/icons/home/create_farm_menu_ic.png", () {}, DashboardScreen()),
+                  _buildButtonContainer("Dashboard", "assets/icons/home/dashboard_ic_2.png", () {}, DashboardScreen()),
                 ],
               ),
             ],

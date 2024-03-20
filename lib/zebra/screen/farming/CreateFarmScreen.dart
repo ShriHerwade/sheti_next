@@ -107,13 +107,13 @@ class _CreateFarmsState extends State<CreateFarms> {
                 padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
                 child: Column(
                   children: [
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 10),
                     // Responsive image
-                    Image.asset(
+                    /*Image.asset(
                       "assets/images/top_create-farm-1.png",
                       height: ResponsiveUtil.screenHeight(context) * 0.16,
                       width: ResponsiveUtil.screenWidth(context) * 0.4,
-                    ),
+                    ),*/
                     // Spacer
                      SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.04),
                     // Text form field for farm name

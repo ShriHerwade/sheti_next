@@ -124,11 +124,11 @@ class _CreateCropState extends State<CreateCrop> {
               child: Column(
                 children: [
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
-                  Image.asset(
+                  /*Image.asset(
                     "assets/images/top_create-crop-1.png",
                     height: ResponsiveUtil.screenHeight(context) * 0.16,
                     width: ResponsiveUtil.screenWidth(context) * 0.4,
-                  ),
+                  ),*/
                   SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                   NxDDFormField_id(
                     selectedItemId: selectedFarm,
