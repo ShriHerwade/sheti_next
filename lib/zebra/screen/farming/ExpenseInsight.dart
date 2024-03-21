@@ -4,6 +4,7 @@ import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpensePieChartModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseBarChartModel.dart';
 import 'package:sheti_next/zebra/dao/models/ViewExpenseModel.dart';
+import 'package:sheti_next/zebra/screen/farming/Paichart.dart';
 
 import '../../dao/DbHelper.dart';
 
@@ -56,7 +57,7 @@ class _ExpenseInsightPageState extends State<ExpenseInsightPage> with SingleTick
       body: TabBarView(
         controller: _tabController,
         children: [
-          _buildChart('Latest', widget.expenses, ChartType.PieChart),
+         MyPieChartWidget(),
           _buildChart('Crop-wise', widget.expenses, ChartType.PieChart),
           _buildChart('Farm-wise', widget.expenses, ChartType.BarChart),
         ],
@@ -119,7 +120,7 @@ class _ExpenseInsightPageState extends State<ExpenseInsightPage> with SingleTick
 
     List<ExpensePieChartModel> pieChartData = [];
     cropExpenses.forEach((cropName, totalAmount) {
-      pieChartData.add(ExpensePieChartModel(cropName: cropName, totalAmountSpent: totalAmount));
+      pieChartData.add(ExpensePieChartModel(cropName: cropName, totalAmountSpent: totalAmount, farmName: ''));
     });
 
     return pieChartData;

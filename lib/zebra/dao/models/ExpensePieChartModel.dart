@@ -12,6 +12,7 @@ class ExpensePieChartModel {
   Map<String, dynamic> toMap() {
     return {
       'cropName': this.cropName,
+      'farmName':this .farmName,
       'totalAmountSpent': this.totalAmountSpent,
     };
   }
