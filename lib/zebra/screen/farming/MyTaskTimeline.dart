@@ -35,7 +35,7 @@ class _MyTaskTimelineState extends State<MyTaskTimeline> {
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: Text(LocaleKeys.labelAppTitleMyTaskTimeline.tr()),
-        centerTitle: true,
+        centerTitle: false,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {

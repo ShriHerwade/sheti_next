@@ -30,7 +30,7 @@ class _MyTaskState extends State<MyTask> {
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: Text(LocaleKeys.labelAppTitleMyTasks.tr()),
-        centerTitle: true,
+        centerTitle: false,
         automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<CropModel>>(

@@ -47,7 +47,7 @@ class _MyExpensesState extends State<MyExpenses> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('My Expenses'),
-          centerTitle: true,
+          centerTitle: false,
           automaticallyImplyLeading: false,
         ),
         body: FutureBuilder<List<ExpenseModel>>(

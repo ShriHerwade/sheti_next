@@ -30,7 +30,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: Text(LocaleKeys.labelAppTitleMyCrop.tr()),
-        centerTitle: true,
+        centerTitle: false,
         automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<CropModel>>(

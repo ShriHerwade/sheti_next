@@ -108,7 +108,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       drawer: NxNavBar(),
       appBar: AppBar(
-        title: Text("Home Page"),
+        centerTitle: false,
+        title: Text("Home"),
       ),
       bottomNavigationBar: GNav(
         backgroundColor: Colors.white,

@@ -29,7 +29,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: Text(LocaleKeys.labelAppTitleMyFarm.tr()),
-        centerTitle: true,
+        centerTitle: false,
         automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<FarmModel>>(
