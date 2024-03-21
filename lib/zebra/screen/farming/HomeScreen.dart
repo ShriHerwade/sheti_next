@@ -80,14 +80,14 @@ class _HomeScreenState extends State<HomeScreen> {
         alignment: Alignment.center,
         children: [
           Positioned(
-            bottom: 0,
+            bottom: 8,
             child: Text(
               text,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.normal,
-                color: Colors.black,// Adjust font size as needed
+                color: Colors.black,
               ),
             ),
           ),
@@ -259,12 +259,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   _buildButtonContainer("Create Crop", "assets/icons/home/create_crop_ic_2.png", () {}, CreateCrop()),
                   _buildButtonContainer("View Crop", "assets/icons/home/view_crop_ic_2.png", () {}, MyCropScreen()),
                   //_buildButtonContainer("Update Crop", Icons.edit, () {}, HomeScreen()),
-                  _buildButtonContainer("Create Task", "assets/icons/home/create_task_ic_2.png", () {}, CreateTask()),
+                  _buildButtonContainer("Create Task", "assets/icons/home/create_task_ic_3.png", () {}, CreateTask()),
                   _buildButtonContainer("View Task", "assets/icons/home/view_task_ic_2.png", () {}, MyTask()),
                   //_buildButtonContainer("Update Task", Icons.edit, () {}, HomeScreen()),
-                  _buildButtonContainer("Add Exp/Income", "assets/icons/home/create_income_exp_ic_2.png", () {}, ExpenseIncomeScreen()),
+                  _buildButtonContainer("Add Transaction", "assets/icons/home/create_transaction_ic_2.png", () {}, ExpenseIncomeScreen()),
+                  _buildButtonContainer("View Transaction", "assets/icons/home/view_transaction_ic_2.png", () {}, HomeScreen()),
                   //_buildButtonContainer("Add Income", Icons.visibility, () {}, CreateIncomeScreen()),
-                  _buildButtonContainer("Dashboard", "assets/icons/home/dashboard_ic_2.png", () {}, ExpenseInsightPage(expenses: expenses)),
+                  _buildButtonContainer("View Income", "assets/icons/home/view_income_ic_2.png", () {}, HomeScreen()),
+                  _buildButtonContainer("View Expense", "assets/icons/home/view_expense_ic_2.png", () {}, HomeScreen()),
+                  _buildButtonContainer("Add Yield", "assets/icons/home/create_yield_ic_2.png", () {}, HomeScreen()),
+                  _buildButtonContainer("View Yield", "assets/icons/home/view_yield_ic_2.png", () {}, HomeScreen()),
+                  _buildButtonContainer("Dashboard", "assets/icons/home/dashboard_ic_3.png", () {}, ExpenseInsightPage(expenses: expenses)),
                 ],
               ),
             ],
