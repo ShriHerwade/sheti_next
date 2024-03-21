@@ -485,6 +485,7 @@ class DbHelper {
       CREATE VIEW IF NOT EXISTS $View_ExpenseForPieChartByCrop AS
       SELECT
           c.$C_cropName AS crop_name,
+          c.$C_farmName AS farm_name,
           SUM(e.$C_amount) AS total_amount_spent
       FROM
           $Table_Farms f
@@ -964,6 +965,7 @@ class DbHelper {
     List<Map<String, dynamic>> result = await dbClient.rawQuery('''
     SELECT
         crop_name,
+        farm_name,
         total_amount_spent
     FROM
         $View_ExpenseForPieChartByCrop
@@ -972,6 +974,7 @@ class DbHelper {
     return result.map((item) {
       return ExpensePieChartModel(
         cropName: item['crop_name'],
+        farmName: item['farm_name'],
         totalAmountSpent: item['total_amount_spent'].toDouble(),
       );
     }).toList();
