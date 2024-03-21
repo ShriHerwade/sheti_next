@@ -171,12 +171,12 @@ class _CreateTaskState extends State<CreateTask> {
                 padding: EdgeInsets.all(ResponsiveUtil.screenWidth(context) * 0.05),
                 child: Column(
                   children: [
-                    SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
+                    /*SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     Image.asset(
                       "assets/images/top_create-life-cycle-event-2.png",
                       height: ResponsiveUtil.screenHeight(context) * 0.16,
                       width: ResponsiveUtil.screenWidth(context) * 0.4,
-                    ),
+                    ),*/
                     SizedBox(height: ResponsiveUtil.screenHeight(context) * 0.02),
                     NxDDFormField_id(
                       selectedItemId: selectedFarm,
