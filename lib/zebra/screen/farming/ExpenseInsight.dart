@@ -4,6 +4,7 @@ import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpensePieChartModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseBarChartModel.dart';
 import 'package:sheti_next/zebra/dao/models/ViewExpenseModel.dart';
+import 'package:sheti_next/zebra/screen/farming/PaiChart2.dart';
 import 'package:sheti_next/zebra/screen/farming/Paichart.dart';
 
 import '../../dao/DbHelper.dart';
@@ -57,8 +58,9 @@ class _ExpenseInsightPageState extends State<ExpenseInsightPage> with SingleTick
       body: TabBarView(
         controller: _tabController,
         children: [
-         MyPieChartWidget(),
-          _buildChart('Crop-wise', widget.expenses, ChartType.PieChart),
+         //MyPieChartWidget(),
+          PieChartSample2(),
+          MyPieChartWidget(),
           _buildChart('Farm-wise', widget.expenses, ChartType.BarChart),
         ],
       ),

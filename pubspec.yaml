@@ -56,7 +56,7 @@ dev_dependencies:
   google_nav_bar: ^5.0.6
   intl: ^0.18.0
   timeline_tile: ^2.0.0
-
+  random_color: ^1.0.6-nullsafety
   #carousel_slider: ^4.2.1
 
 
