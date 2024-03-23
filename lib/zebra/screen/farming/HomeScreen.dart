@@ -131,7 +131,12 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.all(16),
           child: Column(
             children: [
-              Row(
+          Container(
+          decoration: BoxDecoration(
+          color: Colors.white,
+              borderRadius: BorderRadius.circular(12.0)
+          ),
+          child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Expanded(
@@ -142,9 +147,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text("Total"),
                             Text(totalFarms.toString(), style: TextStyle(fontSize: 26)),
                             SizedBox(height: 10),
-                            Text("Total Farms", style: TextStyle(fontWeight: FontWeight.normal)),
+                            Text("Farms", style: TextStyle(fontWeight: FontWeight.normal)),
                           ],
                         ),
                       ),
@@ -160,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             Text(totalCrops.toString(), style: TextStyle(fontSize: 26)),
                             SizedBox(height: 10),
-                            Text("Total Crops", style: TextStyle(fontWeight: FontWeight.normal)),
+                            Text("Crops", style: TextStyle(fontWeight: FontWeight.normal)),
                           ],
                         ),
                       ),
@@ -170,18 +176,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Card(
                       elevation: 0.0,
                       child: Padding(
-                        padding: EdgeInsets.all(12),
+                        padding: EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(totalArea.toStringAsFixed(2), style: TextStyle(fontSize: 26)),
-                            Text("acres"+ '\n' +"Total Area", style: TextStyle(fontWeight: FontWeight.normal)),
-                          ],
-                        ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "acres",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                                Text("Area",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal)),
+                              ],
+                            ),
                       ),
                     ),
                   ),
-                ],
+                ],)
               ),
               SizedBox(height: 20),
               Container(
