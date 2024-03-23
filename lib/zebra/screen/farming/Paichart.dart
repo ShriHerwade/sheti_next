@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import '../../constant/ColorConstants.dart';
 import '../../dao/models/ExpensePieChartModel.dart';
 import '../../dao/DbHelper.dart';
 import '../../dao/models/ViewExpenseModel.dart';
-import 'package:random_color/random_color.dart';
 
 Future<List<ExpensePieChartModel>> getExpenseForPieChartByCrop() async {
   List<ExpensePieChartModel> expenses = await DbHelper().getExpenseForPieChartByCrop();
@@ -20,7 +20,11 @@ class _MyPieChartWidgetState extends State<MyPieChartWidget> {
   List<ExpensePieChartModel> _expenses = [];
   List<ViewExpenseModel> _latestExpenses = [];
   int touchedIndex = -1;
-  RandomColor _randomColor = RandomColor();
+  // Index to keep track of the current color
+  int colorIndex = 0;
+  // Convert the hexadecimal colors to Color objects
+  List<Color> pieChartColors = ColorConstants.pieChartHexColors.map((hexColor) => Color(int.parse(hexColor.substring(1), radix: 16) + 0xFF000000)).toList();
+
   @override
   void initState() {
     super.initState();
@@ -78,15 +82,17 @@ class _MyPieChartWidgetState extends State<MyPieChartWidget> {
                           },
                         ),
                         sections: _expenses.map((expense) {
-                          Color randomColor = _randomColor.randomColor(
-                            colorBrightness: ColorBrightness.light,
-                            colorSaturation: ColorSaturation.highSaturation,
-                          );
+                          // Get the color from the list based on the current index
+                          Color selectedColor = pieChartColors[colorIndex];
+
+                          // Increment the index for the next section
+                          colorIndex = (colorIndex + 1) % pieChartColors.length;
+
                           return PieChartSectionData(
                             radius: 99.0,
                             title: expense.cropName,
                             value: expense.totalAmountSpent.toDouble(),
-                            color: randomColor,//Color((expense.totalAmountSpent.hashCode & 0xFFFFFF) | 0xFF000000),
+                            color: selectedColor,
                             titleStyle: TextStyle(color: Colors.black,fontSize: 20.0,fontWeight: FontWeight.bold),
 
                           );

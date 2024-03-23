@@ -52,5 +52,28 @@ class ColorConstants {
   static const Color listViewChildTextColor = Colors.black; //grey 700
   static const Color listViewSurfaceTintColor = Color(0xFFF5F5F5); //grey 100
 
+  static const List<String> pieChartHexColors = [
+    "#FFC000",
+    "#47B39C",
+    "#FF69B4",
+    "#EC6B56",
+    "#FF9C3E",
+    "#13DCCC",
+    "#FF6F69",
+    "#F19FC7",
+    "#FFA3BF",
+    "#FCE5CD",
+    "#8EF0CB",
+    "#06E998",
+    "#AEA8B8",
+    "#FFE599",
+    "#C3B4A1",
+    "#7FD8EB",
+    "#FF9EC0",
+    "#FFF09A",
+    "#D8D8D7",
+    "#B8860B",
+  ];
+
 
 }
