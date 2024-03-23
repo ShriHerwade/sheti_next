@@ -11,12 +11,12 @@ Future<List<ExpensePieChartModel>> getExpenseForPieChartByCrop() async {
 
 }
 
-class MyPieChartWidget extends StatefulWidget {
+class FarmWisePieChartWidget extends StatefulWidget {
   @override
-  _MyPieChartWidgetState createState() => _MyPieChartWidgetState();
+  _FarmWisePieChartWidgetState createState() => _FarmWisePieChartWidgetState();
 }
 
-class _MyPieChartWidgetState extends State<MyPieChartWidget> {
+class _FarmWisePieChartWidgetState extends State<FarmWisePieChartWidget> {
   List<ExpensePieChartModel> _expenses = [];
   List<ViewExpenseModel> _latestExpenses = [];
   int touchedIndex = -1;
@@ -44,7 +44,7 @@ class _MyPieChartWidgetState extends State<MyPieChartWidget> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-       /* appBar: AppBar(
+        /* appBar: AppBar(
           title: Text('Expense Overview'),
         ),*/
         body: Padding(
@@ -78,7 +78,7 @@ class _MyPieChartWidgetState extends State<MyPieChartWidget> {
 
                             return PieChartSectionData(
                               radius: 99.0,
-                              title: expense.cropName,
+                              title: expense.farmName,
                               value: expense.totalAmountSpent.toDouble(),
                               color: selectedColor,
                               titleStyle: TextStyle(color: Colors.black,fontSize: 20.0,fontWeight: FontWeight.bold),

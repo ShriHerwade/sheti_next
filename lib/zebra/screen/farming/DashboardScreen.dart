@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import '../../dao/DbHelper.dart';
 import '../../dao/models/ViewExpenseModel.dart';
 
@@ -15,25 +16,25 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  final PageController _pageController = PageController(
+ /*final PageController _pageController = PageController(
     viewportFraction: 1,
     initialPage: 0,
-  );
+  );*/
 
-  int _currentPage = 0;
+//  int _currentPage = 0;
   List<ViewExpenseModel> latestExpenses = [];
   bool showAll = false;
   bool isLoading = true;
 
   // Define your actual data for the pie chart
-  Map<String, double> dataMap = {
+ /* Map<String, double> dataMap = {
     'Category1': 30,
     'Category2': 20,
     'Category3': 10,
     'Category4': 40,
-  };
+  };*/
 
-  List<Color> colorList = [Colors.blue, Colors.green,Colors.yellowAccent, Colors.cyan];
+  /*List<Color> colorList = [Colors.blue, Colors.green,Colors.yellowAccent, Colors.cyan];*/
 
   @override
   void initState() {
@@ -58,162 +59,165 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Dashboard'),
-        centerTitle: false,
-      ),
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 200,
-              child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (int page) {
-                  setState(() {
-                    _currentPage = page;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: _buildCard(index),
-                  );
-                },
-                itemCount: 5,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade200,
+       /* appBar: AppBar(
+          title: Text('Dashboard'),
+          centerTitle: false,
+        ),*/
+        body: isLoading
+            ? Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /* Container(
+                height: 200,
+                child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: (int page) {
+                    setState(() {
+                      _currentPage = page;
+                    });
+                  },
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: _buildCard(index),
+                    );
+                  },
+                  itemCount: 5,
+                ),
               ),
-            ),
-            SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                5,
-                    (index) => Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: CircleAvatar(
-                    radius: 4.0,
-                    backgroundColor: _currentPage == index
-                        ? Colors.blue
-                        : Colors.grey,
+              SizedBox(height: 8),*/
+             /* Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  5,
+                      (index) => Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5.0),
+                    child: CircleAvatar(
+                      radius: 4.0,
+                      backgroundColor: _currentPage == index
+                          ? Colors.blue
+                          : Colors.grey,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 16),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                'Latest Expenses',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              SizedBox(height: 16),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  'Latest Expenses',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 8),
-            SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: showAll
-                    ? latestExpenses.length
-                    : latestExpenses.length > 5
-                    ? 5
-                    : latestExpenses.length,
-                itemBuilder: (context, index) {
-                  if (index < latestExpenses.length) {
-                    return ListTile(
-                      title: Text(
-                        '${latestExpenses[index].farmName} - ${latestExpenses[index].cropName}',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${latestExpenses[index].expenseType}',
-                            style: TextStyle(fontSize: 14),
+              SizedBox(height: 8),*/
+              SingleChildScrollView(
+
+                scrollDirection: Axis.vertical,
+                child: ListView.builder(
+
+                  padding: EdgeInsets.all(15.0),
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: showAll
+                      ? latestExpenses.length
+                      : latestExpenses.length > 5
+                      ? 5
+                      : latestExpenses.length,
+                  itemBuilder: (context, index) {
+                    if (index < latestExpenses.length) {
+                      return ListTile(
+
+                        tileColor: ColorConstants.listViewBackgroundColor,
+                        title: Text(
+                          '${latestExpenses[index].cropName} - (${latestExpenses[index].farmName})',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
                           ),
-                          Text(
-                            '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}',
-                            style: TextStyle(fontSize: 14),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${latestExpenses[index].expenseType}',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            Text(
+                              '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ],
+                        ),
+                        trailing: Text(
+                          '\₹${latestExpenses[index].amount.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      ),
-                      trailing: Text(
-                        '\₹${latestExpenses[index].amount.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
                         ),
-                      ),
-                    );
-                  } else {
-                    return ListTile(
-                      title: Text(
-                        'No more records !',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
+                        contentPadding: EdgeInsets.all(10),
+                      );
+                    } else {
+                      return ListTile(
+                        title: Text(
+                          'No more records !',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    );
-                  }
-                },
-              ),
-            ),
-            SizedBox(height: 16),
-            if (latestExpenses.length > 5)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    if (!showAll)
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            showAll = true;
-                          });
-                        },
-                        child: Text('Show All'),
-                      ),
-                    if (showAll)
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            showAll = false;
-                          });
-                        },
-                        child: Text('Hide'),
-                      ),
-                  ],
+                      );
+                    }
+                  },
                 ),
               ),
-            SizedBox(height: 16),
-            Container(
-              height: 300,
-              child: CustomPieChart(
-                dataMap: dataMap,
-                colorList: colorList,
-              ),
-            ),
-          ],
+              SizedBox(height: 16),
+              if (latestExpenses.length > 5)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      if (!showAll)
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              showAll = true;
+                            });
+                          },
+                          child: Text('Show All'),
+                        ),
+                      if (showAll)
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              showAll = false;
+                            });
+                          },
+                          child: Text('Hide'),
+                        ),
+                    ],
+                  ),
+                ),
+              SizedBox(height: 16),
+      
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildCard(int index) {
+  /*Widget _buildCard(int index) {
     return Container(
       child: _getCardWidget(index),
     );
@@ -234,10 +238,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       default:
         return Container();
     }
-  }
+  }*/
 }
 
-class WeatherCard extends StatelessWidget {
+/*class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -267,9 +271,9 @@ class WeatherCard extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
-class TaskCard extends StatelessWidget {
+/*class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -303,9 +307,9 @@ class TaskCard extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
-class ExpenditureCard extends StatelessWidget {
+/*class ExpenditureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -334,9 +338,9 @@ class ExpenditureCard extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
-class PlannedEventsCard extends StatelessWidget {
+/*class PlannedEventsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -365,9 +369,9 @@ class PlannedEventsCard extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
-class OffersCard extends StatelessWidget {
+/*class OffersCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -399,9 +403,9 @@ class OffersCard extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
-class CustomPieChart extends StatelessWidget {
+/*class CustomPieChart extends StatelessWidget {
   final Map<String, double> dataMap;
   final List<Color> colorList;
 
@@ -443,4 +447,4 @@ class CustomPieChart extends StatelessWidget {
   }
 
   int touchedIndex = -1;
-}
+}*/
