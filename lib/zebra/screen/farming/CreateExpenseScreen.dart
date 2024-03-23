@@ -101,7 +101,7 @@ class _CreateExpensesState extends State<CreateExpenses> {
           splitBetween: 0, // Default value
           notes: _confNotes.text, // Default value
           //expenseType: selectedExpense.isNotEmpty ? selectedExpense.first : 'Default Expense', // Default value
-          expenseType: (selectedExpenseType! + (selectedExpenseSubType ?? '')),
+          expenseType: (selectedExpenseType! +" "+ (selectedExpenseSubType ?? '')),
           amount: expenseAmount,
           expenseDate: selectedDate ?? DateTime.now(),
           isActive: true, // Default value

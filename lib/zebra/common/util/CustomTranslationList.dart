@@ -12,8 +12,9 @@ class CustomTranslationList {
     "Pesticides",
     "Harvesting",
     "Storage",
-    "Tractor",
-    "Machinery",
+    "Tractor Work",
+    "Machinery Work",
+    "Advance Payment"
     "Other Farm work",
     "Other"
   ];
@@ -29,8 +30,9 @@ class CustomTranslationList {
     "कीटकनाशक",
     "कापणी",
     "साठवण",
-    "ट्रॅक्टर",
-    "यंत्रसामग्री",
+    "ट्रॅक्टर काम ",
+    "यंत्रसामग्री काम ",
+    "उचल दिली",
     "इतर शेतीकाम",
     "इतर"
   ];
@@ -58,25 +60,25 @@ class CustomTranslationList {
     "Labour",
     "Purchase",
     "Transport",
-    "Repair & Maintenance",
     "Rent",
     "Bill",
     "Usage Fee",
-    "Other",
+    "Repair & Maintenance",
     "Fuel",
+    "Other",
     "N/A"
   ];
 
   static const List<String> farmExpenseSubType_mr = [
     "मजुरी",
     "खरेदी",
-    "वाहतूक",
-    "दुरुस्ती आणि देखभाल",
     "भाडे",
     "बिल",
     "वापर शुल्क",
-    "इतर",
+    "वाहतूक",
     "इंधन",
+    "दुरुस्ती आणि देखभाल",
+    "इतर",
     "लागू नाही"
   ];
 
