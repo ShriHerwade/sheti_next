@@ -683,6 +683,26 @@ class DbHelper {
     }
   }
 
+  Future<List<ExpenseModel>> getIncomeByCropId(int cropId) async {
+    final dbClient = await db;
+    try {
+      final List<Map<String, dynamic>> maps = await dbClient.query(
+        Table_Incomes,
+        where: 'isActive = ? AND isActive IS NOT NULL AND cropId = ?',
+        // Add condition for cropId
+        whereArgs: [1, cropId],
+        // Pass cropId as a whereArg
+        orderBy: 'createdDate DESC',
+      );
+      return List.generate(maps.length, (i) {
+        return ExpenseModel.fromMap(maps[i]);
+      });
+    } catch (e) {
+      print("Error while pulling Income data : $e");
+      rethrow;
+    }
+  }
+
   Future<List<ExpenseModel>> getAllExpense() async {
     final dbClient = await db;
     try {
