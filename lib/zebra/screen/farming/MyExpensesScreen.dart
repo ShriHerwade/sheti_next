@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';
@@ -48,7 +49,12 @@ class _MyExpensesState extends State<MyExpenses> {
         appBar: AppBar(
           title: Text('My Expenses'),
           centerTitle: false,
-          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back,color: ColorConstants.miniIconDefaultColor),
+            onPressed: () {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            },
+          ),
         ),
         body: FutureBuilder<List<ExpenseModel>>(
           future: dbHelper.getAllExpense(),

@@ -6,6 +6,7 @@ import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateFarmScreen.dart';
+import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
 
 class MyFarmScreen extends StatefulWidget {
   const MyFarmScreen({Key? key}) : super(key: key);
@@ -30,7 +31,12 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
       appBar: AppBar(
         title: Text(LocaleKeys.labelAppTitleMyFarm.tr()),
         centerTitle: false,
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,color: ColorConstants.miniIconDefaultColor),
+          onPressed: () {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
+        ),
       ),
       body: FutureBuilder<List<FarmModel>>(
         future: dbHelper!.getAllFarms(),

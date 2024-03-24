@@ -6,6 +6,7 @@ import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:intl/intl.dart';
+import 'package:sheti_next/zebra/screen/farming/HomeScreen.dart';
 import 'package:sheti_next/zebra/screen/farming/MyTaskTimeline.dart';
 
 class MyTask extends StatefulWidget {
@@ -31,7 +32,12 @@ class _MyTaskState extends State<MyTask> {
       appBar: AppBar(
         title: Text(LocaleKeys.labelAppTitleMyTasks.tr()),
         centerTitle: false,
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,color: ColorConstants.miniIconDefaultColor),
+          onPressed: () {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
+        ),
       ),
       body: FutureBuilder<List<CropModel>>(
         future: dbHelper!.getAllCrops(),
