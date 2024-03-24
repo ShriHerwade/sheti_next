@@ -62,8 +62,7 @@ class _MyPieChartWidgetState extends State<MyPieChartWidget> {
           child: Column(
             children: [
               Column(
-                children: [_expenses.isEmpty ? (_expenses == null ? Center(child: Text('No records to show')) : Center(child: CircularProgressIndicator()))
-                      : Container(
+                children: [if (_expenses.isEmpty) _expenses == null ? Center(child: Text('No records to show')) : Center(child: CircularProgressIndicator()) else Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.grey[200],
@@ -106,10 +105,10 @@ class _MyPieChartWidgetState extends State<MyPieChartWidget> {
                               ),
                               Container(
                                 height: ResponsiveUtil.screenHeight(context) * 0.55,
-                                child: FutureBuilder<List<CropModel>>(future: dbHelper!.getAllCrops(),
+                                child: FutureBuilder<List<CropModel>>(
+                                  future: dbHelper!.getAllCrops(),
                                   builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
+                                    if (snapshot.connectionState == ConnectionState.waiting) {
                                       return Center(
                                         child: CircularProgressIndicator(),
                                       );
@@ -117,19 +116,15 @@ class _MyPieChartWidgetState extends State<MyPieChartWidget> {
                                       return Center(
                                         child: Text("Error: ${snapshot.error}"),
                                       );
-                                    } else if (!snapshot.hasData ||
-                                        snapshot.data!.isEmpty) {
+                                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                                       return Center(
-                                        child: Text(LocaleKeys
-                                            .labelMessageNoCropAvailable
-                                            .tr()),
+                                        child: Text(LocaleKeys.labelMessageNoCropAvailable.tr()),
                                       );
                                     } else {
                                       return ListView.builder(
                                         itemCount: snapshot.data!.length,
                                         itemBuilder: (context, index) {
-                                          CropModel crop =
-                                              snapshot.data![index];
+                                          CropModel crop = snapshot.data![index];
                                           return Card(
                                             surfaceTintColor: ColorConstants.listViewSurfaceTintColor,
                                             elevation: 1.5,
@@ -137,109 +132,185 @@ class _MyPieChartWidgetState extends State<MyPieChartWidget> {
                                             color: Colors.white,
                                             child: ListTile(
                                               onTap: (){
-                                                Navigator.pushNamed(context, CropWiseExpenses(e))
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                    builder: (context) => CropWiseExpenses(cropId: crop.cropId ?? 0,cropName: crop.cropName,),
+                                                ));
                                               },
-                                              contentPadding:
-                                                  EdgeInsets.all(15.0),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(11.0),
+                                              ),
                                               title: Column(
                                                 children: [
-                                                  Column(
+                                                  SizedBox(height: 18.0),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            LocaleKeys.labelExpected.tr(),
-                                                            style:
-                                                                TextStyle(
-                                                              fontWeight: SizeConstants.listViewDataFontSemiBold,
-                                                              fontSize: SizeConstants.listViewData16FontSize,
-                                                              color: ColorConstants.listViewChildTextColor,
-                                                            ),
-                                                          ),
-                                                          SizedBox(width: 250,),
-                                                          Text('>',style: TextStyle(fontWeight:SizeConstants.listViewDataFontSemiBold,fontSize: SizeConstants.listViewData16FontSize))
-                                                        ],
+                                                      Text(
+                                                        crop.cropName ?? '',
+                                                        style: const TextStyle(
+                                                          fontWeight: SizeConstants.listViewDataFontSemiBold,
+                                                          fontSize: SizeConstants.listViewData16FontSize,
+                                                          color: ColorConstants.listViewTitleTextColor,
+                                                        ),
                                                       ),
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            "${LocaleKeys.labelYield.tr()} : ${crop.expectedYield} ${crop.expectedYieldUnit}",
-                                                            style:
-                                                                const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal,
-                                                              fontSize:
-                                                                  SizeConstants
-                                                                      .listViewData16FontSize,
-                                                              color: ColorConstants
-                                                                  .listViewChildTextColor,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            "${LocaleKeys.labelIncome.tr()} : ${crop.expectedIncome}",
-                                                            style:
-                                                                const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight.normal,
-                                                              fontSize:
-                                                                  SizeConstants.listViewData16FontSize,
-                                                              color: ColorConstants.listViewChildTextColor,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                      SizedBox(width: 5), // Adjust spacing between cropName and dot as needed
+                                                      // Dot based on cropLifeState
+                                                      crop.cropLifeState == 'Live'
+                                                          ? Icon(
+                                                        Icons.circle,
+                                                        size: 10,
+                                                        color: Colors.green, // Green dot for Live
+                                                      )
+                                                          : Icon(
+                                                        Icons.circle,
+                                                        size: 10,
+                                                        color: Colors.grey, // Grey dot for Dead or null
                                                       ),
-                                                      SizedBox(height: 8.0),
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            LocaleKeys
-                                                                .labelTotal
-                                                                .tr(),
-                                                            style:
-                                                                TextStyle(
-                                                              fontWeight:
-                                                                  SizeConstants
-                                                                      .listViewDataFontSemiBold,
-                                                              fontSize:
-                                                                  SizeConstants
-                                                                      .listViewData16FontSize,
-                                                              color: ColorConstants
-                                                                  .listViewChildTextColor,
-                                                            ),
-                                                          ),
-                                                        ],
+
+                                                      Text(
+                                                        '  ${crop.area} ${crop.unit}',
+                                                        style: const TextStyle(
+                                                          fontWeight: FontWeight.normal,
+                                                          fontSize:  SizeConstants.listViewData16FontSize,
+                                                          color:ColorConstants.listViewTitleTextColor,
+                                                        ),
                                                       ),
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                                        children: [
-                                                          Text(
-                                                            "${LocaleKeys.labelExpense.tr()}: ${crop.totalExpense}",
-                                                            style: const TextStyle(
-                                                              fontWeight: FontWeight.normal,
-                                                              fontSize: SizeConstants.listViewData16FontSize,
-                                                              color: ColorConstants.listViewTitleTextColor,
-                                                            ),
-                                                          ),
-                                                          SizedBox(width: 9.0),
-                                                          Text("${LocaleKeys.labelIncome.tr()}: ${crop.totalIncome}",
-                                                            style:
-                                                                const TextStyle(
-                                                                  fontWeight: FontWeight.normal,
-                                                              fontSize: SizeConstants.listViewData16FontSize,
-                                                              color: ColorConstants.listViewChildTextColor,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                      /*Icon(
+                              Icons.calendar_month_sharp, // Use the calendar icon from the Material Icons library
+                              color: Colors.grey, // Adjust the color of the icon as needed
+                            ),*/
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        crop.farmName,
+                                                        style: const TextStyle(
+                                                          fontWeight: FontWeight.normal,
+                                                          fontSize: SizeConstants.listViewData16FontSize,
+                                                          color: ColorConstants.listViewChildTextColor,
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
-
-                                                  // Add more fields as needed
+                                                  SizedBox(height: 8.0),
+                                                  Row(
+                                                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    //crossAxisAlignment: CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        '${LocaleKeys.labelSeason.tr()} : ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
+                                                        style: const TextStyle(
+                                                          fontWeight: FontWeight.normal,
+                                                          fontSize:  SizeConstants.listViewData16FontSize,
+                                                          color: ColorConstants.listViewChildTextColor,
+                                                        ),
+                                                      ),
+                                                      /*SizedBox(width: 20.0),
+                            Text(
+                              'End Date: ${DateFormat("dd-MM-yyyy").format(crop.endDate)}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 16.0,
+                                color: ColorConstants.listViewChildTextColor,
+                              ),
+                            ),*/
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 15.0),
                                                 ],
                                               ),
+
+                                             /* children: [
+                                                ListTile(
+                                                  contentPadding: EdgeInsets.all(15.0),
+                                                  title: Column(
+                                                    children: [
+                                                      Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                LocaleKeys.labelExpected.tr(),
+                                                                style: TextStyle(
+                                                                  fontWeight: SizeConstants.listViewDataFontSemiBold,
+                                                                  fontSize:  SizeConstants.listViewData16FontSize,
+                                                                  color: ColorConstants
+                                                                      .listViewChildTextColor,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                "${LocaleKeys.labelYield.tr()} : ${crop.expectedYield} ${crop.expectedYieldUnit}",
+                                                                style: const TextStyle(
+                                                                  fontWeight: FontWeight.normal,
+                                                                  fontSize:  SizeConstants.listViewData16FontSize,
+                                                                  color: ColorConstants.listViewChildTextColor,
+                                                                ),
+                                                              ),
+
+                                                              Text(
+                                                                "${LocaleKeys.labelIncome.tr()} : ${crop.expectedIncome}",
+                                                                style: const TextStyle(
+                                                                  fontWeight: FontWeight.normal,
+                                                                  fontSize:  SizeConstants.listViewData16FontSize,
+                                                                  color: ColorConstants.listViewChildTextColor,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(height: 8.0),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                LocaleKeys.labelTotal.tr(),
+                                                                style: TextStyle(
+                                                                  fontWeight: SizeConstants.listViewDataFontSemiBold,
+                                                                  fontSize:  SizeConstants.listViewData16FontSize,
+                                                                  color: ColorConstants
+                                                                      .listViewChildTextColor,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            crossAxisAlignment: CrossAxisAlignment.end,
+
+                                                            children: [
+                                                              Text(
+                                                                "${LocaleKeys.labelExpense.tr()}: ${crop.totalExpense}",
+                                                                style: const TextStyle(
+                                                                  fontWeight: FontWeight.normal,
+                                                                  fontSize:  SizeConstants.listViewData16FontSize,
+                                                                  color:ColorConstants.listViewTitleTextColor,
+                                                                ),
+                                                              ),
+                                                              SizedBox(width: 9.0),
+                                                              Text(
+                                                                "${LocaleKeys.labelIncome.tr()}: ${crop.totalIncome}",
+                                                                style: const TextStyle(
+                                                                  fontWeight: FontWeight.normal,
+                                                                  fontSize:  SizeConstants.listViewData16FontSize,
+                                                                  color: ColorConstants.listViewChildTextColor,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+
+                                                      // Add more fields as needed
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],*/
                                             ),
                                           );
                                         },

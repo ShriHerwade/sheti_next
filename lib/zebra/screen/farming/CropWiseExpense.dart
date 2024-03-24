@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
+import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
 import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';
@@ -9,6 +10,9 @@ import 'package:sheti_next/zebra/screen/farming/CreateExpenseScreen.dart';
 import 'HomeScreen.dart';
 
 class CropWiseExpenses extends StatefulWidget {
+  final int cropId;
+  final String cropName;// Add cropId parameter
+  const CropWiseExpenses({Key? key, required this.cropId, required this.cropName}) : super(key: key);
   @override
   _CropWiseExpensesState createState() => _CropWiseExpensesState();
 }
@@ -21,6 +25,7 @@ class _CropWiseExpensesState extends State<CropWiseExpenses> {
   void initState() {
     super.initState();
     initializeDbHelper();
+    _fetchExpensesByCropId();
   }
 
   Future<void> initializeDbHelper() async {
@@ -28,7 +33,9 @@ class _CropWiseExpensesState extends State<CropWiseExpenses> {
     await dbHelper.initDb();
     setState(() {});
   }
-
+  Future<List<ExpenseModel>> _fetchExpensesByCropId() async {
+    return dbHelper!.getExpenseByCropId(widget.cropId);
+  }
   @override
   Widget build(BuildContext context) {
     if (dbHelper == null) {
@@ -46,8 +53,9 @@ class _CropWiseExpensesState extends State<CropWiseExpenses> {
         }
       },
       child: Scaffold(
+        backgroundColor: Colors.grey.shade200,
         appBar: AppBar(
-          title: Text('My Expenses'),
+          title: Text(widget.cropName+ " " + 'Expenses'),
           centerTitle: false,
           leading: IconButton(
             icon: Icon(Icons.arrow_back,color: ColorConstants.miniIconDefaultColor),
@@ -87,29 +95,20 @@ class _CropWiseExpensesState extends State<CropWiseExpenses> {
                       });
                     },
                     child: Card(
-                      elevation: 8.0,
-                      margin: EdgeInsets.all(10.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
+                      surfaceTintColor: ColorConstants.listViewSurfaceTintColor,
+                      elevation: 1.5,
+                      margin: EdgeInsets.fromLTRB(12.0, 5.0, 12.0, 5.0),
+                      color: Colors.white,
                       child: ListTile(
                         contentPadding: EdgeInsets.all(15.0),
                         title: Row(
                           children: [
-                            Container(
-                              width: 10.0,
-                              height: 10.0,
-                              decoration: BoxDecoration(
-                                color: Colors.black, // Square bullet color
-                                shape: BoxShape.rectangle,
-                              ),
-                              margin: EdgeInsets.only(right: 10.0),
-                            ),
+
                             Text(
                               expense.expenseType ?? '',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0,
+                                fontWeight: SizeConstants.listViewDataFontSemiBold,
+                                fontSize: SizeConstants.listViewData16FontSize,
                                 color: Colors.black,
                               ),
                             ),
@@ -120,19 +119,19 @@ class _CropWiseExpensesState extends State<CropWiseExpenses> {
                           children: [
                             SizedBox(height: 8.0),
                             Text(
-                              'Expense Date: ${DateFormat("dd-MM-yyyy").format(DateTime.parse(expense.expenseDate.toString()))}',
+                              '${DateFormat("dd-MM-yyyy").format(DateTime.parse(expense.expenseDate.toString()))}',
                               style: TextStyle(color: Colors.grey),
                             ),
-                            SizedBox(height: 8.0),
-                            Text(
-                              'Amount: ${expense.amount}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                                color: Colors.black,
-                              ),
-                            ),
+                            //SizedBox(height: 8.0),
                           ],
+                        ),
+                        trailing: Text(
+                          '\₹${expense.amount}',
+                          style: TextStyle(
+                            fontWeight: SizeConstants.listViewDataFontSemiBold,
+                            fontSize: SizeConstants.listViewData16FontSize,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),

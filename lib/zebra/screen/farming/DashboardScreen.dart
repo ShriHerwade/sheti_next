@@ -135,52 +135,57 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       : latestExpenses.length,
                   itemBuilder: (context, index) {
                     if (index < latestExpenses.length) {
-                      return ListTile(
-
-                        tileColor: ColorConstants.listViewBackgroundColor,
-                        title: RichText(
-                          text: TextSpan(
+                      return Card(
+                        child: ListTile(
+                          tileColor: ColorConstants.listViewBackgroundColor,
+                          title: Column(
                             children: [
-                              TextSpan(
-                                text: '${latestExpenses[index].cropName}',
-                                style: TextStyle(
-                                  fontSize: SizeConstants.listViewTitleFontSize,
-                                  fontWeight: SizeConstants.listViewDataFontSemiBold,
-                                  color: Colors.black, // Adjust as needed
-                                ),
-                              ),
-                              TextSpan(
-                                text: ', ${latestExpenses[index].farmName}',
-                                style: TextStyle(
-                                  fontSize: SizeConstants.listViewData15FontSize,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black, // Adjust as needed
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: '${latestExpenses[index].cropName}',
+                                      style: TextStyle(
+                                        fontSize: SizeConstants.listViewTitleFontSize,
+                                        fontWeight: SizeConstants.listViewDataFontSemiBold,
+                                        color: Colors.black, // Adjust as needed
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:'${latestExpenses[index].farmName}',
+                                      style: TextStyle(
+                                        fontSize: SizeConstants.listViewData15FontSize,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black, // Adjust as needed
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${latestExpenses[index].expenseType}',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            Text(
-                              '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
-                        ),
-                        trailing: Text(
-                          '\₹${latestExpenses[index].amount.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            fontSize: SizeConstants.listViewData16FontSize,
-                            fontWeight: SizeConstants.listViewDataFontSemiBold,
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${latestExpenses[index].expenseType}',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              Text(
+                                '${latestExpenses[index].expenseDate.day}.${latestExpenses[index].expenseDate.month}.${latestExpenses[index].expenseDate.year}',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ],
                           ),
+                          trailing: Text(
+                            '\₹${latestExpenses[index].amount.toStringAsFixed(2)}',
+                            style: TextStyle(
+                              fontSize: SizeConstants.listViewData16FontSize,
+                              fontWeight: SizeConstants.listViewDataFontSemiBold,
+                            ),
+                          ),
+                          contentPadding: EdgeInsets.all(10),
                         ),
-                        contentPadding: EdgeInsets.all(10),
                       );
                     } else {
                       return ListTile(
