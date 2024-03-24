@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sheti_next/zebra/common/widgets/NxNavBar.dart';
+import 'package:sheti_next/zebra/constant/ColorConstants.dart';
 import 'package:sheti_next/zebra/dao/DbHelper.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/FarmModel.dart';
@@ -110,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         centerTitle: false,
         title: Text("Home"),
+        iconTheme: IconThemeData(color: ColorConstants.miniIconDefaultColor),
       ),
       bottomNavigationBar: GNav(
         backgroundColor: Colors.white,
