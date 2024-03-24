@@ -8,6 +8,7 @@ class CropWiseExpenseModel {
 
   Map<String, dynamic> toMap() {
     return {
+
       'cropName': this.cropName,
       'expenses': this.expenses,
     };

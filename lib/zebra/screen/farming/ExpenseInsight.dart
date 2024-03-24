@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
-import 'package:sheti_next/zebra/dao/models/ExpensePieChartModel.dart';
-import 'package:sheti_next/zebra/dao/models/ExpenseBarChartModel.dart';
 import 'package:sheti_next/zebra/dao/models/ViewExpenseModel.dart';
 import 'package:sheti_next/zebra/screen/farming/DashboardScreen.dart';
-import 'package:sheti_next/zebra/screen/farming/FarmWisePiechart.dart';
-import 'package:sheti_next/zebra/screen/farming/PaiChart2.dart';
 import 'package:sheti_next/zebra/screen/farming/Paichart.dart';
 import '../../dao/DbHelper.dart';
+import 'package:sheti_next/zebra/common/widgets/responsive_util.dart';
 class ExpenseInsightPage extends StatefulWidget {
   final Future<List<ExpenseModel>> expenses;
 
@@ -26,7 +22,7 @@ class _ExpenseInsightPageState extends State<ExpenseInsightPage> with SingleTick
   void initState() {
     super.initState();
     fetchLatestExpenses();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
   Future<void> fetchLatestExpenses() async {
     try {
@@ -49,9 +45,8 @@ class _ExpenseInsightPageState extends State<ExpenseInsightPage> with SingleTick
         bottom: TabBar(
           controller: _tabController,
           tabs: [
-            Tab(text: 'Latest'),
-            Tab(text: 'Crop-wise'),
-            Tab(text: 'Farm-wise'),
+            Tab(child: Text("Latest",style: TextStyle(color: Colors.white,fontSize: 15),),),
+            Tab(child: Text("Crop-Wise",style: TextStyle(color: Colors.white,fontSize: 15),),),
           ],
         ),
       ),
@@ -61,7 +56,6 @@ class _ExpenseInsightPageState extends State<ExpenseInsightPage> with SingleTick
          //MyPieChartWidget(),
           DashboardScreen(),
           MyPieChartWidget(),
-          FarmWisePieChartWidget()
         ],
       ),
     );

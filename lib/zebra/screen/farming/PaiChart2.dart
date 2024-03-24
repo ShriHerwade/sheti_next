@@ -3,8 +3,6 @@ import 'package:fl_chart/fl_chart.dart';
 import '../../dao/models/ExpensePieChartModel.dart';
 import '../../dao/DbHelper.dart';
 import '../../dao/models/ViewExpenseModel.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
 import '../../common/widgets/AppColors.dart';
 import '../../common/widgets/Indicator.dart';
 Future<List<ExpensePieChartModel>> getExpenseForPieChartByCrop() async {
