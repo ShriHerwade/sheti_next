@@ -83,7 +83,7 @@ class _MyTaskState extends State<MyTask> {
                             crop.cropName ?? '',
                             style: TextStyle(
                               fontWeight: SizeConstants.listViewDataFontSemiBold,
-                              fontSize: SizeConstants.listViewDataFontSize,
+                              fontSize: SizeConstants.listViewData16FontSize,
                               color: ColorConstants.listViewTitleTextColor,
                             ),
                           ),
@@ -92,7 +92,7 @@ class _MyTaskState extends State<MyTask> {
                             'Area: ${crop.area} ${crop.unit}',
                             style: TextStyle(
                               fontWeight: FontWeight.normal,
-                              fontSize: SizeConstants.listViewDataFontSize,
+                              fontSize: SizeConstants.listViewData16FontSize,
                               color: ColorConstants.listViewTitleTextColor,
                             ),
                           ),
@@ -101,7 +101,7 @@ class _MyTaskState extends State<MyTask> {
                             'Season: ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
                             style: TextStyle(
                               fontWeight: FontWeight.normal,
-                              fontSize: SizeConstants.listViewDataFontSize,
+                              fontSize: SizeConstants.listViewData16FontSize,
                               color: ColorConstants.listViewChildTextColor,
                             ),
                           ),

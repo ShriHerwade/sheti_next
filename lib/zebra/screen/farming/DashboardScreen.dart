@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:sheti_next/zebra/constant/ColorConstants.dart';
+import 'package:sheti_next/zebra/constant/SizeConstants.dart';
 import '../../dao/DbHelper.dart';
 import '../../dao/models/ViewExpenseModel.dart';
 
@@ -137,11 +138,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       return ListTile(
 
                         tileColor: ColorConstants.listViewBackgroundColor,
-                        title: Text(
-                          '${latestExpenses[index].cropName} - (${latestExpenses[index].farmName})',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
+                        title: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '${latestExpenses[index].cropName}',
+                                style: TextStyle(
+                                  fontSize: SizeConstants.listViewTitleFontSize,
+                                  fontWeight: SizeConstants.listViewDataFontSemiBold,
+                                  color: Colors.black, // Adjust as needed
+                                ),
+                              ),
+                              TextSpan(
+                                text: ', ${latestExpenses[index].farmName}',
+                                style: TextStyle(
+                                  fontSize: SizeConstants.listViewData15FontSize,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black, // Adjust as needed
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         subtitle: Column(
@@ -160,8 +176,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         trailing: Text(
                           '\₹${latestExpenses[index].amount.toStringAsFixed(2)}',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConstants.listViewData16FontSize,
+                            fontWeight: SizeConstants.listViewDataFontSemiBold,
                           ),
                         ),
                         contentPadding: EdgeInsets.all(10),
@@ -171,8 +187,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         title: Text(
                           'No more records !',
                           style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
+                            fontSize: SizeConstants.listViewData16FontSize,
+                            fontWeight: SizeConstants.listViewDataFontSemiBold,
                           ),
                         ),
                       );

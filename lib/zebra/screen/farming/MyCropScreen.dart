@@ -79,7 +79,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                               crop.cropName ?? '',
                               style: const TextStyle(
                                 fontWeight: SizeConstants.listViewDataFontSemiBold,
-                                fontSize: SizeConstants.listViewDataFontSize,
+                                fontSize: SizeConstants.listViewData16FontSize,
                                 color: ColorConstants.listViewTitleTextColor,
                               ),
                             ),
@@ -88,7 +88,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                               '  ${crop.area} ${crop.unit}',
                               style: const TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize:  SizeConstants.listViewDataFontSize,
+                                fontSize:  SizeConstants.listViewData16FontSize,
                                 color:ColorConstants.listViewTitleTextColor,
                               ),
                             ),
@@ -104,7 +104,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                               crop.farmName,
                               style: const TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize: SizeConstants.listViewDataFontSize,
+                                fontSize: SizeConstants.listViewData16FontSize,
                                 color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
@@ -119,7 +119,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                               '${LocaleKeys.labelSeason.tr()} : ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
                               style: const TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize:  SizeConstants.listViewDataFontSize,
+                                fontSize:  SizeConstants.listViewData16FontSize,
                                 color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
@@ -151,7 +151,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                       LocaleKeys.labelExpected.tr(),
                                       style: TextStyle(
                                         fontWeight: SizeConstants.listViewDataFontSemiBold,
-                                        fontSize:  SizeConstants.listViewDataFontSize,
+                                        fontSize:  SizeConstants.listViewData16FontSize,
                                         color: ColorConstants
                                             .listViewChildTextColor,
                                       ),
@@ -165,7 +165,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                       "${LocaleKeys.labelYield.tr()} : ${crop.expectedYield} ${crop.expectedYieldUnit}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize:  SizeConstants.listViewDataFontSize,
+                                        fontSize:  SizeConstants.listViewData16FontSize,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
                                     ),
@@ -174,7 +174,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                      "${LocaleKeys.labelIncome.tr()} : ${crop.expectedIncome}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize:  SizeConstants.listViewDataFontSize,
+                                        fontSize:  SizeConstants.listViewData16FontSize,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
                                     ),
@@ -187,7 +187,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                       LocaleKeys.labelTotal.tr(),
                                       style: TextStyle(
                                         fontWeight: SizeConstants.listViewDataFontSemiBold,
-                                        fontSize:  SizeConstants.listViewDataFontSize,
+                                        fontSize:  SizeConstants.listViewData16FontSize,
                                         color: ColorConstants
                                             .listViewChildTextColor,
                                       ),
@@ -203,7 +203,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                       "${LocaleKeys.labelExpense.tr()}: ${crop.totalExpense}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize:  SizeConstants.listViewDataFontSize,
+                                        fontSize:  SizeConstants.listViewData16FontSize,
                                         color:ColorConstants.listViewTitleTextColor,
                                       ),
                                     ),
@@ -212,7 +212,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                      "${LocaleKeys.labelIncome.tr()}: ${crop.totalIncome}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        fontSize:  SizeConstants.listViewDataFontSize,
+                                        fontSize:  SizeConstants.listViewData16FontSize,
                                         color: ColorConstants.listViewChildTextColor,
                                       ),
                                     ),

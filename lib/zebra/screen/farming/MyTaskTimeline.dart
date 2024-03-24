@@ -121,7 +121,7 @@ class _MyTaskTimelineState extends State<MyTaskTimeline> {
               task.taskType ?? '',
               style: TextStyle(
                 fontWeight: SizeConstants.listViewDataFontSemiBold,
-                fontSize: SizeConstants.listViewDataFontSize,
+                fontSize: SizeConstants.listViewData16FontSize,
                 color: Colors.black,
               ),
             ),
@@ -130,7 +130,7 @@ class _MyTaskTimelineState extends State<MyTaskTimeline> {
               'Start Date: ${DateFormat("dd-MM-yyyy").format(task.startDate!)}',
               style: TextStyle(
                 fontWeight: FontWeight.normal,
-                fontSize: SizeConstants.listViewDataFontSize,
+                fontSize: SizeConstants.listViewData16FontSize,
                 color: Colors.black,
               ),
             ),
@@ -139,7 +139,7 @@ class _MyTaskTimelineState extends State<MyTaskTimeline> {
               'End Date  : ${DateFormat("dd-MM-yyyy").format(task.endDate!)}',
               style: TextStyle(
                 fontWeight: FontWeight.normal,
-                fontSize: SizeConstants.listViewDataFontSize,
+                fontSize: SizeConstants.listViewData16FontSize,
                 color: Colors.black,
               ),
             ),
@@ -147,7 +147,7 @@ class _MyTaskTimelineState extends State<MyTaskTimeline> {
               task.notes ?? '',
               style: TextStyle(
                 fontWeight: FontWeight.normal,
-                fontSize: SizeConstants.listViewDataFontSize,
+                fontSize: SizeConstants.listViewData16FontSize,
                 color: Colors.black,
               ),
             ),

@@ -73,7 +73,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                               farm.farmName ?? '',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize:  SizeConstants.listViewDataFontSize,
+                                fontSize:  SizeConstants.listViewData16FontSize,
                                 color: ColorConstants.listViewTitleTextColor,
                               ),
                             ),
@@ -82,7 +82,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                               ' (${farm.farmType ?? ''})',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize:  SizeConstants.listViewDataFontSize,
+                                fontSize:  SizeConstants.listViewData16FontSize,
                                 color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
@@ -91,7 +91,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                               '${farm.farmArea} ${farm.unit}',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
-                                fontSize:  SizeConstants.listViewDataFontSize,
+                                fontSize:  SizeConstants.listViewData16FontSize,
                                 color: ColorConstants.listViewChildTextColor,
                               ),
                             ),
@@ -107,7 +107,7 @@ class _MyFarmScreenState extends State<MyFarmScreen> {
                           '${farm.farmAddress ?? ''}',
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
-                            fontSize:  SizeConstants.listViewDataFontSize,
+                            fontSize:  SizeConstants.listViewData16FontSize,
                             color: ColorConstants.listViewChildTextColor,
                           ),
                         ),
