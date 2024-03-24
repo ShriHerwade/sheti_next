@@ -83,6 +83,19 @@ class _MyCropScreenState extends State<MyCropScreen> {
                                 color: ColorConstants.listViewTitleTextColor,
                               ),
                             ),
+                            SizedBox(width: 5), // Adjust spacing between cropName and dot as needed
+                            // Dot based on cropLifeState
+                            crop.cropLifeState == 'Live'
+                                ? Icon(
+                              Icons.circle,
+                              size: 10,
+                              color: Colors.green, // Green dot for Live
+                            )
+                                : Icon(
+                              Icons.circle,
+                              size: 10,
+                              color: Colors.grey, // Grey dot for Dead or null
+                            ),
 
                             Text(
                               '  ${crop.area} ${crop.unit}',
