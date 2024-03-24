@@ -5,6 +5,8 @@ import 'package:path/path.dart';
 import 'package:sheti_next/zebra/dao/models/AccountModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropModel.dart';
 import 'package:sheti_next/zebra/dao/models/CropMetaModel.dart';
+import 'package:sheti_next/zebra/dao/models/CropWiseExpenseModel.dart';
+import 'package:sheti_next/zebra/dao/models/FarmWiseExpenseModel.dart';
 import 'package:sheti_next/zebra/dao/models/TaskModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseBarChartModel.dart';
 import 'package:sheti_next/zebra/dao/models/ExpenseModel.dart';
@@ -1038,6 +1040,60 @@ class DbHelper {
       return [];
     }
   }
+
+  Future<List<FarmWiseExpenseModel>> getFarmWiseExpenseData() async {
+    List<FarmWiseExpenseModel> farmExpenseList = [];
+    final Database database = await db;
+
+    List<Map<String, dynamic>> farmData = await database.rawQuery('''
+    SELECT $C_farmName, $C_cropName, * FROM $Table_Expenses
+    INNER JOIN $Table_Crops ON $Table_Expenses.$C_cropId = $Table_Crops.$C_cropId
+  ''');
+
+    for (var data in farmData) {
+      String farmName = data[C_farmName];
+      String cropName = data[C_cropName];
+      ExpenseModel expense = ExpenseModel.fromMap(data);
+
+      bool farmExists = farmExpenseList.any((farm) => farm.farmName == farmName);
+      if (farmExists) {
+        int index = farmExpenseList.indexWhere((farm) => farm.farmName == farmName);
+        if (farmExpenseList[index].cropExpensesMap.containsKey(cropName)) {
+          farmExpenseList[index].cropExpensesMap[cropName]!.add(expense);
+        } else {
+          farmExpenseList[index].cropExpensesMap[cropName] = [expense];
+        }
+      } else {
+        farmExpenseList.add(FarmWiseExpenseModel(farmName: farmName, cropExpensesMap: {cropName: [expense]}));
+      }
+    }
+    return farmExpenseList;
+  }
+
+  Future<List<CropWiseExpenseModel>> getCropWiseExpenseData() async {
+    List<CropWiseExpenseModel> cropExpenseList = [];
+    final Database database = await db;
+    List<Map<String, dynamic>> cropData = await database.rawQuery('''
+    SELECT $C_cropName, $C_farmName, * FROM $Table_Expenses
+    INNER JOIN $Table_Crops ON $Table_Expenses.$C_cropId = $Table_Crops.$C_cropId
+  ''');
+
+    for (var data in cropData) {
+      String cropName = data[C_cropName];
+      String farmName = data[C_farmName];
+      ExpenseModel expense = ExpenseModel.fromMap(data);
+
+      bool cropExists = cropExpenseList.any((crop) => crop.cropName == cropName);
+      if (cropExists) {
+        int index = cropExpenseList.indexWhere((crop) => crop.cropName == cropName);
+        cropExpenseList[index].expenses.add(expense);
+      } else {
+        cropExpenseList.add(CropWiseExpenseModel(cropName: cropName, expenses: [expense]));
+      }
+    }
+    return cropExpenseList;
+  }
+
 
   Future<void> closeDb() async {
     if (_db != null) {
