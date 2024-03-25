@@ -139,6 +139,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: ListTile(
                           tileColor: ColorConstants.listViewBackgroundColor,
                           title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               RichText(
                                 text: TextSpan(
@@ -152,7 +153,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       ),
                                     ),
                                     TextSpan(
-                                      text:'${latestExpenses[index].farmName}',
+                                      text:' ,${latestExpenses[index].farmName}',
                                       style: TextStyle(
                                         fontSize: SizeConstants.listViewData15FontSize,
                                         fontWeight: FontWeight.normal,

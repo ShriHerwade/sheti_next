@@ -45,8 +45,8 @@ class _ExpenseInsightPageState extends State<ExpenseInsightPage> with SingleTick
         bottom: TabBar(
           controller: _tabController,
           tabs: [
-            Tab(child: Text("Latest",style: TextStyle(color: Colors.white,fontSize: 15),),),
-            Tab(child: Text("Crop-Wise",style: TextStyle(color: Colors.white,fontSize: 15),),),
+            Tab(child: Text("Latest",style: TextStyle(color: Colors.white,fontSize: 16),),),
+            Tab(child: Text("Cropwise",style: TextStyle(color: Colors.white,fontSize: 16),),),
           ],
         ),
       ),
