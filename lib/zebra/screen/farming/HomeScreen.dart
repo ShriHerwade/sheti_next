@@ -285,7 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   _buildButtonContainer("View Transaction", "assets/icons/home/view_transaction_ic_2.png", () {}, HomeScreen()),
                   //_buildButtonContainer("Add Income", Icons.visibility, () {}, CreateIncomeScreen()),
                   _buildButtonContainer("View Income", "assets/icons/home/view_income_ic_2.png", () {}, HomeScreen()),
-                  _buildButtonContainer("View Expense", "assets/icons/home/view_expense_ic_2.png", () {}, HomeScreen()),
+                  _buildButtonContainer("View Expense", "assets/icons/home/view_expense_ic_2.png", () {}, ExpenseInsightPage(expenses: expenses)),
                   _buildButtonContainer("Add Yield", "assets/icons/home/create_yield_ic_2.png", () {}, HomeScreen()),
                   _buildButtonContainer("View Yield", "assets/icons/home/view_yield_ic_2.png", () {}, HomeScreen()),
                   _buildButtonContainer("Dashboard", "assets/icons/home/dashboard_ic_3.png", () {}, ExpenseInsightPage(expenses: expenses)),
