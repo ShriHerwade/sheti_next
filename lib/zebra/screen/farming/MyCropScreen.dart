@@ -88,7 +88,7 @@ class _MyCropScreenState extends State<MyCropScreen> {
                             crop.cropLifeState == 'Live'
                                 ? Icon(
                               Icons.circle,
-                              size: 10,
+                              size: 13,
                               color: Colors.green, // Green dot for Live
                             )
                                 : Icon(
