@@ -14,7 +14,7 @@ class CustomTranslationList {
     "Storage",
     "Tractor Work",
     "Machinery Work",
-    "Advance Payment"
+    "Advance Payment",
     "Other Farm work",
     "Other"
   ];
