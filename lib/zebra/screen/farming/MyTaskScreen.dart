@@ -84,24 +84,46 @@ class _MyTaskState extends State<MyTask> {
                         // Align items at the end
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded( //Without the Expanded widget, the forward arrow icon might not consistently appear on the right
+                          Expanded(
+                            //Without the Expanded widget, the forward arrow icon might not consistently appear on the right
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  crop.cropName ?? '',
-                                  style: TextStyle(
-                                    fontWeight:
-                                        SizeConstants.listViewDataFontSemiBold,
-                                    fontSize:
-                                        SizeConstants.listViewData16FontSize,
-                                    color:
-                                        ColorConstants.listViewTitleTextColor,
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      crop.cropName ?? '',
+                                      style: const TextStyle(
+                                        fontWeight: SizeConstants
+                                            .listViewDataFontSemiBold,
+                                        fontSize: SizeConstants
+                                            .listViewData16FontSize,
+                                        color: ColorConstants
+                                            .listViewTitleTextColor,
+                                      ),
+                                    ),
+                                    SizedBox(width: 5),
+                                    // Adjust spacing between cropName and dot as needed
+                                    // Dot based on cropLifeState
+                                    crop.cropLifeState == 'Live'
+                                        ? Icon(
+                                            Icons.circle,
+                                            size: 15,
+                                            color: Colors
+                                                .green, // Green dot for Live
+                                          )
+                                        : Icon(
+                                            Icons.circle,
+                                            size: 15,
+                                            color: Colors
+                                                .grey, // Grey dot for Dead or null
+                                          ),
+                                  ],
                                 ),
                                 SizedBox(height: 8.0),
                                 Text(
-                                  'Area: ${crop.area} ${crop.unit}',
+                                  '${crop.area} ${crop.unit}, ${crop.farmName}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     fontSize:
@@ -112,7 +134,7 @@ class _MyTaskState extends State<MyTask> {
                                 ),
                                 SizedBox(height: 8.0),
                                 Text(
-                                  'Season: ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
+                                  '${DateFormat("dd.MM.yyyy").format(crop.startDate)} - ${DateFormat("dd.MM.yyyy").format(crop.endDate)}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     fontSize:
