@@ -33,9 +33,11 @@ class _MyTaskState extends State<MyTask> {
         title: Text(LocaleKeys.labelAppTitleMyTasks.tr()),
         centerTitle: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: ColorConstants.miniIconDefaultColor),
+          icon: Icon(Icons.arrow_back,
+              color: ColorConstants.miniIconDefaultColor),
           onPressed: () {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
         ),
       ),
@@ -65,7 +67,8 @@ class _MyTaskState extends State<MyTask> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MyTaskTimeline(cropId: crop.cropId ?? 0),
+                        builder: (context) =>
+                            MyTaskTimeline(cropId: crop.cropId ?? 0),
                       ),
                     );
                   },
@@ -76,36 +79,53 @@ class _MyTaskState extends State<MyTask> {
                     color: Colors.white,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Column(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // Align items at the end
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            crop.cropName ?? '',
-                            style: TextStyle(
-                              fontWeight: SizeConstants.listViewDataFontSemiBold,
-                              fontSize: SizeConstants.listViewData16FontSize,
-                              color: ColorConstants.listViewTitleTextColor,
+                          Expanded( //Without the Expanded widget, the forward arrow icon might not consistently appear on the right
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  crop.cropName ?? '',
+                                  style: TextStyle(
+                                    fontWeight:
+                                        SizeConstants.listViewDataFontSemiBold,
+                                    fontSize:
+                                        SizeConstants.listViewData16FontSize,
+                                    color:
+                                        ColorConstants.listViewTitleTextColor,
+                                  ),
+                                ),
+                                SizedBox(height: 8.0),
+                                Text(
+                                  'Area: ${crop.area} ${crop.unit}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize:
+                                        SizeConstants.listViewData16FontSize,
+                                    color:
+                                        ColorConstants.listViewTitleTextColor,
+                                  ),
+                                ),
+                                SizedBox(height: 8.0),
+                                Text(
+                                  'Season: ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize:
+                                        SizeConstants.listViewData16FontSize,
+                                    color:
+                                        ColorConstants.listViewChildTextColor,
+                                  ),
+                                ),
+                                SizedBox(height: 8.0),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 8.0),
-                          Text(
-                            'Area: ${crop.area} ${crop.unit}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: SizeConstants.listViewData16FontSize,
-                              color: ColorConstants.listViewTitleTextColor,
-                            ),
-                          ),
-                          SizedBox(height: 8.0),
-                          Text(
-                            'Season: ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: SizeConstants.listViewData16FontSize,
-                              color: ColorConstants.listViewChildTextColor,
-                            ),
-                          ),
-                          SizedBox(height: 8.0),
+                          Icon(Icons.arrow_forward_ios), // Forward arrow icon
                         ],
                       ),
                     ),
