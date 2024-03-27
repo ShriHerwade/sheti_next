@@ -210,24 +210,25 @@ class _MyPieChartWidgetState extends State<MyPieChartWidget> {
                                                                   color: Colors
                                                                       .grey, // Grey dot for Dead or null
                                                                 ),
-                                                          Text(
-                                                            '  ${crop.area} ${crop.unit}',
-                                                            style:
-                                                                const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal,
-                                                              fontSize:
-                                                                  SizeConstants
-                                                                      .listViewData16FontSize,
-                                                              color: ColorConstants
-                                                                  .listViewTitleTextColor,
-                                                            ),
-                                                          ),
+
                                                         ],
                                                       ),
                                                       Row(
                                                         children: [
+                                                          Text(
+                                                            '${crop.area} ${crop.unit}, ',
+                                                            style:
+                                                            const TextStyle(
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .normal,
+                                                              fontSize:
+                                                              SizeConstants
+                                                                  .listViewData16FontSize,
+                                                              color: ColorConstants
+                                                                  .listViewTitleTextColor,
+                                                            ),
+                                                          ),
                                                           Text(
                                                             crop.farmName,
                                                             style:
@@ -248,7 +249,7 @@ class _MyPieChartWidgetState extends State<MyPieChartWidget> {
                                                       Row(
                                                         children: [
                                                           Text(
-                                                            '${LocaleKeys.labelSeason.tr()} : ${DateFormat("dd MMM yyyy").format(crop.startDate)} - ${DateFormat("dd MMM yyyy").format(crop.endDate)}',
+                                                            '${DateFormat("dd.MM.yyyy").format(crop.startDate)} - ${DateFormat("dd.MM.yyyy").format(crop.endDate)}',
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
